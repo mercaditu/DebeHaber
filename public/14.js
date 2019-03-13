@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/fixedAssetForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -87,51 +87,137 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    'crud': _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      currentPage: 1
+      data: {
+        chart_id: 0,
+        currency: '',
+        rate: 1,
+        serial: '',
+        name: '',
+        purchase_date: '',
+        purchase_value: '',
+        current_value: 0,
+        quantity: 0,
+        id: 0,
+        type: 3
+      },
+      pageUrl: '/commercial/fixed-assets',
+      charts: [],
+      currencies: [],
+      lastDeletedRow: []
     };
   },
   computed: {
-    formURL: function formURL() {
-      return this.$route.name.replace('List', 'Form');
-    },
-    columns: function columns() {
-      return [{
-        key: 'date',
-        sortable: true
-      }, {
-        key: 'partner_name',
-        label: this.$i18n.t('commercial.customer'),
-        sortable: true
-      }, {
-        key: 'number',
-        label: this.$i18n.t('commercial.number'),
-        sortable: true
-      }, {
-        key: 'total',
-        label: this.$i18n.t('commercial.total'),
-        sortable: true
-      }, {
-        key: 'actions',
-        label: '',
-        sortable: false
-      }];
+    baseUrl: function baseUrl() {
+      return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
     }
+  },
+  methods: {
+    onSave: function onSave() {
+      var app = this;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+        app.$snack.success({
+          text: app.$i18n.t('commercial.accountPayableSaved')
+        });
+        app.$router.go(-1);
+      }).catch(function (error) {
+        app.$snack.danger({
+          text: 'Error OMG!'
+        });
+      });
+    },
+    onSaveNew: function onSaveNew() {
+      var app = this;
+      console.log(app.data);
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+        app.$snack.success({
+          text: app.$i18n.t('commercial.accountPayableSaved')
+        });
+        app.$router.push({
+          name: app.$route.name,
+          params: {
+            id: '0'
+          }
+        }); // app.data.customer_id = 0;
+        // app.data.customer = [];
+      }).catch(function (error) {
+        app.$snack.danger({
+          text: this.$i18n.t('general.errorMessage')
+        });
+      });
+    },
+    onCancel: function onCancel() {
+      var _this = this;
+
+      this.$swal.fire({
+        title: this.$i18n.t('general.cancel'),
+        text: this.$i18n.t('general.cancelVerification'),
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$i18n.t('general.cancelConfirmation'),
+        cancelButtonText: this.$i18n.t('general.cancelRejection')
+      }).then(function (result) {
+        if (result.value) {
+          _this.$router.go(-1);
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var app = this;
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + '/config/currencies').then(function (response) {
+      app.currencies = response.data.data;
+    });
+
+    if (app.$route.params.id > 0) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + '/' + app.$route.params.id).then(function (response) {
+        app.data = response.data.data;
+      });
+    } else {
+      app.data.date = new Date(Date.now()).toISOString().split("T")[0];
+      app.data.chart_id = app.charts[0] != null ? app.charts[0].id : null;
+      app.data.currency = app.spark.taxPayerData.currency;
+      app.data.rate = 1;
+    }
+
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/fixed-assets/").then(function (response) {
+      app.charts = response.data.data;
+    });
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetForm.vue?vue&type=template&id=7e76b736&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/fixedAssetForm.vue?vue&type=template&id=7e76b736& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -146,125 +232,519 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.$route.name.includes("List")
-        ? _c(
-            "b-row",
+      _c(
+        "b-row",
+        { staticClass: "mb-5" },
+        [
+          _c(
+            "b-col",
             [
               _c(
-                "b-col",
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "shortkey",
+                      rawName: "v-shortkey",
+                      value: ["esc"],
+                      expression: "['esc']"
+                    }
+                  ],
+                  staticClass: "d-none d-md-block float-left",
+                  on: {
+                    shortkey: function($event) {
+                      return _vm.onCancel()
+                    },
+                    click: function($event) {
+                      return _vm.onCancel()
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "material-icons" }, [
+                    _vm._v("keyboard_backspace")
+                  ]),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$t("general.return")) +
+                      "\n                "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("h3", { staticClass: "upper-case" }, [
+                _c("img", {
+                  staticClass: "mr-10",
+                  attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
+                }),
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.$route.meta.title) +
+                    "\n            "
+                )
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-button-toolbar",
+                { staticClass: "float-right d-none d-md-block" },
                 [
                   _c(
-                    "b-card-group",
-                    { attrs: { deck: "" } },
+                    "b-button-group",
+                    { staticClass: "ml-15" },
                     [
                       _c(
-                        "b-card",
+                        "b-btn",
                         {
-                          attrs: {
-                            "bg-variant": "dark",
-                            "text-variant": "white"
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["ctrl", "n"],
+                              expression: "['ctrl', 'n']"
+                            }
+                          ],
+                          attrs: { variant: "primary" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onSaveNew()
+                            },
+                            click: function($event) {
+                              return _vm.onSaveNew()
+                            }
                           }
                         },
                         [
-                          _c("h4", { staticClass: "upper-case" }, [
-                            _c("img", {
-                              staticClass: "ml-5 mr-5",
-                              attrs: {
-                                src: _vm.$route.meta.img,
-                                alt: "",
-                                width: "26"
-                              }
-                            }),
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n                    "
-                            )
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("save")
                           ]),
-                          _vm._v(" "),
-                          _vm.$route.name.includes("List")
-                            ? _c("p", { staticClass: "lead" }, [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(
-                                      _vm.$t(_vm.$route.meta.description)
-                                    ) +
-                                    "\n                    "
-                                )
-                              ])
-                            : _vm._e()
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.$t("general.save")) +
+                              "\n                    "
+                          )
                         ]
                       ),
                       _vm._v(" "),
-                      _c("invoices-this-month-kpi", {
-                        staticClass: "d-none d-xl-block"
-                      }),
-                      _vm._v(" "),
-                      _c("transactions-pie", {
-                        staticClass: "d-none d-xl-block"
-                      }),
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["esc"],
+                              expression: "['esc']"
+                            }
+                          ],
+                          attrs: { variant: "danger" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onCancel()
+                            },
+                            click: function($event) {
+                              return _vm.onCancel()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("cancel")
+                          ]),
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.$t("general.cancel")) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button-toolbar",
+                { staticClass: "float-right d-md-none" },
+                [
+                  _c(
+                    "b-button-group",
+                    { staticClass: "ml-15" },
+                    [
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["ctrl", "n"],
+                              expression: "['ctrl', 'n']"
+                            }
+                          ],
+                          attrs: { variant: "primary" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onSaveNew()
+                            },
+                            click: function($event) {
+                              return _vm.onSaveNew()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("save")
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
-                        "b-card",
-                        { attrs: { "no-body": "" } },
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["esc"],
+                              expression: "['esc']"
+                            }
+                          ],
+                          attrs: { variant: "danger" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onCancel()
+                            },
+                            click: function($event) {
+                              return _vm.onCancel()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("cancel")
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-card",
+                [
+                  _c(
+                    "b-container",
+                    [
+                      _c(
+                        "b-row",
                         [
                           _c(
-                            "b-list-group",
-                            { attrs: { flush: "" } },
+                            "b-col",
                             [
                               _c(
-                                "b-list-group-item",
-                                { attrs: { href: "#" } },
+                                "b-form-group",
+                                { attrs: { label: _vm.$t("commercial.date") } },
                                 [
-                                  _c("i", { staticClass: "material-icons" }, [
-                                    _vm._v("help")
-                                  ]),
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(_vm.$t("general.manual")) +
-                                      "\n                            "
-                                  )
-                                ]
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "date",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.purchase_date,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "purchase_date", $$v)
+                                      },
+                                      expression: "data.purchase_date"
+                                    }
+                                  })
+                                ],
+                                1
                               ),
                               _vm._v(" "),
                               _c(
-                                "b-list-group-item",
-                                { attrs: { to: { name: _vm.uploadURL } } },
-                                [
-                                  _c("i", { staticClass: "material-icons" }, [
-                                    _vm._v("cloud_upload")
-                                  ]),
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(
-                                        _vm.$t("general.uploadFromExcel")
-                                      ) +
-                                      "\n                            "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-list-group-item",
+                                "b-form-group",
                                 {
                                   attrs: {
-                                    to: { name: _vm.formURL, params: { id: 0 } }
+                                    label: _vm.$t("commercial.purchaseValue")
+                                  }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "number",
+                                      placeholder: "Value"
+                                    },
+                                    model: {
+                                      value: _vm.data.purchase_value,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "purchase_value",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.purchase_value"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.currentValue")
+                                  }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "number",
+                                      placeholder: "Value"
+                                    },
+                                    model: {
+                                      value: _vm.data.current_value,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "current_value",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.current_value"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.quantity")
+                                  }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "number",
+                                      placeholder: "Value"
+                                    },
+                                    model: {
+                                      value: _vm.data.quantity,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "quantity",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.quantity"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.chart") }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      model: {
+                                        value: _vm.data.chart_id,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.data, "chart_id", $$v)
+                                        },
+                                        expression: "data.chart_id"
+                                      }
+                                    },
+                                    _vm._l(_vm.charts, function(item) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: item.key,
+                                          domProps: { value: item.id }
+                                        },
+                                        [_vm._v(_vm._s(item.name))]
+                                      )
+                                    }),
+                                    0
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.exchangeRate")
                                   }
                                 },
                                 [
                                   _c(
-                                    "i",
-                                    { staticClass: "material-icons md-light" },
-                                    [_vm._v("add_box")]
-                                  ),
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(
-                                        _vm.$t("general.createNewRecord")
-                                      ) +
-                                      "\n                            "
+                                    "b-input-group",
+                                    [
+                                      _c(
+                                        "b-input-group-prepend",
+                                        [
+                                          _c(
+                                            "b-form-select",
+                                            {
+                                              model: {
+                                                value: _vm.data.currency,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.data,
+                                                    "currency",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "data.currency"
+                                              }
+                                            },
+                                            _vm._l(_vm.currencies, function(
+                                              currency
+                                            ) {
+                                              return _c(
+                                                "option",
+                                                {
+                                                  key: currency.key,
+                                                  domProps: {
+                                                    value: currency.code
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(currency.name))]
+                                              )
+                                            }),
+                                            0
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("b-input", {
+                                        attrs: {
+                                          type: "number",
+                                          placeholder: _vm.$t(
+                                            "commercial.rate"
+                                          ),
+                                          value: _vm.data.rate
+                                        }
+                                      })
+                                    ],
+                                    1
                                   )
-                                ]
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                { attrs: { label: _vm.$t("commercial.name") } },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.name,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "name", $$v)
+                                      },
+                                      expression: "data.name"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.serial") }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.serial,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "serial", $$v)
+                                      },
+                                      expression: "data.serial"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.comment") }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.comment,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "comment", $$v)
+                                      },
+                                      expression: "data.comment"
+                                    }
+                                  })
+                                ],
+                                1
                               )
                             ],
                             1
@@ -278,161 +758,6 @@ var render = function() {
                 ],
                 1
               )
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            [
-              _vm.$route.name.includes("List")
-                ? _c(
-                    "div",
-                    [
-                      _c("crud", {
-                        attrs: { columns: _vm.columns },
-                        inlineTemplate: {
-                          render: function() {
-                            var _vm = this
-                            var _h = _vm.$createElement
-                            var _c = _vm._self._c || _h
-                            return _c(
-                              "b-card",
-                              { attrs: { "no-body": "" } },
-                              [
-                                _c(
-                                  "b-table",
-                                  {
-                                    attrs: {
-                                      hover: "",
-                                      responsive: "",
-                                      items: _vm.items,
-                                      fields: _vm.columns,
-                                      "current-page": _vm.current_page,
-                                      "show-empty": ""
-                                    },
-                                    scopedSlots: _vm._u(
-                                      [
-                                        {
-                                          key: "date",
-                                          fn: function(data) {
-                                            return [
-                                              _vm._v(
-                                                "\n                                    " +
-                                                  _vm._s(
-                                                    new Date(
-                                                      data.item.date
-                                                    ).toLocaleDateString()
-                                                  ) +
-                                                  "\n                                "
-                                              )
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          key: "total",
-                                          fn: function(data) {
-                                            return [
-                                              _c(
-                                                "span",
-                                                { staticClass: "float-right" },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                        " +
-                                                      _vm._s(
-                                                        new Number(
-                                                          _vm.sum(
-                                                            data.item.details,
-                                                            "value"
-                                                          )
-                                                        ).toLocaleString()
-                                                      ) +
-                                                      "\n                                        "
-                                                  ),
-                                                  _c(
-                                                    "small",
-                                                    {
-                                                      staticClass:
-                                                        "text-success text-uppercase"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          data.item.currency
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          key: "actions",
-                                          fn: function(data) {
-                                            return [
-                                              _c("table-actions", {
-                                                attrs: { row: data.item }
-                                              })
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          key: "empty",
-                                          fn: function(scope) {
-                                            return [_c("table-empty")]
-                                          }
-                                        }
-                                      ],
-                                      null,
-                                      false,
-                                      228884512
-                                    )
-                                  },
-                                  [
-                                    _vm._v(" "),
-                                    _vm._v(" "),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        attrs: { slot: "table-busy" },
-                                        slot: "table-busy"
-                                      },
-                                      [_c("table-loading")],
-                                      1
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("b-pagination", {
-                                  attrs: {
-                                    align: "center",
-                                    "total-rows": _vm.meta.total,
-                                    "per-page": _vm.meta.per_page
-                                  },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.onList()
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          },
-                          staticRenderFns: []
-                        }
-                      })
-                    ],
-                    1
-                  )
-                : _c("router-view")
             ],
             1
           )
@@ -450,17 +775,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitList.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/views/commercials/debitList.vue ***!
-  \******************************************************/
+/***/ "./resources/js/views/commercials/fixedAssetForm.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/views/commercials/fixedAssetForm.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debitList.vue?vue&type=template&id=a2218bd6& */ "./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&");
-/* harmony import */ var _debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./debitList.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _fixedAssetForm_vue_vue_type_template_id_7e76b736___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fixedAssetForm.vue?vue&type=template&id=7e76b736& */ "./resources/js/views/commercials/fixedAssetForm.vue?vue&type=template&id=7e76b736&");
+/* harmony import */ var _fixedAssetForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fixedAssetForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/fixedAssetForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -470,9 +795,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _fixedAssetForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _fixedAssetForm_vue_vue_type_template_id_7e76b736___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _fixedAssetForm_vue_vue_type_template_id_7e76b736___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -482,38 +807,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/commercials/debitList.vue"
+component.options.__file = "resources/js/views/commercials/fixedAssetForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/views/commercials/fixedAssetForm.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/views/commercials/fixedAssetForm.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./debitList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./fixedAssetForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/views/commercials/fixedAssetForm.vue?vue&type=template&id=7e76b736&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/views/commercials/fixedAssetForm.vue?vue&type=template&id=7e76b736& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./debitList.vue?vue&type=template&id=a2218bd6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetForm_vue_vue_type_template_id_7e76b736___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./fixedAssetForm.vue?vue&type=template&id=7e76b736& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetForm.vue?vue&type=template&id=7e76b736&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetForm_vue_vue_type_template_id_7e76b736___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetForm_vue_vue_type_template_id_7e76b736___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

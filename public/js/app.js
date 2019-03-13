@@ -120201,15 +120201,9 @@ __webpack_require__(/*! vue-tour/dist/vue-tour.css */ "./node_modules/vue-tour/d
 
 
 
- // import vueTopProgress from 'vue-top-progress';
-// import XlsCsvParser from 'vue-xls-csv-parser';
 
- // import { Button } from 'element-ui';
-// Vue.use(Button);
-// Vue.component(Select.name, Select);
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_csv_import__WEBPACK_IMPORTED_MODULE_10___default.a); // Vue.use(vueTopProgress);
-
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_csv_import__WEBPACK_IMPORTED_MODULE_10___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_snack__WEBPACK_IMPORTED_MODULE_8___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_mask__WEBPACK_IMPORTED_MODULE_7__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__["default"]);
@@ -121177,187 +121171,187 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_0__["default"]({
 __webpack_require__.r(__webpack_exports__);
 // import FourZeroFour from '../views/404';
 var FourZeroFour = function FourZeroFour() {
-  return __webpack_require__.e(/*! import() */ 44).then(__webpack_require__.bind(null, /*! ../views/404 */ "./resources/js/views/404.vue"));
+  return __webpack_require__.e(/*! import() */ 43).then(__webpack_require__.bind(null, /*! ../views/404 */ "./resources/js/views/404.vue"));
 };
 
 var DashBoard = function DashBoard() {
-  return __webpack_require__.e(/*! import() */ 42).then(__webpack_require__.bind(null, /*! ../views/index */ "./resources/js/views/index.vue"));
+  return __webpack_require__.e(/*! import() */ 41).then(__webpack_require__.bind(null, /*! ../views/index */ "./resources/js/views/index.vue"));
 };
 
 var SearchResult = function SearchResult() {
-  return __webpack_require__.e(/*! import() */ 43).then(__webpack_require__.bind(null, /*! ../views/searchResult */ "./resources/js/views/searchResult.vue"));
+  return __webpack_require__.e(/*! import() */ 42).then(__webpack_require__.bind(null, /*! ../views/searchResult */ "./resources/js/views/searchResult.vue"));
 };
 
 var Commercial = function Commercial() {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/commercials/index */ "./resources/js/views/commercials/index.vue"));
+  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/commercials/index */ "./resources/js/views/commercials/index.vue"));
 };
 
 var SalesList = function SalesList() {
-  return __webpack_require__.e(/*! import() */ 32).then(__webpack_require__.bind(null, /*! ../views/commercials/salesList */ "./resources/js/views/commercials/salesList.vue"));
+  return __webpack_require__.e(/*! import() */ 31).then(__webpack_require__.bind(null, /*! ../views/commercials/salesList */ "./resources/js/views/commercials/salesList.vue"));
 };
 
 var SalesForm = function SalesForm() {
-  return __webpack_require__.e(/*! import() */ 31).then(__webpack_require__.bind(null, /*! ../views/commercials/salesForm */ "./resources/js/views/commercials/salesForm.vue"));
+  return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! ../views/commercials/salesForm */ "./resources/js/views/commercials/salesForm.vue"));
 };
 
 var SalesUpload = function SalesUpload() {
-  return __webpack_require__.e(/*! import() */ 33).then(__webpack_require__.bind(null, /*! ../views/commercials/salesUpload */ "./resources/js/views/commercials/salesUpload.vue"));
+  return __webpack_require__.e(/*! import() */ 32).then(__webpack_require__.bind(null, /*! ../views/commercials/salesUpload */ "./resources/js/views/commercials/salesUpload.vue"));
 };
 
 var PurchaseList = function PurchaseList() {
-  return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! ../views/commercials/purchaseList */ "./resources/js/views/commercials/purchaseList.vue"));
+  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ../views/commercials/purchaseList */ "./resources/js/views/commercials/purchaseList.vue"));
 };
 
 var PurchaseForm = function PurchaseForm() {
-  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.bind(null, /*! ../views/commercials/purchaseForm */ "./resources/js/views/commercials/purchaseForm.vue"));
+  return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ../views/commercials/purchaseForm */ "./resources/js/views/commercials/purchaseForm.vue"));
 };
 
 var CreditList = function CreditList() {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/commercials/creditList */ "./resources/js/views/commercials/creditList.vue"));
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/commercials/creditList */ "./resources/js/views/commercials/creditList.vue"));
 };
 
 var CreditForm = function CreditForm() {
-  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../views/commercials/creditForm */ "./resources/js/views/commercials/creditForm.vue"));
+  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/commercials/creditForm */ "./resources/js/views/commercials/creditForm.vue"));
 };
 
 var DebitList = function DebitList() {
-  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/commercials/debitList */ "./resources/js/views/commercials/debitList.vue"));
+  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/commercials/debitList */ "./resources/js/views/commercials/debitList.vue"));
 };
 
 var DebitForm = function DebitForm() {
-  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../views/commercials/debitForm */ "./resources/js/views/commercials/debitForm.vue"));
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/commercials/debitForm */ "./resources/js/views/commercials/debitForm.vue"));
 };
 
 var FixedAssetList = function FixedAssetList() {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/commercials/fixedAssetList */ "./resources/js/views/commercials/fixedAssetList.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/commercials/fixedAssetList */ "./resources/js/views/commercials/fixedAssetList.vue"));
 };
 
 var FixedAssetForm = function FixedAssetForm() {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../views/commercials/fixedAssetForm */ "./resources/js/views/commercials/fixedAssetForm.vue"));
+  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../views/commercials/fixedAssetForm */ "./resources/js/views/commercials/fixedAssetForm.vue"));
 };
 
 var InventoryList = function InventoryList() {
-  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../views/commercials/inventoryList */ "./resources/js/views/commercials/inventoryList.vue"));
+  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../views/commercials/inventoryList */ "./resources/js/views/commercials/inventoryList.vue"));
 };
 
 var InventoryForm = function InventoryForm() {
-  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../views/commercials/inventoryForm */ "./resources/js/views/commercials/inventoryForm.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/commercials/inventoryForm */ "./resources/js/views/commercials/inventoryForm.vue"));
 };
 
 var ImpexList = function ImpexList() {
-  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../views/commercials/impexList */ "./resources/js/views/commercials/impexList.vue"));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/commercials/impexList */ "./resources/js/views/commercials/impexList.vue"));
 };
 
 var ImpexForm = function ImpexForm() {
-  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../views/commercials/impexForm */ "./resources/js/views/commercials/impexForm.vue"));
+  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../views/commercials/impexForm */ "./resources/js/views/commercials/impexForm.vue"));
 };
 
 var ReceivableList = function ReceivableList() {
-  return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! ../views/commercials/receivableList */ "./resources/js/views/commercials/receivableList.vue"));
+  return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ../views/commercials/receivableList */ "./resources/js/views/commercials/receivableList.vue"));
 };
 
 var ReceivableForm = function ReceivableForm() {
-  return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.bind(null, /*! ../views/commercials/receivableForm */ "./resources/js/views/commercials/receivableForm.vue"));
+  return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.bind(null, /*! ../views/commercials/receivableForm */ "./resources/js/views/commercials/receivableForm.vue"));
 };
 
 var PayableList = function PayableList() {
-  return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ../views/commercials/payableList */ "./resources/js/views/commercials/payableList.vue"));
+  return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../views/commercials/payableList */ "./resources/js/views/commercials/payableList.vue"));
 };
 
 var PayableForm = function PayableForm() {
-  return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../views/commercials/payableForm */ "./resources/js/views/commercials/payableForm.vue"));
+  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../views/commercials/payableForm */ "./resources/js/views/commercials/payableForm.vue"));
 };
 
 var PaymentForm = function PaymentForm() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ../views/commercials/paymentForm */ "./resources/js/views/commercials/paymentForm.vue"));
+  return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ../views/commercials/paymentForm */ "./resources/js/views/commercials/paymentForm.vue"));
 };
 
 var MoneyMovementList = function MoneyMovementList() {
-  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../views/commercials/moneyMovementList */ "./resources/js/views/commercials/moneyMovementList.vue"));
+  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../views/commercials/moneyMovementList */ "./resources/js/views/commercials/moneyMovementList.vue"));
 };
 
 var MoneyMovementForm = function MoneyMovementForm() {
-  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../views/commercials/moneyMovementForm */ "./resources/js/views/commercials/moneyMovementForm.vue"));
+  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../views/commercials/moneyMovementForm */ "./resources/js/views/commercials/moneyMovementForm.vue"));
 };
 
 var Accounting = function Accounting() {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/accounts/index */ "./resources/js/views/accounts/index.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/accounts/index */ "./resources/js/views/accounts/index.vue"));
 };
 
 var JournalList = function JournalList() {
-  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/accounts/journalList */ "./resources/js/views/accounts/journalList.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/accounts/journalList */ "./resources/js/views/accounts/journalList.vue"));
 };
 
 var JournalForm = function JournalForm() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../views/accounts/journalForm */ "./resources/js/views/accounts/journalForm.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/accounts/journalForm */ "./resources/js/views/accounts/journalForm.vue"));
 };
 
 var OpeningBalance = function OpeningBalance() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../views/accounts/openingBalanceForm */ "./resources/js/views/accounts/openingBalanceForm.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/accounts/openingBalanceForm */ "./resources/js/views/accounts/openingBalanceForm.vue"));
 };
 
 var ClosingBalance = function ClosingBalance() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/accounts/closingBalanceForm */ "./resources/js/views/accounts/closingBalanceForm.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/accounts/closingBalanceForm */ "./resources/js/views/accounts/closingBalanceForm.vue"));
 };
 
 var AnualBudget = function AnualBudget() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/accounts/budgetForm */ "./resources/js/views/accounts/budgetForm.vue"));
+  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/accounts/budgetForm */ "./resources/js/views/accounts/budgetForm.vue"));
 };
 
 var TemplateForm = function TemplateForm() {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/commercials/index */ "./resources/js/views/commercials/index.vue"));
+  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/commercials/index */ "./resources/js/views/commercials/index.vue"));
 };
 
 var ChartList = function ChartList() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/accounts/chartList */ "./resources/js/views/accounts/chartList.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/accounts/chartList */ "./resources/js/views/accounts/chartList.vue"));
 };
 
 var ChartForm = function ChartForm() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/accounts/chartForm */ "./resources/js/views/accounts/chartForm.vue"));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/accounts/chartForm */ "./resources/js/views/accounts/chartForm.vue"));
 };
 
 var Config = function Config() {
-  return __webpack_require__.e(/*! import() */ 38).then(__webpack_require__.bind(null, /*! ../views/configs/index */ "./resources/js/views/configs/index.vue"));
+  return __webpack_require__.e(/*! import() */ 37).then(__webpack_require__.bind(null, /*! ../views/configs/index */ "./resources/js/views/configs/index.vue"));
 };
 
 var DocumentList = function DocumentList() {
-  return __webpack_require__.e(/*! import() */ 37).then(__webpack_require__.bind(null, /*! ../views/configs/documentList */ "./resources/js/views/configs/documentList.vue"));
+  return __webpack_require__.e(/*! import() */ 36).then(__webpack_require__.bind(null, /*! ../views/configs/documentList */ "./resources/js/views/configs/documentList.vue"));
 };
 
 var DocumentForm = function DocumentForm() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, /*! ../views/configs/documentForm */ "./resources/js/views/configs/documentForm.vue"));
+  return __webpack_require__.e(/*! import() */ 35).then(__webpack_require__.bind(null, /*! ../views/configs/documentForm */ "./resources/js/views/configs/documentForm.vue"));
 };
 
 var RateList = function RateList() {
-  return __webpack_require__.e(/*! import() */ 40).then(__webpack_require__.bind(null, /*! ../views/configs/rateList */ "./resources/js/views/configs/rateList.vue"));
+  return __webpack_require__.e(/*! import() */ 39).then(__webpack_require__.bind(null, /*! ../views/configs/rateList */ "./resources/js/views/configs/rateList.vue"));
 };
 
 var RateForm = function RateForm() {
-  return __webpack_require__.e(/*! import() */ 39).then(__webpack_require__.bind(null, /*! ../views/configs/rateForm */ "./resources/js/views/configs/rateForm.vue"));
+  return __webpack_require__.e(/*! import() */ 38).then(__webpack_require__.bind(null, /*! ../views/configs/rateForm */ "./resources/js/views/configs/rateForm.vue"));
 };
 
 var VersionList = function VersionList() {
-  return __webpack_require__.e(/*! import() */ 41).then(__webpack_require__.bind(null, /*! ../views/configs/versionList */ "./resources/js/views/configs/versionList.vue"));
+  return __webpack_require__.e(/*! import() */ 40).then(__webpack_require__.bind(null, /*! ../views/configs/versionList */ "./resources/js/views/configs/versionList.vue"));
 };
 
 var VersionForm = function VersionForm() {
-  return __webpack_require__.e(/*! import() */ 45).then(__webpack_require__.bind(null, /*! ../views/configs/versionForm */ "./resources/js/views/configs/versionForm.vue"));
+  return __webpack_require__.e(/*! import() */ 44).then(__webpack_require__.bind(null, /*! ../views/configs/versionForm */ "./resources/js/views/configs/versionForm.vue"));
 };
 
 var CycleList = function CycleList() {
-  return __webpack_require__.e(/*! import() */ 35).then(__webpack_require__.bind(null, /*! ../views/configs/cycleList */ "./resources/js/views/configs/cycleList.vue"));
+  return __webpack_require__.e(/*! import() */ 34).then(__webpack_require__.bind(null, /*! ../views/configs/cycleList */ "./resources/js/views/configs/cycleList.vue"));
 };
 
 var CycleForm = function CycleForm() {
-  return __webpack_require__.e(/*! import() */ 34).then(__webpack_require__.bind(null, /*! ../views/configs/cycleForm */ "./resources/js/views/configs/cycleForm.vue"));
+  return __webpack_require__.e(/*! import() */ 33).then(__webpack_require__.bind(null, /*! ../views/configs/cycleForm */ "./resources/js/views/configs/cycleForm.vue"));
 };
 
 var CommercialReports = function CommercialReports() {
-  return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! ../views/commercials/reports */ "./resources/js/views/commercials/reports.vue"));
+  return __webpack_require__.e(/*! import() */ 29).then(__webpack_require__.bind(null, /*! ../views/commercials/reports */ "./resources/js/views/commercials/reports.vue"));
 };
 
 var AccountingReports = function AccountingReports() {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/accounts/reports */ "./resources/js/views/accounts/reports.vue"));
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/accounts/reports */ "./resources/js/views/accounts/reports.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([//This will cause 404 Errors to be redirected to proper site.

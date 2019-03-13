@@ -1,18 +1,15 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[47],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitForm.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/debitForm.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/paymentForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/paymentForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/crud.vue */ "./resources/js/components/crud.vue");
-//
-//
-//
 //
 //
 //
@@ -179,9 +176,8 @@ __webpack_require__.r(__webpack_exports__);
         code: '',
         code_expiry: '',
         comment: '',
-        currency: '',
-        partner_name: '',
-        partner_taxid: '',
+        currency_id: 0,
+        customer_id: 0,
         customer: [],
         date: '',
         details: [{
@@ -195,9 +191,9 @@ __webpack_require__.r(__webpack_exports__);
         number: '',
         payment_condition: 0,
         rate: 1,
-        type: 2
+        type: 4
       },
-      pageUrl: '/commercial/debit-notes',
+      pageUrl: '/commercial/sales',
       documents: [],
       currencies: [],
       accountCharts: [],
@@ -235,7 +231,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.DebitNoteSaved')
+          text: this.$i18n.t('commercial.invoiceSaved', app.data.number)
         });
         app.$router.go(-1);
       }).catch(function (error) {
@@ -248,7 +244,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.DebitNoteSaved')
+          text: this.$i18n.t('commercial.invoiceSaved', app.data.number)
         });
         app.$router.push({
           name: app.$route.name,
@@ -256,11 +252,8 @@ __webpack_require__.r(__webpack_exports__);
             id: '0'
           }
         });
-        app.data.supplier_id = 0;
-        app.data.supplier = [];
-        app.data.chart_account_id = 0, app.data.code = "", app.data.code_expiry = "", app.data.comment = "", app.data.currency = "", app.data.partner_name = "", app.data.partner_taxid = "", app.data.date = "", app.data.details = [{
-          id: 0
-        }], app.data.document_id = "", app.data.document_type = 1, app.data.id = 0, app.data.is_deductible = 0, app.data.journal_id = null, app.data.number = "", app.data.payment_condition = 0, app.data.rate = 1, app.data.type = 3;
+        app.data.customer_id = 0;
+        app.data.customer = [];
       }).catch(function (error) {
         app.$snack.danger({
           text: this.$i18n.t('general.errorMessage')
@@ -286,9 +279,8 @@ __webpack_require__.r(__webpack_exports__);
     addDetailRow: function addDetailRow() {
       this.data.details.push({
         // index: this.data.details.length + 1,
-        id: 0,
         chart_id: this.itemCharts[0].id,
-        chart_vat_id: this.vatCharts[0] != null ? this.vatCharts[0].id : 0,
+        chart_vat_id: this.vatCharts[0].id,
         value: '0'
       });
     },
@@ -316,7 +308,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var app = this;
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + '/config/currencies').then(function (response) {
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead('/api/' + app.$route.params.taxPayer + '/currencies').then(function (response) {
       app.currencies = response.data.data;
     });
 
@@ -328,16 +320,14 @@ __webpack_require__.r(__webpack_exports__);
       app.data.date = new Date(Date.now()).toISOString().split("T")[0];
       app.data.chart_account_id = app.accountCharts[0] != null ? app.accountCharts[0].id : null;
       app.data.payment_condition = 0;
-      app.data.currency = Spark.taxPayerData.currency;
+      app.data.currency_id = 1;
       app.data.rate = 1;
-    } // crud.methods
-    // .onRead(app.baseUrl + "/accounting/charts/for/money/")
-    // .then(function (response) {
-    //     app.accountCharts = response.data.data;
-    // });
+    }
 
-
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/vats-credit").then(function (response) {
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/money/").then(function (response) {
+      app.accountCharts = response.data.data;
+    });
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/vats-debit").then(function (response) {
       app.vatCharts = response.data.data;
     });
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income").then(function (response) {
@@ -348,10 +338,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitForm.vue?vue&type=template&id=7af6133b&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/debitForm.vue?vue&type=template&id=7af6133b& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/paymentForm.vue?vue&type=template&id=2b090d95&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/paymentForm.vue?vue&type=template&id=2b090d95& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -685,37 +675,24 @@ var render = function() {
                                 "b-form-group",
                                 {
                                   attrs: {
-                                    label: _vm.$t("commercial.supplier")
+                                    label: _vm.$t("commercial.customer")
                                   }
                                 },
                                 [
                                   _c("search-taxpayer", {
-                                    attrs: {
-                                      partner_name: _vm.data.partner_name,
-                                      partner_taxid: _vm.data.partner_taxid
-                                    },
-                                    on: {
-                                      "update:partner_name": function($event) {
-                                        return _vm.$set(
-                                          _vm.data,
-                                          "partner_name",
-                                          $event
-                                        )
+                                    model: {
+                                      value: _vm.data.customer,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "customer", $$v)
                                       },
-                                      "update:partner_taxid": function($event) {
-                                        return _vm.$set(
-                                          _vm.data,
-                                          "partner_taxid",
-                                          $event
-                                        )
-                                      }
+                                      expression: "data.customer"
                                     }
                                   })
                                 ],
                                 1
                               ),
                               _vm._v(" "),
-                              _vm.data.supplier != null
+                              _vm.data.customer != null
                                 ? _c(
                                     "b-container",
                                     [
@@ -905,6 +882,86 @@ var render = function() {
                                 "b-form-group",
                                 {
                                   attrs: {
+                                    label: _vm.$t("commercial.paymentCondition")
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-input-group",
+                                    [
+                                      _c("b-input", {
+                                        attrs: {
+                                          type: "number",
+                                          placeholder: _vm.$t(
+                                            "commercial.paymentCondition"
+                                          ),
+                                          value: _vm.data.payment_condition.toString()
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _vm.data.payment_condition == 0
+                                        ? _c(
+                                            "b-input-group-append",
+                                            [
+                                              _c(
+                                                "b-form-select",
+                                                {
+                                                  model: {
+                                                    value:
+                                                      _vm.data.chart_account_id,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        _vm.data,
+                                                        "chart_account_id",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "data.chart_account_id"
+                                                  }
+                                                },
+                                                _vm._l(
+                                                  _vm.accountCharts,
+                                                  function(account) {
+                                                    return _c(
+                                                      "option",
+                                                      {
+                                                        key: account.key,
+                                                        domProps: {
+                                                          value: account.id
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(account.name)
+                                                        )
+                                                      ]
+                                                    )
+                                                  }
+                                                ),
+                                                0
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("b-form-text", [
+                                    _vm._v(
+                                      "Specify days between invoice and payment dates. Ex: use 0 for cash, and 30 for thrity days payment terms."
+                                    )
+                                  ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
                                     label: _vm.$t("commercial.exchangeRate")
                                   }
                                 },
@@ -919,15 +976,15 @@ var render = function() {
                                             "b-form-select",
                                             {
                                               model: {
-                                                value: _vm.data.currency,
+                                                value: _vm.data.currency_id,
                                                 callback: function($$v) {
                                                   _vm.$set(
                                                     _vm.data,
-                                                    "currency",
+                                                    "currency_id",
                                                     $$v
                                                   )
                                                 },
-                                                expression: "data.currency"
+                                                expression: "data.currency_id"
                                               }
                                             },
                                             _vm._l(_vm.currencies, function(
@@ -938,7 +995,7 @@ var render = function() {
                                                 {
                                                   key: currency.key,
                                                   domProps: {
-                                                    value: currency.code
+                                                    value: currency.id
                                                   }
                                                 },
                                                 [_vm._v(_vm._s(currency.name))]
@@ -955,18 +1012,8 @@ var render = function() {
                                           type: "number",
                                           placeholder: _vm.$t(
                                             "commercial.payment"
-                                          )
-                                        },
-                                        model: {
-                                          value: _vm.data.rate,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.data,
-                                              "rate",
-                                              _vm._n($$v)
-                                            )
-                                          },
-                                          expression: "data.rate"
+                                          ),
+                                          value: _vm.data.rate.toString()
                                         }
                                       })
                                     ],
@@ -1072,14 +1119,13 @@ var render = function() {
                         key: "value",
                         fn: function(data) {
                           return [
-                            _c("b-input", {
-                              attrs: { type: "text", placeholder: "Value" },
-                              model: {
-                                value: data.item.value,
-                                callback: function($$v) {
-                                  _vm.$set(data.item, "value", _vm._n($$v))
-                                },
-                                expression: "data.item.value"
+                            _c("b-form-input", {
+                              attrs: {
+                                value: new Number(
+                                  data.item.value
+                                ).toLocaleString(),
+                                type: "text",
+                                placeholder: "Value"
                               }
                             })
                           ]
@@ -1132,17 +1178,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitForm.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/views/commercials/debitForm.vue ***!
-  \******************************************************/
+/***/ "./resources/js/views/commercials/paymentForm.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/commercials/paymentForm.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _debitForm_vue_vue_type_template_id_7af6133b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debitForm.vue?vue&type=template&id=7af6133b& */ "./resources/js/views/commercials/debitForm.vue?vue&type=template&id=7af6133b&");
-/* harmony import */ var _debitForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./debitForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/debitForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _paymentForm_vue_vue_type_template_id_2b090d95___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paymentForm.vue?vue&type=template&id=2b090d95& */ "./resources/js/views/commercials/paymentForm.vue?vue&type=template&id=2b090d95&");
+/* harmony import */ var _paymentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./paymentForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/paymentForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1152,9 +1198,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _debitForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _debitForm_vue_vue_type_template_id_7af6133b___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _debitForm_vue_vue_type_template_id_7af6133b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _paymentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _paymentForm_vue_vue_type_template_id_2b090d95___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _paymentForm_vue_vue_type_template_id_2b090d95___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1164,38 +1210,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/commercials/debitForm.vue"
+component.options.__file = "resources/js/views/commercials/paymentForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitForm.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/views/commercials/debitForm.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/views/commercials/paymentForm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/commercials/paymentForm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_debitForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./debitForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_debitForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_paymentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./paymentForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/paymentForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_paymentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitForm.vue?vue&type=template&id=7af6133b&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/commercials/debitForm.vue?vue&type=template&id=7af6133b& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/views/commercials/paymentForm.vue?vue&type=template&id=2b090d95&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/commercials/paymentForm.vue?vue&type=template&id=2b090d95& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitForm_vue_vue_type_template_id_7af6133b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./debitForm.vue?vue&type=template&id=7af6133b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitForm.vue?vue&type=template&id=7af6133b&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitForm_vue_vue_type_template_id_7af6133b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_paymentForm_vue_vue_type_template_id_2b090d95___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./paymentForm.vue?vue&type=template&id=2b090d95& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/paymentForm.vue?vue&type=template&id=2b090d95&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_paymentForm_vue_vue_type_template_id_2b090d95___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitForm_vue_vue_type_template_id_7af6133b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_paymentForm_vue_vue_type_template_id_2b090d95___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

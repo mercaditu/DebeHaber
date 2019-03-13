@@ -117,9 +117,8 @@
 
 <script>
 import crud from '../../components/crud.vue';
-import VueNumeric from 'vue-numeric'
 export default {
-    components: { 'crud': crud,VueNumeric },
+    components: { 'crud': crud },
     data() {
         return {
             data: {

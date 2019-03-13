@@ -28,16 +28,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueMask from 'v-mask';
 import VueSnackbar from 'vue-snack';
 import 'vue-snack/dist/vue-snack.min.css';
-// import vueTopProgress from 'vue-top-progress';
-// import XlsCsvParser from 'vue-xls-csv-parser';
 import VueCsvImport from 'vue-csv-import';
 
-// import { Button } from 'element-ui';
-// Vue.use(Button);
-// Vue.component(Select.name, Select);
-
 Vue.use(VueCsvImport);
-// Vue.use(vueTopProgress);
 Vue.use(VueSnackbar);
 Vue.use(VueMask);
 Vue.use(VueSweetalert2);

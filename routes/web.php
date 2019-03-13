@@ -15,7 +15,7 @@ Route::get('/', 'WelcomeController@show');
 Route::get('/home', 'HomeController@show');
 
 
- Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('selectTaxPayer/{taxPayer}', 'TaxpayerController@selectTaxpayer')->name('selectTaxPayer');
 
     //Taxpayer Setting Routes
@@ -71,9 +71,10 @@ Route::get('/home', 'HomeController@show');
 
 
 });
-Route::prefix('{taxPayer}/{cycle}')->middleware('accessTaxPayer')->group(function () {
-        Route::get('', 'TaxpayerController@showDashboard')->name('taxpayer.dashboard');
-        Route::get('{any}', function () {
-            return view('platform');
-        })->where('any', '.*');
-    });
+// ->middleware('accessTaxPayer')
+Route::prefix('{taxPayer}/{cycle}')->group(function () {
+    Route::get('', 'TaxpayerController@showDashboard')->name('taxpayer.dashboard');
+    Route::get('{any}', function () {
+        return view('platform');
+    })->where('any', '.*');
+});

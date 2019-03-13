@@ -1,8 +1,8 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[46],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/closingBalanceForm.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/closingBalanceForm.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -78,13 +78,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -92,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      pageUrl: '/accounting/closing-balance',
+      pageUrl: '/accounting/opening-balance',
       data: [],
       lastDeletedRow: []
     };
@@ -130,7 +123,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.ClosingBalanceSaved')
+          text: app.$i18n.t('commercial.OpeningBalanceSaved')
         });
         app.$router.go(-1);
       }).catch(function (error) {
@@ -143,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: this.$i18n.t('commercial.JournalSaved', app.data.number)
+          text: app.$i18n.t('commercial.OpeningBalanceSaved')
         });
         app.$router.push({
           name: app.$route.name,
@@ -151,6 +144,7 @@ __webpack_require__.r(__webpack_exports__);
             id: '0'
           }
         });
+        app.data = [];
       }).catch(function (error) {
         app.$snack.danger({
           text: this.$i18n.t('general.errorMessage')
@@ -184,9 +178,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/closingBalanceForm.vue?vue&type=template&id=09119336&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/closingBalanceForm.vue?vue&type=template&id=09119336& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362& ***!
   \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -235,9 +229,9 @@ var render = function() {
                     _vm._v("keyboard_backspace")
                   ]),
                   _vm._v(
-                    "\n                " +
+                    "\n        " +
                       _vm._s(_vm.$t("general.return")) +
-                      "\n                "
+                      "\n        "
                   )
                 ]
               ),
@@ -248,9 +242,7 @@ var render = function() {
                   attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
                 }),
                 _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.$route.meta.title) +
-                    "\n            "
+                  "\n        " + _vm._s(_vm.$route.meta.title) + "\n      "
                 )
               ])
             ],
@@ -294,9 +286,9 @@ var render = function() {
                             _vm._v("save")
                           ]),
                           _vm._v(
-                            "\n                        " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.save")) +
-                              "\n                    "
+                              "\n          "
                           )
                         ]
                       ),
@@ -327,9 +319,9 @@ var render = function() {
                             _vm._v("cancel")
                           ]),
                           _vm._v(
-                            "\n                        " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.cancel")) +
-                              "\n                    "
+                              "\n          "
                           )
                         ]
                       )
@@ -427,34 +419,18 @@ var render = function() {
                 { attrs: { "no-body": "" } },
                 [
                   _c("b-table", {
-                    attrs: {
-                      hover: "",
-                      responsive: "",
-                      items: _vm.data,
-                      fields: _vm.columns,
-                      "show-empty": ""
-                    },
+                    attrs: { hover: "", items: _vm.data, fields: _vm.columns },
                     scopedSlots: _vm._u(
                       [
                         {
                           key: "code",
                           fn: function(data) {
                             return [
-                              data.item.is_accountable
-                                ? _c("span", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(data.item.code) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _c("b", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(data.item.code) +
-                                        "\n                        "
-                                    )
-                                  ])
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(data.item.code) +
+                                  "\n          "
+                              )
                             ]
                           }
                         },
@@ -462,21 +438,11 @@ var render = function() {
                           key: "name",
                           fn: function(data) {
                             return [
-                              data.item.is_accountable
-                                ? _c("span", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(data.item.name) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _c("b", [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(data.item.name) +
-                                        "\n                        "
-                                    )
-                                  ])
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(data.item.name) +
+                                  "\n          "
+                              )
                             ]
                           }
                         },
@@ -510,7 +476,7 @@ var render = function() {
                                   _c("b-input", {
                                     attrs: {
                                       type: "text",
-                                      placeholder: "Credit"
+                                      placeholder: "credit"
                                     },
                                     model: {
                                       value: data.item.credit,
@@ -549,17 +515,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/accounts/closingBalanceForm.vue":
+/***/ "./resources/js/views/accounts/openingBalanceForm.vue":
 /*!************************************************************!*\
-  !*** ./resources/js/views/accounts/closingBalanceForm.vue ***!
+  !*** ./resources/js/views/accounts/openingBalanceForm.vue ***!
   \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _closingBalanceForm_vue_vue_type_template_id_09119336___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./closingBalanceForm.vue?vue&type=template&id=09119336& */ "./resources/js/views/accounts/closingBalanceForm.vue?vue&type=template&id=09119336&");
-/* harmony import */ var _closingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./closingBalanceForm.vue?vue&type=script&lang=js& */ "./resources/js/views/accounts/closingBalanceForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./openingBalanceForm.vue?vue&type=template&id=6b798362& */ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&");
+/* harmony import */ var _openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./openingBalanceForm.vue?vue&type=script&lang=js& */ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -569,9 +535,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _closingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _closingBalanceForm_vue_vue_type_template_id_09119336___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _closingBalanceForm_vue_vue_type_template_id_09119336___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -581,38 +547,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/accounts/closingBalanceForm.vue"
+component.options.__file = "resources/js/views/accounts/openingBalanceForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/accounts/closingBalanceForm.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************!*\
-  !*** ./resources/js/views/accounts/closingBalanceForm.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_closingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./closingBalanceForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/closingBalanceForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_closingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./openingBalanceForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/accounts/closingBalanceForm.vue?vue&type=template&id=09119336&":
+/***/ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&":
 /*!*******************************************************************************************!*\
-  !*** ./resources/js/views/accounts/closingBalanceForm.vue?vue&type=template&id=09119336& ***!
+  !*** ./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362& ***!
   \*******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_closingBalanceForm_vue_vue_type_template_id_09119336___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./closingBalanceForm.vue?vue&type=template&id=09119336& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/closingBalanceForm.vue?vue&type=template&id=09119336&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_closingBalanceForm_vue_vue_type_template_id_09119336___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./openingBalanceForm.vue?vue&type=template&id=6b798362& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_closingBalanceForm_vue_vue_type_template_id_09119336___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
