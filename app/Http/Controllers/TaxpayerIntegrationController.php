@@ -88,14 +88,14 @@ class TaxpayerIntegrationController extends Controller
                 $taxPayer->save();
 
              
-               return redirect()->route('/');
+                  
                
 
                 
             }
         }
-        
-       return view('/home');
+
+        return view('taxpayer')->with('Integration', $taxPayerIntegration);
     }
 
     /**
