@@ -4,12 +4,10 @@
 
     if (isset($currentTeam) && request()->route('taxPayer') != null) {
 
-// dd(request()->route('taxPayer'));
         $taxPayerData = App\Taxpayer::where('id', request()->route('taxPayer'))
         ->select('id', 'name', 'alias', 'taxid', 'country', 'currency')
         ->first();
-
-        $taxPayerConfig = Config::get('countries.' . $taxPayerData->country);
+        $taxPayerConfig = '';//Config::get('countries.' . $taxPayerData->country);
 
         $cycleData = App\Cycle::where('taxpayer_id', request()->route('taxPayer'))
         ->select('id', 'year')
