@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use RyanWeber\Mutators\Timezoned;
-use Laravel\Scout\Searchable;
 
 class Transaction extends Model
 {
