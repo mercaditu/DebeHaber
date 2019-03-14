@@ -41,145 +41,99 @@
                 <div v-if="$route.name.includes('List')">
                     <crud :columns="columns" inline-template>
                         <b-card no-body>
-                            <b-table
-                            hover
-                            responsive
-                            :items="items"
-                            :fields="columns"
-                            :current-page="current_page"
-                            >
-                            <template slot="type" slot-scope="data">
-                                <b-badge
-                                v-if="data.item.type == 1"
-                                variant="primary"
-                                >{{ spark.enumChartType[data.item.type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 2"
-                                variant="info"
-                                >{{ spark.enumChartType[data.item.type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 3"
-                                variant="warning"
-                                >{{ spark.enumChartType[data.item.type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 4"
-                                variant="success"
-                                >{{ spark.enumChartType[data.item.type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 5"
-                                variant="danger"
-                                >{{ spark.enumChartType[data.item.type] }}</b-badge>
+                            <b-table hover responsive :items="items" :fields="columns" :current-page="current_page">
+                                <template slot="type" slot-scope="data">
+                                    <chart-types :type="data.item.type" :sub_type="data.item.sub_type"/>
+                                </template>
 
-                                <b-badge
-                                v-if="data.item.type == 1 && data.item.sub_type != null"
-                                pill
-                                >{{ spark.enumAsset[data.item.sub_type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 2 && data.item.sub_type != null"
-                                pill
-                                >{{ spark.enumLiability[data.item.sub_type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 3 && data.item.sub_type != null"
-                                pill
-                                >{{ spark.enumEquity[data.item.sub_type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 4 && data.item.sub_type != null"
-                                pill
-                                >{{ spark.enumRevenue[data.item.sub_type] }}</b-badge>
-                                <b-badge
-                                v-else-if="data.item.type == 5 && data.item.sub_type != null"
-                                pill
-                                >{{ spark.enumExpense[data.item.sub_type] }}</b-badge>
-                            </template>
+                                <template slot="code" slot-scope="data">
+                                    <span v-if="data.item.is_accountable">{{ data.item.code }}</span>
+                                    <b v-else>{{ data.item.code }}</b>
+                                </template>
 
-                            <template slot="code" slot-scope="data">
-                                <span v-if="data.item.is_accountable">{{ data.item.code }}</span>
-                                <b v-else>{{ data.item.code }}</b>
-                            </template>
+                                <template slot="name" slot-scope="data">
+                                    <span v-if="data.item.is_accountable">{{ data.item.name }}</span>
+                                    <b v-else>{{ data.item.name }}</b>
+                                </template>
 
-                            <template slot="name" slot-scope="data">
-                                <span v-if="data.item.is_accountable">{{ data.item.name }}</span>
-                                <b v-else>{{ data.item.name }}</b>
-                            </template>
+                                <template slot="actions" slot-scope="data">
+                                    <b-button-group size="sm" class="show-when-hovered" v-if="data.item.is_accountable == 0">
+                                        <b-button v-b-modal.chartOfAccounts @click="$parent.parentChart = data.item">
+                                            <i class="material-icons">playlist_add</i>
+                                        </b-button>
+                                    </b-button-group>
 
-                            <template slot="actions" slot-scope="data">
-                                <b-button-group size="sm" class="show-when-hovered" v-if="data.item.is_accountable == 0">
-                                    <b-button v-b-modal.chartOfAccounts @click="$parent.parentChart = data.item">
-                                        <i class="material-icons">playlist_add</i>
-                                    </b-button>
-                                </b-button-group>
+                                    <table-actions :row="data.item" v-if="data.item.taxpayer_id != null"></table-actions>
+                                </template>
 
-                                <table-actions :row="data.item" v-if="data.item.taxpayer_id != null"></table-actions>
-                            </template>
+                                <div slot="table-busy">
+                                    <table-loading></table-loading>
+                                </div>
 
-                            <div slot="table-busy">
-                                <table-loading></table-loading>
-                            </div>
+                                <template slot="empty">
+                                    <table-empty></table-empty>
+                                </template>
+                            </b-table>
+                            <!-- <b-pagination align="center" :total-rows="meta.total" :per-page="meta.per_page"  @change="onList()"></b-pagination> -->
+                        </b-card>
+                    </crud>
+                </div>
+                <router-view v-else></router-view>
+            </b-col>
+        </b-row>
+        <b-modal id="chartOfAccounts" centered title="Create Chart">
+            <b-container v-if="parentChart != null">
+                <b-form-group :label="$t('accounting.parentChart')">
+                    <b-input-group>
+                        <b-input type="text" :placeholder="$t('commercial.parent')" v-model="parentChart.code" disable/>
+                        <b-input-group-append>
+                            <b-input type="text" v-model="parentChart.name"/>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-form-group>
 
-                            <template slot="empty">
-                                <table-empty></table-empty>
-                            </template>
-                        </b-table>
-                        <!-- <b-pagination align="center" :total-rows="meta.total" :per-page="meta.per_page"  @change="onList()"></b-pagination> -->
-                    </b-card>
-                </crud>
-            </div>
-            <router-view v-else></router-view>
-        </b-col>
-    </b-row>
-    <b-modal id="chartOfAccounts" centered title="Create Chart">
-        <b-container v-if="parentChart != null">
-            <b-form-group :label="$t('accounting.parentChart')">
-                <b-input-group>
-                    <b-input type="text" :placeholder="$t('commercial.parent')" v-model="parentChart.code" disable/>
-                    <b-input-group-append>
-                        <b-input type="text" v-model="parentChart.name"/>
-                    </b-input-group-append>
-                </b-input-group>
-            </b-form-group>
+                <b-form-group :label="$t('accounting.chart')">
+                    <b-input-group>
+                        <b-input required :placeholder="$t('commercial.code')" v-model.trim="selectedChart.code"/>
+                        <b-input-group-append>
+                            <b-input required :placeholder="$t('commercial.name')" v-model.trim="selectedChart.name"/>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-form-group>
 
-            <b-form-group :label="$t('accounting.chart')">
-                <b-input-group>
-                    <b-input required :placeholder="$t('commercial.code')" v-model.trim="selectedChart.code"/>
-                    <b-input-group-append>
-                        <b-input required :placeholder="$t('commercial.name')" v-model.trim="selectedChart.name"/>
-                    </b-input-group-append>
-                </b-input-group>
-            </b-form-group>
+                <b-row>
+                    <b-col>
+                        <b-form-group label="Chart Type">
+                            <b-form-radio-group buttons v-model.number="selectedChart.type" :options="spark.enumChartType" name="enumChartType"/>
+                        </b-form-group>
+                    </b-col>
+                    <b-col>
+                        <b-form-group label="Is Accountable">
+                            <b-form-checkbox switch v-model="selectedChart.is_accountable" size="lg" name="check-button">
+                                {{ $t('accounting.isAccountable') }}
+                            </b-form-checkbox>
+                        </b-form-group>
+                    </b-col>
+                </b-row>
 
-            <b-row>
-                <b-col>
-                    <b-form-group label="Chart Type">
-                        <b-form-radio-group buttons v-model.number="selectedChart.type" :options="spark.enumChartType" name="enumChartType"/>
-                    </b-form-group>
-                </b-col>
-                <b-col>
-                    <b-form-group label="Is Accountable">
-                        <b-form-checkbox switch v-model="selectedChart.is_accountable" size="lg" name="check-button">
-                            {{ $t('accounting.isAccountable') }}
-                        </b-form-checkbox>
-                    </b-form-group>
-                </b-col>
-            </b-row>
-
-            <b-form-group label="Asset Types" v-if="selectedChart.type == 1" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumAsset"/>
-            </b-form-group>
-            <b-form-group label="Liability Types" v-if="selectedChart.type == 2" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumLiability"/>
-            </b-form-group>
-            <b-form-group label="Equity Types" v-if="selectedChart.type == 3" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumEquity"/>
-            </b-form-group>
-            <b-form-group label="Revenue Types" v-if="selectedChart.type == 4" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumRevenue"/>
-            </b-form-group>
-            <b-form-group label="Expense Types" v-if="selectedChart.type == 5" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumExpense"/>
-            </b-form-group>
-        </b-container>
-    </b-modal>
-</div>
+                <b-form-group label="Asset Types" v-if="selectedChart.type == 1" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumAsset"/>
+                </b-form-group>
+                <b-form-group label="Liability Types" v-if="selectedChart.type == 2" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumLiability"/>
+                </b-form-group>
+                <b-form-group label="Equity Types" v-if="selectedChart.type == 3" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumEquity"/>
+                </b-form-group>
+                <b-form-group label="Revenue Types" v-if="selectedChart.type == 4" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumRevenue"/>
+                </b-form-group>
+                <b-form-group label="Expense Types" v-if="selectedChart.type == 5" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumExpense"/>
+                </b-form-group>
+            </b-container>
+        </b-modal>
+    </div>
 </template>
 
 <script>

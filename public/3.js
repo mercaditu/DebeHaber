@@ -148,52 +148,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -291,9 +245,9 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n                            " +
+                              "\n                        " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n                        "
+                                "\n                    "
                             )
                           ]),
                           _vm._v(" "),
@@ -303,11 +257,11 @@ var render = function() {
                                 { staticClass: "lead" },
                                 [
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n                        " +
                                       _vm._s(
                                         _vm.$t(_vm.$route.meta.description)
                                       ) +
-                                      ",\n                            "
+                                      ",\n                        "
                                   ),
                                   _c(
                                     "router-link",
@@ -350,9 +304,9 @@ var render = function() {
                                     _vm._v("help")
                                   ]),
                                   _vm._v(
-                                    "\n                                " +
+                                    "\n                            " +
                                       _vm._s(_vm.$t("general.manual")) +
-                                      "\n                            "
+                                      "\n                        "
                                   )
                                 ]
                               ),
@@ -365,11 +319,11 @@ var render = function() {
                                     _vm._v("cloud_upload")
                                   ]),
                                   _vm._v(
-                                    "\n                                " +
+                                    "\n                            " +
                                       _vm._s(
                                         _vm.$t("general.uploadFromExcel")
                                       ) +
-                                      "\n                            "
+                                      "\n                        "
                                   )
                                 ]
                               ),
@@ -388,11 +342,11 @@ var render = function() {
                                     [_vm._v("add_box")]
                                   ),
                                   _vm._v(
-                                    "\n                                " +
+                                    "\n                            " +
                                       _vm._s(
                                         _vm.$t("general.createNewRecord")
                                       ) +
-                                      "\n                            "
+                                      "\n                        "
                                   )
                                 ]
                               )
@@ -450,178 +404,12 @@ var render = function() {
                                           key: "type",
                                           fn: function(data) {
                                             return [
-                                              data.item.type == 1
-                                                ? _c(
-                                                    "b-badge",
-                                                    {
-                                                      attrs: {
-                                                        variant: "primary"
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark
-                                                            .enumChartType[
-                                                            data.item.type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 2
-                                                ? _c(
-                                                    "b-badge",
-                                                    {
-                                                      attrs: { variant: "info" }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark
-                                                            .enumChartType[
-                                                            data.item.type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 3
-                                                ? _c(
-                                                    "b-badge",
-                                                    {
-                                                      attrs: {
-                                                        variant: "warning"
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark
-                                                            .enumChartType[
-                                                            data.item.type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 4
-                                                ? _c(
-                                                    "b-badge",
-                                                    {
-                                                      attrs: {
-                                                        variant: "success"
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark
-                                                            .enumChartType[
-                                                            data.item.type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 5
-                                                ? _c(
-                                                    "b-badge",
-                                                    {
-                                                      attrs: {
-                                                        variant: "danger"
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark
-                                                            .enumChartType[
-                                                            data.item.type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
-                                              data.item.type == 1 &&
-                                              data.item.sub_type != null
-                                                ? _c(
-                                                    "b-badge",
-                                                    { attrs: { pill: "" } },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark.enumAsset[
-                                                            data.item.sub_type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 2 &&
-                                                  data.item.sub_type != null
-                                                ? _c(
-                                                    "b-badge",
-                                                    { attrs: { pill: "" } },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark
-                                                            .enumLiability[
-                                                            data.item.sub_type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 3 &&
-                                                  data.item.sub_type != null
-                                                ? _c(
-                                                    "b-badge",
-                                                    { attrs: { pill: "" } },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark.enumEquity[
-                                                            data.item.sub_type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 4 &&
-                                                  data.item.sub_type != null
-                                                ? _c(
-                                                    "b-badge",
-                                                    { attrs: { pill: "" } },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark.enumRevenue[
-                                                            data.item.sub_type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : data.item.type == 5 &&
-                                                  data.item.sub_type != null
-                                                ? _c(
-                                                    "b-badge",
-                                                    { attrs: { pill: "" } },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.spark.enumExpense[
-                                                            data.item.sub_type
-                                                          ]
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e()
+                                              _c("chart-types", {
+                                                attrs: {
+                                                  type: data.item.type,
+                                                  sub_type: data.item.sub_type
+                                                }
+                                              })
                                             ]
                                           }
                                         },
@@ -727,7 +515,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      1277711742
+                                      1204679891
                                     )
                                   },
                                   [
