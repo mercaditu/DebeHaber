@@ -39,7 +39,7 @@ class ReportController extends Controller
             } else {
                 return view('reports/accounting/chart_of_accounts')
                     ->with('header', $taxPayer)
-                    ->with('data', $data) 
+                    ->with('data', $data)
                     ->with('strDate', $startDate)
                     ->with('endDate', $endDate);
             }
@@ -435,7 +435,7 @@ class ReportController extends Controller
 
     public function sales(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate, $e = '')
     {
-        
+
         if (isset($taxPayer)) {
             $data = $this->vatSaleQuery($taxPayer, $startDate, $endDate);
 
@@ -608,7 +608,7 @@ class ReportController extends Controller
             ->leftJoin('charts as vats', 'vats.id', 'transaction_details.chart_vat_id')
             ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
             ->where('transactions.deleted_at', '=', null)
-            ->whereIn('transactions.type', [1, 2])
+            ->where('transactions.type', 1)
             ->whereBetween('transactions.date', array(Carbon::parse($startDate)->startOfDay(), Carbon::parse($endDate)->endOfDay()))
             ->select(
                 'transactions.partner_name as supplier',
@@ -673,7 +673,7 @@ class ReportController extends Controller
             ->join('charts as vats', 'vats.id', 'transaction_details.chart_vat_id')
             ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
             ->where('transactions.taxpayer_id', $taxPayer->id)
-            ->where('transactions.type', 3)
+            ->where('transactions.type', 2)
             ->where('transactions.deleted_at', '=', null)
             ->whereBetween('transactions.date', array(Carbon::parse($startDate)->startOfDay(), Carbon::parse($endDate)->endOfDay()))
             ->select(
@@ -690,8 +690,8 @@ class ReportController extends Controller
                 'charts.name as costCenter',
                 'vats.name as vat',
                 'vats.coefficient',
-                DB::raw('transactions.rate * if(transactions.type = 5, -transaction_details.value, transaction_details.value) as localCurrencyValue,
-        (transactions.rate * if(transactions.type = 5, -transaction_details.value, transaction_details.value)) / (vats.coefficient + 1) as vatValue')
+                DB::raw('transactions.rate * if(transactions.sub_type = 2, -transaction_details.value, transaction_details.value) as localCurrencyValue,
+        (transactions.rate * if(transactions.sub_type = 2, -transaction_details.value, transaction_details.value)) / (vats.coefficient + 1) as vatValue')
             )
             ->orderBy('transactions.date', 'asc')
             ->orderBy('transactions.number', 'asc')
@@ -736,7 +736,8 @@ class ReportController extends Controller
             ->join('charts as vats', 'vats.id', 'transaction_details.chart_vat_id')
             ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
             ->where('transactions.taxpayer_id', $taxPayer->id)
-            ->where('transactions.type', 5)
+            ->where('transactions.type', 2)
+            ->where('transactions.sub_type', 2)
             ->where('transactions.deleted_at', '=', null)
             ->whereBetween('transactions.date', array(Carbon::parse($startDate)->startOfDay(), Carbon::parse($endDate)->endOfDay()))
             ->select(
@@ -769,7 +770,8 @@ class ReportController extends Controller
             ->join('charts as vats', 'vats.id', 'transaction_details.chart_vat_id')
             ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
             ->where('transactions.taxpayer_id', $taxPayer->id)
-            ->where('transactions.type', 3)
+            ->where('transactions.type', 1)
+            ->where('transactions.sub_type', 2)
             ->where('transactions.deleted_at', '=', null)
             ->whereBetween('transactions.date', array(Carbon::parse($startDate)->startOfDay(), Carbon::parse($endDate)->endOfDay()))
             ->select(

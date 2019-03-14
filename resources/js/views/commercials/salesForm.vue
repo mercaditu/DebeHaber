@@ -80,112 +80,112 @@
                             />
                         </b-form-group>
                         <b-form-group :label="$t('commercial.customer')">
-<!--                           
+                            <!--
                             <b-input-group>
-                                <b-input @keyup="onKeyUp()"
-                                type="text"
-                                :placeholder="$t('general.name')"
-                                v-model.trim="data.partner_name"
-                                />
-                                <b-input-group-append>
-                                    <b-input
-                                    type="text"
-                                    :placeholder="spark.taxPayerConfig.taxid_name"
-                                    v-model.trim="data.partner_taxid"
-                                    />
-                                </b-input-group-append>
-                            </b-input-group>
-                            <b-list-group>
-                                <b-list-group-item  v-for="taxPayer in data.customer" @click="onSelect(taxPayer)" :key="taxPayer.id">
-                                    <b>{{ taxPayer.name }}</b> | {{ taxPayer.taxid }}
-                                </b-list-group-item>
-                            </b-list-group> -->
-                            <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer> 
-                        </b-form-group>
-
-                        <b-container
-                        v-if="data.customer != null"
-                        >Based on your past transactions, we can quickly recomend the same items again.
-                        <b-row>
-                            <b-col>
-                                <b-button href>Favorite Detail 1</b-button>
-                                <b-button href>Favorite Detail 2</b-button>
-                            </b-col>
-                        </b-row>
-                    </b-container>
-                </b-col>
-                <b-col>
-                    <b-form-group :label="$t('commercial.document')" v-if="documents.length > 0">
-                        <b-form-select v-model="data.document_id">
-                            <option v-for="doc in documents" :key="doc.key" :value="doc.id">{{ doc.name }}</option>
-                        </b-form-select>
-                    </b-form-group>
-
-                    <b-form-group
-                    :label="spark.taxPayerConfig.document_code"
-                    v-if="spark.taxPayerConfig.document_code != ''"
-                    >
-                    <b-input-group>
-                        <b-input type="text" :placeholder="$t('commercial.code')" v-model="data.code"/>
-                        <b-input-group-append>
+                            <b-input @keyup="onKeyUp()"
+                            type="text"
+                            :placeholder="$t('general.name')"
+                            v-model.trim="data.partner_name"
+                            />
+                            <b-input-group-append>
                             <b-input
-                            type="date"
-                            :placeholder="$t('commercial.expiryDate')"
-                            v-model="data.code_expiry"
+                            type="text"
+                            :placeholder="spark.taxPayerConfig.taxid_name"
+                            v-model.trim="data.partner_taxid"
                             />
                         </b-input-group-append>
                     </b-input-group>
-                </b-form-group>
+                    <b-list-group>
+                    <b-list-group-item  v-for="taxPayer in data.customer" @click="onSelect(taxPayer)" :key="taxPayer.id">
+                    <b>{{ taxPayer.name }}</b> | {{ taxPayer.taxid }}
+                </b-list-group-item>
+            </b-list-group> -->
+            <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer>
+        </b-form-group>
 
-                <b-form-group :label="$t('commercial.number')">
-                    <b-input
-                    type="text"
-                    placeholder="Invoice Number"
-                    v-mask="spark.taxPayerConfig.document_mask"
-                    v-model="data.number"
-                    />
-                </b-form-group>
-
-                <b-form-group :label="$t('commercial.paymentCondition')">
-                    <b-input-group>
-                        <b-input
-                        type="text"
-                        :placeholder="$t('commercial.paymentCondition')"
-                        v-model.number="data.payment_condition"
-                        />
-                        <b-input-group-append v-if="data.payment_condition == 0">
-                            <b-form-select v-model="data.chart_account_id">
-                                <option
-                                v-for="account in accountCharts"
-                                :key="account.key"
-                                :value="account.id"
-                                >{{ account.name }}</option>
-                            </b-form-select>
-                        </b-input-group-append>
-                    </b-input-group>
-                    <b-form-text>Specify days between invoice and payment dates. Ex: use 0 for cash, and 30 for thrity days payment terms.</b-form-text>
-                </b-form-group>
-                <b-form-group :label="$t('commercial.exchangeRate')">
-                    <b-input-group>
-                        <b-input-group-prepend>
-                            <b-form-select v-model="data.currency">
-                                <option
-                                v-for="currency in currencies"
-                                :key="currency.key"
-                                :value="currency.code"
-                                >{{ currency.name }}</option>
-                            </b-form-select>
-                        </b-input-group-prepend>
-                        <b-input
-                        type="text"
-                        :placeholder="$t('commercial.payment')"
-                        v-model.number="data.rate"
-                        />
-                    </b-input-group>
-                </b-form-group>
+        <b-container
+        v-if="data.customer != null"
+        >Based on your past transactions, we can quickly recomend the same items again.
+        <b-row>
+            <b-col>
+                <b-button href>Favorite Detail 1</b-button>
+                <b-button href>Favorite Detail 2</b-button>
             </b-col>
         </b-row>
     </b-container>
+</b-col>
+<b-col>
+    <b-form-group :label="$t('commercial.document')" v-if="documents.length > 0">
+        <b-form-select v-model="data.document_id">
+            <option v-for="doc in documents" :key="doc.key" :value="doc.id">{{ doc.name }}</option>
+        </b-form-select>
+    </b-form-group>
+
+    <b-form-group
+    :label="spark.taxPayerConfig.document_code"
+    v-if="spark.taxPayerConfig.document_code != ''"
+    >
+    <b-input-group>
+        <b-input type="text" :placeholder="$t('commercial.code')" v-model="data.code"/>
+        <b-input-group-append>
+            <b-input
+            type="date"
+            :placeholder="$t('commercial.expiryDate')"
+            v-model="data.code_expiry"
+            />
+        </b-input-group-append>
+    </b-input-group>
+</b-form-group>
+
+<b-form-group :label="$t('commercial.number')">
+    <b-input
+    type="text"
+    placeholder="Invoice Number"
+    v-mask="spark.taxPayerConfig.document_mask"
+    v-model="data.number"
+    />
+</b-form-group>
+
+<b-form-group :label="$t('commercial.paymentCondition')">
+    <b-input-group>
+        <b-input
+        type="text"
+        :placeholder="$t('commercial.paymentCondition')"
+        v-model.number="data.payment_condition"
+        />
+        <b-input-group-append v-if="data.payment_condition == 0">
+            <b-form-select v-model="data.chart_account_id">
+                <option
+                v-for="account in accountCharts"
+                :key="account.key"
+                :value="account.id"
+                >{{ account.name }}</option>
+            </b-form-select>
+        </b-input-group-append>
+    </b-input-group>
+    <b-form-text>Specify days between invoice and payment dates. Ex: use 0 for cash, and 30 for thrity days payment terms.</b-form-text>
+</b-form-group>
+<b-form-group :label="$t('commercial.exchangeRate')">
+    <b-input-group>
+        <b-input-group-prepend>
+            <b-form-select v-model="data.currency">
+                <option
+                v-for="currency in currencies"
+                :key="currency.key"
+                :value="currency.code"
+                >{{ currency.name }}</option>
+            </b-form-select>
+        </b-input-group-prepend>
+        <b-input
+        type="text"
+        :placeholder="$t('commercial.payment')"
+        v-model.number="data.rate"
+        />
+    </b-input-group>
+</b-form-group>
+</b-col>
+</b-row>
+</b-container>
 </b-card>
 </b-col>
 </b-row>
@@ -261,7 +261,7 @@ export default {
         };
     },
     computed: {
-        
+
         columns() {
             return [
                 {
@@ -431,11 +431,11 @@ export default {
             app.itemCharts = response.data.data;
         });
 
-         crud.methods
-            .onRead(app.baseUrl + "/search/partner/" + app.data.partner_name)
-            .then(function(response) {
-                app.data.customer = response.data;
-            });
+        // crud.methods
+        // .onRead(app.baseUrl + "/search/partner/" + app.data.partner_name)
+        // .then(function(response) {
+        //     app.data.customer = response.data;
+        // });
     }
 };
 </script>

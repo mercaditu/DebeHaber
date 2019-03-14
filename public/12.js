@@ -330,17 +330,12 @@ __webpack_require__.r(__webpack_exports__);
       app.data.payment_condition = 0;
       app.data.currency = Spark.taxPayerData.currency;
       app.data.rate = 1;
-    } // crud.methods
-    // .onRead(app.baseUrl + "/accounting/charts/for/money/")
-    // .then(function (response) {
-    //     app.accountCharts = response.data.data;
-    // });
-
+    }
 
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/vats-credit").then(function (response) {
       app.vatCharts = response.data.data;
     });
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income").then(function (response) {
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/expense").then(function (response) {
       app.itemCharts = response.data.data;
     });
   }

@@ -99,6 +99,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -186,9 +188,9 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n              " +
+                              "\n                            " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n            "
+                                "\n                        "
                             )
                           ]),
                           _vm._v(" "),
@@ -218,9 +220,9 @@ var render = function() {
                                     _vm._v("help")
                                   ]),
                                   _vm._v(
-                                    "\n                " +
+                                    "\n                                " +
                                       _vm._s(_vm.$t("general.manual")) +
-                                      "\n              "
+                                      "\n                            "
                                   )
                                 ]
                               ),
@@ -233,11 +235,11 @@ var render = function() {
                                     _vm._v("cloud_upload")
                                   ]),
                                   _vm._v(
-                                    "\n                " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.$t("general.uploadFromExcel")
                                       ) +
-                                      "\n              "
+                                      "\n                            "
                                   )
                                 ]
                               ),
@@ -256,11 +258,11 @@ var render = function() {
                                     [_vm._v("add_box")]
                                   ),
                                   _vm._v(
-                                    "\n                " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.$t("general.createNewRecord")
                                       ) +
-                                      "\n              "
+                                      "\n                            "
                                   )
                                 ]
                               )
@@ -338,7 +340,7 @@ var render = function() {
                                                 { staticClass: "float-right" },
                                                 [
                                                   _vm._v(
-                                                    "\n                    " +
+                                                    "\n                                    " +
                                                       _vm._s(
                                                         new Number(
                                                           _vm.sum(
@@ -347,7 +349,7 @@ var render = function() {
                                                           )
                                                         ).toLocaleString()
                                                       ) +
-                                                      "\n                    "
+                                                      "\n                                    "
                                                   ),
                                                   _c(
                                                     "small",
@@ -381,7 +383,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      2505062388
+                                      3095694324
                                     )
                                   },
                                   [
@@ -430,7 +432,7 @@ var render = function() {
                     ],
                     1
                   )
-                : _c("router-view")
+                : _c("keep-alive", [_c("router-view")], 1)
             ],
             1
           )
