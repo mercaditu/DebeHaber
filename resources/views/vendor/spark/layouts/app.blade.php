@@ -4,6 +4,7 @@
 
     if (isset($currentTeam) && request()->route('taxPayer') != null) {
 
+// dd(request()->route('taxPayer'));
         $taxPayerData = App\Taxpayer::where('id', request()->route('taxPayer'))
         ->select('id', 'name', 'alias', 'taxid', 'country', 'currency')
         ->first();

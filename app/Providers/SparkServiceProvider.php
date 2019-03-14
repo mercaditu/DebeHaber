@@ -44,7 +44,7 @@ class SparkServiceProvider extends ServiceProvider
     *
     * @var bool
     */
-    // protected $usesApi = true;
+    protected $usesApi = true;
 
     public function register()
     {

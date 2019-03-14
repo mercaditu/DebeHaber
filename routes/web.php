@@ -25,10 +25,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('taxpayer', 'TaxpayerController@destroy')->name('deleteTaxPayer');
 
     Route::prefix('{taxPayer}/{cycle}')->group(function () {
-
-
-        //FixedAsset
-
         Route::prefix('commercial')->group(function () {
             Route::prefix('reports')->group(function () {
                 Route::get('purchases/{strDate}/{endDate}/{e?}', 'ReportController@purchases')->name('reports.purchases');
@@ -50,7 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('account-supplier/{strDate}/{endDate}/{e?}', 'ReportController@accountSupplier');
             });
         });
-
         Route::prefix('accounting')->group(function () {
             Route::prefix('reports')->group(function () {
                 Route::get('hechauka/generate_files/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');
@@ -67,14 +62,14 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('balance-bycomparative/{strDate}/{endDate}/', 'ReportController@balanceComparative')->name('reports.balanceComparative');
             });
         });
+
+        Route::get('', 'TaxpayerController@showDashboard')->name('taxpayer.dashboard');
+        Route::get('{any}', function () {
+            return view('platform');
+        })->where('any', '.*');
     });
-
-
 });
-// ->middleware('accessTaxPayer')
-Route::prefix('{taxPayer}/{cycle}')->group(function () {
-    Route::get('', 'TaxpayerController@showDashboard')->name('taxpayer.dashboard');
-    Route::get('{any}', function () {
-        return view('platform');
-    })->where('any', '.*');
-});
+// // ->middleware('accessTaxPayer')
+// Route::prefix('{taxPayer}/{cycle}')->group(function () {
+//
+// });
