@@ -100,19 +100,18 @@ class SearchController extends Controller
     {
        $transaction = Transaction::selectRaw('max(partner_name) as name,max(partner_taxid) as taxid,max(taxpayer_id) as taxpayer_id')
                       ->where('partner_name', 'LIKE', '%'.$q.'%')
-                      ->with('taxpayer')
+                      ->with('taxpayer')  
                       ->groupBy('partner_taxid')
-                      ->get();
+                      ->get();  
                 return $transaction;
     }
-
     public function searchPartnerTaxid($taxPayer, $cycle, $q)
     {
        $transaction = Transaction::selectRaw('max(partner_name) as name,max(partner_taxid) as taxid,max(taxpayer_id) as taxpayer_id')
                       ->where('partner_taxid', 'LIKE', '%'.$q.'%')
-                      ->with('taxpayer')
+                      ->with('taxpayer')  
                       ->groupBy('partner_taxid')
-                      ->get();
+                      ->get();  
                 return $transaction;
     }
 }

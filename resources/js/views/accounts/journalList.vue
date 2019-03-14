@@ -167,6 +167,9 @@ export default {
         .then(function (response) {
             app.cycle = response.data.data;
         });
+
+
+
     }
 }
 </script>
