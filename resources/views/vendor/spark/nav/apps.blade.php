@@ -38,7 +38,7 @@
         </h3>
         <b-nav vertical>
             {{-- :href="/taxpayer/' + spark.taxPayerData.id" --}}
-            <b-nav-item class="sub-menu" href="{{ $taxPayerData->id }}/taxpayer-integration/{{ $integrationType->id }}">
+            <b-nav-item class="sub-menu" href="/{{ $taxPayerData->id }}/{{ $currentCycle->id }}/taxpayer-integration/{{ $integrationType->id }}">
                 <i class="material-icons md-18 ml-10 mr-10">settings</i>
                 @{{ $t('general.taxPayer') }}
             </b-nav-item>
