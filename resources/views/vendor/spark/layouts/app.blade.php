@@ -7,7 +7,8 @@
         $taxPayerData = App\Taxpayer::where('id', request()->route('taxPayer'))
         ->select('id', 'name', 'alias', 'taxid', 'country', 'currency')
         ->first();
-        $taxPayerConfig = '';//Config::get('countries.' . $taxPayerData->country);
+     
+        $taxPayerConfig = Config::get('countries.' . $taxPayerData->country);
 
         $cycleData = App\Cycle::where('taxpayer_id', request()->route('taxPayer'))
         ->select('id', 'year')
@@ -20,7 +21,7 @@
         $integrationType = App\TaxpayerIntegration::where('team_id', $currentTeam->id)
         ->where('taxpayer_id', request()->route('taxPayer'))
         ->whereIn('status', [1, 2])
-        ->select('type')
+        ->select('id','type')
         ->first();
 
         if (isset($integrationType))

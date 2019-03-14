@@ -18,13 +18,14 @@ Route::get('/home', 'HomeController@show');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('selectTaxPayer/{taxPayer}', 'TaxpayerController@selectTaxpayer')->name('selectTaxPayer');
 
-    //Taxpayer Setting Routes
-    Route::get('taxpayer/{id}', 'TaxpayerController@show')->name('editTaxPayer');
-    Route::post('taxpayer', 'TaxpayerController@store')->name('postTaxPayer');
+    Route::post('taxpayer-integration', 'TaxpayerIntegrationController@store')->name('postTaxPayer');
     Route::PUT('taxpayer/{taxPayer}', 'TaxpayerController@update')->name('updateTaxPayer');
     Route::delete('taxpayer', 'TaxpayerController@destroy')->name('deleteTaxPayer');
 
     Route::prefix('{taxPayer}/{cycle}')->group(function () {
+           //Taxpayer Setting Routes
+    Route::get('taxpayer-integration/{id}', 'TaxpayerIntegrationController@show')->name('editTaxPayer');
+    
         Route::prefix('commercial')->group(function () {
             Route::prefix('reports')->group(function () {
                 Route::get('purchases/{strDate}/{endDate}/{e?}', 'ReportController@purchases')->name('reports.purchases');
