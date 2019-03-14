@@ -2192,6 +2192,39 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart-types.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart-types.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['type', 'sub_type'],
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/crud.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/crud.vue?vue&type=script&lang=js& ***!
@@ -103818,6 +103851,78 @@ VueI18n.version = '8.9.0';
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart-types.vue?vue&type=template&id=05709862&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart-types.vue?vue&type=template&id=05709862& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      this.type == 1
+        ? _c("b-badge", { attrs: { variant: "primary" } }, [
+            _vm._v(_vm._s(_vm.spark.enumChartType[this.type]))
+          ])
+        : this.type == 2
+        ? _c("b-badge", { attrs: { variant: "info" } }, [
+            _vm._v(_vm._s(_vm.spark.enumChartType[this.type]))
+          ])
+        : this.type == 3
+        ? _c("b-badge", { attrs: { variant: "warning" } }, [
+            _vm._v(_vm._s(_vm.spark.enumChartType[this.type]))
+          ])
+        : this.type == 4
+        ? _c("b-badge", { attrs: { variant: "success" } }, [
+            _vm._v(_vm._s(_vm.spark.enumChartType[this.type]))
+          ])
+        : this.type == 5
+        ? _c("b-badge", { attrs: { variant: "danger" } }, [
+            _vm._v(_vm._s(_vm.spark.enumChartType[this.type]))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      this.type == 1 && this.sub_type != null
+        ? _c("b-badge", { attrs: { pill: "" } }, [
+            _vm._v(_vm._s(_vm.spark.enumAsset[this.sub_type]))
+          ])
+        : this.type == 2 && this.sub_type != null
+        ? _c("b-badge", { attrs: { pill: "" } }, [
+            _vm._v(_vm._s(_vm.spark.enumLiability[this.sub_type]))
+          ])
+        : this.type == 3 && this.sub_type != null
+        ? _c("b-badge", { attrs: { pill: "" } }, [
+            _vm._v(_vm._s(_vm.spark.enumEquity[this.sub_type]))
+          ])
+        : this.type == 4 && this.sub_type != null
+        ? _c("b-badge", { attrs: { pill: "" } }, [
+            _vm._v(_vm._s(_vm.spark.enumRevenue[this.sub_type]))
+          ])
+        : this.type == 5 && this.sub_type != null
+        ? _c("b-badge", { attrs: { pill: "" } }, [
+            _vm._v(_vm._s(_vm.spark.enumExpense[this.sub_type]))
+          ])
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/InvoicesThisMonthKPI.vue?vue&type=template&id=0d4b37e4&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/InvoicesThisMonthKPI.vue?vue&type=template&id=0d4b37e4& ***!
@@ -120256,6 +120361,76 @@ Vue.component('table-loading', __webpack_require__(/*! ./table/loading.vue */ ".
 Vue.component('table-empty', __webpack_require__(/*! ./table/empty.vue */ "./resources/js/components/table/empty.vue").default);
 Vue.component('invoices-this-month-kpi', __webpack_require__(/*! ./dashboard/InvoicesThisMonthKPI.vue */ "./resources/js/components/dashboard/InvoicesThisMonthKPI.vue").default);
 Vue.component('pie-transaction-items', __webpack_require__(/*! ./dashboard/TransactionsPie.vue */ "./resources/js/components/dashboard/TransactionsPie.vue").default);
+Vue.component('chart-types', __webpack_require__(/*! ./chart-types.vue */ "./resources/js/components/chart-types.vue").default);
+
+/***/ }),
+
+/***/ "./resources/js/components/chart-types.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/chart-types.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chart_types_vue_vue_type_template_id_05709862___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chart-types.vue?vue&type=template&id=05709862& */ "./resources/js/components/chart-types.vue?vue&type=template&id=05709862&");
+/* harmony import */ var _chart_types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chart-types.vue?vue&type=script&lang=js& */ "./resources/js/components/chart-types.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _chart_types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _chart_types_vue_vue_type_template_id_05709862___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _chart_types_vue_vue_type_template_id_05709862___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/chart-types.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/chart-types.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/chart-types.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_chart_types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./chart-types.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart-types.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_chart_types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/chart-types.vue?vue&type=template&id=05709862&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/chart-types.vue?vue&type=template&id=05709862& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chart_types_vue_vue_type_template_id_05709862___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./chart-types.vue?vue&type=template&id=05709862& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart-types.vue?vue&type=template&id=05709862&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chart_types_vue_vue_type_template_id_05709862___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chart_types_vue_vue_type_template_id_05709862___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -127906,9 +128081,9 @@ __webpack_require__(/*! ./forms/bootstrap */ "./spark/resources/assets/js/forms/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\SMART\Documents\GitHub\DebeHaber\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\SMART\Documents\GitHub\DebeHaber\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\SMART\Documents\GitHub\DebeHaber\resources\sass\app-rtl.scss */"./resources/sass/app-rtl.scss");
+__webpack_require__(/*! /Users/ashah/Projects/debehaber/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Users/ashah/Projects/debehaber/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/ashah/Projects/debehaber/resources/sass/app-rtl.scss */"./resources/sass/app-rtl.scss");
 
 
 /***/ })

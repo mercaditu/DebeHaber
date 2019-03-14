@@ -194,8 +194,6 @@ export default {
         .then(function (response) {
             app.accountCharts = response.data.data;
         });
-
-
     }
 }
 </script>

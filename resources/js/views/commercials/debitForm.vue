@@ -61,7 +61,7 @@
                                             <b-input type="text" :placeholder="spark.taxPayerConfig.taxid_name" v-model="data.partner_taxid"/>
                                         </b-input-group-append>
                                     </b-input-group> -->
-                                    <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer> 
+                                    <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer>
                                 </b-form-group>
 
                                 <b-container v-if="data.supplier != null">
@@ -358,12 +358,6 @@ export default {
             app.data.rate = 1;
         }
 
-        // crud.methods
-        // .onRead(app.baseUrl + "/accounting/charts/for/money/")
-        // .then(function (response) {
-        //     app.accountCharts = response.data.data;
-        // });
-
         crud.methods
         .onRead(app.baseUrl + "/accounting/charts/for/vats-credit")
         .then(function (response) {
@@ -371,7 +365,7 @@ export default {
         });
 
         crud.methods
-        .onRead(app.baseUrl + "/accounting/charts/for/income")
+        .onRead(app.baseUrl + "/accounting/charts/for/expense")
         .then(function (response) {
             app.itemCharts = response.data.data;
         });

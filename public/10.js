@@ -329,12 +329,7 @@ __webpack_require__.r(__webpack_exports__);
       app.data.payment_condition = 0;
       app.data.currency = app.spark.taxPayerData.currency;
       app.data.rate = 1;
-    } // crud.methods
-    // .onRead(app.baseUrl + "/accounting/charts/for/money/")
-    // .then(function (response) {
-    //     app.accountCharts = response.data.data;
-    // });
-
+    }
 
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/vats-debit").then(function (response) {
       app.vatCharts = response.data.data;

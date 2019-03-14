@@ -393,10 +393,11 @@ __webpack_require__.r(__webpack_exports__);
     });
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income").then(function (response) {
       app.itemCharts = response.data.data;
-    });
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/search/partner/" + app.data.partner_name).then(function (response) {
-      app.data.customer = response.data;
-    });
+    }); // crud.methods
+    // .onRead(app.baseUrl + "/search/partner/" + app.data.partner_name)
+    // .then(function(response) {
+    //     app.data.customer = response.data;
+    // });
   }
 });
 
@@ -774,7 +775,7 @@ var render = function() {
                                     "b-container",
                                     [
                                       _vm._v(
-                                        "Based on your past transactions, we can quickly recomend the same items again.\n                        "
+                                        "Based on your past transactions, we can quickly recomend the same items again.\n        "
                                       ),
                                       _c(
                                         "b-row",

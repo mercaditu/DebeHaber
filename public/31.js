@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -424,7 +426,7 @@ var render = function() {
                     ],
                     1
                   )
-                : _c("router-view")
+                : _c("keep-alive", [_c("router-view")], 1)
             ],
             1
           )

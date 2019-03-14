@@ -1387,7 +1387,7 @@
             "dist": {
                 "type": "path",
                 "url": "./spark",
-                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6",
+                "reference": "e8ca36ab2280851f041e0479cd9cc17f48319d97",
                 "shasum": null
             },
             "require": {
@@ -4645,28 +4645,28 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.6.3",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f"
+                "reference": "99c96a4a5900d36a434711b44dfa74b0ba2b31db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/6a920a441783a50d7c95d08b3ae9189b149b259f",
-                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/99c96a4a5900d36a434711b44dfa74b0ba2b31db",
+                "reference": "99c96a4a5900d36a434711b44dfa74b0ba2b31db",
                 "shasum": ""
             },
             "require": {
                 "illuminate/cookie": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/view": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": "^7.1"
+                "php": "^7.2"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
                 "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
-                "phpunit/phpunit": "^6.3|^7.0|^8.0"
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
@@ -4709,7 +4709,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2019-02-27T08:10:09+00:00"
+            "time": "2019-02-27T08:12:11+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",

@@ -51,3 +51,7 @@ Vue.component(
     'pie-transaction-items',
     require('./dashboard/TransactionsPie.vue').default
 );
+Vue.component(
+    'chart-types',
+    require('./chart-types.vue').default
+);

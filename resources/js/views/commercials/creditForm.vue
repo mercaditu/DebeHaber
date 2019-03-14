@@ -61,7 +61,7 @@
                                             <b-input type="text" :placeholder="spark.taxPayerConfig.taxid_name" v-model="data.partner_taxid"/>
                                         </b-input-group-append>
                                     </b-input-group> -->
-                                    <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer> 
+                                    <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer>
                                 </b-form-group>
 
                                 <b-container v-if="data.customer != null">
@@ -358,12 +358,6 @@ export default {
             app.data.currency = app.spark.taxPayerData.currency;
             app.data.rate = 1;
         }
-
-        // crud.methods
-        // .onRead(app.baseUrl + "/accounting/charts/for/money/")
-        // .then(function (response) {
-        //     app.accountCharts = response.data.data;
-        // });
 
         crud.methods
         .onRead(app.baseUrl + "/accounting/charts/for/vats-debit")

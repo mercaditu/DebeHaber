@@ -69,7 +69,9 @@
                         </b-card>
                     </crud>
                 </div>
-                <router-view v-else></router-view>
+                <keep-alive v-else>
+                    <router-view></router-view>
+                </keep-alive>
             </b-col>
         </b-row>
     </div>

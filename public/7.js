@@ -110,6 +110,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -218,9 +220,9 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n                        " +
+                              "\n                            " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n                    "
+                                "\n                        "
                             )
                           ]),
                           _vm._v(" "),
@@ -230,7 +232,7 @@ var render = function() {
                                 { staticClass: "lead" },
                                 [
                                   _vm._v(
-                                    "\n                        " +
+                                    "\n                            " +
                                       _vm._s(
                                         _vm.$t(_vm.$route.meta.description)
                                       ) +
@@ -445,106 +447,156 @@ var render = function() {
                                           fn: function(row) {
                                             return [
                                               _c(
-                                                "b-card",
+                                                "b-row",
                                                 [
-                                                  _vm._l(
-                                                    row.item.details,
-                                                    function(detail) {
-                                                      return _c(
-                                                        "b-row",
-                                                        { key: detail.key },
-                                                        [
-                                                          _c(
-                                                            "b-col",
-                                                            {
-                                                              staticClass:
-                                                                "text-sm-right",
-                                                              attrs: { sm: "1" }
-                                                            },
-                                                            [
-                                                              _c("b", [
-                                                                _vm._v("chart:")
-                                                              ])
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c("b-col", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                detail.chart
-                                                                  .name
-                                                              )
+                                                  _c(
+                                                    "b-col",
+                                                    {
+                                                      attrs: {
+                                                        col: "6",
+                                                        colspan: "2"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("b", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.$t(
+                                                              "accounting.chartOfAccounts"
                                                             )
-                                                          ]),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "b-col",
-                                                            {
-                                                              staticClass:
-                                                                "text-sm-right",
-                                                              attrs: { sm: "3" }
-                                                            },
-                                                            [
-                                                              _c("b", [
-                                                                _vm._v("debit:")
-                                                              ])
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c("b-col", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                new Number(
-                                                                  detail.debit
-                                                                ).toLocaleString()
-                                                              )
-                                                            )
-                                                          ]),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "b-col",
-                                                            {
-                                                              staticClass:
-                                                                "text-sm-right",
-                                                              attrs: { sm: "3" }
-                                                            },
-                                                            [
-                                                              _c("b", [
-                                                                _vm._v(
-                                                                  "credit:"
-                                                                )
-                                                              ])
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c("b-col", [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                new Number(
-                                                                  detail.credit
-                                                                ).toLocaleString()
-                                                              )
-                                                            )
-                                                          ])
-                                                        ],
-                                                        1
-                                                      )
-                                                    }
+                                                          )
+                                                        )
+                                                      ])
+                                                    ]
                                                   ),
                                                   _vm._v(" "),
                                                   _c(
-                                                    "b-button",
+                                                    "b-col",
                                                     {
-                                                      attrs: { size: "sm" },
-                                                      on: {
-                                                        click: row.toggleDetails
-                                                      }
+                                                      staticClass:
+                                                        "text-sm-right",
+                                                      attrs: { col: "3" }
                                                     },
-                                                    [_vm._v("Hide Details")]
+                                                    [
+                                                      _c("b", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.$t(
+                                                              "general.debit"
+                                                            )
+                                                          )
+                                                        )
+                                                      ])
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-col",
+                                                    {
+                                                      staticClass:
+                                                        "text-sm-right",
+                                                      attrs: { col: "3" }
+                                                    },
+                                                    [
+                                                      _c("b", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.$t(
+                                                              "general.credit"
+                                                            )
+                                                          )
+                                                        )
+                                                      ])
+                                                    ]
                                                   )
                                                 ],
-                                                2
-                                              )
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _vm._l(row.item.details, function(
+                                                detail
+                                              ) {
+                                                return _c(
+                                                  "b-row",
+                                                  { key: detail.key },
+                                                  [
+                                                    _c(
+                                                      "b-col",
+                                                      { attrs: { col: "1" } },
+                                                      [
+                                                        _c("i", [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              detail.chart.code
+                                                            )
+                                                          )
+                                                        ])
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-col",
+                                                      { attrs: { col: "5" } },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                        " +
+                                                            _vm._s(
+                                                              detail.chart.name
+                                                            ) +
+                                                            "\n                                        "
+                                                        ),
+                                                        _c("chart-types", {
+                                                          attrs: {
+                                                            type:
+                                                              detail.chart.type,
+                                                            sub_type:
+                                                              detail.chart
+                                                                .sub_type
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-col",
+                                                      {
+                                                        staticClass:
+                                                          "text-sm-right",
+                                                        attrs: { col: "3" }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            new Number(
+                                                              detail.debit
+                                                            ).toLocaleString()
+                                                          )
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-col",
+                                                      {
+                                                        staticClass:
+                                                          "text-sm-right",
+                                                        attrs: { col: "3" }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            new Number(
+                                                              detail.credit
+                                                            ).toLocaleString()
+                                                          )
+                                                        )
+                                                      ]
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              })
                                             ]
                                           }
                                         },
@@ -607,7 +659,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      1038767608
+                                      1404765324
                                     )
                                   },
                                   [
