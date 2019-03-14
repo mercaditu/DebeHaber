@@ -196,14 +196,6 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("invoices-this-month-kpi", {
-                        staticClass: "d-none d-xl-block"
-                      }),
-                      _vm._v(" "),
-                      _c("transactions-pie", {
-                        staticClass: "d-none d-xl-block"
-                      }),
-                      _vm._v(" "),
                       _c(
                         "b-card",
                         { attrs: { "no-body": "" } },

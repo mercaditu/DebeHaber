@@ -46,10 +46,10 @@ class SparkServiceProvider extends ServiceProvider
     */
     protected $usesApi = true;
 
-    public function register()
-    {
-        Spark::ensureEmailIsVerified();
-    }
+    // public function register()
+    // {
+    //     Spark::ensureEmailIsVerified();
+    // }
 
     /**
     * Finish configuring Spark for the application.

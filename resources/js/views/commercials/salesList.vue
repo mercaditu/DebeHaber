@@ -13,8 +13,8 @@
                         </p>
                     </b-card>
 
-                    <invoices-this-month-kpi class="d-none d-xl-block"></invoices-this-month-kpi>
-                    <transactions-pie class="d-none d-xl-block"></transactions-pie >
+                    <!-- <invoices-this-month-kpi class="d-none d-xl-block"></invoices-this-month-kpi>
+                    <transactions-pie class="d-none d-xl-block"></transactions-pie > -->
 
                     <b-card no-body>
                         <b-list-group flush>

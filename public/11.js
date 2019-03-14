@@ -186,9 +186,9 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n            " +
+                              "\n              " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n          "
+                                "\n            "
                             )
                           ]),
                           _vm._v(" "),
@@ -201,14 +201,6 @@ var render = function() {
                             : _vm._e()
                         ]
                       ),
-                      _vm._v(" "),
-                      _c("invoices-this-month-kpi", {
-                        staticClass: "d-none d-xl-block"
-                      }),
-                      _vm._v(" "),
-                      _c("invoices-this-month-kpi", {
-                        staticClass: "d-none d-xl-block"
-                      }),
                       _vm._v(" "),
                       _c(
                         "b-card",
@@ -226,9 +218,9 @@ var render = function() {
                                     _vm._v("help")
                                   ]),
                                   _vm._v(
-                                    "\n              " +
+                                    "\n                " +
                                       _vm._s(_vm.$t("general.manual")) +
-                                      "\n            "
+                                      "\n              "
                                   )
                                 ]
                               ),
@@ -241,11 +233,11 @@ var render = function() {
                                     _vm._v("cloud_upload")
                                   ]),
                                   _vm._v(
-                                    "\n              " +
+                                    "\n                " +
                                       _vm._s(
                                         _vm.$t("general.uploadFromExcel")
                                       ) +
-                                      "\n            "
+                                      "\n              "
                                   )
                                 ]
                               ),
@@ -264,11 +256,11 @@ var render = function() {
                                     [_vm._v("add_box")]
                                   ),
                                   _vm._v(
-                                    "\n              " +
+                                    "\n                " +
                                       _vm._s(
                                         _vm.$t("general.createNewRecord")
                                       ) +
-                                      "\n            "
+                                      "\n              "
                                   )
                                 ]
                               )
@@ -346,7 +338,7 @@ var render = function() {
                                                 { staticClass: "float-right" },
                                                 [
                                                   _vm._v(
-                                                    "\n                  " +
+                                                    "\n                    " +
                                                       _vm._s(
                                                         new Number(
                                                           _vm.sum(
@@ -355,7 +347,7 @@ var render = function() {
                                                           )
                                                         ).toLocaleString()
                                                       ) +
-                                                      "\n                  "
+                                                      "\n                    "
                                                   ),
                                                   _c(
                                                     "small",
@@ -389,7 +381,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      4033920372
+                                      2505062388
                                     )
                                   },
                                   [

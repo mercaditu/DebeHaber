@@ -69,7 +69,4 @@ Route::group(['middleware' => 'auth'], function () {
         })->where('any', '.*');
     });
 });
-// // ->middleware('accessTaxPayer')
-// Route::prefix('{taxPayer}/{cycle}')->group(function () {
-//
-// });
+// ->middleware('accessTaxPayer')
