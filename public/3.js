@@ -158,7 +158,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -205,14 +204,9 @@ __webpack_require__.r(__webpack_exports__);
       if (app.newChart.code != null && app.newChart.name != null) {
         _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.newChart).then(function (response) {
           app.$snack.success({
-            text: this.$i18n.t('general.saved', app.newChart.code)
+            text: app.$i18n.t('chart.saved', app.newChart.code)
           });
-          app.$router.push({
-            name: app.$route.name,
-            params: {
-              id: '0'
-            }
-          });
+          app.$refs.accountModel.hide();
         }).catch(function (error) {
           app.$snack.danger({
             text: this.$i18n.t('general.errorMessage')
@@ -225,8 +219,8 @@ __webpack_require__.r(__webpack_exports__);
       app.parentChart = data;
       app.newChart.id = 0;
       app.newChart.code = app.parentChart.code + '.0';
-      app.newChart.type = app.parentChart.type + '.0';
-      app.newChart.sub_type = app.parentChart.sub_type + '.0';
+      app.newChart.type = app.parentChart.type;
+      app.newChart.sub_type = app.parentChart.sub_type;
     },
     typeVariant: function typeVariant(chartType) {
       if (chartType == 1) {
@@ -509,6 +503,7 @@ var render = function() {
                                                               }
                                                             }
                                                           ],
+                                                          ref: "btnShow",
                                                           on: {
                                                             click: function(
                                                               $event
@@ -550,7 +545,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      2255754683
+                                      3054582151
                                     )
                                   },
                                   [
@@ -598,6 +593,7 @@ var render = function() {
       _c(
         "b-modal",
         {
+          ref: "accountModel",
           attrs: {
             id: "chartOfAccounts",
             "hide-footer": "",
@@ -716,28 +712,15 @@ var render = function() {
                       _c(
                         "b-col",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "Chart Type" } },
-                            [
-                              _c("b-form-radio-group", {
-                                attrs: {
-                                  readonly: "",
-                                  buttons: "",
-                                  options: _vm.spark.enumChartType,
-                                  name: "enumChartType"
-                                },
-                                model: {
-                                  value: _vm.newChart.type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.newChart, "type", _vm._n($$v))
-                                  },
-                                  expression: "newChart.type"
-                                }
-                              })
-                            ],
-                            1
-                          )
+                          _c("b-button", [
+                            _vm._v(
+                              " \n                        " +
+                                _vm._s(
+                                  _vm.spark.enumChartType[_vm.newChart.type]
+                                ) +
+                                "\n                    "
+                            )
+                          ])
                         ],
                         1
                       ),

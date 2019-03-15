@@ -3345,7 +3345,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateValue: function updateValue(value) {
-      this.$emit('update:code', value.code + '.');
+      this.$emit('update:code', value.code + '.0');
       this.$emit('update:parentCode', value.code);
       this.$emit('update:parentName', value.name);
       this.$emit('update:parent_id', value.id);

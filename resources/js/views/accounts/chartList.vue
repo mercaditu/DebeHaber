@@ -58,7 +58,7 @@
 
                                 <template slot="actions" slot-scope="data">
                                     <b-button-group size="sm" class="show-when-hovered" v-if="data.item.is_accountable == 0">
-                                        <b-button v-b-modal.chartOfAccounts @click="$parent.createChild(data.item)">
+                                        <b-button v-b-modal.chartOfAccounts @click="$parent.createChild(data.item)" ref="btnShow">
                                             <i class="material-icons">playlist_add</i>
                                         </b-button>
                                     </b-button-group>
@@ -81,7 +81,7 @@
                 <router-view v-else></router-view>
             </b-col>
         </b-row>
-        <b-modal id="chartOfAccounts" hide-footer centered title="Create Chart" >
+        <b-modal id="chartOfAccounts" hide-footer centered title="Create Chart" ref="accountModel">
             <b-container v-if="parentChart != null">
                 <b-form-group :label="$t('accounting.parentChart')">
                     <b-input-group >
@@ -103,10 +103,9 @@
 
                 <b-row>
                     <b-col>
-                     
-                        <b-form-group label="Chart Type">
-                            <b-form-radio-group readonly buttons v-model.number="newChart.type" :options="spark.enumChartType" name="enumChartType"/>
-                        </b-form-group>
+                        <b-button> 
+                            {{ spark.enumChartType[newChart.type] }}
+                        </b-button>
                     </b-col>
                     <b-col>
                         <b-form-group label="Is Accountable">
@@ -195,9 +194,8 @@ export default {
                     crud.methods
                     .onUpdate(app.baseUrl + app.pageUrl, app.newChart)
                     .then(function (response) {
-                        app.$snack.success({ text: this.$i18n.t('general.saved', app.newChart.code) });
-                        app.$router.push({ name: app.$route.name, params: { id: '0' }})
-
+                        app.$snack.success({ text: app.$i18n.t('chart.saved', app.newChart.code) });
+                        app.$refs.accountModel.hide();
                     }).catch(function (error) {
                         app.$snack.danger({
                             text: this.$i18n.t('general.errorMessage'),
@@ -213,8 +211,8 @@ export default {
             app.parentChart = data;
             app.newChart.id = 0;
             app.newChart.code = app.parentChart.code + '.0';
-            app.newChart.type = app.parentChart.type + '.0';
-            app.newChart.sub_type = app.parentChart.sub_type + '.0';
+            app.newChart.type = app.parentChart.type;
+            app.newChart.sub_type = app.parentChart.sub_type;
         },
        
         typeVariant(chartType) {
