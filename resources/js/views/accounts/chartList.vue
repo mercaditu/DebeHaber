@@ -210,6 +210,8 @@ export default {
             var app = this;
             app.parentChart = data;
             app.newChart.id = 0;
+            app.newChart.parent_id = data.id;
+            app.newChart.is_accountable = app.parentChart.is_accountable ;
             app.newChart.code = app.parentChart.code + '.0';
             app.newChart.type = app.parentChart.type;
             app.newChart.sub_type = app.parentChart.sub_type;
