@@ -148,6 +148,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -156,10 +167,19 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       parentChart: "",
-      selectedChart: ""
+      newChart: {
+        id: 0
+      },
+      pageUrl: '/accounting/charts'
     };
   },
   computed: {
+    baseUrl: function baseUrl() {
+      return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
+    },
+    formURL: function formURL() {
+      return this.$route.name.replace("List", "Form");
+    },
     columns: function columns() {
       return [{
         key: "code",
@@ -179,6 +199,35 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onSaveNew: function onSaveNew() {
+      var app = this;
+
+      if (app.newChart.code != null && app.newChart.name != null) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.newChart).then(function (response) {
+          app.$snack.success({
+            text: this.$i18n.t('general.saved', app.newChart.code)
+          });
+          app.$router.push({
+            name: app.$route.name,
+            params: {
+              id: '0'
+            }
+          });
+        }).catch(function (error) {
+          app.$snack.danger({
+            text: this.$i18n.t('general.errorMessage')
+          });
+        });
+      }
+    },
+    createChild: function createChild(data) {
+      var app = this;
+      app.parentChart = data;
+      app.newChart.id = 0;
+      app.newChart.code = app.parentChart.code + '.0';
+      app.newChart.type = app.parentChart.type + '.0';
+      app.newChart.sub_type = app.parentChart.sub_type + '.0';
+    },
     typeVariant: function typeVariant(chartType) {
       if (chartType == 1) {
         return "light";
@@ -252,30 +301,15 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _vm.$route.name.includes("List")
-                            ? _c(
-                                "p",
-                                { staticClass: "lead" },
-                                [
-                                  _vm._v(
-                                    "\n                        " +
-                                      _vm._s(
-                                        _vm.$t(_vm.$route.meta.description)
-                                      ) +
-                                      ",\n                        "
-                                  ),
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to:
-                                          "{ name: $route.name, params: { id: 0}}"
-                                      }
-                                    },
-                                    [_vm._v("Create")]
-                                  )
-                                ],
-                                1
-                              )
+                            ? _c("p", { staticClass: "lead" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      _vm.$t(_vm.$route.meta.description)
+                                    ) +
+                                    ",\n                    "
+                                )
+                              ])
                             : _vm._e()
                         ]
                       ),
@@ -479,8 +513,9 @@ var render = function() {
                                                             click: function(
                                                               $event
                                                             ) {
-                                                              _vm.$parent.parentChart =
+                                                              return _vm.$parent.createChild(
                                                                 data.item
+                                                              )
                                                             }
                                                           }
                                                         },
@@ -515,7 +550,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      1204679891
+                                      2255754683
                                     )
                                   },
                                   [
@@ -563,7 +598,12 @@ var render = function() {
       _c(
         "b-modal",
         {
-          attrs: { id: "chartOfAccounts", centered: "", title: "Create Chart" }
+          attrs: {
+            id: "chartOfAccounts",
+            "hide-footer": "",
+            centered: "",
+            title: "Create Chart"
+          }
         },
         [
           _vm.parentChart != null
@@ -579,9 +619,9 @@ var render = function() {
                         [
                           _c("b-input", {
                             attrs: {
+                              readonly: "",
                               type: "text",
-                              placeholder: _vm.$t("commercial.parent"),
-                              disable: ""
+                              placeholder: _vm.$t("commercial.parent")
                             },
                             model: {
                               value: _vm.parentChart.code,
@@ -596,7 +636,7 @@ var render = function() {
                             "b-input-group-append",
                             [
                               _c("b-input", {
-                                attrs: { type: "text" },
+                                attrs: { readonly: "", type: "text" },
                                 model: {
                                   value: _vm.parentChart.name,
                                   callback: function($$v) {
@@ -628,15 +668,15 @@ var render = function() {
                               placeholder: _vm.$t("commercial.code")
                             },
                             model: {
-                              value: _vm.selectedChart.code,
+                              value: _vm.newChart.code,
                               callback: function($$v) {
                                 _vm.$set(
-                                  _vm.selectedChart,
+                                  _vm.newChart,
                                   "code",
                                   typeof $$v === "string" ? $$v.trim() : $$v
                                 )
                               },
-                              expression: "selectedChart.code"
+                              expression: "newChart.code"
                             }
                           }),
                           _vm._v(" "),
@@ -649,15 +689,15 @@ var render = function() {
                                   placeholder: _vm.$t("commercial.name")
                                 },
                                 model: {
-                                  value: _vm.selectedChart.name,
+                                  value: _vm.newChart.name,
                                   callback: function($$v) {
                                     _vm.$set(
-                                      _vm.selectedChart,
+                                      _vm.newChart,
                                       "name",
                                       typeof $$v === "string" ? $$v.trim() : $$v
                                     )
                                   },
-                                  expression: "selectedChart.name"
+                                  expression: "newChart.name"
                                 }
                               })
                             ],
@@ -682,20 +722,17 @@ var render = function() {
                             [
                               _c("b-form-radio-group", {
                                 attrs: {
+                                  readonly: "",
                                   buttons: "",
                                   options: _vm.spark.enumChartType,
                                   name: "enumChartType"
                                 },
                                 model: {
-                                  value: _vm.selectedChart.type,
+                                  value: _vm.newChart.type,
                                   callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.selectedChart,
-                                      "type",
-                                      _vm._n($$v)
-                                    )
+                                    _vm.$set(_vm.newChart, "type", _vm._n($$v))
                                   },
-                                  expression: "selectedChart.type"
+                                  expression: "newChart.type"
                                 }
                               })
                             ],
@@ -721,15 +758,15 @@ var render = function() {
                                     name: "check-button"
                                   },
                                   model: {
-                                    value: _vm.selectedChart.is_accountable,
+                                    value: _vm.newChart.is_accountable,
                                     callback: function($$v) {
                                       _vm.$set(
-                                        _vm.selectedChart,
+                                        _vm.newChart,
                                         "is_accountable",
                                         $$v
                                       )
                                     },
-                                    expression: "selectedChart.is_accountable"
+                                    expression: "newChart.is_accountable"
                                   }
                                 },
                                 [
@@ -752,7 +789,7 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _vm.selectedChart.type == 1
+                  _vm.newChart.type == 1
                     ? _c(
                         "b-form-group",
                         {
@@ -766,15 +803,11 @@ var render = function() {
                           _c("b-form-radio-group", {
                             attrs: { options: _vm.spark.enumAsset },
                             model: {
-                              value: _vm.selectedChart.sub_type,
+                              value: _vm.newChart.sub_type,
                               callback: function($$v) {
-                                _vm.$set(
-                                  _vm.selectedChart,
-                                  "sub_type",
-                                  _vm._n($$v)
-                                )
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
                               },
-                              expression: "selectedChart.sub_type"
+                              expression: "newChart.sub_type"
                             }
                           })
                         ],
@@ -782,7 +815,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.selectedChart.type == 2
+                  _vm.newChart.type == 2
                     ? _c(
                         "b-form-group",
                         {
@@ -796,15 +829,11 @@ var render = function() {
                           _c("b-form-radio-group", {
                             attrs: { options: _vm.spark.enumLiability },
                             model: {
-                              value: _vm.selectedChart.sub_type,
+                              value: _vm.newChart.sub_type,
                               callback: function($$v) {
-                                _vm.$set(
-                                  _vm.selectedChart,
-                                  "sub_type",
-                                  _vm._n($$v)
-                                )
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
                               },
-                              expression: "selectedChart.sub_type"
+                              expression: "newChart.sub_type"
                             }
                           })
                         ],
@@ -812,7 +841,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.selectedChart.type == 3
+                  _vm.newChart.type == 3
                     ? _c(
                         "b-form-group",
                         {
@@ -826,15 +855,11 @@ var render = function() {
                           _c("b-form-radio-group", {
                             attrs: { options: _vm.spark.enumEquity },
                             model: {
-                              value: _vm.selectedChart.sub_type,
+                              value: _vm.newChart.sub_type,
                               callback: function($$v) {
-                                _vm.$set(
-                                  _vm.selectedChart,
-                                  "sub_type",
-                                  _vm._n($$v)
-                                )
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
                               },
-                              expression: "selectedChart.sub_type"
+                              expression: "newChart.sub_type"
                             }
                           })
                         ],
@@ -842,7 +867,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.selectedChart.type == 4
+                  _vm.newChart.type == 4
                     ? _c(
                         "b-form-group",
                         {
@@ -856,15 +881,11 @@ var render = function() {
                           _c("b-form-radio-group", {
                             attrs: { options: _vm.spark.enumRevenue },
                             model: {
-                              value: _vm.selectedChart.sub_type,
+                              value: _vm.newChart.sub_type,
                               callback: function($$v) {
-                                _vm.$set(
-                                  _vm.selectedChart,
-                                  "sub_type",
-                                  _vm._n($$v)
-                                )
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
                               },
-                              expression: "selectedChart.sub_type"
+                              expression: "newChart.sub_type"
                             }
                           })
                         ],
@@ -872,7 +893,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.selectedChart.type == 5
+                  _vm.newChart.type == 5
                     ? _c(
                         "b-form-group",
                         {
@@ -886,21 +907,64 @@ var render = function() {
                           _c("b-form-radio-group", {
                             attrs: { options: _vm.spark.enumExpense },
                             model: {
-                              value: _vm.selectedChart.sub_type,
+                              value: _vm.newChart.sub_type,
                               callback: function($$v) {
-                                _vm.$set(
-                                  _vm.selectedChart,
-                                  "sub_type",
-                                  _vm._n($$v)
-                                )
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
                               },
-                              expression: "selectedChart.sub_type"
+                              expression: "newChart.sub_type"
                             }
                           })
                         ],
                         1
                       )
-                    : _vm._e()
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-button-toolbar",
+                    { staticClass: "float-right d-none d-md-block" },
+                    [
+                      _c(
+                        "b-button-group",
+                        { staticClass: "ml-15" },
+                        [
+                          _c(
+                            "b-btn",
+                            {
+                              directives: [
+                                {
+                                  name: "shortkey",
+                                  rawName: "v-shortkey",
+                                  value: ["ctrl", "n"],
+                                  expression: "['ctrl', 'n']"
+                                }
+                              ],
+                              attrs: { variant: "primary" },
+                              on: {
+                                shortkey: function($event) {
+                                  return _vm.onSaveNew()
+                                },
+                                click: function($event) {
+                                  return _vm.onSaveNew()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "material-icons" }, [
+                                _vm._v("save")
+                              ]),
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(_vm.$t("general.save")) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )

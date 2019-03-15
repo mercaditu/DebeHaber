@@ -43,7 +43,8 @@ Route::group([ 'middleware' => 'auth:api' ], function () {
             Route::prefix('search')->group(function () {
                 Route::get('transactions/{q}', 'SearchController@searchTransactions');
                 Route::get('taxpayers/{q}', 'SearchController@searchTaxPayers');
-                Route::get('charts/{q}', 'SearchController@searchCharts');
+                Route::get('chartsName/{q}', 'SearchController@searchChartsName');
+                Route::get('chartsCode/{q}', 'SearchController@searchChartsCode');
                 Route::get('partnerName/{q}', 'SearchController@searchPartnerName');
                 Route::get('partnerTaxid/{q}', 'SearchController@searchPartnerTaxid');
             });

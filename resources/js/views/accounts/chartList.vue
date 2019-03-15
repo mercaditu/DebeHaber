@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-row v-if="$route.name.includes('List')">
+        <b-row v-if="$route.name.includes('List')" >
             <b-col>
                 <b-card-group deck>
                     <b-card bg-variant="dark" text-variant="white">
@@ -10,7 +10,6 @@
                         </h4>
                         <p class="lead" v-if="$route.name.includes('List')">
                             {{ $t($route.meta.description) }},
-                            <router-link to="{ name: $route.name, params: { id: 0}}">Create</router-link>
                         </p>
                     </b-card>
 
@@ -27,6 +26,7 @@
                                 <i class="material-icons">cloud_upload</i>
                                 {{ $t('general.uploadFromExcel') }}
                             </b-list-group-item>
+                           
                             <b-list-group-item :to="{ name: formURL, params: { id: 0}}">
                                 <i class="material-icons md-light">add_box</i>
                                 {{ $t('general.createNewRecord') }}
@@ -58,7 +58,7 @@
 
                                 <template slot="actions" slot-scope="data">
                                     <b-button-group size="sm" class="show-when-hovered" v-if="data.item.is_accountable == 0">
-                                        <b-button v-b-modal.chartOfAccounts @click="$parent.parentChart = data.item">
+                                        <b-button v-b-modal.chartOfAccounts @click="$parent.createChild(data.item)">
                                             <i class="material-icons">playlist_add</i>
                                         </b-button>
                                     </b-button-group>
@@ -81,56 +81,67 @@
                 <router-view v-else></router-view>
             </b-col>
         </b-row>
-        <b-modal id="chartOfAccounts" centered title="Create Chart">
+        <b-modal id="chartOfAccounts" hide-footer centered title="Create Chart" >
             <b-container v-if="parentChart != null">
                 <b-form-group :label="$t('accounting.parentChart')">
-                    <b-input-group>
-                        <b-input type="text" :placeholder="$t('commercial.parent')" v-model="parentChart.code" disable/>
+                    <b-input-group >
+                        <b-input readonly  type="text" :placeholder="$t('commercial.parent')" v-model="parentChart.code"/>
                         <b-input-group-append>
-                            <b-input type="text" v-model="parentChart.name"/>
+                            <b-input readonly type="text" v-model="parentChart.name"/>
                         </b-input-group-append>
                     </b-input-group>
                 </b-form-group>
 
                 <b-form-group :label="$t('accounting.chart')">
                     <b-input-group>
-                        <b-input required :placeholder="$t('commercial.code')" v-model.trim="selectedChart.code"/>
+                        <b-input required :placeholder="$t('commercial.code')" v-model.trim="newChart.code"/>
                         <b-input-group-append>
-                            <b-input required :placeholder="$t('commercial.name')" v-model.trim="selectedChart.name"/>
+                            <b-input required :placeholder="$t('commercial.name')" v-model.trim="newChart.name"/>
                         </b-input-group-append>
                     </b-input-group>
                 </b-form-group>
 
                 <b-row>
                     <b-col>
+                     
                         <b-form-group label="Chart Type">
-                            <b-form-radio-group buttons v-model.number="selectedChart.type" :options="spark.enumChartType" name="enumChartType"/>
+                            <b-form-radio-group readonly buttons v-model.number="newChart.type" :options="spark.enumChartType" name="enumChartType"/>
                         </b-form-group>
                     </b-col>
                     <b-col>
                         <b-form-group label="Is Accountable">
-                            <b-form-checkbox switch v-model="selectedChart.is_accountable" size="lg" name="check-button">
+                            <b-form-checkbox switch v-model="newChart.is_accountable" size="lg" name="check-button">
                                 {{ $t('accounting.isAccountable') }}
                             </b-form-checkbox>
                         </b-form-group>
                     </b-col>
                 </b-row>
+                
+                      
+                <b-form-group label="Asset Types" v-if="newChart.type == 1" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumAsset"/>
+                </b-form-group>
+                <b-form-group label="Liability Types" v-if="newChart.type == 2" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumLiability"/>
+                </b-form-group>
+                <b-form-group label="Equity Types" v-if="newChart.type == 3" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumEquity"/>
+                </b-form-group>
+                <b-form-group label="Revenue Types" v-if="newChart.type == 4" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumRevenue"/>
+                </b-form-group>
+                <b-form-group label="Expense Types" v-if="newChart.type == 5" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
+                    <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumExpense"/>
+                </b-form-group>
 
-                <b-form-group label="Asset Types" v-if="selectedChart.type == 1" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumAsset"/>
-                </b-form-group>
-                <b-form-group label="Liability Types" v-if="selectedChart.type == 2" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumLiability"/>
-                </b-form-group>
-                <b-form-group label="Equity Types" v-if="selectedChart.type == 3" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumEquity"/>
-                </b-form-group>
-                <b-form-group label="Revenue Types" v-if="selectedChart.type == 4" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumRevenue"/>
-                </b-form-group>
-                <b-form-group label="Expense Types" v-if="selectedChart.type == 5" description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts.">
-                    <b-form-radio-group v-model.number="selectedChart.sub_type" :options="spark.enumExpense"/>
-                </b-form-group>
+                <b-button-toolbar class="float-right d-none d-md-block">
+                    <b-button-group class="ml-15">
+                        <b-btn variant="primary" v-shortkey="['ctrl', 'n']" @shortkey="onSaveNew()" @click="onSaveNew()">
+                            <i class="material-icons">save</i>
+                            {{ $t('general.save') }}
+                        </b-btn>
+                    </b-button-group>
+                </b-button-toolbar>
             </b-container>
         </b-modal>
     </div>
@@ -142,9 +153,16 @@ export default {
     components: { crud },
     data: () => ({
         parentChart: "",
-        selectedChart: ""
+        newChart: { id:0 },
+        pageUrl: '/accounting/charts',
     }),
     computed: {
+          baseUrl() {
+            return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
+        },
+          formURL: function() {
+            return this.$route.name.replace("List", "Form");
+        },
         columns() {
             return [
                 {
@@ -169,6 +187,36 @@ export default {
         }
     },
     methods: {
+         onSaveNew() {
+            var app = this;
+
+            if (app.newChart.code != null && app.newChart.name != null)
+            {
+                    crud.methods
+                    .onUpdate(app.baseUrl + app.pageUrl, app.newChart)
+                    .then(function (response) {
+                        app.$snack.success({ text: this.$i18n.t('general.saved', app.newChart.code) });
+                        app.$router.push({ name: app.$route.name, params: { id: '0' }})
+
+                    }).catch(function (error) {
+                        app.$snack.danger({
+                            text: this.$i18n.t('general.errorMessage'),
+                        });
+                    });
+            }
+            
+        },
+
+        createChild(data)
+        {
+            var app = this;
+            app.parentChart = data;
+            app.newChart.id = 0;
+            app.newChart.code = app.parentChart.code + '.0';
+            app.newChart.type = app.parentChart.type + '.0';
+            app.newChart.sub_type = app.parentChart.sub_type + '.0';
+        },
+       
         typeVariant(chartType) {
             if (chartType == 1) {
                 return "light";

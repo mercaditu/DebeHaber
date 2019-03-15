@@ -32,6 +32,10 @@ Vue.component(
     require('./search-taxpayer.vue').default
 );
 Vue.component(
+    'search-chart',
+    require('./search-chart.vue').default
+);
+Vue.component(
     'table-actions',
     require('./table/actions.vue').default
 );

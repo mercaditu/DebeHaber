@@ -43,10 +43,7 @@
                     <b-container>
                         <b-form-group :label="$t('accounting.parentChart')">
                             <b-input-group>
-                                <b-input type="text" :placeholder="$t('commercial.parent')" v-model="data.parent"/>
-                                <b-input-group-append>
-                                    <b-input type="text" v-model="data.parent"/>
-                                </b-input-group-append>
+                                <search-chart  v-bind:code.sync="data.code" v-bind:parentCode.sync="data.parentCode"  v-bind:parentName.sync="data.parentName" v-bind:parent_id.sync="data.parent_id"></search-chart>
                             </b-input-group>
                         </b-form-group>
 
@@ -114,12 +111,7 @@
             <b-col>
                 <b-card :title="$t('commercial.customer')" :sub-title="$t('commercial.accountsReceivable')">
                     <b-form-group :label="$t('commercial.customer')">
-                        <b-input-group>
-                            <b-input type="text" :placeholder="$t('general.name')" v-model="data.partner_name"/>
-                            <b-input-group-append>
-                                <b-input type="text" :placeholder="spark.taxPayerConfig.taxid_name" v-model="data.partner_taxid"/>
-                            </b-input-group-append>
-                        </b-input-group>
+                        <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer>
                     </b-form-group>
                 </b-card>
             </b-col>
@@ -129,12 +121,7 @@
             <b-col>
                 <b-card :title="$t('commercial.supplier')" :sub-title="$t('commercial.accountsPayable')">
                     <b-form-group :label="$t('commercial.supplier')">
-                        <b-input-group>
-                            <b-input type="text" :placeholder="$t('general.name')" v-model="data.partner_name"/>
-                            <b-input-group-append>
-                                <b-input type="text" :placeholder="spark.taxPayerConfig.taxid_name" v-model="data.partner_taxid"/>
-                            </b-input-group-append>
-                        </b-input-group>
+                           <search-taxpayer  v-bind:partner_name.sync="data.partner_name"  v-bind:partner_taxid.sync="data.partner_taxid"></search-taxpayer> 
                     </b-form-group>
                 </b-card>
             </b-col>
@@ -164,6 +151,8 @@ export default {
                 taxpayer_id: null,
                 country: null,
                 is_accountable: false,
+                 parentCode: '',
+                  parentName: '',
                 code: '',
                 name: '',
                 level: 1,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Taxpayer;
 use App\Cycle;
 use App\Transaction;
+use App\Chart;
 use Illuminate\Http\Request;
 use App\Http\Resources\ModelResource;
 
@@ -91,9 +92,24 @@ class SearchController extends Controller
         return GeneralResource::collection(Taxpayer::search($q)->paginate(25));
     }
 
-    public function searchCharts($taxPayer, $cycle, $q)
+    public function searchChartsName(TaxPayer $taxPayer,Cycle $cycle, $q)
     {
-        return GeneralResource::collection(Chart::search($q)->paginate(25));
+       $chart = Chart::My($taxPayer,$cycle)->selectRaw('max(name) as name,max(code) as code,max(id) as id')
+                      ->whereNull('parent_id')
+                      ->where('name', 'LIKE', '%'.$q.'%')
+                      ->groupBy('code')
+                      ->get();  
+                return $chart;
+    }
+
+    public function searchChartsCode(TaxPayer $taxPayer,Cycle $cycle, $q)
+    {
+        $chart = Chart::My($taxPayer,$cycle)->selectRaw('max(name) as name,max(code) as code,max(id) as id')
+                      ->whereNull('parent_id')
+                      ->where('code', 'LIKE', '%'.$q.'%')
+                      ->groupBy('code')
+                      ->get();  
+                return $chart;
     }
 
     public function searchPartnerName($taxPayer, $cycle, $q)

@@ -39,11 +39,11 @@ class ChartController extends Controller
     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        $chart = Chart::firstOrNew('id', $request->id);
+        $chart = Chart::firstOrNew(['id' => $request->id]);
         $chart->chart_version_id = $cycle->chart_version_id;
         $chart->country = $taxPayer->country;
         $chart->taxpayer_id = $taxPayer->id;
-
+        
         if ($request->parent_id > 0) {
             $chart->parent_id = $request->parent_id;
         }

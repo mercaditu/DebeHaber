@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chart extends Model
 {
+       protected $fillable = [
+        'id'
+       
+    ];
     // use Searchable;
     // public $searchable = ['id',
     // 'code',

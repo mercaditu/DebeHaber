@@ -151,19 +151,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -177,6 +164,8 @@ __webpack_require__.r(__webpack_exports__);
         taxpayer_id: null,
         country: null,
         is_accountable: false,
+        parentCode: '',
+        parentName: '',
         code: '',
         name: '',
         level: 1,
@@ -534,36 +523,54 @@ var render = function() {
                           _c(
                             "b-input-group",
                             [
-                              _c("b-input", {
+                              _c("search-chart", {
                                 attrs: {
-                                  type: "text",
-                                  placeholder: _vm.$t("commercial.parent")
+                                  code: _vm.data.code,
+                                  parentCode: _vm.data.parentCode,
+                                  parentName: _vm.data.parentName,
+                                  parent_id: _vm.data.parent_id
                                 },
-                                model: {
-                                  value: _vm.data.parent,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "parent", $$v)
+                                on: {
+                                  "update:code": function($event) {
+                                    return _vm.$set(_vm.data, "code", $event)
                                   },
-                                  expression: "data.parent"
+                                  "update:parentCode": function($event) {
+                                    return _vm.$set(
+                                      _vm.data,
+                                      "parentCode",
+                                      $event
+                                    )
+                                  },
+                                  "update:parent-code": function($event) {
+                                    return _vm.$set(
+                                      _vm.data,
+                                      "parentCode",
+                                      $event
+                                    )
+                                  },
+                                  "update:parentName": function($event) {
+                                    return _vm.$set(
+                                      _vm.data,
+                                      "parentName",
+                                      $event
+                                    )
+                                  },
+                                  "update:parent-name": function($event) {
+                                    return _vm.$set(
+                                      _vm.data,
+                                      "parentName",
+                                      $event
+                                    )
+                                  },
+                                  "update:parent_id": function($event) {
+                                    return _vm.$set(
+                                      _vm.data,
+                                      "parent_id",
+                                      $event
+                                    )
+                                  }
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "b-input-group-append",
-                                [
-                                  _c("b-input", {
-                                    attrs: { type: "text" },
-                                    model: {
-                                      value: _vm.data.parent,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.data, "parent", $$v)
-                                      },
-                                      expression: "data.parent"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
+                              })
                             ],
                             1
                           )
@@ -891,46 +898,28 @@ var render = function() {
                         "b-form-group",
                         { attrs: { label: _vm.$t("commercial.customer") } },
                         [
-                          _c(
-                            "b-input-group",
-                            [
-                              _c("b-input", {
-                                attrs: {
-                                  type: "text",
-                                  placeholder: _vm.$t("general.name")
-                                },
-                                model: {
-                                  value: _vm.data.partner_name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "partner_name", $$v)
-                                  },
-                                  expression: "data.partner_name"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "b-input-group-append",
-                                [
-                                  _c("b-input", {
-                                    attrs: {
-                                      type: "text",
-                                      placeholder:
-                                        _vm.spark.taxPayerConfig.taxid_name
-                                    },
-                                    model: {
-                                      value: _vm.data.partner_taxid,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.data, "partner_taxid", $$v)
-                                      },
-                                      expression: "data.partner_taxid"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
+                          _c("search-taxpayer", {
+                            attrs: {
+                              partner_name: _vm.data.partner_name,
+                              partner_taxid: _vm.data.partner_taxid
+                            },
+                            on: {
+                              "update:partner_name": function($event) {
+                                return _vm.$set(
+                                  _vm.data,
+                                  "partner_name",
+                                  $event
+                                )
+                              },
+                              "update:partner_taxid": function($event) {
+                                return _vm.$set(
+                                  _vm.data,
+                                  "partner_taxid",
+                                  $event
+                                )
+                              }
+                            }
+                          })
                         ],
                         1
                       )
@@ -965,46 +954,28 @@ var render = function() {
                         "b-form-group",
                         { attrs: { label: _vm.$t("commercial.supplier") } },
                         [
-                          _c(
-                            "b-input-group",
-                            [
-                              _c("b-input", {
-                                attrs: {
-                                  type: "text",
-                                  placeholder: _vm.$t("general.name")
-                                },
-                                model: {
-                                  value: _vm.data.partner_name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "partner_name", $$v)
-                                  },
-                                  expression: "data.partner_name"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "b-input-group-append",
-                                [
-                                  _c("b-input", {
-                                    attrs: {
-                                      type: "text",
-                                      placeholder:
-                                        _vm.spark.taxPayerConfig.taxid_name
-                                    },
-                                    model: {
-                                      value: _vm.data.partner_taxid,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.data, "partner_taxid", $$v)
-                                      },
-                                      expression: "data.partner_taxid"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
+                          _c("search-taxpayer", {
+                            attrs: {
+                              partner_name: _vm.data.partner_name,
+                              partner_taxid: _vm.data.partner_taxid
+                            },
+                            on: {
+                              "update:partner_name": function($event) {
+                                return _vm.$set(
+                                  _vm.data,
+                                  "partner_name",
+                                  $event
+                                )
+                              },
+                              "update:partner_taxid": function($event) {
+                                return _vm.$set(
+                                  _vm.data,
+                                  "partner_taxid",
+                                  $event
+                                )
+                              }
+                            }
+                          })
                         ],
                         1
                       )
