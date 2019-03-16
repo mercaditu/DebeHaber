@@ -48,13 +48,13 @@ class ChartController extends Controller
             $chart->parent_id = $request->parent_id;
         }
 
-        if ($request->is_accountable == true) {
-            $chart->is_accountable = 1;
+     //   if ($request->is_accountable == true) {
+            $chart->is_accountable = $request->is_accountable;
             $chart->sub_type = $request->sub_type;
-        } else {
-            $chart->is_accountable = 0;
-            $chart->sub_type = null;
-        }
+        // } else {
+        //     $chart->is_accountable = 0;
+        //     $chart->sub_type = null;
+        // }
 
         if ($request->type > 0) {
             $chart->type = $request->type;
