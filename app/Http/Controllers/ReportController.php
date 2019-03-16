@@ -608,6 +608,7 @@ class ReportController extends Controller
             ->leftJoin('charts as vats', 'vats.id', 'transaction_details.chart_vat_id')
             ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
             ->where('transactions.deleted_at', '=', null)
+            ->where('transactions.taxpayer_id', $taxPayer->id)
             ->where('transactions.type', 1)
             ->whereBetween('transactions.date', array(Carbon::parse($startDate)->startOfDay(), Carbon::parse($endDate)->endOfDay()))
             ->select(
