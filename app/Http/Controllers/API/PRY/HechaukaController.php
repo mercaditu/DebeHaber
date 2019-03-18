@@ -43,9 +43,8 @@ class HechaukaController extends Controller
         $raw = DB::select('
         select
         max(t.id) as ID,
-        max(customer.name) Partner,
-        max(customer.taxid) PartnerTaxID,
-        max(customer.code) PartnerTaxCode,
+        max(partner_name) Partner,
+        max(partner_taxid) PartnerTaxID,
         max(t.date) as Date,
         max(t.number) as Number,
         max(t.code) as Code,
@@ -68,10 +67,11 @@ class HechaukaController extends Controller
         join charts as c on transaction_details.chart_vat_id = c.id
         group by transaction_id, transaction_details.chart_vat_id
         ) as td on td.transaction_id = t.id
-        join taxpayers as customer on t.customer_id = customer.id
-        where (t.supplier_id = ' . $taxPayer->id . '
+        where (t.taxpayer_id = ' . $taxPayer->id . '
         and t.deleted_at is null
-        and t.date between "' . $startDate . '" and "' . $endDate . '" and t.type in (3, 4))
+        and t.date between "' . $startDate . '" and "' . $endDate . '" 
+        and t.type = 2
+        and t.sub_type in (1, 2)
         group by t.id');
 
         $raw = collect($raw);
@@ -172,7 +172,7 @@ class HechaukaController extends Controller
                     /* 4 */ " \t " . $obligationCode .
                     /* 5 */ " \t " . $formCode .
                     /* 6 */ " \t " . $taxPayerTaxID .
-                    /* 7 */ " \t " . $taxPayerTaxCode .
+                    /* 7 */ " \t " . $this->calculateTaxCode($taxPayerTaxID) .
                     /* 8 */ " \t " . $taxPayer->name .
                     /* 9 */ " \t " . $agentTaxID .
                     /* 10 */ " \t " . $agentTaxCode .
@@ -202,16 +202,16 @@ class HechaukaController extends Controller
 
     public function generatePurchases($startDate, $endDate, $taxPayer, $integration, $zip)
     {
-        $raw = DB::select('select
+        $raw = DB::select('
+        select
         max(t.id) as ID,
-        max(supplier.name) as Partner,
-        max(supplier.taxid) as PartnerTaxID,
-        max(supplier.code) as PartnerTaxCode,
+        max(partner_name) Partner,
+        max(partner_taxid) PartnerTaxID,
         max(t.date) as Date,
         max(t.number) as Number,
         max(t.code) as Code,
-        max(t.code_expiry) as CodeExpiry,
         max(t.payment_condition) as PaymentCondition,
+        max(t.code_expiry) as CodeExpiry,
         max(t.document_type) as DocumentType,
         ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
         ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
@@ -222,19 +222,18 @@ class HechaukaController extends Controller
         max(transaction_id) as transaction_id,
         sum(value) as value,
         max(c.coefficient) as coefficient,
-        if(max(c.coefficient) = 0, sum(value), 0) as ValueInZero,
-        if(max(c.coefficient) = 0.05, sum(value), 0) as ValueInFive,
-        if(max(c.coefficient) = 0.1, sum(value), 0) as ValueInTen
+        round(if(max(c.coefficient) = 0, sum(value), 0)) as ValueInZero,
+        round(if(max(c.coefficient) = 0.05, sum(value), 0)) as ValueInFive,
+        round(if(max(c.coefficient) = 0.1, sum(value), 0)) as ValueInTen
         from transaction_details
         join charts as c on transaction_details.chart_vat_id = c.id
         group by transaction_id, transaction_details.chart_vat_id
         ) as td on td.transaction_id = t.id
-        join taxpayers as supplier on t.supplier_id = supplier.id
-        where
-        ( t.customer_id = ' . $taxPayer->id . ' and
-        t.deleted_at is null and
-        t.date between "' . $startDate . '" and "' . $endDate . '" and
-        t.type in (1, 2, 5) )
+        where (t.taxpayer_id = ' . $taxPayer->id . '
+        and t.deleted_at is null
+        and t.date between "' . $startDate . '" and "' . $endDate . '" 
+        and t.type = 1
+        and t.sub_type in (1, 2)
         group by t.id');
 
         $raw = collect($raw);
@@ -273,7 +272,7 @@ class HechaukaController extends Controller
                     /* 4 */ " \t " . ($obligationCode) .
                     /* 5 */ " \t " . ($formCode) .
                     /* 6 */ " \t " . ($taxPayerTaxID) .
-                    /* 7 */ " \t " . ($taxPayerTaxCode) .
+                    /* 7 */ " \t " . $this->calculateTaxCode($taxPayerTaxID) .
                     /* 8 */ " \t " . ($taxPayer->name) .
                     /* 9 */ " \t " . ($agentTaxID) .
                     /* 10 */ " \t " . ($agentTaxCode) .
@@ -304,7 +303,7 @@ class HechaukaController extends Controller
                         $detail = $detail .
                             /* 1 */ ' 2 ' .
                             /* 2 */ " \t " . ($row->PartnerTaxID) .
-                            /* 3 */ " \t " . ($row->PartnerTaxCode) .
+                            /* 3 */ " \t " . $this->calculateTaxCode($row->PartnerTaxID) .
                             /* 4 */ " \t " . ($row->Partner) .
                             /* 5 */ " \t " . ($row->Code) .
                             /* 6 */ " \t " . ($row->DocumentType) .
