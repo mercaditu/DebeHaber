@@ -93,6 +93,9 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   computed: {
+    formURL: function formURL() {
+      return this.$route.name.replace("List", "Form");
+    },
     columns: function columns() {
       return [{
         key: 'chart_version.name',
@@ -183,8 +186,10 @@ var render = function() {
                                     "router-link",
                                     {
                                       attrs: {
-                                        to:
-                                          "{ name: $route.name, params: { id: 0}}"
+                                        to: {
+                                          name: _vm.formURL,
+                                          params: { id: 0 }
+                                        }
                                       }
                                     },
                                     [_vm._v("Create")]

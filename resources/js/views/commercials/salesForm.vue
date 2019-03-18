@@ -302,7 +302,7 @@ export default {
                 app.$snack.success({
                     text: app.$i18n.t("commercial.invoiceSaved")
                 });
-                app.$router.push({ name: app.$route.name, params: { id: '0' }})
+                
                 app.data.customer_id = 0;
                 app.data.customer = [];
                 app.data.chart_account_id= 0,
@@ -324,8 +324,10 @@ export default {
                 app.data.payment_condition= 0,
                 app.data.rate= 1,
                 app.data.type= 3
+                app.$router.push({ name: app.$route.name, params: { id: '0' }})
             })
             .catch(function(error) {
+                console.log(error);
                 app.$snack.danger({ text: this.$i18n.t("general.errorMessage") + error.message });
             });
         },

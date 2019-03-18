@@ -2,7 +2,7 @@
     <div>
         <b-input-group>
                 <b-input type="text" v-model="partnerName" placeholder="Search for Taxpayer Name" @keyup="searchPartnername()"/>
-                <b-input type="text" v-model="partnerTaxid" placeholder="Search for Taxpayer Name" @keyup="searchPartnertaxid()"/>
+                <b-input type="text" v-model="partnerTaxid" placeholder="Search for Taxpayer TaxID" @keyup="searchPartnertaxid()"/>
         </b-input-group>
         <b-list-group>
             <b-list-group-item  v-for="taxPayer in taxPayers" @click="select(taxPayer)" :key="taxPayer.id">
@@ -33,7 +33,7 @@ export default {
                     // setter
                     set: function (newValue) {
                     this.searchname = newValue
-                  
+                    this.$emit('update:partner_name', newValue);
                     }
         },
         partnerTaxid: {
@@ -44,7 +44,7 @@ export default {
                     // setter
                     set: function (newValue) {
                     this.searchtaxid = newValue
-                  
+                    this.$emit('update:partner_taxid', newValue);
                     }
         },
         baseUrl() {

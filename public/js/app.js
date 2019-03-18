@@ -3460,6 +3460,7 @@ __webpack_require__.r(__webpack_exports__);
       // setter
       set: function set(newValue) {
         this.searchname = newValue;
+        this.$emit('update:partner_name', newValue);
       }
     },
     partnerTaxid: {
@@ -3470,6 +3471,7 @@ __webpack_require__.r(__webpack_exports__);
       // setter
       set: function set(newValue) {
         this.searchtaxid = newValue;
+        this.$emit('update:partner_taxid', newValue);
       }
     },
     baseUrl: function baseUrl() {
@@ -105342,7 +105344,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("b-input", {
-            attrs: { type: "text", placeholder: "Search for Taxpayer Name" },
+            attrs: { type: "text", placeholder: "Search for Taxpayer TaxID" },
             on: {
               keyup: function($event) {
                 return _vm.searchPartnertaxid()

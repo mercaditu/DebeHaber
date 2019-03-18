@@ -15,7 +15,7 @@ class TransactionController extends Controller
 	{
 		$transactionData = array();
 		$cycle = null;
-
+		$taxPayer  = null;
 		$chunkedData = $request;
 
 		if (isset($chunkedData)) {
@@ -32,6 +32,8 @@ class TransactionController extends Controller
 				} else if ($groupedRow->first()['Type'] == 1 ) {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['CustomerTaxID'], $groupedRow->first()['CustomerName']);
 				}
+				
+				
 
 				//check and create cycle
 				$firstDate = Carbon::parse($groupedRow->first()["Date"]);
@@ -75,6 +77,7 @@ class TransactionController extends Controller
 		$transaction->type = $transactionType;
 		$transaction->sub_type = $transactionSubType;
 		$transaction->taxpayer_id = $taxPayer->id;
+
 		$transaction->partner_name = ($transactionType == 1 ) ? $data['SupplierName'] : $data['CustomerName'];
 		$transaction->partner_taxid = ($transactionType == 1 ) ? $data['SupplierTaxID'] : $data['CustomerTaxID'];
 

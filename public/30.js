@@ -303,18 +303,19 @@ __webpack_require__.r(__webpack_exports__);
         app.$snack.success({
           text: app.$i18n.t("commercial.invoiceSaved")
         });
+        app.data.customer_id = 0;
+        app.data.customer = [];
+        app.data.chart_account_id = 0, app.data.code = "", app.data.code_expiry = "", app.data.comment = "", app.data.currency = "", app.data.partner_name = "", app.data.partner_taxid = "", app.data.customer = [], app.data.date = "", app.data.details = [{
+          id: 0
+        }], app.data.document_id = "", app.data.document_type = 1, app.data.id = 0, app.data.is_deductible = 0, app.data.journal_id = null, app.data.number = "", app.data.payment_condition = 0, app.data.rate = 1, app.data.type = 3;
         app.$router.push({
           name: app.$route.name,
           params: {
             id: '0'
           }
         });
-        app.data.customer_id = 0;
-        app.data.customer = [];
-        app.data.chart_account_id = 0, app.data.code = "", app.data.code_expiry = "", app.data.comment = "", app.data.currency = "", app.data.partner_name = "", app.data.partner_taxid = "", app.data.customer = [], app.data.date = "", app.data.details = [{
-          id: 0
-        }], app.data.document_id = "", app.data.document_type = 1, app.data.id = 0, app.data.is_deductible = 0, app.data.journal_id = null, app.data.number = "", app.data.payment_condition = 0, app.data.rate = 1, app.data.type = 3;
       }).catch(function (error) {
+        console.log(error);
         app.$snack.danger({
           text: this.$i18n.t("general.errorMessage") + error.message
         });
