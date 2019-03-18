@@ -1,1 +1,800 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[29],{ihvW:function(t,a,e){"use strict";e.r(a);var n=e("gku4"),r={components:{crud:n.a},data:function(){return{data:{chart_account_id:0,comment:"",currency:"",date:"",id:0,rate:1,payment_value:0},pageUrl:"/commercial/accounts-receivable",currencies:[],accountCharts:[],lastDeletedRow:[]}},computed:{baseUrl:function(){return"/api/"+this.$route.params.taxPayer+"/"+this.$route.params.cycle}},methods:{onSaveNew:function(){var t=this;n.a.methods.onUpdate(t.baseUrl+t.pageUrl,t.data).then(function(a){t.$snack.success({text:t.$i18n.t("commercial.accountReceivableSaved")}),t.$router.go(-1)}).catch(function(a){t.$snack.danger({text:this.$i18n.t("general.errorMessage")})})},onCancel:function(){var t=this;this.$swal.fire({title:this.$i18n.t("general.cancel"),text:this.$i18n.t("general.cancelVerification"),type:"warning",showCancelButton:!0,confirmButtonText:this.$i18n.t("general.cancelConfirmation"),cancelButtonText:this.$i18n.t("general.cancelRejection")}).then(function(a){a.value&&t.$router.go(-1)})}},mounted:function(){var t=this;n.a.methods.onRead(t.baseUrl+"/config/currencies").then(function(a){t.currencies=a.data.data}),t.$route.params.id>0&&n.a.methods.onRead(t.baseUrl+t.pageUrl+"/"+t.$route.params.id).then(function(a){t.data=a.data.data;var e=0;null!=t.data.details&&(e=t.data.details.reduce(function(t,a){return t+new Number(a.value)},0));var n=0;null!=t.data.accountMovements&&(n=t.data.accountMovements.reduce(function(t,a){return t+new Number(a.debit)},0)),t.data.payment_value=e-n,t.data.date=new Date(Date.now()).toISOString().split("T")[0],t.data.chart_account_id=null!=t.accountCharts[0]?t.accountCharts[0].id:null,t.data.currency=t.spark.taxPayerData.currency,t.data.rate=1}),n.a.methods.onRead(t.baseUrl+"/accounting/charts/for/money/").then(function(a){t.accountCharts=a.data.data})}},c=e("KHd+"),o=Object(c.a)(r,function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("div",[e("b-row",{staticClass:"mb-5"},[e("b-col",[e("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["esc"],expression:"['esc']"}],staticClass:"d-none d-md-block float-left",on:{shortkey:function(a){return t.onCancel()},click:function(a){return t.onCancel()}}},[e("i",{staticClass:"material-icons"},[t._v("keyboard_backspace")]),t._v("\n                "+t._s(t.$t("general.return"))+"\n                ")]),t._v(" "),e("h3",{staticClass:"upper-case"},[e("img",{staticClass:"mr-10",attrs:{src:t.$route.meta.img,alt:"",width:"32"}}),t._v("\n                "+t._s(t.$route.meta.title)+"\n            ")])],1),t._v(" "),e("b-col",[e("b-button-toolbar",{staticClass:"float-right d-none d-md-block"},[e("b-button-group",{staticClass:"ml-15"},[e("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["ctrl","n"],expression:"['ctrl', 'n']"}],attrs:{variant:"primary"},on:{shortkey:function(a){return t.onSaveNew()},click:function(a){return t.onSaveNew()}}},[e("i",{staticClass:"material-icons"},[t._v("save")]),t._v("\n                        "+t._s(t.$t("general.save"))+"\n                    ")]),t._v(" "),e("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["esc"],expression:"['esc']"}],attrs:{variant:"danger"},on:{shortkey:function(a){return t.onCancel()},click:function(a){return t.onCancel()}}},[e("i",{staticClass:"material-icons"},[t._v("cancel")]),t._v("\n                        "+t._s(t.$t("general.cancel"))+"\n                    ")])],1)],1),t._v(" "),e("b-button-toolbar",{staticClass:"float-right d-md-none"},[e("b-button-group",{staticClass:"ml-15"},[e("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["ctrl","n"],expression:"['ctrl', 'n']"}],attrs:{variant:"primary"},on:{shortkey:function(a){return t.onSaveNew()},click:function(a){return t.onSaveNew()}}},[e("i",{staticClass:"material-icons"},[t._v("save")])]),t._v(" "),e("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["esc"],expression:"['esc']"}],attrs:{variant:"danger"},on:{shortkey:function(a){return t.onCancel()},click:function(a){return t.onCancel()}}},[e("i",{staticClass:"material-icons"},[t._v("cancel")])])],1)],1)],1)],1),t._v(" "),e("b-row",[e("b-col",[e("b-card",[e("b-container",[e("b-row",[e("b-col",[e("b-form-group",{attrs:{label:t.$t("commercial.date")}},[e("b-input",{attrs:{type:"date",required:"",placeholder:"Missing Information"},model:{value:t.data.date,callback:function(a){t.$set(t.data,"date",a)},expression:"data.date"}})],1),t._v(" "),e("b-form-group",{attrs:{label:t.$t("commercial.value")}},[e("b-input",{attrs:{type:"number",placeholder:"Value"},model:{value:t.data.payment_value,callback:function(a){t.$set(t.data,"payment_value",t._n(a))},expression:"data.payment_value"}})],1)],1),t._v(" "),e("b-col",[e("b-form-group",{attrs:{label:t.$t("commercial.chart")}},[e("b-form-select",{model:{value:t.data.chart_id,callback:function(a){t.$set(t.data,"chart_id",a)},expression:"data.chart_id"}},t._l(t.accountCharts,function(a){return e("option",{key:a.key,domProps:{value:a.id}},[t._v(t._s(a.name))])}),0)],1),t._v(" "),e("b-form-group",{attrs:{label:t.$t("commercial.exchangeRate")}},[e("b-input-group",[e("b-input-group-prepend",[e("b-form-select",{model:{value:t.data.currency,callback:function(a){t.$set(t.data,"currency",a)},expression:"data.currency"}},t._l(t.currencies,function(a){return e("option",{key:a.key,domProps:{value:a.code}},[t._v(t._s(a.name))])}),0)],1),t._v(" "),e("b-input",{attrs:{type:"number",placeholder:t.$t("commercial.rate"),value:t.data.rate}})],1)],1),t._v(" "),e("b-form-group",{attrs:{label:t.$t("commercial.comment")}},[e("b-input",{attrs:{type:"text",required:"",placeholder:"Missing Information"},model:{value:t.data.comment,callback:function(a){t.$set(t.data,"comment",a)},expression:"data.comment"}})],1)],1)],1)],1)],1)],1)],1)],1)},[],!1,null,null,null);a.default=o.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[29],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/reports.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/reports.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "",
+  data: function data() {
+    return {
+      startDate: "",
+      endDate: ""
+    };
+  },
+  methods: {
+    GenerateReport: function GenerateReport(path) {
+      var app = this;
+      window.open(app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate, '_blank');
+    }
+  },
+  mounted: function mounted() {
+    var app = this;
+    app.startDate = moment().subtract(1, 'months').startOf('month').format("YYYY-MM-DD");
+    app.endDate = moment().subtract(1, 'months').endOf('month').format("YYYY-MM-DD");
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/reports.vue?vue&type=template&id=17c82e6a&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/reports.vue?vue&type=template&id=17c82e6a& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-card",
+                [
+                  _c(
+                    "b-button-group",
+                    [
+                      _c("b-button", [_vm._v("Last Month")]),
+                      _vm._v(" "),
+                      _c("b-button", [_vm._v("This Year")]),
+                      _vm._v(" "),
+                      _c("b-button", [_vm._v("Last Year")])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form",
+                    { attrs: { inline: "", horizontal: "" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: "Start Date" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: { type: "date" },
+                            model: {
+                              value: _vm.startDate,
+                              callback: function($$v) {
+                                _vm.startDate = $$v
+                              },
+                              expression: "startDate"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: "End Date" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: { type: "date" },
+                            model: {
+                              value: _vm.endDate,
+                              callback: function($$v) {
+                                _vm.endDate = $$v
+                              },
+                              expression: "endDate"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-card-group",
+                { attrs: { deck: "" } },
+                [
+                  _c(
+                    "b-card",
+                    { attrs: { "no-body": "" } },
+                    [
+                      _c(
+                        "b-list-group",
+                        { attrs: { flush: "" } },
+                        [
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("sales")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/sales.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.$t("commercial.salesBook")) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport("sales", 1)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("sales-byCustomers")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/sales.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    _vm.$t("commercial.salesBookByCustomers")
+                                  ) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport(
+                                      "sales-byCustomers",
+                                      1
+                                    )
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("sales-byChart")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/sales.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    _vm.$t("commercial.salesBookByItems")
+                                  ) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport(
+                                      "sales-byChart",
+                                      1
+                                    )
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("sales-byVATs")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/sales.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.$t("commercial.salesBookByVat")) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport("sales-byVATs", 1)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-card",
+                    { attrs: { "no-body": "" } },
+                    [
+                      _c(
+                        "b-list-group",
+                        { attrs: { flush: "" } },
+                        [
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("purchases")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/purchase-v1.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.$t("commercial.purchaseBook")) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport("purchases", 1)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport(
+                                    "purchases-bySupplier"
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/purchase-v1.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    _vm.$t("commercial.purchaseBookBySuppliers")
+                                  ) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport(
+                                      "purchases-bySupplier",
+                                      1
+                                    )
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("purchases-byChart")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/purchase-v1.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    _vm.$t("commercial.purchaseBookByItems")
+                                  ) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport(
+                                      "purchases-byChart",
+                                      1
+                                    )
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("purchases-byVAT")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/purchase-v1.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    _vm.$t("commercial.purchaseBookByVat")
+                                  ) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport(
+                                      "purchases-byVAT",
+                                      1
+                                    )
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-card-group",
+                { attrs: { deck: "" } },
+                [
+                  _c(
+                    "b-card",
+                    { attrs: { "no-body": "" } },
+                    [
+                      _c(
+                        "b-list-group",
+                        { attrs: { flush: "" } },
+                        [
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("credit_notes")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/credit-note.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.$t("commercial.creditNote")) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport("credit_notes", 1)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-card",
+                    { attrs: { "no-body": "" } },
+                    [
+                      _c(
+                        "b-list-group",
+                        { attrs: { flush: "" } },
+                        [
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateReport("debit_notes")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/debit-note.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.$t("commercial.debitNote")) +
+                                  "\n                            "
+                              ),
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/excel.svg",
+                                  width: "32"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.GenerateReport("debit_notes", 1)
+                                  }
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/commercials/reports.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/views/commercials/reports.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _reports_vue_vue_type_template_id_17c82e6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reports.vue?vue&type=template&id=17c82e6a& */ "./resources/js/views/commercials/reports.vue?vue&type=template&id=17c82e6a&");
+/* harmony import */ var _reports_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reports.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/reports.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _reports_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _reports_vue_vue_type_template_id_17c82e6a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _reports_vue_vue_type_template_id_17c82e6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/commercials/reports.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/commercials/reports.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/commercials/reports.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reports_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./reports.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/reports.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_reports_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/commercials/reports.vue?vue&type=template&id=17c82e6a&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/commercials/reports.vue?vue&type=template&id=17c82e6a& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reports_vue_vue_type_template_id_17c82e6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./reports.vue?vue&type=template&id=17c82e6a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/reports.vue?vue&type=template&id=17c82e6a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reports_vue_vue_type_template_id_17c82e6a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_reports_vue_vue_type_template_id_17c82e6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
