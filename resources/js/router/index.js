@@ -4,6 +4,7 @@
 const FourZeroFour = () => import('../views/404')
 const DashBoard = () => import('../views/index')
 const SearchResult = () => import('../views/searchResult')
+const Form = () => import('../views/form')
 
 const Commercial = () => import('../views/commercials/index')
 const SalesList = () => import('../views/commercials/salesList')
@@ -163,12 +164,39 @@ export default
                 [
                     {
                         path: ':id',
-                        component: PurchaseForm,
+                        component: Form,
                         name: 'purchaseForm',
                         meta: {
                             title: 'commercial.purchaseInvoice',
                             img: '/img/apps/purchase-v1.svg',
-                        },
+                            cards: [{
+                                rows: [{
+                                    fields:[{
+                                            label:'commercial.date',
+                                            type: 'date',
+                                            property:'date',
+                                            required: true,
+                                            placeholder:'Enter Date',
+                                        }                                      
+                                       
+                                        // {
+                                        //     type: 'select',
+                                        //     select: {
+                                        //         value: 'id',
+                                        //         label: 'name'
+                                        //     },
+                                        //     api: '/documents/',
+                                        //     property: 'document_id',
+                                        //     required: false,
+                                        //     hideIfBlank: true,
+                                        //     placeholder: 'enter Text'
+                                        // }
+                                    ]
+                                }
+                                
+                            ]
+                            }]
+                        }
 
                     }
                 ]

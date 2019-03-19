@@ -104147,7 +104147,7 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.tokens, function(token) {
-                    return _c("tr", [
+                    return _c("tr", { key: token.key }, [
                       _c(
                         "td",
                         { staticStyle: { "vertical-align": "middle" } },
@@ -121617,6 +121617,10 @@ var SearchResult = function SearchResult() {
   return __webpack_require__.e(/*! import() */ 42).then(__webpack_require__.bind(null, /*! ../views/searchResult */ "./resources/js/views/searchResult.vue"));
 };
 
+var Form = function Form() {
+  return __webpack_require__.e(/*! import() */ 45).then(__webpack_require__.bind(null, /*! ../views/form */ "./resources/js/views/form.vue"));
+};
+
 var Commercial = function Commercial() {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../views/commercials/index */ "./resources/js/views/commercials/index.vue"));
 };
@@ -121878,11 +121882,34 @@ var AccountingReports = function AccountingReports() {
     },
     children: [{
       path: ':id',
-      component: PurchaseForm,
+      component: Form,
       name: 'purchaseForm',
       meta: {
         title: 'commercial.purchaseInvoice',
-        img: '/img/apps/purchase-v1.svg'
+        img: '/img/apps/purchase-v1.svg',
+        cards: [{
+          rows: [{
+            fields: [{
+              label: 'commercial.date',
+              type: 'date',
+              property: 'date',
+              required: true,
+              placeholder: 'Enter Date' // {
+              //     type: 'select',
+              //     select: {
+              //         value: 'id',
+              //         label: 'name'
+              //     },
+              //     api: '/documents/',
+              //     property: 'document_id',
+              //     required: false,
+              //     hideIfBlank: true,
+              //     placeholder: 'enter Text'
+              // }
+
+            }]
+          }]
+        }]
       }
     }]
   }, {
