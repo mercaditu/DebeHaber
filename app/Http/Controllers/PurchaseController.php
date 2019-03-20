@@ -47,6 +47,8 @@ class PurchaseController extends Controller
     */
     public function store(Request $request, Taxpayer $taxPayer, $cycle)
     {
+        $request->type = 1;
+        $request->sub_type = 1;
         (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }

@@ -36,6 +36,8 @@ class CreditNoteController extends Controller
     */
     public function store(Request $request, Taxpayer $taxPayer, $cycle)
     {
+        $request->type = 2;
+        $request->sub_type = 2;
         (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }

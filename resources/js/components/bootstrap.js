@@ -28,6 +28,10 @@ Vue.component(
     require('./search-site.vue').default
 );
 Vue.component(
+    'select-data',
+    require('./select.vue').default
+);
+Vue.component(
     'search-taxpayer',
     require('./search-taxpayer.vue').default
 );
