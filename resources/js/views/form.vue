@@ -22,18 +22,19 @@
         <div>
             <b-card no-body>
                 <div v-for="table in $route.meta.tables" v-bind:key="table.index">
-                   
+                   {{table}}
                 <b-table hover :items="data['details']" :fields="table.cols">
                     
-                         
-                            <template v-if="column.type === 'select'" :slot="column.property" slot-scope="data">
-                               <select-data v-bind:Id.sync="data[column.property]" :api="column.api" ></select-data>
+                        <template >   
+                            {{column}}
+                            <!-- <template v-if="column.type === 'select'" :slot="column.property" slot-scope="data">
+                               <select-data v-bind:Id.sync="data[column.property]" :api="column.api"  v-bind:key="column.property"></select-data>
                             
                             </template>
                              <template v-else :slot="column.property" slot-scope="data">
-                          <b-form-input :type="column.type" v-model="data[column.property]" :required="column.required" :placeholder="column.placeholder" />
-                            </template> 
-                            
+                          <b-form-input :type="column.type" v-model="data[column.property]" :required="column.required" :placeholder="column.placeholder"  v-bind:key="column.property"/>
+                            </template>  -->
+                            </template>
                     
                 </b-table>
                     

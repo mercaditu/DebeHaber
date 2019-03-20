@@ -55,6 +55,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -232,50 +233,29 @@ var render = function() {
                 "div",
                 { key: table.index },
                 [
-                  _c("b-table", {
-                    attrs: {
-                      hover: "",
-                      items: _vm.data["details"],
-                      fields: table.cols
+                  _vm._v(
+                    "\n               " + _vm._s(table) + "\n            "
+                  ),
+                  _c(
+                    "b-table",
+                    {
+                      attrs: {
+                        hover: "",
+                        items: _vm.data["details"],
+                        fields: table.cols
+                      }
                     },
-                    scopedSlots: _vm._u(
+                    [
                       [
-                        {
-                          key: _vm.column.property,
-                          fn: function(data) {
-                            return _vm.column.type === "select"
-                              ? [
-                                  _c("select-data", {
-                                    attrs: {
-                                      Id: data[_vm.column.property],
-                                      api: _vm.column.api
-                                    },
-                                    on: {
-                                      "update:Id": function($event) {
-                                        return _vm.$set(
-                                          data,
-                                          _vm.column.property,
-                                          $event
-                                        )
-                                      },
-                                      "update:id": function($event) {
-                                        return _vm.$set(
-                                          data,
-                                          _vm.column.property,
-                                          $event
-                                        )
-                                      }
-                                    }
-                                  })
-                                ]
-                              : undefined
-                          }
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  })
+                        _vm._v(
+                          "   \n                        " +
+                            _vm._s(_vm.column) +
+                            "\n                        "
+                        )
+                      ]
+                    ],
+                    2
+                  )
                 ],
                 1
               )

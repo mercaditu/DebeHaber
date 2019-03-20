@@ -298,6 +298,6 @@ class Controller extends BaseController
 
     public function convert_date($date)
     {
-        return Carbon::createFromFormat('Y-m-d', $date);
+        return Carbon::parse($date)->format('Y-m-d');
     }
 }
