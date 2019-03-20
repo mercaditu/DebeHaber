@@ -49,7 +49,8 @@ class TransactionController extends Controller
         $transaction->code = $request->code;
         $transaction->code_expiry = $request->code_expiry;
         $transaction->comment = $request->comment;
-        $transaction->type = $request->type ?? 1;
+        $transaction->type = $request->type ;
+        $transaction->sub_type = $request->sub_type ;
 
         $transaction->save();
 

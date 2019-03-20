@@ -36,6 +36,8 @@ class DebitNoteController extends Controller
     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
+        $request->type = 1;
+        $request->sub_type = 2;
         (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }

@@ -167,34 +167,108 @@ export default
                         component: Form,
                         name: 'purchaseForm',
                         meta: {
+                            pageurl: '/commercial/purchases',
                             title: 'commercial.purchaseInvoice',
                             img: '/img/apps/purchase-v1.svg',
                             cards: [{
                                 rows: [{
-                                    fields:[{
-                                            label:'commercial.date',
+                                    fields:[
+                                        {
+                                            label: 'commercial.date',
                                             type: 'date',
-                                            property:'date',
+                                            property: 'date',
                                             required: true,
-                                            placeholder:'Enter Date',
-                                        }                                      
+                                            placeholder: 'Enter Date',
+                                        },    
+                                        {
+                                            type: 'select',
+                                            select: {
+                                                value: 'id',
+                                                label: 'name'
+                                            },
+                                            api: '/config/documents',
+                                            property: 'document_id',
+                                            required: false,
+                                            hideIfBlank: true,
+                                            placeholder: 'enter Text'
+                                        },
+                                        {
+                                            label: 'commercial.document',
+                                            type: 'date',
+                                            property: 'date',
+                                            required: true,
+                                            placeholder: 'Enter Date',
+                                        },    
                                        
-                                        // {
-                                        //     type: 'select',
-                                        //     select: {
-                                        //         value: 'id',
-                                        //         label: 'name'
-                                        //     },
-                                        //     api: '/documents/',
-                                        //     property: 'document_id',
-                                        //     required: false,
-                                        //     hideIfBlank: true,
-                                        //     placeholder: 'enter Text'
-                                        // }
                                     ]
-                                }
+                                },
+                                {
+                                    fields: [
+                                        {
+                                            label: 'commercial.customer',
+                                                type: 'customer',
+                                                property: [{ name: 'partner_name', taxid: 'partner_taxid' }],
+                                                required: true,
+                                                placeholder: 'Enter Partner',
+                                            }
+
+                                        ]
+                                    },
+                                ]                               
+                            }],
+                            tables: [ {
+                                cols: [
+                                    {
+                                        key: "chart_id",
+                                        label: 'commercial.item',
+                                        sortable: true
+                                    },
+                                    {
+                                        key: "chart_vat_id",
+                                        label: 'commercial.vat',
+                                        sortable: true
+                                    },
+                                    {
+                                        label: 'commercial.value',
+                                        sortable: true
+                                    },
+                                    {
+                                        key: "actions",
+                                        label: "",
+                                        sortable: false
+                                    }
+                                ],
                                 
-                            ]
+                                columns: [
+                                    {
+                                    
+                                    type: 'select',
+                                    select: {
+                                        value: 'id',
+                                        label: 'name'
+                                    },
+                                    api: '/accounting/charts/for/vats-credit',
+                                    property: 'chart_id',
+                                    required: false,
+                                    hideIfBlank: true,
+                                    placeholder: 'enter Text'
+                                    },
+                                    {
+
+                                        type: 'select',
+                                        select: {
+                                            value: 'id',
+                                            label: 'name'
+                                        },
+                                        api: '/accounting/charts/for/vats-credit',
+                                        property: 'chart_id',
+                                        required: false,
+                                        hideIfBlank: true,
+                                        placeholder: 'enter Text'
+                                    }
+                                ]
+                               
+                                
                             }]
                         }
 
