@@ -32,7 +32,7 @@
                     <td class="number">{{ $group->first()->code }}</td>
 
                     <td class="important">
-                        <a href="{{route('sales.edit', [request()->route('taxPayer')->id, request()->route('cycle')->id, $group->first()->salesID])}}" target="_blank">
+                        <a href="/{{ request()->route('taxPayer')->id }}/{{ request()->route('cycle')->id}}/commercial/sales/{{ $group->first()->salesID }}" target="_blank">
                             {{ $group->first()->number }}
                         </a>
                     </td>

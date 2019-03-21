@@ -164,7 +164,7 @@ export default
                 [
                     {
                         path: ':id',
-                        component: Form,
+                        component: PurchaseForm,
                         name: 'purchaseForm',
                         meta: {
                             pageurl: '/commercial/purchases',

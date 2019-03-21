@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
         Route::prefix('accounting')->group(function () {
             Route::prefix('reports')->group(function () {
-                Route::get('hechauka/generate_files/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');
+                Route::get('PRY/hechauka/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');
                 Route::get('chart-ofAccounts/{strDate}/{endDate}/{e?}', 'ReportController@chartOfAccounts');
                 Route::get('sub_ledger/{strDate}/{endDate}/{e?}', 'ReportController@subLedger')->name('reports.subLedger');
                 Route::get('ledger/{strDate}/{endDate}/{e?}', 'ReportController@ledger')->name('reports.ledger');
