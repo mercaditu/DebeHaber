@@ -32,4 +32,9 @@ class Controller extends BaseController
         $code = $v_resto > 1 ? 11 - $v_resto : 0;
         return $code;
     }
+
+    public function cleanTaxCode($taxID)
+    {
+        return strtok($taxID, '-');
+    }
 }

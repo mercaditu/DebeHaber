@@ -148,7 +148,7 @@ class HechaukaController extends Controller
                         //Check if Partner has TaxID and TaxCode properly coded, or else substitute for generic user.
                         $detail = $detail .
                             /* 1 */ ' 2 ' .
-                            /* 2 */ " \t " . ($row->PartnerTaxID) .
+                            /* 2 */ " \t " . ($this->cleanTaxCode($row->PartnerTaxID)) .
                             /* 3 */ " \t " . ($this->calculateTaxCode($row->PartnerTaxID)) .
                             /* 4 */ " \t " . ($row->Partner) .
                             /* 5 */ " \t " . ($row->DocumentType) .
@@ -171,7 +171,7 @@ class HechaukaController extends Controller
                     /* 3 */ " \t " . '1' .
                     /* 4 */ " \t " . $obligationCode .
                     /* 5 */ " \t " . $formCode .
-                    /* 6 */ " \t " . $taxPayerTaxID .
+                    /* 6 */ " \t " . $this->cleanTaxCode($taxPayerTaxID) .
                     /* 7 */ " \t " . $this->calculateTaxCode($taxPayerTaxID) .
                     /* 8 */ " \t " . $taxPayer->name .
                     /* 9 */ " \t " . $agentTaxID .
@@ -302,7 +302,7 @@ class HechaukaController extends Controller
                         //Check if Partner has TaxID and TaxCode properly coded, or else substitute for generic user.
                         $detail = $detail .
                             /* 1 */ ' 2 ' .
-                            /* 2 */ " \t " . ($row->PartnerTaxID) .
+                            /* 2 */ " \t " . $this->cleanTaxCode($row->PartnerTaxID) .
                             /* 3 */ " \t " . $this->calculateTaxCode($row->PartnerTaxID) .
                             /* 4 */ " \t " . ($row->Partner) .
                             /* 5 */ " \t " . ($row->Code) .
