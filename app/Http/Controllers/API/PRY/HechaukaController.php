@@ -50,7 +50,7 @@ class HechaukaController extends Controller
         max(t.code) as Code,
         max(t.payment_condition) as PaymentCondition,
         max(t.code_expiry) as CodeExpiry,
-        max(t.document_type) as DocumentType,
+        max(t.sub_type) as DocumentType,
         ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
         ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
         ROUND(sum(td.ValueInTen / t.rate)) as ValueInTen
@@ -212,7 +212,7 @@ class HechaukaController extends Controller
         max(t.code) as Code,
         max(t.payment_condition) as PaymentCondition,
         max(t.code_expiry) as CodeExpiry,
-        max(t.document_type) as DocumentType,
+        max(t.sub_type) as DocumentType,
         ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
         ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
         ROUND(sum(td.ValueInTen / t.rate)) as ValueInTen
