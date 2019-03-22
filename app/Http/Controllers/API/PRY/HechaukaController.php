@@ -149,7 +149,7 @@ class HechaukaController extends Controller
                         $detail = $detail .
                             /* 1 */ ' 2 ' .
                             /* 2 */ " \t " . ($this->cleanTaxCode($row->PartnerTaxID)) .
-                            /* 3 */ " \t " . ($this->calculateTaxCode($row->PartnerTaxID)) .
+                            /* 3 */ " \t " . ($this->splitTaxCode($row->PartnerTaxID)) .
                             /* 4 */ " \t " . ($row->Partner) .
                             /* 5 */ " \t " . ($row->DocumentType) .
                             /* 6 */ " \t " . ($row->Number) .
@@ -172,7 +172,7 @@ class HechaukaController extends Controller
                     /* 4 */ " \t " . $obligationCode .
                     /* 5 */ " \t " . $formCode .
                     /* 6 */ " \t " . $this->cleanTaxCode($taxPayerTaxID) .
-                    /* 7 */ " \t " . $this->calculateTaxCode($taxPayerTaxID) .
+                    /* 7 */ " \t " . $this->splitTaxCode($taxPayerTaxID) .
                     /* 8 */ " \t " . $taxPayer->name .
                     /* 9 */ " \t " . $agentTaxID .
                     /* 10 */ " \t " . $agentTaxCode .
@@ -303,7 +303,7 @@ class HechaukaController extends Controller
                         $detail = $detail .
                             /* 1 */ ' 2 ' .
                             /* 2 */ " \t " . $this->cleanTaxCode($row->PartnerTaxID) .
-                            /* 3 */ " \t " . $this->calculateTaxCode($row->PartnerTaxID) .
+                            /* 3 */ " \t " . $this->splitTaxCode($row->PartnerTaxID) .
                             /* 4 */ " \t " . ($row->Partner) .
                             /* 5 */ " \t " . ($row->Code) .
                             /* 6 */ " \t " . ($row->DocumentType) .

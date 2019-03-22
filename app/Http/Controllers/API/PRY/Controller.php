@@ -33,6 +33,12 @@ class Controller extends BaseController
         return $code;
     }
 
+    public function splitTaxCode($taxID)
+    {
+        $stringParts =  explode("-", $taxID);
+        return count($stringParts) > 1 ? $stringParts[1] : '';
+    }
+
     public function cleanTaxCode($taxID)
     {
         return strtok($taxID, '-');
