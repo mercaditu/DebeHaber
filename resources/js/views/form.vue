@@ -23,13 +23,14 @@
             <b-card no-body>
                 <!-- Labels -->
                 <b-row>
-                    <b-col v-for="col in row.fields" v-bind:key="col.index">
+                    <b-col v-for="col in table.fields" v-bind:key="col.index">
                        {{ $t(col.label) }}
                     </b-col>
                 </b-row>
                 <!-- Rows -->
-                <b-row v-for="row in data['details']" v-bind:key="row.index">
-                    <b-col v-for="col in row.fields" v-bind:key="col.index">
+                <!-- <b-row v-for="table in data['details']" v-bind:key="table.index"> -->
+                    
+                    <b-col v-for="col in table.fields" v-bind:key="col.index">
                         <div v-if="col.type === 'customer' || col.type === 'supplier'">
                                 <search-taxpayer  v-bind:partner_name.sync="data[col.property[0]['name']]"  v-bind:partner_taxid.sync="data[col.property[0]['taxid']]"></search-taxpayer>
                         </div>
@@ -40,7 +41,7 @@
                             <b-form-input :type="col.type" v-model="data[col.property]" :required="col.required" :placeholder="col.placeholder" />
                         </div>
                     </b-col>
-                </b-row>
+                <!-- </b-row> -->
             </b-card>
         </div>
     </div>

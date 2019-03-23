@@ -15,8 +15,7 @@ class HechaukaController extends Controller
     public function generateFiles(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
     {
         //Get the Integration Once. No need to bring it into the Query.
-        $integration = TaxpayerSetting::where('taxpayer_id', $taxPayer->id)
-            ->first();
+        
 
         //TODO: This function is wrong. It will take all files from a path.
         //$files = File::allFiles($path);
@@ -28,17 +27,18 @@ class HechaukaController extends Controller
 
         $startDate = Carbon::parse($startDate)->startOfDay();
         $endDate = Carbon::parse($endDate)->endOfDay();
-
-        $this->generateSales($startDate, $endDate, $taxPayer, $integration, $zip);
-        $this->generatePurchases($startDate, $endDate, $taxPayer, $integration, $zip);
+       
+        $this->generateSales($startDate, $endDate, $taxPayer, $zip);
+        $this->generatePurchases($startDate, $endDate, $taxPayer, $zip);
         $zip->close();
+                
 
         return response()->download($zipname)->deleteFileAfterSend(true);
 
         return redirect()->back();
     }
 
-    public function generateSales($startDate, $endDate, $taxPayer, $integration, $zip)
+    public function generateSales($startDate, $endDate, $taxPayer, $zip)
     {
         $raw = DB::select('
         select
@@ -71,21 +71,21 @@ class HechaukaController extends Controller
         and t.deleted_at is null
         and t.date between "' . $startDate . '" and "' . $endDate . '" 
         and t.type = 2
-        and t.sub_type in (1, 2)
+        and t.sub_type in (1, 2))
         group by t.id');
 
         $raw = collect($raw);
         $i = 1;
-
+        
         foreach ($raw->chunk(15000) as $data) {
                 $taxPayerTaxID = $taxPayer->taxid;
                 $taxPayerTaxCode = $taxPayer->code;
 
-                if (isset($integration)) {
-                        $agentName = $integration->agent_name;
-                        $agentTaxID = $integration->agent_taxid;
-                        $agentTaxCode = $this->calculateTaxCode($integration->agent_taxid);
-                    }
+               
+                $agentName = $taxPayer->agent_name;
+                $agentTaxID = $taxPayer->agent_taxid;
+                $agentTaxCode = $this->calculateTaxCode($taxPayer->agent_taxid);
+                    
 
                 $obligationCode = 921;
                 $formCode = 221;
@@ -189,7 +189,7 @@ class HechaukaController extends Controller
                 Storage::disk('local')->append($fileName, $detail);
 
                 $file = Storage::disk('local');
-
+               
                 $path = $file->getDriver()->getAdapter()->getPathPrefix();
 
                 $zip->addFile($path . $fileName, $fileName);
@@ -200,7 +200,7 @@ class HechaukaController extends Controller
             }
     }
 
-    public function generatePurchases($startDate, $endDate, $taxPayer, $integration, $zip)
+    public function generatePurchases($startDate, $endDate, $taxPayer, $zip)
     {
         $raw = DB::select('
         select
@@ -233,7 +233,7 @@ class HechaukaController extends Controller
         and t.deleted_at is null
         and t.date between "' . $startDate . '" and "' . $endDate . '" 
         and t.type = 1
-        and t.sub_type in (1, 2)
+        and t.sub_type in (1, 2))
         group by t.id');
 
         $raw = collect($raw);
@@ -243,11 +243,11 @@ class HechaukaController extends Controller
                 $taxPayerTaxID = $taxPayer->taxid;
                 $taxPayerTaxCode = $taxPayer->code;
 
-                if (isset($integration)) {
-                        $agentName = $integration->agent_name;
-                        $agentTaxID = $integration->agent_taxid;
-                        $agentTaxCode = $this->calculateTaxCode($integration->agent_taxid);;
-                    }
+               
+                $agentName = $taxPayer->agent_name;
+                $agentTaxID = $taxPayer->agent_taxid;
+                $agentTaxCode = $this->calculateTaxCode($taxPayer->agent_taxid);;
+                
 
                 $obligationCode = 911;
                 $formCode = 211;
@@ -279,7 +279,7 @@ class HechaukaController extends Controller
                     /* 11 */ " \t " . ($agentName) .
                     /* 12 */ " \t " . ($data->count() ?? 0) .
                     /* 13 */ " \t " . ($totalTaxable10 + $totalTaxable5 + ($data->sum('ValueInZero') ?? 0)) .
-                    /* 14 */ " \t " . ($integration->regime_type == 1 ? 'Si' : 'No') .
+                    /* 14 */ " \t " . ($taxPayer->regime_type == 1 ? 'Si' : 'No') .
                     /* 15 */ " \t " . "2 \r\n ";
 
 

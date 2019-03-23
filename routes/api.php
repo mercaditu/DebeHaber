@@ -11,7 +11,7 @@
 |
 */
 
-//Route::group([ 'middleware' => 'auth:api' ], function () {
+Route::group([ 'middleware' => 'auth:api' ], function () {
     Route::post('/transactions', 'API\TransactionController@start');
     Route::post('/payment', 'API\PaymentController@start');
     Route::post('/movement', 'API\AccountMovementController@start');
@@ -126,12 +126,10 @@
             });
         });
 
-        Route::prefix('PRY')->group(function () {
-            Route::get('/hechauka/{startDate}/{endDate}', 'API\PRY\HechukaController@getHechauka');
-        });
+      
 
         Route::prefix('kpi')->group(function () {
             Route::get('/transactions/{type}/{startDate}/{endDate}', 'KPIController@transactionByItems');
         });
     });
-//});
+});

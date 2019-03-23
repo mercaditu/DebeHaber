@@ -96,6 +96,94 @@ export default
         children:
         [
             {
+                    path: 'test',
+                    component: Form,
+                    name: 'testForm',
+                meta: {
+                    pageurl: '/commercial/purchases',
+                    title: 'commercial.purchaseInvoice',
+                    img: '/img/apps/purchase-v1.svg',
+                    cards: [{
+                        rows: [{
+                            fields: [
+                                {
+                                    label: 'commercial.date',
+                                    type: 'date',
+                                    property: 'date',
+                                    required: true,
+                                    placeholder: 'Enter Date',
+                                },
+                                {
+                                    type: 'select',
+                                    select: {
+                                        value: 'id',
+                                        label: 'name'
+                                    },
+                                    api: '/config/documents',
+                                    property: 'document_id',
+                                    required: false,
+                                    hideIfBlank: true,
+                                    placeholder: 'enter Text'
+                                },
+                                {
+                                    label: 'commercial.document',
+                                    type: 'date',
+                                    property: 'date',
+                                    required: true,
+                                    placeholder: 'Enter Date',
+                                },
+
+                            ]
+                        },
+                        {
+                            fields: [
+                                {
+                                    label: 'commercial.customer',
+                                    type: 'customer',
+                                    property: [{ name: 'partner_name', taxid: 'partner_taxid' }],
+                                    required: true,
+                                    placeholder: 'Enter Partner',
+                                }
+
+                            ]
+                        },
+                        ]
+                    }],
+                    tables: [{
+                        fields: [
+                            {
+                                label: 'commercial.date',
+                                type: 'date',
+                                property: 'date',
+                                required: true,
+                                placeholder: 'Enter Date',
+                            },
+                            {
+                                type: 'select',
+                                select: {
+                                    value: 'id',
+                                    label: 'name'
+                                },
+                                api: '/config/documents',
+                                property: 'document_id',
+                                required: false,
+                                hideIfBlank: true,
+                                placeholder: 'enter Text'
+                            },
+                            {
+                                label: 'commercial.document',
+                                type: 'date',
+                                property: 'date',
+                                required: true,
+                                placeholder: 'Enter Date',
+                            },
+
+                        ]
+
+                    }]
+                }
+            },
+            {
                 path: 'sales',
                 component: SalesList,
                 name: 'salesList',

@@ -1,1 +1,704 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[38],{esck:function(t,e,a){"use strict";a.r(e);var r={components:{crud:a("gku4").a},data:function(){return{}},computed:{formURL:function(){return this.$route.name.replace("List","Form")},columns:function(){return[{key:"prefix",label:this.$i18n.t("commercial.prefix"),sortable:!0},{key:"mask",label:this.$i18n.t("commercial.mask"),sortable:!0},{key:"start_range",label:this.$i18n.t("commercial.start"),sortable:!0},{key:"current_range",label:this.$i18n.t("commercial.current"),sortable:!0},{key:"end_range",label:this.$i18n.t("commercial.end"),sortable:!0},{key:"actions",label:"",sortable:!1}]}}},s=a("KHd+"),n=Object(s.a)(r,function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[t.$route.name.includes("List")?a("b-row",[a("b-col",[a("b-card-group",{attrs:{deck:""}},[a("b-card",{attrs:{"bg-variant":"dark","text-variant":"white"}},[a("h4",{staticClass:"upper-case"},[a("img",{staticClass:"ml-5 mr-5",attrs:{src:t.$route.meta.img,alt:"",width:"26"}}),t._v("\n            "+t._s(t.$t(t.$route.meta.title))+"\n          ")]),t._v(" "),t.$route.name.includes("List")?a("p",{staticClass:"lead"},[t._v("\n            "+t._s(t.$t(t.$route.meta.description))+",\n            "),a("router-link",{attrs:{to:"{ name: $route.name, params: { id: 0}}"}},[t._v("Create")])],1):t._e()]),t._v(" "),a("invoices-this-month-kpi",{staticClass:"d-none d-xl-block"}),t._v(" "),a("invoices-this-month-kpi",{staticClass:"d-none d-xl-block"}),t._v(" "),a("b-card",{attrs:{"no-body":""}},[a("b-list-group",{attrs:{flush:""}},[a("b-list-group-item",{attrs:{href:"#",disabled:""}},[a("i",{staticClass:"material-icons"},[t._v("cloud_upload")]),t._v("\n              "+t._s(t.$t("general.upload"))+" "+t._s(t.$route.meta.title)+"\n            ")]),t._v(" "),a("b-list-group-item",{attrs:{to:{name:t.formURL,params:{id:0}}}},[a("i",{staticClass:"material-icons md-light"},[t._v("add_box")]),t._v("\n              "+t._s(t.$t("general.create"))+" "+t._s(t.$route.meta.title)+"\n            ")])],1)],1)],1)],1)],1):t._e(),t._v(" "),a("b-row",[a("b-col",[t.$route.name.includes("List")?a("div",[a("crud",{attrs:{columns:t.columns},inlineTemplate:{render:function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("b-card",{attrs:{"no-body":""}},[a("b-table",{attrs:{hover:"",responsive:"",items:t.items,fields:t.columns,"current-page":t.current_page,"show-empty":""},scopedSlots:t._u([{key:"actions",fn:function(t){return[a("table-actions",{attrs:{row:t.item}})]}}],null,!1,1612661290)},[t._v(" "),a("div",{attrs:{slot:"table-busy"},slot:"table-busy"},[a("table-loading")],1),t._v(" "),a("template",{slot:"empty"},[a("table-empty")],1)],2),t._v(" "),a("b-pagination",{attrs:{align:"center","total-rows":t.meta.total,"per-page":t.meta.per_page},on:{change:function(e){return t.onList()}}})],1)},staticRenderFns:[]}})],1):a("router-view")],1)],1)],1)},[],!1,null,null,null);e.default=n.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[38],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/configs/rateForm.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/configs/rateForm.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      data: {
+        currency_id: '',
+        currency: '',
+        buy_rate: 0,
+        sell_rate: 0,
+        date: ''
+      },
+      currencies: [],
+      pageUrl: '/config/rates',
+      lastDeletedRow: []
+    };
+  },
+  computed: {
+    baseUrl: function baseUrl() {
+      return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
+    }
+  },
+  methods: {
+    onSave: function onSave() {
+      var app = this;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+        app.$snack.success({
+          text: app.$i18n.t('accounting.DocumentSaved')
+        });
+        app.$router.go(-1);
+      }).catch(function (error) {
+        app.$snack.danger({
+          text: 'Error OMG!'
+        });
+      });
+    },
+    onSaveNew: function onSaveNew() {
+      var app = this;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+        app.$snack.success({
+          text: app.$i18n.t('accounting.DocumentSaved')
+        });
+        app.$router.push({
+          name: app.$route.name,
+          params: {
+            id: '0'
+          }
+        });
+        app.data.sell_rate = '';
+        app.data.buy_rate = '';
+        app.data.date = '';
+      }).catch(function (error) {
+        app.$snack.danger({
+          text: this.$i18n.t('general.errorMessage')
+        });
+      });
+    },
+    onCancel: function onCancel() {
+      var _this = this;
+
+      this.$swal.fire({
+        title: this.$i18n.t('general.cancel'),
+        text: this.$i18n.t('general.cancelVerification'),
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: this.$i18n.t('general.cancelConfirmation'),
+        cancelButtonText: this.$i18n.t('general.cancelRejection')
+      }).then(function (result) {
+        if (result.value) {
+          _this.$router.go(-1);
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    var app = this;
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + '/config/currencies').then(function (response) {
+      app.currencies = response.data.data;
+    });
+
+    if (app.$route.params.id > 0) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + '/' + app.$route.params.id).then(function (response) {
+        app.data = response.data.data;
+      });
+    } else {
+      app.data.prefix = 1;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/configs/rateForm.vue?vue&type=template&id=4d48a0a1&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/configs/rateForm.vue?vue&type=template&id=4d48a0a1& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "b-row",
+        { staticClass: "mb-5" },
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "shortkey",
+                      rawName: "v-shortkey",
+                      value: ["esc"],
+                      expression: "['esc']"
+                    }
+                  ],
+                  staticClass: "d-none d-md-block float-left",
+                  on: {
+                    shortkey: function($event) {
+                      return _vm.onCancel()
+                    },
+                    click: function($event) {
+                      return _vm.onCancel()
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "material-icons" }, [
+                    _vm._v("keyboard_backspace")
+                  ]),
+                  _vm._v(
+                    "\n        " +
+                      _vm._s(_vm.$t("general.currency")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("h3", { staticClass: "upper-case" }, [
+                _c("img", {
+                  staticClass: "mr-10",
+                  attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
+                }),
+                _vm._v(
+                  "\n        " + _vm._s(_vm.$route.meta.title) + "\n      "
+                )
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-button-toolbar",
+                { staticClass: "float-right d-none d-md-block" },
+                [
+                  _c(
+                    "b-button-group",
+                    { staticClass: "ml-15" },
+                    [
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["ctrl", "n"],
+                              expression: "['ctrl', 'n']"
+                            }
+                          ],
+                          attrs: { variant: "primary" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onSaveNew()
+                            },
+                            click: function($event) {
+                              return _vm.onSaveNew()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("save")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.$t("general.save")) +
+                              "\n          "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["esc"],
+                              expression: "['esc']"
+                            }
+                          ],
+                          attrs: { variant: "danger" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onCancel()
+                            },
+                            click: function($event) {
+                              return _vm.onCancel()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("cancel")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.$t("general.cancel")) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button-toolbar",
+                { staticClass: "float-right d-md-none" },
+                [
+                  _c(
+                    "b-btn",
+                    {
+                      directives: [
+                        {
+                          name: "shortkey",
+                          rawName: "v-shortkey",
+                          value: ["ctrl", "d"],
+                          expression: "['ctrl', 'd']"
+                        }
+                      ],
+                      staticClass: "ml-15",
+                      on: {
+                        shortkey: function($event) {
+                          return _vm.addDetailRow()
+                        },
+                        click: function($event) {
+                          return _vm.addDetailRow()
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "material-icons" }, [
+                        _vm._v("playlist_add")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button-group",
+                    { staticClass: "ml-15" },
+                    [
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["ctrl", "n"],
+                              expression: "['ctrl', 'n']"
+                            }
+                          ],
+                          attrs: { variant: "primary" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onSaveNew()
+                            },
+                            click: function($event) {
+                              return _vm.onSaveNew()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("save")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["esc"],
+                              expression: "['esc']"
+                            }
+                          ],
+                          attrs: { variant: "danger" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onCancel()
+                            },
+                            click: function($event) {
+                              return _vm.onCancel()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("cancel")
+                          ])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-card",
+                [
+                  _c(
+                    "b-container",
+                    [
+                      _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.currency")
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-input-group",
+                                    [
+                                      _c(
+                                        "b-input-group-prepend",
+                                        [
+                                          _c(
+                                            "b-form-select",
+                                            {
+                                              model: {
+                                                value: _vm.data.currency_id,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.data,
+                                                    "currency_id",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "data.currency_id"
+                                              }
+                                            },
+                                            _vm._l(_vm.currencies, function(
+                                              currency
+                                            ) {
+                                              return _c(
+                                                "option",
+                                                {
+                                                  key: currency.key,
+                                                  domProps: {
+                                                    value: currency.id
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(currency.name))]
+                                              )
+                                            }),
+                                            0
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                { attrs: { label: _vm.$t("commercial.date") } },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "date",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.date,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "date", $$v)
+                                      },
+                                      expression: "data.date"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.sellRate")
+                                  }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.sell_rate,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "sell_rate",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.sell_rate"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.buyRate") }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.buy_rate,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "buy_rate", $$v)
+                                      },
+                                      expression: "data.buy_rate"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/configs/rateForm.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/views/configs/rateForm.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _rateForm_vue_vue_type_template_id_4d48a0a1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rateForm.vue?vue&type=template&id=4d48a0a1& */ "./resources/js/views/configs/rateForm.vue?vue&type=template&id=4d48a0a1&");
+/* harmony import */ var _rateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rateForm.vue?vue&type=script&lang=js& */ "./resources/js/views/configs/rateForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _rateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _rateForm_vue_vue_type_template_id_4d48a0a1___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _rateForm_vue_vue_type_template_id_4d48a0a1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/configs/rateForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/configs/rateForm.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/views/configs/rateForm.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_rateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./rateForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/configs/rateForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_rateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/configs/rateForm.vue?vue&type=template&id=4d48a0a1&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/configs/rateForm.vue?vue&type=template&id=4d48a0a1& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_rateForm_vue_vue_type_template_id_4d48a0a1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./rateForm.vue?vue&type=template&id=4d48a0a1& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/configs/rateForm.vue?vue&type=template&id=4d48a0a1&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_rateForm_vue_vue_type_template_id_4d48a0a1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_rateForm_vue_vue_type_template_id_4d48a0a1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

@@ -1,1 +1,35 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[45],{Lyvj:function(t,a,e){"use strict";e.r(a);var i={data:function(){return{}}},s=e("KHd+"),o=Object(s.a)(i,function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("div",[e("b-card-group",{attrs:{columns:""}},[e("b-card",{attrs:{"no-body":""}},[e("pie-transaction-items",{attrs:{startDate:"2018-01-01",endDate:"2019-01-01",type:"1"}})],1),t._v(" "),e("b-card",{attrs:{title:"Card title that wraps to a new line","img-src":"https://placekitten.com/g/400/450","img-fluid":"","img-alt":"image","img-top":""}},[e("p",{staticClass:"card-text"},[t._v("\n                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit\n                longer.\n            ")])]),t._v(" "),e("b-card",{attrs:{header:"Quote"}},[e("blockquote",{staticClass:"blockquote mb-0"},[e("p",[t._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.")]),t._v(" "),e("footer",{staticClass:"blockquote-footer"},[t._v("Someone famous in "),e("cite",{attrs:{title:"Source Title"}},[t._v("Source Title")])])])]),t._v(" "),e("b-card",{attrs:{title:"Title","img-src":"https://placekitten.com/500/350","img-fluid":"","img-alt":"image","img-top":""}},[e("p",{staticClass:"card-text"},[t._v("\n                This card has supporting text below as a natural lead-in to additional content.\n            ")]),t._v(" "),e("small",{staticClass:"text-muted"},[t._v("Last updated 3 mins ago")])]),t._v(" "),e("b-card",{attrs:{"bg-variant":"primary","text-variant":"white"}},[e("blockquote",{staticClass:"card-blockquote"},[e("p",[t._v("\n                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.\n                ")]),t._v(" "),e("footer",[e("small",[t._v("Someone famous in "),e("cite",{attrs:{title:"Source Title"}},[t._v("Source Title")])])])])]),t._v(" "),e("b-card",{attrs:{title:"Title"}},[e("p",{staticClass:"card-text"},[t._v("\n                This card has supporting text below as a natural lead-in to additional content.\n            ")]),t._v(" "),e("p",{staticClass:"card-text"},[e("small",{staticClass:"text-muted"},[t._v("Last updated 3 mins ago")])])]),t._v(" "),e("b-card",{attrs:{"img-src":"https://picsum.photos/400/400/?image=41","img-fluid":"","img-alt":"image",overlay:""}}),t._v(" "),e("b-card",{attrs:{"img-src":"https://picsum.photos/400/200/?image=41","img-fluid":"","img-alt":"image","img-top":""}},[e("p",{staticClass:"card-text"},[t._v("\n                This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content\n                than the first.\n            ")]),t._v(" "),e("div",{attrs:{slot:"footer"},slot:"footer"},[e("small",{staticClass:"text-muted"},[t._v("Footer Text")])])])],1)],1)},[],!1,null,null,null);a.default=o.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[45],{
+
+/***/ "./resources/js/views/configs/versionForm.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/views/configs/versionForm.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/views/configs/versionForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ })
+
+}]);
