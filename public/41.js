@@ -59,6 +59,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -76,9 +86,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var app = this;
+    console.log(app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id);
 
     if (app.$route.params.id > 0) {
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id).then(function (response) {
+        console.log(response);
         app.data = response.data.data;
       });
     }
@@ -124,92 +136,163 @@ var render = function() {
                         _c(
                           "b-form-group",
                           { attrs: { label: _vm.$t(col.label) } },
-                          [
-                            col.type === "customer" || col.type === "supplier"
-                              ? _c(
-                                  "div",
-                                  [
-                                    _c("search-taxpayer", {
-                                      attrs: {
-                                        partner_name:
-                                          _vm.data[col.property[0]["name"]],
-                                        partner_taxid:
-                                          _vm.data[col.property[0]["taxid"]]
-                                      },
-                                      on: {
-                                        "update:partner_name": function(
-                                          $event
-                                        ) {
-                                          return _vm.$set(
-                                            _vm.data,
-                                            col.property[0]["name"],
-                                            $event
-                                          )
-                                        },
-                                        "update:partner_taxid": function(
-                                          $event
-                                        ) {
-                                          return _vm.$set(
-                                            _vm.data,
-                                            col.property[0]["taxid"],
-                                            $event
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              : col.type === "select"
-                              ? _c(
-                                  "div",
-                                  [
-                                    _c("select-data", {
-                                      attrs: {
-                                        Id: _vm.data[col.property],
-                                        api: col.api
-                                      },
-                                      on: {
-                                        "update:Id": function($event) {
-                                          return _vm.$set(
-                                            _vm.data,
-                                            col.property,
-                                            $event
-                                          )
-                                        },
-                                        "update:id": function($event) {
-                                          return _vm.$set(
-                                            _vm.data,
-                                            col.property,
-                                            $event
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              : _c(
-                                  "div",
-                                  [
-                                    _c("b-form-input", {
-                                      attrs: {
-                                        type: col.type,
-                                        required: col.required,
-                                        placeholder: col.placeholder
-                                      },
-                                      model: {
-                                        value: _vm.data[col.property],
-                                        callback: function($$v) {
-                                          _vm.$set(_vm.data, col.property, $$v)
-                                        },
-                                        expression: "data[col.property]"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                          ]
+                          _vm._l(col.properties, function(property) {
+                            return _c(
+                              "b-input-group",
+                              { key: property.index },
+                              [
+                                property.type === "customer" ||
+                                col.type === "supplier"
+                                  ? _c(
+                                      "b-input-group",
+                                      [
+                                        _c("search-taxpayer", {
+                                          attrs: {
+                                            partner_name:
+                                              _vm.data[col.property[0]["name"]],
+                                            partner_taxid:
+                                              _vm.data[col.property[0]["taxid"]]
+                                          },
+                                          on: {
+                                            "update:partner_name": function(
+                                              $event
+                                            ) {
+                                              return _vm.$set(
+                                                _vm.data,
+                                                col.property[0]["name"],
+                                                $event
+                                              )
+                                            },
+                                            "update:partner_taxid": function(
+                                              $event
+                                            ) {
+                                              return _vm.$set(
+                                                _vm.data,
+                                                col.property[0]["taxid"],
+                                                $event
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  : property.type === "select"
+                                  ? _c(
+                                      "b-input-group",
+                                      [
+                                        _c("select-data", {
+                                          attrs: {
+                                            Id: _vm.data[col.property],
+                                            api: col.api
+                                          },
+                                          on: {
+                                            "update:Id": function($event) {
+                                              return _vm.$set(
+                                                _vm.data,
+                                                col.property,
+                                                $event
+                                              )
+                                            },
+                                            "update:id": function($event) {
+                                              return _vm.$set(
+                                                _vm.data,
+                                                col.property,
+                                                $event
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  : _c(
+                                      "b-input-group",
+                                      [
+                                        property.location === ""
+                                          ? _c("b-input", {
+                                              attrs: {
+                                                type: col.type,
+                                                required: col.required,
+                                                placeholder: col.placeholder
+                                              },
+                                              model: {
+                                                value: _vm.data[col.property],
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.data,
+                                                    col.property,
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "data[col.property]"
+                                              }
+                                            })
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        property.location === "append"
+                                          ? _c(
+                                              "b-input-group-append",
+                                              [
+                                                _c("b-input", {
+                                                  attrs: {
+                                                    type: col.type,
+                                                    required: col.required,
+                                                    placeholder: col.placeholder
+                                                  },
+                                                  model: {
+                                                    value:
+                                                      _vm.data[col.property],
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        _vm.data,
+                                                        col.property,
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "data[col.property]"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          : property.location === "prepend"
+                                          ? _c(
+                                              "b-input-group-prepend",
+                                              [
+                                                _c("b-input", {
+                                                  attrs: {
+                                                    type: col.type,
+                                                    required: col.required,
+                                                    placeholder: col.placeholder
+                                                  },
+                                                  model: {
+                                                    value:
+                                                      _vm.data[col.property],
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        _vm.data,
+                                                        col.property,
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "data[col.property]"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                              ],
+                              1
+                            )
+                          }),
+                          1
                         )
                       ],
                       1
@@ -248,88 +331,96 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _vm._l(table.fields, function(col) {
-                  return _c("b-col", { key: col.index }, [
-                    col.type === "customer" || col.type === "supplier"
-                      ? _c(
-                          "div",
-                          [
-                            _c("search-taxpayer", {
-                              attrs: {
-                                partner_name: _vm.data[col.property[0]["name"]],
-                                partner_taxid:
-                                  _vm.data[col.property[0]["taxid"]]
-                              },
-                              on: {
-                                "update:partner_name": function($event) {
-                                  return _vm.$set(
-                                    _vm.data,
-                                    col.property[0]["name"],
-                                    $event
-                                  )
-                                },
-                                "update:partner_taxid": function($event) {
-                                  return _vm.$set(
-                                    _vm.data,
-                                    col.property[0]["taxid"],
-                                    $event
-                                  )
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      : col.type === "select"
-                      ? _c(
-                          "div",
-                          [
-                            _c("select-data", {
-                              attrs: {
-                                Id: _vm.data[col.property],
-                                api: col.api
-                              },
-                              on: {
-                                "update:Id": function($event) {
-                                  return _vm.$set(
-                                    _vm.data,
-                                    col.property,
-                                    $event
-                                  )
-                                },
-                                "update:id": function($event) {
-                                  return _vm.$set(
-                                    _vm.data,
-                                    col.property,
-                                    $event
-                                  )
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      : _c(
-                          "div",
-                          [
-                            _c("b-form-input", {
-                              attrs: {
-                                type: col.type,
-                                required: col.required,
-                                placeholder: col.placeholder
-                              },
-                              model: {
-                                value: _vm.data[col.property],
-                                callback: function($$v) {
-                                  _vm.$set(_vm.data, col.property, $$v)
-                                },
-                                expression: "data[col.property]"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                  ])
+                _vm._l(_vm.data.details, function(detail) {
+                  return _c(
+                    "b-row",
+                    { key: detail.index },
+                    _vm._l(table.fields, function(col) {
+                      return _c("div", { key: col.index }, [
+                        col.type === "customer" || col.type === "supplier"
+                          ? _c(
+                              "div",
+                              [
+                                _c("search-taxpayer", {
+                                  attrs: {
+                                    partner_name:
+                                      detail[col.property[0]["name"]],
+                                    partner_taxid:
+                                      detail[col.property[0]["taxid"]]
+                                  },
+                                  on: {
+                                    "update:partner_name": function($event) {
+                                      return _vm.$set(
+                                        detail,
+                                        col.property[0]["name"],
+                                        $event
+                                      )
+                                    },
+                                    "update:partner_taxid": function($event) {
+                                      return _vm.$set(
+                                        detail,
+                                        col.property[0]["taxid"],
+                                        $event
+                                      )
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : col.type === "select"
+                          ? _c(
+                              "div",
+                              [
+                                _c("select-data", {
+                                  attrs: {
+                                    Id: detail[col.property],
+                                    api: col.api
+                                  },
+                                  on: {
+                                    "update:Id": function($event) {
+                                      return _vm.$set(
+                                        detail,
+                                        col.property,
+                                        $event
+                                      )
+                                    },
+                                    "update:id": function($event) {
+                                      return _vm.$set(
+                                        detail,
+                                        col.property,
+                                        $event
+                                      )
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : _c(
+                              "div",
+                              [
+                                _c("b-form-input", {
+                                  attrs: {
+                                    type: col.type,
+                                    required: col.required,
+                                    placeholder: col.placeholder
+                                  },
+                                  model: {
+                                    value: detail[col.property],
+                                    callback: function($$v) {
+                                      _vm.$set(detail, col.property, $$v)
+                                    },
+                                    expression: "detail[col.property]"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                      ])
+                    }),
+                    0
+                  )
                 })
               ],
               2

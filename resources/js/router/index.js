@@ -96,11 +96,11 @@ export default
         children:
         [
             {
-                    path: 'test',
+                    path: 'test/:id',
                     component: Form,
                     name: 'testForm',
                 meta: {
-                    pageurl: '/commercial/purchases',
+                    pageurl: '/commercial/sales',
                     title: 'commercial.purchaseInvoice',
                     img: '/img/apps/purchase-v1.svg',
                     cards: [{
@@ -108,74 +108,54 @@ export default
                             fields: [
                                 {
                                     label: 'commercial.date',
-                                    type: 'date',
-                                    property: 'date',
-                                    required: true,
-                                    placeholder: 'Enter Date',
-                                },
-                                {
-                                    type: 'select',
-                                    select: {
-                                        value: 'id',
-                                        label: 'name'
-                                    },
-                                    api: '/config/documents',
-                                    property: 'document_id',
-                                    required: false,
-                                    hideIfBlank: true,
-                                    placeholder: 'enter Text'
+                                    properties: [{ type: 'date', data: 'date', placeholder: 'commercial.date', required: false ,location: ''}],
                                 },
                                 {
                                     label: 'commercial.document',
-                                    type: 'date',
-                                    property: 'date',
-                                    required: true,
-                                    placeholder: 'Enter Date',
+                                    properties: [
+                                        { type: 'text', data: 'code', placeholder: 'commercial.code', required: false, location: '' }, 
+                                        { type: 'date', data: 'code_expiry', placeholder: 'commercial.expiryDate', required: false,  location: 'prepend' }
+                                ],
                                 },
 
                             ]
-                        },
-                        {
-                            fields: [
-                                {
-                                    label: 'commercial.customer',
-                                    type: 'customer',
-                                    property: [{ name: 'partner_name', taxid: 'partner_taxid' }],
-                                    required: true,
-                                    placeholder: 'Enter Partner',
-                                }
-
-                            ]
-                        },
+                        }
                         ]
                     }],
                     tables: [{
                         fields: [
                             {
-                                label: 'commercial.date',
-                                type: 'date',
-                                property: 'date',
-                                required: true,
-                                placeholder: 'Enter Date',
-                            },
-                            {
+                                label: 'commercial.chart',
                                 type: 'select',
-                                select: {
+                                select: [{
                                     value: 'id',
                                     label: 'name'
-                                },
-                                api: '/config/documents',
-                                property: 'document_id',
+                                }],
+                                api: '/accounting/charts/for/income',
+                                property: 'chart_id',
                                 required: false,
                                 hideIfBlank: true,
-                                placeholder: 'enter Text'
+                                placeholder: 'enter Chart'
                             },
                             {
-                                label: 'commercial.document',
-                                type: 'date',
-                                property: 'date',
+                                label: 'commercial.vat',
+                                type: 'select',
+                                select: [{
+                                    value: 'id',
+                                    label: 'name'
+                                }],
+                                api: '/accounting/charts/for/vats-debit',
+                                property: 'chart_Vat_id',
+                                required: false,
+                                hideIfBlank: true,
+                                placeholder: 'enter Vat'
+                            },
+                            {
+                                label: 'commercial.value',
+                                type: 'text',
+                                property: 'value',
                                 required: true,
-                                placeholder: 'Enter Date',
+                                placeholder: 'Enter Value',
                             },
 
                         ]

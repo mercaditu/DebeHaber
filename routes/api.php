@@ -11,7 +11,7 @@
 |
 */
 
-Route::group([ 'middleware' => 'auth:api' ], function () {
+//Route::group([ 'middleware' => 'auth:api' ], function () {
     Route::post('/transactions', 'API\TransactionController@start');
     Route::post('/payment', 'API\PaymentController@start');
     Route::post('/movement', 'API\AccountMovementController@start');
@@ -132,4 +132,4 @@ Route::group([ 'middleware' => 'auth:api' ], function () {
             Route::get('/transactions/{type}/{startDate}/{endDate}', 'KPIController@transactionByItems');
         });
     });
-});
+//});

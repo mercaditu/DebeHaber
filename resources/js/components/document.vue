@@ -1,6 +1,7 @@
 <template>
     <div>
-         <b-form-select v-model="document_id" :options="collections">
+         <b-form-select v-model="document_id">
+            <option v-for="doc in collections" :key="doc.key"  :value="doc.id">{{ doc.name }}</option>
         </b-form-select>
        
     </div>
@@ -33,38 +34,12 @@ export default {
         }
     },
     mounted() {
-        
         //do something after mounting vue instance
         var app = this;
-        console.log(app.label);
          crud.methods
         .onRead(app.baseUrl + app.api)
         .then(function(response) {
-                
-            if (app.value === 'code')
-            {
-            
-                response.data.data.forEach(element => {
-                     app.collections.push({
-                            // index: this.data.details.length + 1,
-                            value: element.code,
-                            text: element.name
-                        });
-                });
-               
-            } 
-            else{
-               response.data.data.forEach(element => {
-                   
-                     app.collections.push({
-                            // index: this.data.details.length + 1,
-                            value: element.id,
-                            text: element.name
-                        });
-                });
-            }
-           
-             console.log(app.collections);
+            app.collections = response.data.data;
         });
     }
 }
