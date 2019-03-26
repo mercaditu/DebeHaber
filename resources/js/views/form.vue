@@ -18,15 +18,7 @@
     </b-col>
     <b-col>
       <b-button-toolbar class="float-right d-none d-md-block">
-        <b-btn
-          class="ml-15"
-          v-shortkey="['ctrl', 'd']"
-          @shortkey="addDetailRow()"
-          @click="addDetailRow()"
-        >
-          <i class="material-icons">playlist_add</i>
-          {{ $t('general.addRowDetail') }}
-        </b-btn>
+        
         <b-button-group class="ml-15">
           <b-btn
             variant="primary"
@@ -89,14 +81,14 @@
                     :type="col.type"
                     v-model="data[property.data]"
                     :required="col.required"
-                    placeholder="col.placeholder0"
+                    :placeholder="col.placeholder"
                   />
                   <b-input-group-append v-if="property.location === 'append'">
                     <b-input
                       :type="col.type"
                       v-model="data[property.data]"
                       :required="col.required"
-                      placeholder="col.placeholder1"
+                      :placeholder="col.placeholder"
                     />
                   </b-input-group-append>
                   <b-input-group-prepend v-else-if="property.location === 'prepend'">
@@ -104,7 +96,7 @@
                       :type="col.type"
                       v-model="data[property.data]"
                       :required="col.required"
-                      placeholder="col.placeholder2"
+                      :placeholder="col.placeholder"
                     />
                   </b-input-group-prepend>
                 </b-input-group>
@@ -115,13 +107,22 @@
       </b-card>
     </div>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
+      <b-btn
+          class="ml-15"
+          v-shortkey="['ctrl', 'd']"
+          @shortkey="addRow(table.data)"
+          @click="addRow(table.data)"
+        >
+          <i class="material-icons">playlist_add</i>
+          {{ $t('general.addRowDetail') }}
+        </b-btn>
       <b-card no-body>
         <!-- Labels -->
         <b-row>
           <b-col v-for="col in table.fields" v-bind:key="col.index">{{ $t(col.label) }}</b-col>
         </b-row>
         <!-- Rows -->
-        <b-row v-for="detail in data.details" v-bind:key="detail.index">
+        <b-row v-for="detail in data.details" v-bind:key="detail.id">
           <div v-for="col in table.fields" v-bind:key="col.index">
             <span v-for="property in col.properties" v-bind:key="property.index">
               <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
@@ -139,14 +140,14 @@
                   :type="col.type"
                   v-model="detail[property.data]"
                   :required="col.required"
-                  placeholder="col.placeholder0"
+                  :placeholder="col.placeholder"
                 />
                 <b-input-group-append v-if="property.location === 'append'">
                   <b-input
                     :type="col.type"
                     v-model="detail[property.data]"
                     :required="col.required"
-                    placeholder="col.placeholder1"
+                    :placeholder="col.placeholder"
                   />
                 </b-input-group-append>
                 <b-input-group-prepend v-else-if="property.location === 'prepend'">
@@ -154,12 +155,15 @@
                     :type="col.type"
                     v-model="detail[property.data]"
                     :required="col.required"
-                    placeholder="col.placeholder2"
+                    :placeholder="col.placeholder"
                   />
                 </b-input-group-prepend>
               </b-input-group>
             </span>
           </div>
+            <b-button variant="link" @click="deleteRow(detail,table.data)">
+                        <i class="material-icons text-danger">delete_outline</i>
+            </b-button>
         </b-row>
       </b-card>
     </div>
@@ -172,7 +176,9 @@ export default {
   components: { crud: crud },
   data() {
     return {
-      data: {}
+      data: {
+       
+      }
     };
   },
   computed: {
@@ -182,6 +188,111 @@ export default {
       );
     }
   },
+   methods: {
+        onSaveNew() {
+            var app = this;
+            crud.methods
+            .onUpdate(app.baseUrl + app.pageUrl, app.data)
+            .then(function(response) {
+                app.$snack.success({
+                    text: app.$i18n.t("commercial.invoiceSaved")
+                });
+                
+                app.data.customer_id = 0;
+                app.data.customer = [];
+                app.data.chart_account_id= 0,
+                app.data.code= "",
+                app.data.code_expiry= "",
+                app.data.comment= "",
+                app.data.currency= "",
+                app.data.partner_name= "",
+                app.data.partner_taxid= "",
+                app.data.customer= [],
+                app.data.date= "",
+                app.data.details= [{ id: 0 }],
+                app.data.document_id= "",
+                app.data.document_type= 1,
+                app.data.id= 0,
+                app.data.is_deductible= 0,
+                app.data.journal_id= null,
+                app.data.number= "",
+                app.data.payment_condition= 0,
+                app.data.rate= 1,
+                app.data.type= 3
+                app.$router.push({ name: app.$route.name, params: { id: '0' }})
+            })
+            .catch(function(error) {
+                console.log(error);
+                app.$snack.danger({ text: this.$i18n.t("general.errorMessage") + error.message });
+            });
+        },
+
+        onCancel() {
+            this.$swal
+            .fire({
+                title: this.$i18n.t("general.cancel"),
+                text: this.$i18n.t("general.cancelVerification"),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: this.$i18n.t("general.cancelConfirmation"),
+                cancelButtonText: this.$i18n.t("general.cancelRejection")
+            })
+            .then(result => {
+                if (result.value) {
+                    this.$router.go(-1);
+                }
+            });
+        },
+
+        addRow(table) {
+          var app=this;
+            if(app.data[table] === undefined)
+            {
+              app.data[table] = [];
+            }
+           
+            app.data[table].push({
+                // index: this.data.details.length + 1,
+                id: 0
+             
+            });
+            this.$forceUpdate();
+         
+        },
+
+        deleteRow(item,table) {
+            if (item.id > 0) {
+                var app = this;
+
+                crud.methods
+                .onDelete(app.baseUrl + app.pageUrl + "/details", item.id)
+                .then(function(response) {});
+            }
+
+            this.lastDeletedRow = item;
+
+            this.$snack.success({
+                text: this.$i18n.t("general.rowDeleted"),
+                button: this.$i18n.t("general.undo"),
+                action: this.undoDeletedRow(table)
+            });
+            console.log(this.data[table].indexOf(item));
+            this.data[table].splice(this.data[table].indexOf(item), 1);
+            console.log(this.data[table]);
+              this.$forceUpdate()
+        },
+
+        undoDeletedRow(table) {
+            if (this.lastDeletedRow.id > 0) {
+                crud.methods
+                .onUpdate(app.baseUrl + app.pageUrl + "/details", this.lastDeletedRow)
+                .then(function(response) {});
+                //axios code to insert detail again??? or let save do it.
+            }
+
+            this.data[table].push(this.lastDeletedRow);
+        }
+    },
   mounted() {
     var app = this;
     console.log(

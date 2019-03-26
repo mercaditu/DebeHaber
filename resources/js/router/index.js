@@ -164,6 +164,7 @@ export default
                             }]
                     }],
                     tables: [{
+                        data:'details',
                         fields: [
                             {
                                 label: 'commercial.chart',
@@ -184,7 +185,7 @@ export default
                                 ],
                             },
                             {
-                                label: 'commercial.vat',
+                                label: 'commercial.value',
                                 properties: [
                                     {
                                         type: 'text', data: 'value', placeholder: 'commercial.vat',
