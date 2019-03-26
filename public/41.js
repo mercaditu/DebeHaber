@@ -69,6 +69,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -90,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (app.$route.params.id > 0) {
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id).then(function (response) {
-        console.log(response);
+        //console.log(response);
         app.data = response.data.data;
       });
     }
@@ -124,184 +197,474 @@ var render = function() {
           [
             _c(
               "b-card",
-              _vm._l(card.rows, function(row) {
-                return _c(
+              [
+                _c(
                   "b-row",
-                  { key: row.index },
-                  _vm._l(row.fields, function(col) {
-                    return _c(
+                  { staticClass: "mb-5" },
+                  [
+                    _c(
                       "b-col",
-                      { key: col.index },
                       [
                         _c(
-                          "b-form-group",
-                          { attrs: { label: _vm.$t(col.label) } },
-                          _vm._l(col.properties, function(property) {
-                            return _c(
-                              "b-input-group",
-                              { key: property.index },
+                          "b-btn",
+                          {
+                            directives: [
+                              {
+                                name: "shortkey",
+                                rawName: "v-shortkey",
+                                value: ["esc"],
+                                expression: "['esc']"
+                              }
+                            ],
+                            staticClass: "d-none d-md-block float-left",
+                            on: {
+                              shortkey: function($event) {
+                                return _vm.onCancel()
+                              },
+                              click: function($event) {
+                                return _vm.onCancel()
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "material-icons" }, [
+                              _vm._v("keyboard_backspace")
+                            ]),
+                            _vm._v(
+                              "\n                    " +
+                                _vm._s(_vm.$t("general.return")) +
+                                "\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("h3", { staticClass: "upper-case" }, [
+                          _c("img", {
+                            staticClass: "mr-10",
+                            attrs: {
+                              src: _vm.$route.meta.img,
+                              alt: "",
+                              width: "32"
+                            }
+                          }),
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(_vm.$route.meta.title) +
+                              "\n                "
+                          )
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      [
+                        _c(
+                          "b-button-toolbar",
+                          { staticClass: "float-right d-none d-md-block" },
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                directives: [
+                                  {
+                                    name: "shortkey",
+                                    rawName: "v-shortkey",
+                                    value: ["ctrl", "d"],
+                                    expression: "['ctrl', 'd']"
+                                  }
+                                ],
+                                staticClass: "ml-15",
+                                on: {
+                                  shortkey: function($event) {
+                                    return _vm.addDetailRow()
+                                  },
+                                  click: function($event) {
+                                    return _vm.addDetailRow()
+                                  }
+                                }
+                              },
                               [
-                                property.type === "customer" ||
-                                col.type === "supplier"
-                                  ? _c(
-                                      "b-input-group",
-                                      [
-                                        _c("search-taxpayer", {
-                                          attrs: {
-                                            partner_name:
-                                              _vm.data[col.property[0]["name"]],
-                                            partner_taxid:
-                                              _vm.data[col.property[0]["taxid"]]
-                                          },
-                                          on: {
-                                            "update:partner_name": function(
-                                              $event
-                                            ) {
-                                              return _vm.$set(
-                                                _vm.data,
-                                                col.property[0]["name"],
-                                                $event
-                                              )
-                                            },
-                                            "update:partner_taxid": function(
-                                              $event
-                                            ) {
-                                              return _vm.$set(
-                                                _vm.data,
-                                                col.property[0]["taxid"],
-                                                $event
-                                              )
-                                            }
-                                          }
-                                        })
-                                      ],
-                                      1
+                                _c("i", { staticClass: "material-icons" }, [
+                                  _vm._v("playlist_add")
+                                ]),
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(_vm.$t("general.addRowDetail")) +
+                                    "\n                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-button-group",
+                              { staticClass: "ml-15" },
+                              [
+                                _c(
+                                  "b-btn",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "shortkey",
+                                        rawName: "v-shortkey",
+                                        value: ["ctrl", "n"],
+                                        expression: "['ctrl', 'n']"
+                                      }
+                                    ],
+                                    attrs: { variant: "primary" },
+                                    on: {
+                                      shortkey: function($event) {
+                                        return _vm.onSaveNew()
+                                      },
+                                      click: function($event) {
+                                        return _vm.onSaveNew()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "material-icons" }, [
+                                      _vm._v("save")
+                                    ]),
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.$t("general.save")) +
+                                        "\n                "
                                     )
-                                  : property.type === "select"
-                                  ? _c(
-                                      "b-input-group",
-                                      [
-                                        _c("select-data", {
-                                          attrs: {
-                                            Id: _vm.data[col.property],
-                                            api: col.api
-                                          },
-                                          on: {
-                                            "update:Id": function($event) {
-                                              return _vm.$set(
-                                                _vm.data,
-                                                col.property,
-                                                $event
-                                              )
-                                            },
-                                            "update:id": function($event) {
-                                              return _vm.$set(
-                                                _vm.data,
-                                                col.property,
-                                                $event
-                                              )
-                                            }
-                                          }
-                                        })
-                                      ],
-                                      1
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-btn",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "shortkey",
+                                        rawName: "v-shortkey",
+                                        value: ["esc"],
+                                        expression: "['esc']"
+                                      }
+                                    ],
+                                    attrs: { variant: "danger" },
+                                    on: {
+                                      shortkey: function($event) {
+                                        return _vm.onCancel()
+                                      },
+                                      click: function($event) {
+                                        return _vm.onCancel()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "material-icons" }, [
+                                      _vm._v("cancel")
+                                    ]),
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(_vm.$t("general.cancel")) +
+                                        "\n                "
                                     )
-                                  : _c(
-                                      "b-input-group",
-                                      [
-                                        property.location === ""
-                                          ? _c("b-input", {
-                                              attrs: {
-                                                type: col.type,
-                                                required: col.required,
-                                                placeholder: col.placeholder
-                                              },
-                                              model: {
-                                                value: _vm.data[col.property],
-                                                callback: function($$v) {
-                                                  _vm.$set(
-                                                    _vm.data,
-                                                    col.property,
-                                                    $$v
-                                                  )
-                                                },
-                                                expression: "data[col.property]"
-                                              }
-                                            })
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        property.location === "append"
-                                          ? _c(
-                                              "b-input-group-append",
-                                              [
-                                                _c("b-input", {
-                                                  attrs: {
-                                                    type: col.type,
-                                                    required: col.required,
-                                                    placeholder: col.placeholder
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      _vm.data[col.property],
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        _vm.data,
-                                                        col.property,
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "data[col.property]"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          : property.location === "prepend"
-                                          ? _c(
-                                              "b-input-group-prepend",
-                                              [
-                                                _c("b-input", {
-                                                  attrs: {
-                                                    type: col.type,
-                                                    required: col.required,
-                                                    placeholder: col.placeholder
-                                                  },
-                                                  model: {
-                                                    value:
-                                                      _vm.data[col.property],
-                                                    callback: function($$v) {
-                                                      _vm.$set(
-                                                        _vm.data,
-                                                        col.property,
-                                                        $$v
-                                                      )
-                                                    },
-                                                    expression:
-                                                      "data[col.property]"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          : _vm._e()
-                                      ],
-                                      1
-                                    )
+                                  ]
+                                )
                               ],
                               1
                             )
-                          }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-button-toolbar",
+                          { staticClass: "float-right d-md-none" },
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                directives: [
+                                  {
+                                    name: "shortkey",
+                                    rawName: "v-shortkey",
+                                    value: ["ctrl", "d"],
+                                    expression: "['ctrl', 'd']"
+                                  }
+                                ],
+                                staticClass: "ml-15",
+                                on: {
+                                  shortkey: function($event) {
+                                    return _vm.addDetailRow()
+                                  },
+                                  click: function($event) {
+                                    return _vm.addDetailRow()
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "material-icons" }, [
+                                  _vm._v("playlist_add")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-button-group",
+                              { staticClass: "ml-15" },
+                              [
+                                _c(
+                                  "b-btn",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "shortkey",
+                                        rawName: "v-shortkey",
+                                        value: ["ctrl", "n"],
+                                        expression: "['ctrl', 'n']"
+                                      }
+                                    ],
+                                    attrs: { variant: "primary" },
+                                    on: {
+                                      shortkey: function($event) {
+                                        return _vm.onSaveNew()
+                                      },
+                                      click: function($event) {
+                                        return _vm.onSaveNew()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "material-icons" }, [
+                                      _vm._v("save")
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-btn",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "shortkey",
+                                        rawName: "v-shortkey",
+                                        value: ["esc"],
+                                        expression: "['esc']"
+                                      }
+                                    ],
+                                    attrs: { variant: "danger" },
+                                    on: {
+                                      shortkey: function($event) {
+                                        return _vm.onCancel()
+                                      },
+                                      click: function($event) {
+                                        return _vm.onCancel()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "material-icons" }, [
+                                      _vm._v("cancel")
+                                    ])
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ],
                           1
                         )
                       ],
                       1
                     )
-                  }),
+                  ],
                   1
-                )
-              }),
-              1
+                ),
+                _vm._v(" "),
+                _vm._l(card.rows, function(row) {
+                  return _c(
+                    "b-row",
+                    { key: row.index },
+                    _vm._l(row.fields, function(col) {
+                      return _c(
+                        "b-col",
+                        { key: col.index },
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: _vm.$t(col.label) } },
+                            _vm._l(col.properties, function(property) {
+                              return _c(
+                                "span",
+                                { key: property.index },
+                                [
+                                  property.type === "customer" ||
+                                  col.type === "supplier"
+                                    ? _c(
+                                        "b-input-group",
+                                        [
+                                          _c("search-taxpayer", {
+                                            attrs: {
+                                              partner_name:
+                                                _vm.data[
+                                                  property.data[0]["name"]
+                                                ],
+                                              partner_taxid:
+                                                _vm.data[
+                                                  property.data[0]["taxid"]
+                                                ]
+                                            },
+                                            on: {
+                                              "update:partner_name": function(
+                                                $event
+                                              ) {
+                                                return _vm.$set(
+                                                  _vm.data,
+                                                  property.data[0]["name"],
+                                                  $event
+                                                )
+                                              },
+                                              "update:partner_taxid": function(
+                                                $event
+                                              ) {
+                                                return _vm.$set(
+                                                  _vm.data,
+                                                  property.data[0]["taxid"],
+                                                  $event
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : property.type === "select"
+                                    ? _c(
+                                        "b-input-group",
+                                        [
+                                          _c("select-data", {
+                                            attrs: {
+                                              Id: _vm.data[property.data],
+                                              api: property.api
+                                            },
+                                            on: {
+                                              "update:Id": function($event) {
+                                                return _vm.$set(
+                                                  _vm.data,
+                                                  property.data,
+                                                  $event
+                                                )
+                                              },
+                                              "update:id": function($event) {
+                                                return _vm.$set(
+                                                  _vm.data,
+                                                  property.data,
+                                                  $event
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _c(
+                                        "b-input-group",
+                                        [
+                                          property.location === ""
+                                            ? _c("b-input", {
+                                                attrs: {
+                                                  type: col.type,
+                                                  required: col.required,
+                                                  placeholder:
+                                                    "col.placeholder0"
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.data[property.data],
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.data,
+                                                      property.data,
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "data[property.data]"
+                                                }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          property.location === "append"
+                                            ? _c(
+                                                "b-input-group-append",
+                                                [
+                                                  _c("b-input", {
+                                                    attrs: {
+                                                      type: col.type,
+                                                      required: col.required,
+                                                      placeholder:
+                                                        "col.placeholder1"
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        _vm.data[property.data],
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.data,
+                                                          property.data,
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "data[property.data]"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : property.location === "prepend"
+                                            ? _c(
+                                                "b-input-group-prepend",
+                                                [
+                                                  _c("b-input", {
+                                                    attrs: {
+                                                      type: col.type,
+                                                      required: col.required,
+                                                      placeholder:
+                                                        "col.placeholder2"
+                                                    },
+                                                    model: {
+                                                      value:
+                                                        _vm.data[property.data],
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.data,
+                                                          property.data,
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "data[property.data]"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e()
+                                        ],
+                                        1
+                                      )
+                                ],
+                                1
+                              )
+                            }),
+                            0
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    1
+                  )
+                })
+              ],
+              2
             )
           ],
           1
@@ -322,9 +685,9 @@ var render = function() {
                   _vm._l(table.fields, function(col) {
                     return _c("b-col", { key: col.index }, [
                       _vm._v(
-                        "\n                   " +
+                        "\n                       " +
                           _vm._s(_vm.$t(col.label)) +
-                          "\n                "
+                          "\n                    "
                       )
                     ])
                   }),
@@ -336,88 +699,168 @@ var render = function() {
                     "b-row",
                     { key: detail.index },
                     _vm._l(table.fields, function(col) {
-                      return _c("div", { key: col.index }, [
-                        col.type === "customer" || col.type === "supplier"
-                          ? _c(
-                              "div",
-                              [
-                                _c("search-taxpayer", {
-                                  attrs: {
-                                    partner_name:
-                                      detail[col.property[0]["name"]],
-                                    partner_taxid:
-                                      detail[col.property[0]["taxid"]]
-                                  },
-                                  on: {
-                                    "update:partner_name": function($event) {
-                                      return _vm.$set(
-                                        detail,
-                                        col.property[0]["name"],
-                                        $event
-                                      )
-                                    },
-                                    "update:partner_taxid": function($event) {
-                                      return _vm.$set(
-                                        detail,
-                                        col.property[0]["taxid"],
-                                        $event
-                                      )
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          : col.type === "select"
-                          ? _c(
-                              "div",
-                              [
-                                _c("select-data", {
-                                  attrs: {
-                                    Id: detail[col.property],
-                                    api: col.api
-                                  },
-                                  on: {
-                                    "update:Id": function($event) {
-                                      return _vm.$set(
-                                        detail,
-                                        col.property,
-                                        $event
-                                      )
-                                    },
-                                    "update:id": function($event) {
-                                      return _vm.$set(
-                                        detail,
-                                        col.property,
-                                        $event
-                                      )
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          : _c(
-                              "div",
-                              [
-                                _c("b-form-input", {
-                                  attrs: {
-                                    type: col.type,
-                                    required: col.required,
-                                    placeholder: col.placeholder
-                                  },
-                                  model: {
-                                    value: detail[col.property],
-                                    callback: function($$v) {
-                                      _vm.$set(detail, col.property, $$v)
-                                    },
-                                    expression: "detail[col.property]"
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                      ])
+                      return _c(
+                        "div",
+                        { key: col.index },
+                        _vm._l(col.properties, function(property) {
+                          return _c(
+                            "span",
+                            { key: property.index },
+                            [
+                              property.type === "customer" ||
+                              col.type === "supplier"
+                                ? _c(
+                                    "b-input-group",
+                                    [
+                                      _c("search-taxpayer", {
+                                        attrs: {
+                                          partner_name:
+                                            detail[property.data[0]["name"]],
+                                          partner_taxid:
+                                            _vm.data[property.data[0]["taxid"]]
+                                        },
+                                        on: {
+                                          "update:partner_name": function(
+                                            $event
+                                          ) {
+                                            return _vm.$set(
+                                              detail,
+                                              property.data[0]["name"],
+                                              $event
+                                            )
+                                          },
+                                          "update:partner_taxid": function(
+                                            $event
+                                          ) {
+                                            return _vm.$set(
+                                              _vm.data,
+                                              property.data[0]["taxid"],
+                                              $event
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : property.type === "select"
+                                ? _c(
+                                    "b-input-group",
+                                    [
+                                      _c("select-data", {
+                                        attrs: {
+                                          Id: detail[property.data],
+                                          api: property.api
+                                        },
+                                        on: {
+                                          "update:Id": function($event) {
+                                            return _vm.$set(
+                                              detail,
+                                              property.data,
+                                              $event
+                                            )
+                                          },
+                                          "update:id": function($event) {
+                                            return _vm.$set(
+                                              detail,
+                                              property.data,
+                                              $event
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _c(
+                                    "b-input-group",
+                                    [
+                                      property.location === ""
+                                        ? _c("b-input", {
+                                            attrs: {
+                                              type: col.type,
+                                              required: col.required,
+                                              placeholder: "col.placeholder0"
+                                            },
+                                            model: {
+                                              value: detail[property.data],
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  detail,
+                                                  property.data,
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "detail[property.data]"
+                                            }
+                                          })
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      property.location === "append"
+                                        ? _c(
+                                            "b-input-group-append",
+                                            [
+                                              _c("b-input", {
+                                                attrs: {
+                                                  type: col.type,
+                                                  required: col.required,
+                                                  placeholder:
+                                                    "col.placeholder1"
+                                                },
+                                                model: {
+                                                  value: detail[property.data],
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      detail,
+                                                      property.data,
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "detail[property.data]"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        : property.location === "prepend"
+                                        ? _c(
+                                            "b-input-group-prepend",
+                                            [
+                                              _c("b-input", {
+                                                attrs: {
+                                                  type: col.type,
+                                                  required: col.required,
+                                                  placeholder:
+                                                    "col.placeholder2"
+                                                },
+                                                model: {
+                                                  value: detail[property.data],
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      detail,
+                                                      property.data,
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "detail[property.data]"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  )
+                            ],
+                            1
+                          )
+                        }),
+                        0
+                      )
                     }),
                     0
                   )

@@ -123281,7 +123281,74 @@ var AccountingReports = function AccountingReports() {
               data: 'code_expiry',
               placeholder: 'commercial.expiryDate',
               required: false,
-              location: 'prepend'
+              location: 'append'
+            }]
+          }]
+        }, {
+          fields: [{
+            label: 'commercial.customer',
+            properties: [{
+              type: 'customer',
+              data: [{
+                name: 'partner_name',
+                taxid: 'partner_taxid'
+              }],
+              placeholder: 'commercial.customer',
+              required: false,
+              location: ''
+            }]
+          }, {
+            label: 'commercial.number',
+            properties: [{
+              type: 'text',
+              data: 'number',
+              placeholder: 'commercial.number',
+              required: false,
+              location: ''
+            }]
+          }]
+        }, {
+          fields: [{
+            label: 'commercial.paymentCondition',
+            properties: [{
+              type: 'text',
+              data: 'payment_condition',
+              placeholder: 'commercial.condition',
+              required: false,
+              location: ''
+            }, {
+              type: 'select',
+              data: 'chart_account_id',
+              placeholder: 'commercial.expiryDate',
+              api: '/accounting/charts/for/money/',
+              required: false,
+              location: 'append',
+              select: [{
+                value: 'id',
+                label: 'name'
+              }]
+            }]
+          }]
+        }, {
+          fields: [{
+            label: 'commercial.currency',
+            properties: [{
+              type: 'text',
+              data: 'rate',
+              placeholder: 'commercial.rate',
+              required: false,
+              location: ''
+            }, {
+              type: 'select',
+              data: 'currency',
+              placeholder: 'commercial.currency',
+              api: '/config/currencies/',
+              required: false,
+              location: 'append',
+              select: [{
+                value: 'code',
+                label: 'name'
+              }]
             }]
           }]
         }]
@@ -123289,34 +123356,41 @@ var AccountingReports = function AccountingReports() {
       tables: [{
         fields: [{
           label: 'commercial.chart',
-          type: 'select',
-          select: [{
-            value: 'id',
-            label: 'name'
-          }],
-          api: '/accounting/charts/for/income',
-          property: 'chart_id',
-          required: false,
-          hideIfBlank: true,
-          placeholder: 'enter Chart'
+          properties: [{
+            type: 'select',
+            data: 'chart_id',
+            placeholder: 'commercial.chart',
+            api: '/accounting/charts/for/income/',
+            required: false,
+            location: '',
+            select: [{
+              value: 'id',
+              label: 'name'
+            }]
+          }]
         }, {
           label: 'commercial.vat',
-          type: 'select',
-          select: [{
-            value: 'id',
-            label: 'name'
-          }],
-          api: '/accounting/charts/for/vats-debit',
-          property: 'chart_Vat_id',
-          required: false,
-          hideIfBlank: true,
-          placeholder: 'enter Vat'
+          properties: [{
+            type: 'select',
+            data: 'chart_vat_id',
+            placeholder: 'commercial.vat',
+            api: '/accounting/charts/for/vats-debit/',
+            required: false,
+            location: '',
+            select: [{
+              value: 'id',
+              label: 'name'
+            }]
+          }]
         }, {
-          label: 'commercial.value',
-          type: 'text',
-          property: 'value',
-          required: true,
-          placeholder: 'Enter Value'
+          label: 'commercial.vat',
+          properties: [{
+            type: 'text',
+            data: 'value',
+            placeholder: 'commercial.vat',
+            required: false,
+            location: ''
+          }]
         }]
       }]
     }
