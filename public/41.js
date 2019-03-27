@@ -200,15 +200,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onSaveNew: function onSaveNew() {
       var app = this;
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.$route.meta.pageurl, app.data).then(function (response) {
         app.$snack.success({
           text: app.$i18n.t("commercial.invoiceSaved")
         });
-        app.data.customer_id = 0;
-        app.data.customer = [];
-        app.data.chart_account_id = 0, app.data.code = "", app.data.code_expiry = "", app.data.comment = "", app.data.currency = "", app.data.partner_name = "", app.data.partner_taxid = "", app.data.customer = [], app.data.date = "", app.data.details = [{
-          id: 0
-        }], app.data.document_id = "", app.data.document_type = 1, app.data.id = 0, app.data.is_deductible = 0, app.data.journal_id = null, app.data.number = "", app.data.payment_condition = 0, app.data.rate = 1, app.data.type = 3;
+        app.data = [];
         app.$router.push({
           name: app.$route.name,
           params: {
@@ -252,25 +248,24 @@ __webpack_require__.r(__webpack_exports__);
       this.$forceUpdate();
     },
     deleteRow: function deleteRow(item, table) {
+      var app = this;
+
       if (item.id > 0) {
-        var app = this;
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + "/details", item.id).then(function (response) {});
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.$route.meta.pageurl + "/details", item.id).then(function (response) {});
       }
 
-      this.lastDeletedRow = item;
+      app.lastDeletedRow = item;
+      app.data[table].splice(app.data[table].indexOf(item), 1);
+      this.$forceUpdate();
       this.$snack.success({
         text: this.$i18n.t("general.rowDeleted"),
-        button: this.$i18n.t("general.undo"),
-        action: this.undoDeletedRow(table)
+        button: this.$i18n.t("general.undo") //action: app.undoDeletedRow(table)
+
       });
-      console.log(this.data[table].indexOf(item));
-      this.data[table].splice(this.data[table].indexOf(item), 1);
-      console.log(this.data[table]);
-      this.$forceUpdate();
     },
     undoDeletedRow: function undoDeletedRow(table) {
       if (this.lastDeletedRow.id > 0) {
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + "/details", this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.$route.meta.pageurl + "/details", this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
       }
 
       this.data[table].push(this.lastDeletedRow);
@@ -643,9 +638,10 @@ var render = function() {
                                         property.location === ""
                                           ? _c("b-input", {
                                               attrs: {
-                                                type: col.type,
-                                                required: col.required,
-                                                placeholder: col.placeholder
+                                                type: property.type,
+                                                required: property.required,
+                                                placeholder:
+                                                  property.placeholder
                                               },
                                               model: {
                                                 value: _vm.data[property.data],
@@ -668,9 +664,10 @@ var render = function() {
                                               [
                                                 _c("b-input", {
                                                   attrs: {
-                                                    type: col.type,
-                                                    required: col.required,
-                                                    placeholder: col.placeholder
+                                                    type: property.type,
+                                                    required: property.required,
+                                                    placeholder:
+                                                      property.placeholder
                                                   },
                                                   model: {
                                                     value:
@@ -695,9 +692,10 @@ var render = function() {
                                               [
                                                 _c("b-input", {
                                                   attrs: {
-                                                    type: col.type,
-                                                    required: col.required,
-                                                    placeholder: col.placeholder
+                                                    type: property.type,
+                                                    required: property.required,
+                                                    placeholder:
+                                                      property.placeholder
                                                   },
                                                   model: {
                                                     value:
@@ -795,7 +793,7 @@ var render = function() {
                 _vm._l(_vm.data.details, function(detail) {
                   return _c(
                     "b-row",
-                    { key: detail.id },
+                    { key: detail.index },
                     [
                       _vm._l(table.fields, function(col) {
                         return _c(

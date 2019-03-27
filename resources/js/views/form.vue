@@ -78,25 +78,25 @@
                 <b-input-group v-else>
                   <b-input
                     v-if="property.location === ''"
-                    :type="col.type"
+                    :type="property.type"
                     v-model="data[property.data]"
-                    :required="col.required"
-                    :placeholder="col.placeholder"
+                    :required="property.required"
+                    :placeholder="property.placeholder"
                   />
                   <b-input-group-append v-if="property.location === 'append'">
                     <b-input
-                      :type="col.type"
+                      :type="property.type"
                       v-model="data[property.data]"
-                      :required="col.required"
-                      :placeholder="col.placeholder"
+                      :required="property.required"
+                      :placeholder="property.placeholder"
                     />
                   </b-input-group-append>
                   <b-input-group-prepend v-else-if="property.location === 'prepend'">
                     <b-input
-                      :type="col.type"
+                      :type="property.type"
                       v-model="data[property.data]"
-                      :required="col.required"
-                      :placeholder="col.placeholder"
+                      :required="property.required"
+                      :placeholder="property.placeholder"
                     />
                   </b-input-group-prepend>
                 </b-input-group>
@@ -122,7 +122,7 @@
           <b-col v-for="col in table.fields" v-bind:key="col.index">{{ $t(col.label) }}</b-col>
         </b-row>
         <!-- Rows -->
-        <b-row v-for="detail in data.details" v-bind:key="detail.id">
+        <b-row v-for="detail in data.details" v-bind:key="detail.index">
           <div v-for="col in table.fields" v-bind:key="col.index">
             <span v-for="property in col.properties" v-bind:key="property.index">
               <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
@@ -192,33 +192,13 @@ export default {
         onSaveNew() {
             var app = this;
             crud.methods
-            .onUpdate(app.baseUrl + app.pageUrl, app.data)
+            .onUpdate(app.baseUrl + app.$route.meta.pageurl, app.data)
             .then(function(response) {
                 app.$snack.success({
                     text: app.$i18n.t("commercial.invoiceSaved")
                 });
                 
-                app.data.customer_id = 0;
-                app.data.customer = [];
-                app.data.chart_account_id= 0,
-                app.data.code= "",
-                app.data.code_expiry= "",
-                app.data.comment= "",
-                app.data.currency= "",
-                app.data.partner_name= "",
-                app.data.partner_taxid= "",
-                app.data.customer= [],
-                app.data.date= "",
-                app.data.details= [{ id: 0 }],
-                app.data.document_id= "",
-                app.data.document_type= 1,
-                app.data.id= 0,
-                app.data.is_deductible= 0,
-                app.data.journal_id= null,
-                app.data.number= "",
-                app.data.payment_condition= 0,
-                app.data.rate= 1,
-                app.data.type= 3
+                app.data = [];
                 app.$router.push({ name: app.$route.name, params: { id: '0' }})
             })
             .catch(function(error) {
@@ -261,35 +241,34 @@ export default {
         },
 
         deleteRow(item,table) {
+            var app = this;
             if (item.id > 0) {
-                var app = this;
 
                 crud.methods
-                .onDelete(app.baseUrl + app.pageUrl + "/details", item.id)
+                .onDelete(app.baseUrl + app.$route.meta.pageurl + "/details", item.id)
                 .then(function(response) {});
             }
 
-            this.lastDeletedRow = item;
-
+            app.lastDeletedRow = item;
+            app.data[table].splice(app.data[table].indexOf(item), 1);
+            this.$forceUpdate();
+            
             this.$snack.success({
                 text: this.$i18n.t("general.rowDeleted"),
                 button: this.$i18n.t("general.undo"),
-                action: this.undoDeletedRow(table)
+                //action: app.undoDeletedRow(table)
             });
-            console.log(this.data[table].indexOf(item));
-            this.data[table].splice(this.data[table].indexOf(item), 1);
-            console.log(this.data[table]);
-              this.$forceUpdate()
+            
+              
         },
 
         undoDeletedRow(table) {
             if (this.lastDeletedRow.id > 0) {
                 crud.methods
-                .onUpdate(app.baseUrl + app.pageUrl + "/details", this.lastDeletedRow)
+                .onUpdate(app.baseUrl + app.$route.meta.pageurl + "/details", this.lastDeletedRow)
                 .then(function(response) {});
                 //axios code to insert detail again??? or let save do it.
             }
-
             this.data[table].push(this.lastDeletedRow);
         }
     },

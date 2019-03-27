@@ -408,8 +408,7 @@ export default {
             });
         } else {
             app.data.date = new Date(Date.now()).toISOString().split("T")[0];
-            app.data.chart_account_id =
-            app.accountCharts[0] != null ? app.accountCharts[0].id : null;
+            app.data.chart_account_id =  app.accountCharts[0] != null ? app.accountCharts[0].id : null;
             app.data.payment_condition = 0;
             app.data.currency = app.spark.taxPayerData.currency;
             app.data.rate = 1;
