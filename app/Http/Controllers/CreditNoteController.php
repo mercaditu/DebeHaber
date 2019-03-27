@@ -51,7 +51,7 @@ class CreditNoteController extends Controller
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         return new GeneralResource(
-            Transaction::MyCreditNotes()->with('customer:name,taxid,id')
+            Transaction::MyCreditNotes()
                 ->where('id', $transactionId)
                 ->with('details')
                 ->first()

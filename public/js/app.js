@@ -123018,6 +123018,17 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
 /***/ }),
 
+/***/ "./resources/js/router/credit-note.json":
+/*!**********************************************!*\
+  !*** ./resources/js/router/credit-note.json ***!
+  \**********************************************/
+/*! exports provided: pageurl, title, img, cards, tables, default */
+/***/ (function(module) {
+
+module.exports = {"pageurl":"/commercial/credit-notes","title":"commercial.Credit Note","img":"/img/apps/purchase-v1.svg","cards":[{"rows":[{"fields":[{"label":"commercial.date","properties":[{"type":"date","data":"date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.document","properties":[{"type":"text","data":"code","placeholder":"commercial.code","required":false,"location":""},{"type":"date","data":"code_expiry","placeholder":"commercial.expiryDate","required":false,"location":"append"}]}]},{"fields":[{"label":"commercial.customer","properties":[{"type":"customer","data":[{"name":"partner_name","taxid":"partner_taxid"}],"placeholder":"commercial.customer ","required":false,"location":""}]},{"label":"commercial.number","properties":[{"type":"text","data":"number","placeholder":"commercial.number ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.paymentCondition","properties":[{"type":"text","data":"payment_condition","placeholder":"commercial.condition","required":false,"location":""},{"type":"select","data":"chart_account_id","placeholder":"commercial.expiryDate","api":"/accounting/charts/for/money/ ","required":false,"location":"append ","select":[{"value":"id","label":"name"}]}]}]},{"fields":[{"label":"commercial.currency ","properties":[{"type":"text","data":"rate","placeholder":"commercial.rate","required":false,"location":""},{"type":"select","data":"currency","placeholder":"commercial.currency","api":"/config/currencies/","required":false,"location":"append ","select":[{"value":"code","label":"name "}]}]}]}]}],"tables":[{"data":"details ","fields":[{"label":"commercial.chart ","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/income/","required":false,"location":"","select":[{"value":"id ","label":"name"}]}]},{"label":"commercial.vat ","properties":[{"type":"select","data":"chart_vat_id","placeholder":"commercial.vat","api":"/accounting/charts/for/vats-debit/ ","required":false,"location":"","select":[{"value":"id ","label":"name"}]}]},{"label":"commercial.value ","properties":[{"type":"text","data":"value","placeholder":"commercial.vat ","required":false,"location":""}]}]}]};
+
+/***/ }),
+
 /***/ "./resources/js/router/index.js":
 /*!**************************************!*\
   !*** ./resources/js/router/index.js ***!
@@ -123027,7 +123038,10 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// import FourZeroFour from '../views/404';
+/* harmony import */ var _router_credit_note_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../router/credit-note.json */ "./resources/js/router/credit-note.json");
+var _router_credit_note_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../router/credit-note.json */ "./resources/js/router/credit-note.json", 1);
+
+
 var FourZeroFour = function FourZeroFour() {
   return __webpack_require__.e(/*! import() */ 44).then(__webpack_require__.bind(null, /*! ../views/404 */ "./resources/js/views/404.vue"));
 };
@@ -123435,148 +123449,7 @@ var AccountingReports = function AccountingReports() {
       path: ':id',
       component: Form,
       name: 'creditForm',
-      meta: {
-        pageurl: '/commercial/credit-notes',
-        title: 'commercial.Credit Note',
-        img: '/img/apps/purchase-v1.svg',
-        cards: [{
-          rows: [{
-            fields: [{
-              label: 'commercial.date',
-              properties: [{
-                type: 'date',
-                data: 'date',
-                placeholder: 'commercial.date',
-                required: false,
-                location: ''
-              }]
-            }, {
-              label: 'commercial.document',
-              properties: [{
-                type: 'text',
-                data: 'code',
-                placeholder: 'commercial.code',
-                required: false,
-                location: ''
-              }, {
-                type: 'date',
-                data: 'code_expiry',
-                placeholder: 'commercial.expiryDate',
-                required: false,
-                location: 'append'
-              }]
-            }]
-          }, {
-            fields: [{
-              label: 'commercial.customer',
-              properties: [{
-                type: 'customer',
-                data: [{
-                  name: 'partner_name',
-                  taxid: 'partner_taxid'
-                }],
-                placeholder: 'commercial.customer',
-                required: false,
-                location: ''
-              }]
-            }, {
-              label: 'commercial.number',
-              properties: [{
-                type: 'text',
-                data: 'number',
-                placeholder: 'commercial.number',
-                required: false,
-                location: ''
-              }]
-            }]
-          }, {
-            fields: [{
-              label: 'commercial.paymentCondition',
-              properties: [{
-                type: 'text',
-                data: 'payment_condition',
-                placeholder: 'commercial.condition',
-                required: false,
-                location: ''
-              }, {
-                type: 'select',
-                data: 'chart_account_id',
-                placeholder: 'commercial.expiryDate',
-                api: '/accounting/charts/for/money/',
-                required: false,
-                location: 'append',
-                select: [{
-                  value: 'id',
-                  label: 'name'
-                }]
-              }]
-            }]
-          }, {
-            fields: [{
-              label: 'commercial.currency',
-              properties: [{
-                type: 'text',
-                data: 'rate',
-                placeholder: 'commercial.rate',
-                required: false,
-                location: ''
-              }, {
-                type: 'select',
-                data: 'currency',
-                placeholder: 'commercial.currency',
-                api: '/config/currencies/',
-                required: false,
-                location: 'append',
-                select: [{
-                  value: 'code',
-                  label: 'name'
-                }]
-              }]
-            }]
-          }]
-        }],
-        tables: [{
-          data: 'details',
-          fields: [{
-            label: 'commercial.chart',
-            properties: [{
-              type: 'select',
-              data: 'chart_id',
-              placeholder: 'commercial.chart',
-              api: '/accounting/charts/for/income/',
-              required: false,
-              location: '',
-              select: [{
-                value: 'id',
-                label: 'name'
-              }]
-            }]
-          }, {
-            label: 'commercial.vat',
-            properties: [{
-              type: 'select',
-              data: 'chart_vat_id',
-              placeholder: 'commercial.vat',
-              api: '/accounting/charts/for/vats-debit/',
-              required: false,
-              location: '',
-              select: [{
-                value: 'id',
-                label: 'name'
-              }]
-            }]
-          }, {
-            label: 'commercial.value',
-            properties: [{
-              type: 'text',
-              data: 'value',
-              placeholder: 'commercial.vat',
-              required: false,
-              location: ''
-            }]
-          }]
-        }]
-      }
+      meta: _router_credit_note_json__WEBPACK_IMPORTED_MODULE_0__
     }]
   }, {
     path: 'purchases',

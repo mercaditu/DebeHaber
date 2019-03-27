@@ -1,1 +1,14 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[46],{dOUX:function(a,t,n){"use strict";n.r(t);var e={data:function(){return{transactionList:[],transactionMeta:"",transactionSkip:0,transactionCurrentPage:0,taxPayerList:[],taxPayerMeta:"",taxPayerSkip:0,taxPayerCurrentPage:0,chartList:[],chartMeta:"",chartSkip:0,chartCurrentPage:0}},methods:{search:function(){var a=this;axios.get("/api/?page="+a.transactionCurrentPage).then(function(t){var n=t.data;a.transactionList=n.data,a.transactionMeta=n.meta,a.transactionSkip+=a.pageSize}),axios.get("/api ?page="+a.transactionCurrentPage).then(function(t){var n=t.data;a.taxPayerList=n.data,a.taxPayerMeta=n.meta,a.taxPayerSkip+=a.pageSize}),axios.get("/api ?page="+a.transactionCurrentPage).then(function(t){var n=t.data;a.chartList=n.data,a.chartMeta=n.meta,a.chartSkip+=a.pageSize})},transactionsByTaxPayer:function(a){var t=this;axios.get("/api ?page="+t.transactionCurrentPage).then(function(a){var n=a.data;t.transactionList=n.data,t.transactionMeta=n.meta,t.transactionSkip+=t.pageSize})},transactionsByChart:function(a){var t=this;axios.get("/api ?page="+t.transactionCurrentPage).then(function(a){var n=a.data;t.transactionList=n.data,t.transactionMeta=n.meta,t.transactionSkip+=t.pageSize})}}},r=n("KHd+"),i=Object(r.a)(e,function(){var a=this,t=a.$createElement,n=a._self._c||t;return n("div",[n("h2",[a._v("Transaction Results")]),a._v(" "),n("b-card",{attrs:{"no-body":"",header:"Transactions"}},[n("b-table",{attrs:{hover:""}})],1),a._v(" "),n("h2",[a._v("Taxpayer Results")]),a._v(" "),n("b-card",{attrs:{"no-body":""}},[n("b-table",{attrs:{hover:""}})],1),a._v(" "),a._m(0),a._v(" "),n("b-card",{attrs:{"no-body":""}},[n("b-table",{attrs:{hover:""}})],1)],1)},[function(){var a=this.$createElement,t=this._self._c||a;return t("h4",[t("small",{staticClass:"text-uppercase"},[this._v("Results for:")]),this._v("\n        Chart of Account\n    ")])}],!1,null,null,null);t.default=i.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[46],{
+
+/***/ "./resources/js/router/credit-note.js":
+/*!********************************************!*\
+  !*** ./resources/js/router/credit-note.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\SMART\\Documents\\GitHub\\DebeHaber\\resources\\js\\router\\credit-note.js'");
+
+/***/ })
+
+}]);
