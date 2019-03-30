@@ -1,0 +1,115 @@
+{
+    "pageurl": "/config/documents",
+    "title":  "commercial.Document",
+    "img":  "/img/apps/document.svg",
+    "cards": [{
+        "rows": [{
+            "fields": [
+                {
+                    "label": "commercial.Type",
+                    "properties": [
+                        {
+                            "type": "select",
+                            "data": "chart_account_id",
+                            "placeholder": "commercial.expiryDate",
+                            "api": "/accounting/charts/for/money/ ",
+                            "condition": "payment_condition",
+                            "required": false,
+                            "location": "append ",
+                            "select": [
+                                {
+                                    "value": "id",
+                                    "label": "name"
+                                }
+                            ]
+                        }
+                       
+                    ]
+                },
+                {
+                    "label": "commercial.Prefix",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "prefix",
+                            "placeholder": "commercial.prefix",
+                            "required": false,
+                            "location": ""
+                        }
+                       
+                    ]
+                }
+                
+                
+
+            ]
+        },
+        {
+            "fields": [
+               {
+                "label": "commercial.Mask",
+                "properties": [
+                    {
+                        "type": "text",
+                        "data": "mask",
+                        "placeholder": "commercial.mask",
+                        "required": false,
+                        "location": ""
+                    }
+                ]
+            },
+            {
+                "label": "commercial.start",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "start_range",
+                            "placeholder": "commercial.start",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                 }
+               
+
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "label": "commercial.end",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "end_range",
+                            "placeholder": "commercial.end",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.document",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "code",
+                            "placeholder": "commercial.code",
+                            "required": false,
+                            "location": ""
+                        },
+                        {
+                            "type": "date",
+                            "data": "code_expiry",
+                            "placeholder": "commercial.expiryDate",
+                            "required": false,
+                            "location": "append"
+                        }
+                    ]
+                }
+            ]
+        }
+        ]
+    }]
+    
+}

@@ -1,0 +1,101 @@
+{
+    "pageurl": "/commercial/money-movements",
+    "title":  "commercial.MoneyMovement",
+    "img":  "/img/apps/money-movement.svg",
+    "cards": [{
+        "rows": [{
+            "fields": [
+                {
+                    "label":  "commercial.startdate",
+                    "properties": [{ "type":  "date", "data":  "start_date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                },
+                {
+                    "label": "commercial.currency ",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "rate",
+                            "placeholder": "commercial.rate",
+                            "required": false,
+                            "location": ""
+                        },
+                        {
+                            "type": "select",
+                            "data": "currency",
+                            "placeholder": "commercial.currency",
+                            "api": "/config/currencies/",
+                            "required": false,
+                            "location": "append ",
+                            "select": [
+                                {
+                                    "value": "code",
+                                    "label": "name "
+                                }
+                            ]
+                        }
+                    ]
+                }
+
+            ]
+        },
+        {
+            "fields": [
+               {
+                "label": "commercial.chart",
+                "properties": [
+                    {
+                        "type": "select",
+                        "data": "chart_id",
+                        "placeholder": "commercial.chart",
+                        "api": "/accounting/charts/for/money/",
+                        "required": false,
+                        "location": "",
+                        "select": [
+                            {
+                                "value": "id",
+                                "label": "name"
+                            }
+                        ]
+                    }
+                ]
+            },
+                {
+                    "label":  "commercial.debit",
+                    "properties": [{ "type":  "text", "data":  "debit", "placeholder":  "commercial.debit ", "required": false, "location":  "" }]
+                }
+
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "label": "commercial.credit",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "credit",
+                            "placeholder": "commercial.credit",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.comment",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "comment",
+                            "placeholder": "commercial.comment ",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                }
+            ]
+        }
+      
+    ]
+    }]
+   
+}

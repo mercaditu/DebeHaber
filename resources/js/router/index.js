@@ -1,6 +1,16 @@
 
- import CreditNote from '../router/credit-note.json';
+import CreditForm from '../views/commercials/creditForm.json';
+import DebitForm from '../views/commercials/debitForm.json';
+import SalesForm from '../views/commercials/salesForm.json';
+import PurchaseForm from '../views/commercials/purchaseForm.json';
+import InventoryForm from '../views/commercials/inventoryForm.json';
+import FixedAssetForm from '../views/commercials/fixedAssetForm.json';
 
+import CycleForm from '../views/configs/cycleForm.json';
+import DocumentForm from '../views/configs/documentForm.json';
+import RateForm from '../views/configs/rateForm.json';
+
+import MoneyMovementForm from '../views/commercials/moneyMovementForm.json';
 
 const FourZeroFour = () => import('../views/404')
 const DashBoard = () => import('../views/index')
@@ -9,18 +19,18 @@ const Form = () => import('../views/form')
 
 const Commercial = () => import('../views/commercials/index')
 const SalesList = () => import('../views/commercials/salesList')
-const SalesForm = () => import('../views/commercials/salesForm')
+//const SalesForm = () => import('../views/commercials/salesForm')
 const SalesUpload = () => import('../views/commercials/salesUpload')
 const PurchaseList = () => import('../views/commercials/purchaseList')
-const PurchaseForm = () => import('../views/commercials/purchaseForm')
+//const PurchaseForm = () => import('../views/commercials/purchaseForm')
 const CreditList = () => import('../views/commercials/creditList')
-const CreditForm = () => import('../views/commercials/creditForm')
+//const CreditForm = () => import('../views/commercials/creditForm')
 const DebitList = () => import('../views/commercials/debitList')
-const DebitForm = () => import('../views/commercials/debitForm')
+//const DebitForm = () => import('../views/commercials/debitForm')
 const FixedAssetList = () => import('../views/commercials/fixedAssetList')
-const FixedAssetForm = () => import('../views/commercials/fixedAssetForm')
+//const FixedAssetForm = () => import('../views/commercials/fixedAssetForm')
 const InventoryList = () => import('../views/commercials/inventoryList')
-const InventoryForm = () => import('../views/commercials/inventoryForm')
+//const InventoryForm = () => import('../views/commercials/inventoryForm')
 const ImpexList = () => import('../views/commercials/impexList')
 const ImpexForm = () => import('../views/commercials/impexForm')
 
@@ -30,9 +40,9 @@ const ReceivableForm = () => import('../views/commercials/receivableForm')
 const PayableList = () => import('../views/commercials/payableList')
 const PayableForm = () => import('../views/commercials/payableForm')
 
-const PaymentForm = () => import('../views/commercials/paymentForm')
+//const PaymentForm = () => import('../views/commercials/paymentForm')
 const MoneyMovementList = () => import('../views/commercials/moneyMovementList')
-const MoneyMovementForm = () => import('../views/commercials/moneyMovementForm')
+//const MoneyMovementForm = () => import('../views/commercials/moneyMovementForm')
 
 const Accounting = () => import('../views/accounts/index')
 const JournalList = () => import('../views/accounts/journalList')
@@ -46,13 +56,13 @@ const ChartForm = () => import('../views/accounts/chartForm')
 
 const Config = () => import('../views/configs/index')
 const DocumentList = () => import('../views/configs/documentList')
-const DocumentForm = () => import('../views/configs/documentForm')
+//const DocumentForm = () => import('../views/configs/documentForm')
 const RateList = () => import('../views/configs/rateList')
-const RateForm = () => import('../views/configs/rateForm')
+//const RateForm = () => import('../views/configs/rateForm')
 const VersionList = () => import('../views/configs/versionList')
 const VersionForm = () => import('../views/configs/versionForm')
 const CycleList = () => import('../views/configs/cycleList')
-const CycleForm = () => import('../views/configs/cycleForm')
+//const CycleForm = () => import('../views/configs/cycleForm')
 
 const CommercialReports = () => import('../views/commercials/reports')
 const AccountingReports = () => import('../views/accounts/reports')
@@ -224,12 +234,9 @@ export default
                     },
                     {
                         path: ':id',
-                        component: SalesForm,
+                        component: Form,
                         name: 'salesForm',
-                        meta: {
-                            title: 'commercial.salesInvoice',
-                            img: '/img/apps/sales.svg',
-                        },
+                        meta: SalesForm
 
                     }
                 ]
@@ -249,7 +256,7 @@ export default
                         path: ':id',
                         component: Form,
                         name: 'creditForm',
-                        meta: CreditNote
+                        meta: CreditForm
 
                     }
                 ]
@@ -391,13 +398,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: DebitForm,
+                        component: Form,
                         name: 'debitForm',
-                        meta: {
-                            title: 'commercial.debitNote',
-                            description: 'Some description',
-                            img: '/img/apps/credit-note.svg',
-                        },
+                        meta: DebitForm
 
                     }
                 ]
@@ -415,13 +418,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: FixedAssetForm,
+                        component: Form,
                         name: 'fixedAssetForm',
-                        meta: {
-                            title: 'commercial.fixedAsset',
-                            description: 'Some description',
-                            img: '/img/apps/fixed-asset.svg',
-                        },
+                        meta: FixedAssetForm
 
                     }
                 ]
@@ -439,13 +438,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: MoneyMovementForm,
+                        component: Form,
                         name: 'moneyMovementForm',
-                        meta: {
-                            title: 'commercial.moneyMovement',
-                            description: 'Some description',
-                            img: '/img/apps/account-payable.svg',
-                        },
+                        meta: MoneyMovementForm
 
                     }
                 ]
@@ -463,12 +458,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: InventoryForm,
+                        component: Form,
                         name: 'inventoryForm',
-                        meta: {
-                            title: 'commercial.inventory',
-                            img: '/img/apps/inventory.svg',
-                        },
+                        meta: InventoryForm
 
                     }
                 ]
@@ -677,11 +669,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: CycleForm,
+                        component: Form,
                         name: 'cycleForm',
-                        meta: {
-                            title: 'Cycle Form',
-                        },
+                        meta: CycleForm
 
                     }
                 ]
@@ -697,11 +687,9 @@ export default
                 },
                 children: [{
                     path: ':id',
-                    component: DocumentForm,
+                    component: Form,
                     name: 'documentForm',
-                    meta: {
-                        title: 'commercial.document',
-                    }
+                    meta: DocumentForm
                 }]
             },
             {
@@ -715,11 +703,9 @@ export default
                 },
                 children: [{
                     path: ':id',
-                    component: RateForm,
+                    component: Form,
                     name: 'rateForm',
-                    meta: {
-                        title: 'commercial.rate',
-                    }
+                    meta: RateForm
                 }]
             },
         ]

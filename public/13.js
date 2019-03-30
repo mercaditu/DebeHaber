@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexList.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/impexList.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -87,39 +87,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {
-      currentPage: 1
-    };
+    return {};
   },
   computed: {
     formURL: function formURL() {
-      return this.$route.name.replace('List', 'Form');
+      return this.$route.name.replace("List", "Form");
     },
     columns: function columns() {
       return [{
-        key: 'date',
+        key: "date",
         sortable: true
       }, {
-        key: 'partner_name',
-        label: this.$i18n.t('commercial.customer'),
+        key: "partner_name",
+        label: this.$i18n.t("commercial.customer"),
         sortable: true
       }, {
-        key: 'number',
-        label: this.$i18n.t('commercial.number'),
+        key: "type",
+        label: this.$i18n.t("commercial.impexType"),
         sortable: true
       }, {
-        key: 'total',
-        label: this.$i18n.t('commercial.total'),
+        key: "total",
+        label: this.$i18n.t("commercial.total"),
         sortable: true
       }, {
-        key: 'actions',
-        label: '',
+        key: "actions",
+        label: "",
         sortable: false
       }];
     }
@@ -128,9 +134,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexList.vue?vue&type=template&id=397943a8&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/impexList.vue?vue&type=template&id=397943a8& ***!
   \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -176,20 +182,16 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n                        " +
+                              "\n                            " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n                    "
+                                "\n                        "
                             )
                           ]),
                           _vm._v(" "),
                           _vm.$route.name.includes("List")
                             ? _c("p", { staticClass: "lead" }, [
                                 _vm._v(
-                                  "\n                        " +
-                                    _vm._s(
-                                      _vm.$t(_vm.$route.meta.description)
-                                    ) +
-                                    "\n                    "
+                                  _vm._s(_vm.$t(_vm.$route.meta.description))
                                 )
                               ])
                             : _vm._e()
@@ -200,7 +202,7 @@ var render = function() {
                         staticClass: "d-none d-xl-block"
                       }),
                       _vm._v(" "),
-                      _c("transactions-pie", {
+                      _c("invoices-this-month-kpi", {
                         staticClass: "d-none d-xl-block"
                       }),
                       _vm._v(" "),
@@ -222,23 +224,6 @@ var render = function() {
                                   _vm._v(
                                     "\n                                " +
                                       _vm._s(_vm.$t("general.manual")) +
-                                      "\n                            "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-list-group-item",
-                                { attrs: { to: { name: _vm.uploadURL } } },
-                                [
-                                  _c("i", { staticClass: "material-icons" }, [
-                                    _vm._v("cloud_upload")
-                                  ]),
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(
-                                        _vm.$t("general.uploadFromExcel")
-                                      ) +
                                       "\n                            "
                                   )
                                 ]
@@ -322,13 +307,11 @@ var render = function() {
                                           fn: function(data) {
                                             return [
                                               _vm._v(
-                                                "\n                                    " +
-                                                  _vm._s(
-                                                    new Date(
-                                                      data.item.date
-                                                    ).toLocaleDateString()
-                                                  ) +
-                                                  "\n                                "
+                                                _vm._s(
+                                                  new Date(
+                                                    data.item.date
+                                                  ).toLocaleDateString()
+                                                )
                                               )
                                             ]
                                           }
@@ -342,16 +325,17 @@ var render = function() {
                                                 { staticClass: "float-right" },
                                                 [
                                                   _vm._v(
-                                                    "\n                                        " +
+                                                    "\n                                    " +
                                                       _vm._s(
                                                         new Number(
                                                           _vm.sum(
-                                                            data.item.details,
+                                                            data.item
+                                                              .transactions,
                                                             "value"
                                                           )
                                                         ).toLocaleString()
                                                       ) +
-                                                      "\n                                        "
+                                                      "\n                                    "
                                                   ),
                                                   _c(
                                                     "small",
@@ -381,17 +365,11 @@ var render = function() {
                                               })
                                             ]
                                           }
-                                        },
-                                        {
-                                          key: "empty",
-                                          fn: function(scope) {
-                                            return [_c("table-empty")]
-                                          }
                                         }
                                       ],
                                       null,
                                       false,
-                                      228884512
+                                      3459326785
                                     )
                                   },
                                   [
@@ -406,8 +384,16 @@ var render = function() {
                                       },
                                       [_c("table-loading")],
                                       1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "template",
+                                      { slot: "empty" },
+                                      [_c("table-empty")],
+                                      1
                                     )
-                                  ]
+                                  ],
+                                  2
                                 ),
                                 _vm._v(" "),
                                 _c("b-pagination", {
@@ -450,17 +436,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitList.vue":
+/***/ "./resources/js/views/commercials/impexList.vue":
 /*!******************************************************!*\
-  !*** ./resources/js/views/commercials/debitList.vue ***!
+  !*** ./resources/js/views/commercials/impexList.vue ***!
   \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./debitList.vue?vue&type=template&id=a2218bd6& */ "./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&");
-/* harmony import */ var _debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./debitList.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _impexList_vue_vue_type_template_id_397943a8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./impexList.vue?vue&type=template&id=397943a8& */ "./resources/js/views/commercials/impexList.vue?vue&type=template&id=397943a8&");
+/* harmony import */ var _impexList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./impexList.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/impexList.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -470,9 +456,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _impexList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _impexList_vue_vue_type_template_id_397943a8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _impexList_vue_vue_type_template_id_397943a8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -482,38 +468,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/commercials/debitList.vue"
+component.options.__file = "resources/js/views/commercials/impexList.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/views/commercials/impexList.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
-  !*** ./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/views/commercials/impexList.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./debitList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_impexList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./impexList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_impexList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&":
+/***/ "./resources/js/views/commercials/impexList.vue?vue&type=template&id=397943a8&":
 /*!*************************************************************************************!*\
-  !*** ./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6& ***!
+  !*** ./resources/js/views/commercials/impexList.vue?vue&type=template&id=397943a8& ***!
   \*************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./debitList.vue?vue&type=template&id=a2218bd6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/debitList.vue?vue&type=template&id=a2218bd6&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_impexList_vue_vue_type_template_id_397943a8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./impexList.vue?vue&type=template&id=397943a8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexList.vue?vue&type=template&id=397943a8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_impexList_vue_vue_type_template_id_397943a8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_debitList_vue_vue_type_template_id_a2218bd6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_impexList_vue_vue_type_template_id_397943a8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,61 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexForm.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/impexForm.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/crud.vue */ "./resources/js/components/crud.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -155,110 +109,32 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: {
         chart_account_id: 0,
-        code: '',
-        code_expiry: '',
         comment: '',
         currency: '',
-        partner_name: '',
-        partner_taxid: '',
-        customer: [],
         date: '',
-        details: [{
-          id: 0
-        }],
-        document_id: '',
-        document_type: 1,
         id: 0,
-        is_deductible: 0,
-        journal_id: null,
-        number: '',
-        payment_condition: 0,
         rate: 1,
-        type: 4
+        payment_value: 0
       },
-      pageUrl: '/commercial/impexes',
-      documents: [],
+      pageUrl: '/commercial/accounts-payable',
       currencies: [],
       accountCharts: [],
-      vatCharts: [],
-      itemCharts: [],
       lastDeletedRow: []
     };
   },
   computed: {
-    columnsTransactions: function columnsTransactions() {
-      return [{
-        key: 'partner_name',
-        label: this.$i18n.t('commercial.company'),
-        sortable: true
-      }, {
-        key: 'number',
-        label: this.$i18n.t('commercial.invoiceNumber'),
-        sortable: true
-      }, {
-        key: 'value',
-        label: this.$i18n.t('commercial.value'),
-        sortable: true
-      }, {
-        key: 'actions',
-        label: '',
-        sortable: false
-      }];
-    },
-    columnsExpenses: function columnsExpenses() {
-      return [{
-        key: 'transaction_detail_id',
-        label: this.$i18n.t('commercial.invoice'),
-        sortable: true
-      }, {
-        key: 'number',
-        label: this.$i18n.t('commercial.invoiceNumber'),
-        sortable: true
-      }, {
-        key: 'value',
-        label: this.$i18n.t('commercial.value'),
-        sortable: true
-      }, {
-        key: 'actions',
-        label: '',
-        sortable: false
-      }];
-    },
     baseUrl: function baseUrl() {
       return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
     }
   },
   methods: {
-    onSave: function onSave() {
-      var app = this;
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
-        app.$snack.success({
-          text: app.$i18n.t('commercial.CreditNoteSaved')
-        });
-        app.$router.go(-1);
-      }).catch(function (error) {
-        app.$snack.danger({
-          text: 'Error OMG!'
-        });
-      });
-    },
     onSaveNew: function onSaveNew() {
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.CreditNoteSaved')
+          text: app.$i18n.t('commercial.accountPayableSaved')
         });
-        app.$router.push({
-          name: app.$route.name,
-          params: {
-            id: '0'
-          }
-        });
-        app.data.customer_id = 0;
-        app.data.customer = [];
-        app.data.chart_account_id = 0, app.data.code = "", app.data.code_expiry = "", app.data.comment = "", app.data.currency = "", app.data.partner_name = "", app.data.partner_taxid = "", app.data.date = "", app.data.details = [{
-          id: 0
-        }], app.data.document_id = "", app.data.document_type = 1, app.data.id = 0, app.data.is_deductible = 0, app.data.journal_id = null, app.data.number = "", app.data.payment_condition = 0, app.data.rate = 1, app.data.type = 3;
+        app.$router.go(-1);
       }).catch(function (error) {
         app.$snack.danger({
           text: this.$i18n.t('general.errorMessage')
@@ -280,35 +156,6 @@ __webpack_require__.r(__webpack_exports__);
           _this.$router.go(-1);
         }
       });
-    },
-    addDetailRow: function addDetailRow() {
-      this.data.details.push({
-        // index: this.data.details.length + 1,
-        chart_id: this.itemCharts[0].id,
-        chart_vat_id: this.vatCharts[0].id,
-        value: 0
-      });
-    },
-    deleteRow: function deleteRow(item) {
-      if (item.id > 0) {
-        var app = this;
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + '/details', item.id).then(function (response) {});
-      }
-
-      this.lastDeletedRow = item;
-      this.$snack.success({
-        text: this.$i18n.t('general.rowDeleted'),
-        button: this.$i18n.t('general.undo'),
-        action: this.undoDeletedRow
-      });
-      this.data.details.splice(this.data.details.indexOf(item), 1);
-    },
-    undoDeletedRow: function undoDeletedRow() {
-      if (this.lastDeletedRow.id > 0) {
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + '/details', this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
-      }
-
-      this.data.details.push(this.lastDeletedRow);
     }
   },
   mounted: function mounted() {
@@ -320,35 +167,42 @@ __webpack_require__.r(__webpack_exports__);
     if (app.$route.params.id > 0) {
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + '/' + app.$route.params.id).then(function (response) {
         app.data = response.data.data;
+        var total = 0;
+
+        if (app.data.details != null) {
+          total = app.data.details.reduce(function (sum, row) {
+            return sum + new Number(row['value']);
+          }, 0);
+        }
+
+        var paid = 0;
+
+        if (app.data.accountMovements != null) {
+          paid = app.data.accountMovements.reduce(function (sum, row) {
+            return sum + new Number(row['debit']);
+          }, 0);
+        }
+
+        app.data.date = new Date(Date.now()).toISOString().split("T")[0];
+        app.data.payment_value = new Number(total) - new Number(paid);
+        app.data.currency = app.currencies[0].code;
+        app.data.chart_id = app.accountCharts[0].id;
+        app.data.rate = 1;
       });
-    } else {
-      app.data.date = new Date(Date.now()).toISOString().split("T")[0];
-      app.data.chart_account_id = app.accountCharts[0] != null ? app.accountCharts[0].id : null;
-      app.data.payment_condition = 0;
-      app.data.currency = app.spark.taxPayerData.currency;
-      app.data.rate = 1;
-    } // crud.methods
-    // .onRead(app.baseUrl + "/accounting/charts/for/money/")
-    // .then(function (response) {
-    //     app.accountCharts = response.data.data;
-    // });
+    }
 
-
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/vats-debit").then(function (response) {
-      app.vatCharts = response.data.data;
-    });
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income").then(function (response) {
-      app.itemCharts = response.data.data;
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/money/").then(function (response) {
+      app.accountCharts = response.data.data;
     });
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexForm.vue?vue&type=template&id=05801cce&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/impexForm.vue?vue&type=template&id=05801cce& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -425,39 +279,6 @@ var render = function() {
                 "b-button-toolbar",
                 { staticClass: "float-right d-none d-md-block" },
                 [
-                  _c(
-                    "b-btn",
-                    {
-                      directives: [
-                        {
-                          name: "shortkey",
-                          rawName: "v-shortkey",
-                          value: ["ctrl", "d"],
-                          expression: "['ctrl', 'd']"
-                        }
-                      ],
-                      staticClass: "ml-15",
-                      on: {
-                        shortkey: function($event) {
-                          return _vm.addDetailRow()
-                        },
-                        click: function($event) {
-                          return _vm.addDetailRow()
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "material-icons" }, [
-                        _vm._v("playlist_add")
-                      ]),
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(_vm.$t("general.addRowDetail")) +
-                          "\n                "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
                   _c(
                     "b-button-group",
                     { staticClass: "ml-15" },
@@ -538,34 +359,6 @@ var render = function() {
                 "b-button-toolbar",
                 { staticClass: "float-right d-md-none" },
                 [
-                  _c(
-                    "b-btn",
-                    {
-                      directives: [
-                        {
-                          name: "shortkey",
-                          rawName: "v-shortkey",
-                          value: ["ctrl", "d"],
-                          expression: "['ctrl', 'd']"
-                        }
-                      ],
-                      staticClass: "ml-15",
-                      on: {
-                        shortkey: function($event) {
-                          return _vm.addDetailRow()
-                        },
-                        click: function($event) {
-                          return _vm.addDetailRow()
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "material-icons" }, [
-                        _vm._v("playlist_add")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
                   _c(
                     "b-button-group",
                     { staticClass: "ml-15" },
@@ -681,54 +474,28 @@ var render = function() {
                               _c(
                                 "b-form-group",
                                 {
-                                  attrs: {
-                                    label: _vm.$t("commercial.customer")
-                                  }
+                                  attrs: { label: _vm.$t("commercial.value") }
                                 },
                                 [
-                                  _c("search-taxpayer", {
+                                  _c("b-input", {
                                     attrs: {
-                                      partner_name: _vm.data.partner_name,
-                                      partner_taxid: _vm.data.partner_taxid
+                                      type: "number",
+                                      placeholder: "Value"
                                     },
-                                    on: {
-                                      "update:partner_name": function($event) {
-                                        return _vm.$set(
+                                    model: {
+                                      value: _vm.data.payment_value,
+                                      callback: function($$v) {
+                                        _vm.$set(
                                           _vm.data,
-                                          "partner_name",
-                                          $event
+                                          "payment_value",
+                                          _vm._n($$v)
                                         )
                                       },
-                                      "update:partner_taxid": function($event) {
-                                        return _vm.$set(
-                                          _vm.data,
-                                          "partner_taxid",
-                                          $event
-                                        )
-                                      }
+                                      expression: "data.payment_value"
                                     }
                                   })
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-form-checkbox",
-                                {
-                                  attrs: { switch: "", name: "check-button" },
-                                  model: {
-                                    value: _vm.data.is_import,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.data, "is_import", $$v)
-                                    },
-                                    expression: "data.is_import"
-                                  }
-                                },
-                                [
-                                  _vm.data.is_import
-                                    ? _c("span", [_vm._v("Import")])
-                                    : _c("span", [_vm._v("Export")])
-                                ]
                               )
                             ],
                             1
@@ -740,22 +507,32 @@ var render = function() {
                               _c(
                                 "b-form-group",
                                 {
-                                  attrs: { label: _vm.$t("commercial.number") }
+                                  attrs: { label: _vm.$t("commercial.chart") }
                                 },
                                 [
-                                  _c("b-input", {
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Impex Number"
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      model: {
+                                        value: _vm.data.chart_id,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.data, "chart_id", $$v)
+                                        },
+                                        expression: "data.chart_id"
+                                      }
                                     },
-                                    model: {
-                                      value: _vm.data.code,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.data, "code", $$v)
-                                      },
-                                      expression: "data.code"
-                                    }
-                                  })
+                                    _vm._l(_vm.accountCharts, function(item) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: item.key,
+                                          domProps: { value: item.id }
+                                        },
+                                        [_vm._v(_vm._s(item.name))]
+                                      )
+                                    }),
+                                    0
+                                  )
                                 ],
                                 1
                               ),
@@ -811,26 +588,40 @@ var render = function() {
                                       _vm._v(" "),
                                       _c("b-input", {
                                         attrs: {
-                                          type: "text",
+                                          type: "number",
                                           placeholder: _vm.$t(
-                                            "commercial.payment"
-                                          )
-                                        },
-                                        model: {
-                                          value: _vm.data.rate,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.data,
-                                              "rate",
-                                              _vm._n($$v)
-                                            )
-                                          },
-                                          expression: "data.rate"
+                                            "commercial.rate"
+                                          ),
+                                          value: _vm.data.rate
                                         }
                                       })
                                     ],
                                     1
                                   )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.comment") }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.comment,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "comment", $$v)
+                                      },
+                                      expression: "data.comment"
+                                    }
+                                  })
                                 ],
                                 1
                               )
@@ -845,219 +636,15 @@ var render = function() {
                   )
                 ],
                 1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-card",
-                { attrs: { title: "Invoices" } },
-                [
-                  _c("b-table", {
-                    attrs: {
-                      hover: "",
-                      items: _vm.data.transactions,
-                      fields: _vm.columnsTransactions
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "chart_id",
-                        fn: function(data) {
-                          return [
-                            _c(
-                              "b-form-select",
-                              {
-                                model: {
-                                  value: data.item.chart_id,
-                                  callback: function($$v) {
-                                    _vm.$set(data.item, "chart_id", $$v)
-                                  },
-                                  expression: "data.item.chart_id"
-                                }
-                              },
-                              _vm._l(_vm.itemCharts, function(item) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: item.key,
-                                    domProps: { value: item.id }
-                                  },
-                                  [_vm._v(_vm._s(item.name))]
-                                )
-                              }),
-                              0
-                            )
-                          ]
-                        }
-                      },
-                      {
-                        key: "actions",
-                        fn: function(data) {
-                          return [
-                            _c(
-                              "b-button",
-                              {
-                                attrs: { variant: "link" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteRow(data.item)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "i",
-                                  { staticClass: "material-icons text-danger" },
-                                  [_vm._v("delete_outline")]
-                                )
-                              ]
-                            )
-                          ]
-                        }
-                      }
-                    ])
-                  })
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-card",
-                { attrs: { title: "Expenses" } },
-                [
-                  _c("b-table", {
-                    attrs: {
-                      hover: "",
-                      items: _vm.data.expenses,
-                      fields: _vm.columnsExpense
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "chart_id",
-                        fn: function(data) {
-                          return [
-                            _c(
-                              "b-form-select",
-                              {
-                                model: {
-                                  value: data.item.chart_id,
-                                  callback: function($$v) {
-                                    _vm.$set(data.item, "chart_id", $$v)
-                                  },
-                                  expression: "data.item.chart_id"
-                                }
-                              },
-                              _vm._l(_vm.itemCharts, function(item) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: item.key,
-                                    domProps: { value: item.id }
-                                  },
-                                  [_vm._v(_vm._s(item.name))]
-                                )
-                              }),
-                              0
-                            )
-                          ]
-                        }
-                      },
-                      {
-                        key: "chart_vat_id",
-                        fn: function(data) {
-                          return [
-                            _c(
-                              "b-form-select",
-                              {
-                                model: {
-                                  value: data.item.chart_vat_id,
-                                  callback: function($$v) {
-                                    _vm.$set(data.item, "chart_vat_id", $$v)
-                                  },
-                                  expression: "data.item.chart_vat_id"
-                                }
-                              },
-                              _vm._l(_vm.vatCharts, function(vat) {
-                                return _c(
-                                  "option",
-                                  { key: vat.key, domProps: { value: vat.id } },
-                                  [_vm._v(_vm._s(vat.name))]
-                                )
-                              }),
-                              0
-                            )
-                          ]
-                        }
-                      },
-                      {
-                        key: "value",
-                        fn: function(data) {
-                          return [
-                            _c("b-form-input", {
-                              attrs: { placeholder: "Value" },
-                              model: {
-                                value: data.item.value,
-                                callback: function($$v) {
-                                  _vm.$set(data.item, "value", _vm._n($$v))
-                                },
-                                expression: "data.item.value"
-                              }
-                            })
-                          ]
-                        }
-                      },
-                      {
-                        key: "actions",
-                        fn: function(data) {
-                          return [
-                            _c(
-                              "b-button",
-                              {
-                                attrs: { variant: "link" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteRow(data.item)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "i",
-                                  { staticClass: "material-icons text-danger" },
-                                  [_vm._v("delete_outline")]
-                                )
-                              ]
-                            )
-                          ]
-                        }
-                      }
-                    ])
-                  })
-                ],
-                1
-              )
+              ),
+              _vm._v(" "),
+              _c("b-card", [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.data.accountMovements) +
+                    "\n            "
+                )
+              ])
             ],
             1
           )
@@ -1075,17 +662,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/impexForm.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/views/commercials/impexForm.vue ***!
-  \******************************************************/
+/***/ "./resources/js/views/commercials/payableForm.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/commercials/payableForm.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _impexForm_vue_vue_type_template_id_05801cce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./impexForm.vue?vue&type=template&id=05801cce& */ "./resources/js/views/commercials/impexForm.vue?vue&type=template&id=05801cce&");
-/* harmony import */ var _impexForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./impexForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/impexForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./payableForm.vue?vue&type=template&id=7771d191& */ "./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&");
+/* harmony import */ var _payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./payableForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1095,9 +682,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _impexForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _impexForm_vue_vue_type_template_id_05801cce___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _impexForm_vue_vue_type_template_id_05801cce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1107,38 +694,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/commercials/impexForm.vue"
+component.options.__file = "resources/js/views/commercials/payableForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/impexForm.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/views/commercials/impexForm.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_impexForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./impexForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_impexForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./payableForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/impexForm.vue?vue&type=template&id=05801cce&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/commercials/impexForm.vue?vue&type=template&id=05801cce& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_impexForm_vue_vue_type_template_id_05801cce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./impexForm.vue?vue&type=template&id=05801cce& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/impexForm.vue?vue&type=template&id=05801cce&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_impexForm_vue_vue_type_template_id_05801cce___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./payableForm.vue?vue&type=template&id=7771d191& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_impexForm_vue_vue_type_template_id_05801cce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

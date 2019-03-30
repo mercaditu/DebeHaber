@@ -1,13 +1,13 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[46],{
 
-/***/ "./resources/js/router/credit-note.js":
-/*!********************************************!*\
-  !*** ./resources/js/router/credit-note.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/views/commercials/creditForm.json":
+/*!********************************************************!*\
+  !*** ./resources/js/views/commercials/creditForm.json ***!
+  \********************************************************/
+/*! exports provided: pageurl, title, img, cards, tables, default */
+/***/ (function(module) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'C:\\Users\\SMART\\Documents\\GitHub\\DebeHaber\\resources\\js\\router\\credit-note.js'");
+module.exports = {"pageurl":"/commercial/credit-notes","title":"commercial.Credit Note","img":"/img/apps/purchase-v1.svg","cards":[{"rows":[{"fields":[{"label":"commercial.date","properties":[{"type":"date","data":"date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.document","properties":[{"type":"text","data":"code","placeholder":"commercial.code","required":false,"location":""},{"type":"date","data":"code_expiry","placeholder":"commercial.expiryDate","required":false,"location":"append"}]}]},{"fields":[{"label":"commercial.customer","properties":[{"type":"customer","data":[{"name":"partner_name","taxid":"partner_taxid"}],"placeholder":"commercial.customer ","required":false,"location":""}]},{"label":"commercial.number","properties":[{"type":"text","data":"number","placeholder":"commercial.number ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.paymentCondition","properties":[{"type":"text","data":"payment_condition","placeholder":"commercial.condition","required":false,"location":""},{"type":"select","data":"chart_account_id","placeholder":"commercial.expiryDate","api":"/accounting/charts/for/money/ ","condition":"payment_condition","required":false,"location":"append ","select":[{"value":"id","label":"name"}]}]}]},{"fields":[{"label":"commercial.currency ","properties":[{"type":"text","data":"rate","placeholder":"commercial.rate","required":false,"location":""},{"type":"select","data":"currency","placeholder":"commercial.currency","api":"/config/currencies/","required":false,"location":"append ","select":[{"value":"code","label":"name "}]}]}]}]}],"tables":[{"data":"details","fields":[{"label":"commercial.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/income/","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.vat","properties":[{"type":"select","data":"chart_vat_id","placeholder":"commercial.vat","api":"/accounting/charts/for/vats-debit/ ","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.value","properties":[{"type":"text","data":"value","placeholder":"commercial.vat","required":false,"location":""}]}]}]};
 
 /***/ })
 
