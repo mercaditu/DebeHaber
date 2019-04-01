@@ -1,13 +1,34 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[34],{
 
-/***/ "./resources/js/views/commercials/impexForm.json":
-/*!*******************************************************!*\
-  !*** ./resources/js/views/commercials/impexForm.json ***!
-  \*******************************************************/
-/*! exports provided: pageurl, title, img, cards, tables, default */
-/***/ (function(module) {
+/***/ "./resources/js/views/configs/versionForm.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/views/configs/versionForm.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = {"pageurl":"/commercial/sales","title":"commercial.Sale","img":"/img/apps/sales.svg","cards":[{"rows":[{"fields":[{"label":"commercial.date","properties":[{"type":"date","data":"date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.document","properties":[{"type":"text","data":"code","placeholder":"commercial.code","required":false,"location":""},{"type":"date","data":"code_expiry","placeholder":"commercial.expiryDate","required":false,"location":"append"}]}]},{"fields":[{"label":"commercial.customer","properties":[{"type":"customer","data":[{"name":"partner_name","taxid":"partner_taxid"}],"placeholder":"commercial.customer ","required":false,"location":""}]},{"label":"commercial.number","properties":[{"type":"text","data":"number","placeholder":"commercial.number ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.paymentCondition","properties":[{"type":"text","data":"payment_condition","placeholder":"commercial.condition","required":false,"location":""},{"type":"select","data":"chart_account_id","placeholder":"commercial.expiryDate","api":"/accounting/charts/for/money/ ","condition":"payment_condition","required":false,"location":"append ","select":[{"value":"id","label":"name"}]}]}]},{"fields":[{"label":"commercial.currency ","properties":[{"type":"text","data":"rate","placeholder":"commercial.rate","required":false,"location":""},{"type":"select","data":"currency","placeholder":"commercial.currency","api":"/config/currencies/","required":false,"location":"append ","select":[{"value":"code","label":"name "}]}]}]}]}],"tables":[{"data":"details","fields":[{"label":"commercial.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/income/","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.vat","properties":[{"type":"select","data":"chart_vat_id","placeholder":"commercial.vat","api":"/accounting/charts/for/vats-debit/ ","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.value","properties":[{"type":"text","data":"value","placeholder":"commercial.vat","required":false,"location":""}]}]}]};
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/views/configs/versionForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 

@@ -17,19 +17,21 @@ const DashBoard = () => import('../views/index')
 const SearchResult = () => import('../views/searchResult')
 const Form = () => import('../views/form')
 
+const List = () => import('../views/list')
+
 const Commercial = () => import('../views/commercials/index')
-const SalesList = () => import('../views/commercials/salesList')
+//const SalesList = () => import('../views/commercials/salesList')
 //const SalesForm = () => import('../views/commercials/salesForm')
 const SalesUpload = () => import('../views/commercials/salesUpload')
-const PurchaseList = () => import('../views/commercials/purchaseList')
+//const PurchaseList = () => import('../views/commercials/purchaseList')
 //const PurchaseForm = () => import('../views/commercials/purchaseForm')
-const CreditList = () => import('../views/commercials/creditList')
+//const CreditList = () => import('../views/commercials/creditList')
 //const CreditForm = () => import('../views/commercials/creditForm')
-const DebitList = () => import('../views/commercials/debitList')
+//const DebitList = () => import('../views/commercials/debitList')
 //const DebitForm = () => import('../views/commercials/debitForm')
-const FixedAssetList = () => import('../views/commercials/fixedAssetList')
+//const FixedAssetList = () => import('../views/commercials/fixedAssetList')
 //const FixedAssetForm = () => import('../views/commercials/fixedAssetForm')
-const InventoryList = () => import('../views/commercials/inventoryList')
+//const InventoryList = () => import('../views/commercials/inventoryList')
 //const InventoryForm = () => import('../views/commercials/inventoryForm')
 const ImpexList = () => import('../views/commercials/impexList')
 const ImpexForm = () => import('../views/commercials/impexForm')
@@ -41,7 +43,7 @@ const PayableList = () => import('../views/commercials/payableList')
 const PayableForm = () => import('../views/commercials/payableForm')
 
 //const PaymentForm = () => import('../views/commercials/paymentForm')
-const MoneyMovementList = () => import('../views/commercials/moneyMovementList')
+//const MoneyMovementList = () => import('../views/commercials/moneyMovementList')
 //const MoneyMovementForm = () => import('../views/commercials/moneyMovementForm')
 
 const Accounting = () => import('../views/accounts/index')
@@ -106,120 +108,41 @@ export default
         },
         children:
         [
-            {
-                    path: 'test/:id',
-                    component: Form,
-                    name: 'testForm',
-                    meta: {
-                        pageurl: '/commercial/sales',
-                        title: 'commercial.purchaseInvoice',
-                        img: '/img/apps/purchase-v1.svg',
-                        cards: [{
-                            rows: [{
-                                    fields: [
-                                        {
-                                            label: 'commercial.date',
-                                            properties: [{ type: 'date', data: 'date', placeholder: 'commercial.date', required: false ,location: ''}],
-                                        },
-                                        {
-                                            label: 'commercial.document',
-                                            properties: [ 
-                                                { type: 'text', data: 'code', placeholder: 'commercial.code', required: false, location: '' }, 
-                                                { type: 'date', data: 'code_expiry', placeholder: 'commercial.expiryDate', required: false,  location: 'append' }
-                                            ],
-                                        },
-
-                                    ]
-                                },
-                                {
-                                    fields: [
-                                        {
-                                            label: 'commercial.customer',
-                                            properties: [{ type: 'customer', data: [{ name: 'partner_name', taxid: 'partner_taxid' }], placeholder: 'commercial.customer', required: false, location: '' }],
-                                        },
-                                        {
-                                            label: 'commercial.number',
-                                            properties: [{ type: 'text', data: 'number', placeholder: 'commercial.number', required: false, location: '' }],
-                                        }
-                                    
-
-                                    ]
-                                },
-                                {
-                                    fields: [
-                                        {
-                                            label: 'commercial.paymentCondition',
-                                            properties: [
-                                                { type: 'text', data: 'payment_condition', placeholder: 'commercial.condition', required: false, location: '' },
-                                                {
-                                                    type: 'select', data: 'chart_account_id', placeholder: 'commercial.expiryDate', api: '/accounting/charts/for/money/', required: false, location: 'append', select: [{value: 'id',label: 'name'}]
-                                                }
-                                            ],
-                                        },
-
-                                    ]
-                                },
-                                {
-                                    fields: [
-                                        {
-                                            label: 'commercial.currency',
-                                            properties: [
-                                                { type: 'text', data: 'rate', placeholder: 'commercial.rate', required: false, location: '' },
-                                                {
-                                                    type: 'select', data: 'currency', placeholder: 'commercial.currency', api: '/config/currencies/', required: false, location: 'append', select: [{ value: 'code', label: 'name' }]
-                                                }
-                                            ],
-                                        },
-
-                                    ]
-                                }]
-                        }],
-                        tables: [{
-                            data:'details',
-                            fields: [
-                                {
-                                    label: 'commercial.chart',
-                                    properties: [
-                                        {
-                                            type: 'select', data: 'chart_id', placeholder: 'commercial.chart', api: '/accounting/charts/for/income/',
-                                            required: false, location: '', select: [{ value: 'id', label: 'name' }]
-                                        }
-                                    ],
-                                },
-                                {
-                                    label: 'commercial.vat',
-                                    properties: [
-                                        {
-                                            type: 'select', data: 'chart_vat_id', placeholder: 'commercial.vat', api: '/accounting/charts/for/vats-debit/',
-                                            required: false, location: '', select: [{ value: 'id', label: 'name' }]
-                                        }
-                                    ],
-                                },
-                                {
-                                    label: 'commercial.value',
-                                    properties: [
-                                        {
-                                            type: 'text', data: 'value', placeholder: 'commercial.vat',
-                                            required: false, location: ''
-                                        }
-                                    ],
-                                },                       
-                            
-
-                            ]
-
-                        }]
-                    }
-            },
+            
             {
                 path: 'sales',
-                component: SalesList,
+                component: List,
                 name: 'salesList',
                 meta: {
                     apiUrl: 'sales',
                     title: 'commercial.salesBook',
                     description: 'Some description',
                     img: '/img/apps/sales.svg',
+                    columns : [{
+                            key: 'date',
+                            sortable: true
+                        },
+                        {
+                            key: 'partner_name',
+                            label: 'commercial.customer',
+                            sortable: true
+                        },
+                        {
+                            key: 'number',
+                            label: 'commercial.number',
+                            sortable: true
+                        },
+                        {
+                            key: 'total',
+                            label: 'commercial.total',
+                            sortable: true
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
+                        }]
+                    
                 },
                 children:
                 [
@@ -243,12 +166,38 @@ export default
             },
             {
                 path: 'credit-notes',
-                component: CreditList,
+                component: List,
                 name: 'creditList',
                 meta: {
                     title: 'commercial.creditBook',
                     description: 'Some description',
                     img: '/img/apps/credit-note.svg',
+                    columns: [
+                        {
+                            key: "date",
+                            sortable: true
+                        },
+                        {
+                            key: "partner_name",
+                            label: "commercial.customer",
+                            sortable: true
+                        },
+                        {
+                            key: "number",
+                            label: "commercial.number",
+                            sortable: true
+                        },
+                        {
+                            key: "total",
+                            label: "commercial.total",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
+                            sortable: false
+                        }
+                    ]
                 },
                 children:
                 [
@@ -263,12 +212,36 @@ export default
             },
             {
                 path: 'purchases',
-                component: PurchaseList,
+                component: List,
                 name: 'purchaseList',
                 meta: {
                     title: 'commercial.purchaseBook',
                     description: 'Some description',
                     img: '/img/apps/purchase-v1.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                    {
+                        key: 'partner_name',
+                        label: 'commercial.supplier',
+                        sortable: true
+                    },
+                    {
+                        key: 'number',
+                        label: 'commercial.number',
+                        sortable: true
+                    },
+                    {
+                        key: 'total',
+                        label: 'commercial.total',
+                        sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: '',
+                        sortable: false
+                    }]
                 },
                 children:
                 [
@@ -387,12 +360,36 @@ export default
             },
             {
                 path: 'debit-notes',
-                component: DebitList,
+                component: List,
                 name: 'debitList',
                 meta: {
                     title: 'commercial.debitBook',
                     description: 'Some description',
                     img: '/img/apps/credit-note.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                        {
+                            key: 'partner_name',
+                            label: 'commercial.customer',
+                            sortable: true
+                        },
+                        {
+                            key: 'number',
+                            label: 'commercial.number',
+                            sortable: true
+                        },
+                        {
+                            key: 'total',
+                            label: 'commercial.total',
+                            sortable: true
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
+                        }]
                 },
                 children:
                 [
@@ -407,12 +404,36 @@ export default
             },
             {
                 path: 'fixed-assets',
-                component: FixedAssetList,
+                component: List,
                 name: 'fixedAssetList',
                 meta: {
                     title: 'commercial.fixedAssets',
                     description: 'Some description',
                     img: '/img/apps/fixed-asset.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                        {
+                            key: 'serial',
+                            label: 'commercial.serial',
+                            sortable: true
+                        },
+                        {
+                            key: 'name',
+                            label: 'commercial.name',
+                            sortable: true
+                        },
+                        {
+                            key: 'current_value',
+                            label: 'commercial.value',
+                            sortable: true
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
+                        }]
                 },
                 children:
                 [
@@ -427,12 +448,46 @@ export default
             },
             {
                 path: 'money-movements',
-                component: MoneyMovementList,
+                component: List,
                 name: 'moneyMovementList',
                 meta: {
                     title: 'commercial.moneyMovements',
                     description: 'Some description',
                     img: '/img/apps/account-payable.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                        {
+                            key: 'chart.name',
+                            label: 'commercial.account',
+                            sortable: true
+                        },
+                        {
+                            key: 'comment',
+                            label: 'general.comment',
+                            sortable: true
+                        },
+                        {
+                            key: 'currency.code',
+                            label: 'general.currency',
+                            sortable: true
+                        },
+                        {
+                            key: 'debit',
+                            label: 'commercial.debit',
+                            sortable: true
+                        },
+                        {
+                            key: 'credit',
+                            label: 'commercial.credit',
+                            sortable: true
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
+                        }]
                 },
                 children:
                 [
@@ -447,12 +502,41 @@ export default
             },
             {
                 path: 'inventories',
-                component: InventoryList,
+                component: List,
                 name: 'inventoryList',
                 meta: {
                     title: 'commercial.inventories',
                     description: 'Some description',
                     img: '/img/apps/inventory.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                    {
+                        key: 'start_date',
+                        label: 'commercial.startDate',
+                        sortable: true
+                    },
+                    {
+                        key: 'start_date',
+                        label: 'commercial.endDate',
+                        sortable: true
+                    },
+                    {
+                        key: 'inventory_value',
+                        label: 'commercial.value',
+                        sortable: true
+                    },
+                    {
+                        key: 'comments',
+                        label: 'commercial.comment',
+                        sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: '',
+                        sortable: false
+                    }]
                 },
                 children:
                 [
@@ -467,7 +551,7 @@ export default
             },
             {
                 path: 'accounts-receivable',
-                component: ReceivableList,
+                component: List,
                 name: 'receivableList',
                 meta: {
                     title: 'commercial.accountsReceivable',
@@ -490,7 +574,7 @@ export default
             },
             {
                 path: 'accounts-payable',
-                component: PayableList,
+                component: List,
                 name: 'payableList',
                 meta: {
                     title: 'commercial.accountsPayable',
@@ -513,7 +597,7 @@ export default
             },
             {
                 path: 'impexes',
-                component: ImpexList,
+                component: List,
                 name: 'impexList',
                 meta: {
                     title: 'commercial.impex',

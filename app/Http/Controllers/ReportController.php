@@ -50,7 +50,7 @@ class ReportController extends Controller
     {
         if (isset($taxPayer)) {
             $data = $this->journalQuery($taxPayer, $cycle->id, $startDate, $endDate)->sortBy('date');
-
+        
             if ($e == 'e') {
                 return Excel::download(new View2Excel(
                     'reports.accounting.ledger-sub',
@@ -76,7 +76,7 @@ class ReportController extends Controller
     {
         if (isset($taxPayer)) {
             $data = $this->journalQuery($taxPayer, $cycle->id, $startDate, $endDate)->sortBy('date');;
-
+   
             if ($e == 'e') {
                 return Excel::download(
                     new View2Excel(

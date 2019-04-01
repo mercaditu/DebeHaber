@@ -1,178 +1,96 @@
 <template>
-  <div>
-    <div v-for="table in $route.meta.tables" v-bind:key="table.index">
-      
-      <b-card no-body>
-        <!-- Labels -->
+    <div>
+        <b-row v-if="$route.name.includes('List')">
+            <b-col>
+                <b-card-group deck>
+                    <b-card bg-variant="dark" text-variant="white">
+                        <h4 class="upper-case">
+                            <img :src="$route.meta.img" alt="" class="ml-5 mr-5" width="26">
+                            {{ $t($route.meta.title) }}
+                        </h4>
+                        <p class="lead" v-if="$route.name.includes('List')">
+                            {{ $t($route.meta.description) }}
+                        </p>
+                    </b-card>
+
+                    <!-- <invoices-this-month-kpi class="d-none d-xl-block"></invoices-this-month-kpi>
+                    <transactions-pie class="d-none d-xl-block"></transactions-pie > -->
+
+                    <b-card no-body>
+                        <b-list-group flush>
+                            <b-list-group-item href="#">
+                                <i class="material-icons">help</i>
+                                {{ $t('general.manual') }}
+                            </b-list-group-item>
+                            <b-list-group-item :to="{ name: uploadURL }">
+                                <i class="material-icons">cloud_upload</i>
+                                {{ $t('general.uploadFromExcel') }}
+                            </b-list-group-item>
+                            <b-list-group-item :to="{ name: formURL, params: { id: 0}}">
+                                <i class="material-icons md-light">add_box</i>
+                                {{ $t('general.createNewRecord') }}
+                            </b-list-group-item>
+                        </b-list-group>
+                    </b-card>
+                </b-card-group>
+            </b-col>
+        </b-row>
         <b-row>
-          <b-col v-for="col in table.fields" v-bind:key="col.index">{{ $t(col.label) }}</b-col>
+            <b-col>
+                <div v-if="$route.name.includes('List')">
+               
+                    <crud :columns="$route.meta.columns" inline-template>
+                        <b-card no-body>
+                            <b-table hover responsive :items="items" :fields="$route.meta.columns" :current-page="currentPage" show-empty>
+
+                                <template slot="date" slot-scope="data">
+                                    {{ new Date(data.item.date).toLocaleDateString() }}
+                                </template>
+
+                                <template slot="total" slot-scope="data">
+                                    <span class="float-right">
+                                        {{ new Number(sum(data.item.details, 'value')).toLocaleString() }}
+                                        <small class="text-success text-uppercase">{{ data.item.currency }}</small>
+                                    </span>
+                                </template>
+
+                                <template slot="actions" slot-scope="data">
+                                    <table-actions :row="data.item"></table-actions>
+                                </template>
+
+                                <div slot="table-busy">
+                                    <table-loading></table-loading>
+                                </div>
+
+                                <template slot="empty" slot-scope="scope">
+                                    <table-empty></table-empty>
+                                </template>
+                            </b-table>
+                            <b-pagination align="center" :total-rows="meta.total" :per-page="meta.per_page"  @change="onList()"></b-pagination>
+                        </b-card>
+                    </crud>
+                </div>
+                <keep-alive v-else>
+                    <router-view></router-view>
+                </keep-alive>
+            </b-col>
         </b-row>
-        <!-- Rows -->
-        <b-row v-for="detail in data.details" v-bind:key="detail.index">
-          <div v-for="col in table.fields" v-bind:key="col.index">
-            <span v-for="property in col.properties" v-bind:key="property.index">
-              <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
-                <search-taxpayer
-                  v-bind:partner_name.sync="detail[property.data[0]['name']]"
-                  v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
-                ></search-taxpayer>
-              </b-input-group>
-              <b-input-group v-else-if="property.type === 'select'">
-                <select-data v-bind:Id.sync="detail[property.data]" :api="property.api"></select-data>
-              </b-input-group>
-              <b-input-group v-else>
-                <b-input
-                  v-if="property.location === ''"
-                  :type="col.type"
-                  v-model="detail[property.data]"
-                  :required="col.required"
-                  :placeholder="col.placeholder"
-                />
-                <b-input-group-append v-if="property.location === 'append'">
-                  <b-input
-                    :type="col.type"
-                    v-model="detail[property.data]"
-                    :required="col.required"
-                    :placeholder="col.placeholder"
-                  />
-                </b-input-group-append>
-                <b-input-group-prepend v-else-if="property.location === 'prepend'">
-                  <b-input
-                    :type="col.type"
-                    v-model="detail[property.data]"
-                    :required="col.required"
-                    :placeholder="col.placeholder"
-                  />
-                </b-input-group-prepend>
-              </b-input-group>
-            </span>
-          </div>
-            <b-button variant="link" @click="deleteRow(detail,table.data)">
-                        <i class="material-icons text-danger">delete_outline</i>
-            </b-button>
-        </b-row>
-      </b-card>
     </div>
-  </div>
 </template>
 
 <script>
-import crud from "../components/crud.vue";
+import crud from '../components/crud.vue'
 export default {
-  components: { crud: crud },
-  data() {
-    return {
-      data: {
-       
-      }
-    };
-  },
-  computed: {
-    baseUrl() {
-      return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
-      );
-    }
-  },
-   methods: {
-        onSaveNew() {
-            var app = this;
-            crud.methods
-            .onUpdate(app.baseUrl + app.$route.meta.pageurl, app.data)
-            .then(function(response) {
-                app.$snack.success({
-                    text: app.$i18n.t("commercial.invoiceSaved")
-                });
-                
-                app.data = [];
-                app.$router.push({ name: app.$route.name, params: { id: '0' }})
-            })
-            .catch(function(error) {
-                console.log(error);
-                app.$snack.danger({ text: this.$i18n.t("general.errorMessage") + error.message });
-            });
-        },
-
-        onCancel() {
-            this.$swal
-            .fire({
-                title: this.$i18n.t("general.cancel"),
-                text: this.$i18n.t("general.cancelVerification"),
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: this.$i18n.t("general.cancelConfirmation"),
-                cancelButtonText: this.$i18n.t("general.cancelRejection")
-            })
-            .then(result => {
-                if (result.value) {
-                    this.$router.go(-1);
-                }
-            });
-        },
-
-        addRow(table) {
-          var app=this;
-            if(app.data[table] === undefined)
-            {
-              app.data[table] = [];
-            }
-           
-            app.data[table].push({
-                // index: this.data.details.length + 1,
-                id: 0
-             
-            });
-            this.$forceUpdate();
-         
-        },
-
-        deleteRow(item,table) {
-            var app = this;
-            if (item.id > 0) {
-
-                crud.methods
-                .onDelete(app.baseUrl + app.$route.meta.pageurl + "/details", item.id)
-                .then(function(response) {});
-            }
-
-            app.lastDeletedRow = item;
-            app.data[table].splice(app.data[table].indexOf(item), 1);
-            this.$forceUpdate();
-            
-            this.$snack.success({
-                text: this.$i18n.t("general.rowDeleted"),
-                button: this.$i18n.t("general.undo"),
-                //action: app.undoDeletedRow(table)
-            });
-            
-              
-        },
-
-        undoDeletedRow(table) {
-            if (this.lastDeletedRow.id > 0) {
-                crud.methods
-                .onUpdate(app.baseUrl + app.$route.meta.pageurl + "/details", this.lastDeletedRow)
-                .then(function(response) {});
-                //axios code to insert detail again??? or let save do it.
-            }
-            this.data[table].push(this.lastDeletedRow);
+    components: { crud },
+    data: () => ({
+        currentPage:1
+    }),
+    computed: {
+        formURL: function () {
+            return this.$route.name.replace('List', 'Form');
         }
-    },
-  mounted() {
-    var app = this;
-    console.log(
-      app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id
-    );
-    if (app.$route.params.id > 0) {
-      crud.methods
-        .onRead(
-          app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id
-        )
-        .then(function(response) {
-          //console.log(response);
-          app.data = response.data.data;
-        });
+       
     }
-  }
-};
+
+}
 </script>

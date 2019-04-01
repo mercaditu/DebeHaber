@@ -189,6 +189,106 @@ export default {
         "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
+  },
+   methods: {
+        onSaveNew() {
+            var app = this;
+            crud.methods
+            .onUpdate(app.baseUrl + app.$route.meta.pageurl, app.data)
+            .then(function(response) {
+                app.$snack.success({
+                    text: app.$i18n.t("commercial.invoiceSaved")
+                });
+                
+                app.data = [];
+                app.$router.push({ name: app.$route.name, params: { id: '0' }})
+            })
+            .catch(function(error) {
+                console.log(error);
+                app.$snack.danger({ text: this.$i18n.t("general.errorMessage") + error.message });
+            });
+        },
+
+        onCancel() {
+            this.$swal
+            .fire({
+                title: this.$i18n.t("general.cancel"),
+                text: this.$i18n.t("general.cancelVerification"),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: this.$i18n.t("general.cancelConfirmation"),
+                cancelButtonText: this.$i18n.t("general.cancelRejection")
+            })
+            .then(result => {
+                if (result.value) {
+                    this.$router.go(-1);
+                }
+            });
+        },
+
+        addRow(table) {
+          var app=this;
+            if(app.data[table] === undefined)
+            {
+              app.data[table] = [];
+            }
+           
+            app.data[table].push({
+                // index: this.data.details.length + 1,
+                id: 0
+             
+            });
+            this.$forceUpdate();
+         
+        },
+
+        deleteRow(item,table) {
+            var app = this;
+            if (item.id > 0) {
+
+                crud.methods
+                .onDelete(app.baseUrl + app.$route.meta.pageurl + "/details", item.id)
+                .then(function(response) {});
+            }
+
+            app.lastDeletedRow = item;
+            app.data[table].splice(app.data[table].indexOf(item), 1);
+            this.$forceUpdate();
+            
+            this.$snack.success({
+                text: this.$i18n.t("general.rowDeleted"),
+                button: this.$i18n.t("general.undo"),
+                //action: app.undoDeletedRow(table)
+            });
+            
+              
+        },
+
+        undoDeletedRow(table) {
+            if (this.lastDeletedRow.id > 0) {
+                crud.methods
+                .onUpdate(app.baseUrl + app.$route.meta.pageurl + "/details", this.lastDeletedRow)
+                .then(function(response) {});
+                //axios code to insert detail again??? or let save do it.
+            }
+            this.data[table].push(this.lastDeletedRow);
+        }
+    },
+  mounted() {
+    var app = this;
+    console.log(
+      app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id
+    );
+    if (app.$route.params.id > 0) {
+      crud.methods
+        .onRead(
+          app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id
+        )
+        .then(function(response) {
+          //console.log(response);
+          app.data = response.data.data;
+        });
+    }
   }
   
     
