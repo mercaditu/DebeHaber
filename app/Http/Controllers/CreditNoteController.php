@@ -118,10 +118,10 @@ class CreditNoteController extends Controller
         //1st Query: Sales Transactions done in Credit. Must affect customer credit account.
         $listOfCreditNotes = Transaction::MyCreditNotesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->groupBy('rate', 'customer_id')
+            ->groupBy('rate')
             ->select(
                 DB::raw('max(rate) as rate'),
-                DB::raw('max(customer_id) as customer_id'),
+                DB::raw('max(partner_taxid) as partner_taxid'),
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();
@@ -152,6 +152,7 @@ class CreditNoteController extends Controller
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();
+          
 
         //run code for credit purchase (insert detail into journal)
         foreach ($detailAccounts->where('coefficient', '>', 0)->groupBy('chart_vat_id') as $groupedRow) {
@@ -165,7 +166,7 @@ class CreditNoteController extends Controller
             $journal->details()->save($detail);
             //$journal->load('details');
         }
-
+        dd($groupedRow);
         //run code for credit purchase (insert detail into journal)
         foreach ($detailAccounts->groupBy('chart_id') as $groupedRow) {
             $value = 0;

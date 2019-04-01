@@ -247,113 +247,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: PurchaseForm,
+                        component: Form,
                         name: 'purchaseForm',
-                        meta: {
-                            pageurl: '/commercial/purchases',
-                            title: 'commercial.purchaseInvoice',
-                            img: '/img/apps/purchase-v1.svg',
-                            cards: [{
-                                rows: [{
-                                    fields:[
-                                        {
-                                            label: 'commercial.date',
-                                            type: 'date',
-                                            property: 'date',
-                                            required: true,
-                                            placeholder: 'Enter Date',
-                                        },    
-                                        {
-                                            type: 'select',
-                                            select: {
-                                                value: 'id',
-                                                label: 'name'
-                                            },
-                                            api: '/config/documents',
-                                            property: 'document_id',
-                                            required: false,
-                                            hideIfBlank: true,
-                                            placeholder: 'enter Text'
-                                        },
-                                        {
-                                            label: 'commercial.document',
-                                            type: 'date',
-                                            property: 'date',
-                                            required: true,
-                                            placeholder: 'Enter Date',
-                                        },    
-                                       
-                                    ]
-                                },
-                                {
-                                    fields: [
-                                        {
-                                            label: 'commercial.customer',
-                                                type: 'customer',
-                                                property: [{ name: 'partner_name', taxid: 'partner_taxid' }],
-                                                required: true,
-                                                placeholder: 'Enter Partner',
-                                            }
-
-                                        ]
-                                    },
-                                ]                               
-                            }],
-                            tables: [ {
-                                cols: [
-                                    {
-                                        key: "chart_id",
-                                        label: 'commercial.item',
-                                        sortable: true
-                                    },
-                                    {
-                                        key: "chart_vat_id",
-                                        label: 'commercial.vat',
-                                        sortable: true
-                                    },
-                                    {
-                                        label: 'commercial.value',
-                                        sortable: true
-                                    },
-                                    {
-                                        key: "actions",
-                                        label: "",
-                                        sortable: false
-                                    }
-                                ],
-                                
-                                columns: [
-                                    {
-                                    
-                                    type: 'select',
-                                    select: {
-                                        value: 'id',
-                                        label: 'name'
-                                    },
-                                    api: '/accounting/charts/for/vats-credit',
-                                    property: 'chart_id',
-                                    required: false,
-                                    hideIfBlank: true,
-                                    placeholder: 'enter Text'
-                                    },
-                                    {
-
-                                        type: 'select',
-                                        select: {
-                                            value: 'id',
-                                            label: 'name'
-                                        },
-                                        api: '/accounting/charts/for/vats-credit',
-                                        property: 'chart_id',
-                                        required: false,
-                                        hideIfBlank: true,
-                                        placeholder: 'enter Text'
-                                    }
-                                ]
-                               
-                                
-                            }]
-                        }
+                        meta: PurchaseForm
 
                     }
                 ]
@@ -557,6 +453,35 @@ export default
                     title: 'commercial.accountsReceivable',
                     description: 'Some description',
                     img: '/img/apps/account-receivable.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                    {
+                        key: 'partner_name',
+                        label: 'commercial.customer',
+                        sortable: true
+                    },
+                    {
+                        key: 'comment',
+                        label: 'commercial.comment',
+                        sortable: true
+                    },
+                    {
+                        key: 'total',
+                        label: 'commercial.total',
+                        sortable: true
+                    },
+                    {
+                        key: 'balance',
+                        label: 'commercial.balance',
+                        sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: '',
+                        sortable: false
+                    }]
                 },
                 children:
                 [
@@ -580,6 +505,35 @@ export default
                     title: 'commercial.accountsPayable',
                     description: 'Some description',
                     img: '/img/apps/account-payable.svg',
+                    columns: [{
+                        key: 'date',
+                        sortable: true
+                    },
+                    {
+                        key: 'partner_name',
+                        label: 'commercial.customer',
+                        sortable: true
+                    },
+                    {
+                        key: 'comment',
+                        label: 'commercial.comment',
+                        sortable: true
+                    },
+                    {
+                        key: 'total',
+                        label: 'commercial.total',
+                        sortable: true
+                    },
+                    {
+                        key: 'balance',
+                        label: 'commercial.balance',
+                        sortable: true
+                    },
+                    {
+                        key: 'actions',
+                        label: '',
+                        sortable: false
+                    }]
                 },
                 children:
                 [
