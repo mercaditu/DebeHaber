@@ -12,6 +12,8 @@ import RateForm from '../views/configs/rateForm.json';
 
 import MoneyMovementForm from '../views/commercials/moneyMovementForm.json';
 
+import JournalTemplateForm from '../views/accounts/templateForm.json';
+
 const FourZeroFour = () => import('../views/404')
 const DashBoard = () => import('../views/index')
 const SearchResult = () => import('../views/searchResult')
@@ -585,6 +587,32 @@ export default
         children:
         [
             {
+                    path: 'journal-templates',
+                    component: List,
+                    name: 'journalTemplateList',
+                    meta: {
+                        title: 'accounting.journal',
+                        description: 'Some description',
+                        img: '/img/apps/journals.svg',
+                        columns: [
+                            {
+                                key: "name",
+                                sortable: true
+                            }
+
+                        ]
+                    },
+                    children:
+                        [
+                            {
+                                path: ':id',
+                                component: Form,
+                                name: 'journalTemplateForm',
+                                meta: JournalTemplateForm
+                            }
+                        ]
+            },
+            {
                 path: 'journals',
                 component: JournalList,
                 name: 'journalList',
@@ -606,6 +634,7 @@ export default
                     }
                 ]
             },
+                
             {
                 path: 'opening-balance',
                 component: OpeningBalance,

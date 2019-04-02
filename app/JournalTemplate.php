@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class JournalTemplate extends Model
 {
-    //
+    protected $fillable = [
+      'id'
+    ];
 
     /**
      * Get the taxPayer that owns the model.

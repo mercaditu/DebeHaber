@@ -62,7 +62,7 @@ class Transaction extends Model
             return $query->where('transactions.type', 2)
             ->where('transactions.sub_type', 1);
         })
-            ->where('taxpayer_id', $taxPayerID);
+            ->where('transactions.taxpayer_id', $taxPayerID);
     }
 
     public function scopeMySalesForJournals($query, $startDate, $endDate, $taxPayerID)
@@ -84,7 +84,7 @@ class Transaction extends Model
             return $query->where('transactions.type', 2)
             ->where('transactions.sub_type', 2);
         })
-            ->where('taxpayer_id', $taxPayerID);
+            ->where('transactions.taxpayer_id', $taxPayerID);
     }
 
     public function scopeMyCreditNotesForJournals($query, $startDate, $endDate, $taxPayerID)
@@ -95,7 +95,7 @@ class Transaction extends Model
                 return $query->where('transactions.type', 2)
                 ->where('transactions.sub_type', 2);
             })
-            ->where('taxpayer_id', $taxPayerID);
+            ->where('transactions.taxpayer_id', $taxPayerID);
     }
 
     public function scopeMyPurchases($query)
@@ -106,7 +106,7 @@ class Transaction extends Model
             return $query->where('transactions.type', 1)
             ->where('transactions.sub_type', 1);
         })
-            ->where('taxpayer_id', $taxPayerID);
+            ->where('transactions.taxpayer_id', $taxPayerID);
     }
 
     public function scopeMyPurchasesForJournals($query, $startDate, $endDate, $taxPayerID)
@@ -128,7 +128,7 @@ class Transaction extends Model
             return $query->where('transactions.type', 1)
             ->where('transactions.sub_type', 2);
         })
-            ->where('taxpayer_id', $taxPayerID);
+            ->where('transactions.taxpayer_id', $taxPayerID);
     }
 
     public function scopeMyDebitNotesForJournals($query, $startDate, $endDate, $taxPayerID)
@@ -139,7 +139,7 @@ class Transaction extends Model
                 return $query->where('transactions.type', 1)
                 ->where('transactions.sub_type', 2);
             })
-            ->where('taxpayer_id', $taxPayerID);
+            ->where('transactions.taxpayer_id', $taxPayerID);
     }
 
     /**

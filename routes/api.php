@@ -96,6 +96,7 @@
 
                 Route::resources([
                     'journals' => 'JournalController',
+                    'journal-templates' => 'JournalTemplateController',
                     'budgets' => 'BudgetController',
                     'opening-balance' => 'OpeningBalanceController',
                     'closing-balance' => 'ClosingBalanceController',

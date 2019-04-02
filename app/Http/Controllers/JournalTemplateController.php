@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Taxpayer;
 use App\Cycle;
 use App\JournalTemplate;
+use App\JournalTemplateDetail;
+use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
 
 class JournalTemplateController extends Controller
@@ -16,7 +18,11 @@ class JournalTemplateController extends Controller
     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        //
+         return GeneralResource::collection(
+                JournalTemplate::
+                 with('details')
+                ->paginate(50)
+        );
     }
 
     /**
@@ -35,9 +41,27 @@ class JournalTemplateController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-    public function store(Request $request)
+    public function store(TaxPayer $taxPayer,Request $request)
     {
-        //
+        $journalTemplate = JournalTemplate::firstOrNew(['id' => $request->id]);
+
+        $journalTemplate->country = $taxPayer->country;
+        $journalTemplate->taxpayer_id = $taxPayer->id;
+        $journalTemplate->name = $request->name;
+
+        $journalTemplate->save();
+
+        foreach ($request->details as $detail)
+        {
+            if (isset($detail['chart_id']) && $detail['chart_id'] > 0) {
+                $journalTemplateDetail = JournalTemplateDetail::firstOrNew(['id' => $detail['id']]);
+                $journalTemplateDetail->journal_template_id = $journalTemplate->id;
+                $journalTemplateDetail->chart_id = $detail['chart_id'];
+                $journalTemplateDetail->debit_coef = $detail['debit_coef'];
+                $journalTemplateDetail->credit_coef = $detail['debit_coef'];
+                $journalTemplateDetail->save();
+            }
+        }
     }
 
     /**
@@ -46,9 +70,14 @@ class JournalTemplateController extends Controller
     * @param  \App\JournalTemplate  $journalTemplate
     * @return \Illuminate\Http\Response
     */
-    public function show(JournalTemplate $journalTemplate)
+    public function show(Taxpayer $taxPayer, Cycle $cycle, $templateId)
     {
-        //
+         return new GeneralResource(
+            JournalTemplate::
+                 with('details')
+                ->where('id', $templateId)
+                ->first()
+        );
     }
 
     /**

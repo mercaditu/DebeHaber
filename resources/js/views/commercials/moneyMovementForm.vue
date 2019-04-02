@@ -72,7 +72,7 @@
                                     <b-form-group :label="$t('commercial.debit')">
                                         <b-input type="number" placeholder="Value"  v-model.number="data.debit"/>
                                     </b-form-group>
-                                    <b-form-group :label="$t('commercial.debit')">
+                                    <b-form-group :label="$t('commercial.credit')">
                                         <b-input type="number" placeholder="Value"  v-model.number="data.credit"/>
                                     </b-form-group>
                                     <b-form-group :label="$t('commercial.comment')">

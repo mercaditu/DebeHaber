@@ -74,7 +74,7 @@
                   ></search-taxpayer>
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
-                  <select-data v-bind:Id.sync="data[property.data]" :api="property.api"></select-data>
+                  <select-data v-bind:Id.sync="data[property.data]" :api="property.api" :options="property.options"></select-data>
                 </b-input-group>
                 <b-input-group v-else>
                   <b-input
@@ -126,7 +126,7 @@
         <!-- Rows -->
         <b-row v-for="detail in data.details" v-bind:key="detail.index">
           <div v-for="col in table.fields" v-bind:key="col.index">
-            <span v-for="property in col.properties" v-bind:key="property.index">
+              <span v-for="property in col.properties" v-bind:key="property.index">
               <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
                 <search-taxpayer
                   v-bind:partner_name.sync="detail[property.data[0]['name']]"
@@ -134,7 +134,7 @@
                 ></search-taxpayer>
               </b-input-group>
               <b-input-group v-else-if="property.type === 'select'">
-                <select-data v-bind:Id.sync="detail[property.data]" :api="property.api"></select-data>
+                <select-data v-bind:Id.sync="detail[property.data]" :api="property.api" :options="property.options"></select-data>
               </b-input-group>
               <b-input-group v-else>
                 <b-input

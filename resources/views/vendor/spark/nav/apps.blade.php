@@ -170,6 +170,10 @@
                 <i class="material-icons md-18 ml-10 mr-10">notes</i>
                 @{{ $t('accounting.journal') }}
             </b-nav-item>
+            <b-nav-item class="sub-menu" :to="{ name: 'journalTemplateList'}">
+                <i class="material-icons md-18 ml-10 mr-10">notes</i>
+                @{{ $t('accounting.journalTemplate') }}
+            </b-nav-item>
         </b-nav>
         <h3 class="nav-heading sub">
             @{{ $t('accounting.cycle', 5) }}

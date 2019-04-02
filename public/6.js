@@ -127,6 +127,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -141,10 +148,12 @@ __webpack_require__.r(__webpack_exports__);
         }],
         id: 0,
         number: '',
-        comment: ''
+        comment: '',
+        selectedTempalte: ''
       },
       pageUrl: '/accounting/journals',
       accountCharts: [],
+      templates: [],
       lastDeletedRow: []
     };
   },
@@ -253,6 +262,19 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.data.details.push(this.lastDeletedRow);
+    },
+    onTemplateLoad: function onTemplateLoad() {
+      var app = this;
+      console.log(app.data.template_id);
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/journal-templates/" + app.data.template_id).then(function (response) {
+        for (var index = 0; index < response.data.data.details.length; index++) {
+          app.data.details.push({
+            id: 0,
+            chart_id: response.data.data.details[0].chart_id,
+            value: 0
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -268,6 +290,9 @@ __webpack_require__.r(__webpack_exports__);
 
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/accountables/").then(function (response) {
       app.accountCharts = response.data.data;
+    });
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/journal-templates").then(function (response) {
+      app.templates = response.data.data;
     });
   }
 });
@@ -680,6 +705,52 @@ var render = function() {
                       _c(
                         "b-row",
                         [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.Template")
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      on: {
+                                        change: function($event) {
+                                          return _vm.onTemplateLoad()
+                                        }
+                                      },
+                                      model: {
+                                        value: _vm.data.template_id,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.data, "template_id", $$v)
+                                        },
+                                        expression: "data.template_id"
+                                      }
+                                    },
+                                    _vm._l(_vm.templates, function(item) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: item.key,
+                                          domProps: { value: item.id }
+                                        },
+                                        [_vm._v(_vm._s(item.name))]
+                                      )
+                                    }),
+                                    0
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
                           _c(
                             "b-col",
                             [

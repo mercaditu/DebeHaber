@@ -1,0 +1,56 @@
+{
+    "pageurl": "/accounting/journal-templates",
+    "title":  "accounting.Journal Template",
+    "img":  "/img/apps/template.svg",
+    "cards": [{
+        "rows": [{
+            "fields": [
+                {
+                    "label":  "commercial.name",
+                    "properties": [{ "type":  "text", "data":  "name", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                }
+                
+
+            ]
+        }              
+       ]
+    }],
+    "tables": [{
+        "data":  "details",
+        "fields": [
+            {
+                "label":  "accounting.chart",
+                "properties": [
+                    {
+                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api":  "/accounting/charts/for/accountables/",
+                        "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
+                    }
+                ]
+            },
+            {
+                "label":  "accounting.debitCoef",
+                "properties": [
+                    {
+                        "type":  "text", "data":  "debit_coef", "placeholder":  "commercial.vat",
+                        "required": false, "location":  ""
+                    }
+                ]
+            },
+            {
+                "label": "accounting.creditCoef",
+                "properties": [
+                    {
+                        "type": "text",
+                        "data": "credit_coef",
+                        "placeholder": "commercial.vat",
+                        "required": false,
+                        "location": ""
+                    }
+                ]
+            }
+
+
+        ]
+
+    }]
+}

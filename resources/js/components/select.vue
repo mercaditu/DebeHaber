@@ -10,7 +10,7 @@
 import crud from "../components/crud.vue";
 export default {
     components: { crud: crud },
-    props: ['Id','api','label','value'],
+    props: ['Id','api','options'],
     data: () => ({
         collections:[]
     }),
@@ -37,35 +37,43 @@ export default {
         //do something after mounting vue instance
         var app = this;
         console.log(app.label);
-         crud.methods
-        .onRead(app.baseUrl + app.api)
-        .then(function(response) {
+        if (app.api === "")
+        {
+             app.collections = app.options;
+        }
+        else{
+
+        
+                crud.methods
+                .onRead(app.baseUrl + app.api)
+                .then(function(response) {
+                        
+                    if (app.value === 'code')
+                    {
+                    
+                        response.data.data.forEach(element => {
+                            app.collections.push({
+                                    // index: this.data.details.length + 1,
+                                    value: element.code,
+                                    text: element.name
+                                });
+                        });
+                    
+                    } 
+                    else{
+                    response.data.data.forEach(element => {
+                        
+                            app.collections.push({
+                                    // index: this.data.details.length + 1,
+                                    value: element.id,
+                                    text: element.name
+                                });
+                        });
+                    }
                 
-            if (app.value === 'code')
-            {
-            
-                response.data.data.forEach(element => {
-                     app.collections.push({
-                            // index: this.data.details.length + 1,
-                            value: element.code,
-                            text: element.name
-                        });
-                });
-               
-            } 
-            else{
-               response.data.data.forEach(element => {
-                   
-                     app.collections.push({
-                            // index: this.data.details.length + 1,
-                            value: element.id,
-                            text: element.name
-                        });
-                });
-            }
-           
-             console.log(app.collections);
-        });
+                    console.log(app.collections);
+                })
+        };
     }
 }
 </script>

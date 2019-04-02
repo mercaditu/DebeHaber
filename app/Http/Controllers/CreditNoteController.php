@@ -166,7 +166,7 @@ class CreditNoteController extends Controller
             $journal->details()->save($detail);
             //$journal->load('details');
         }
-        dd($groupedRow);
+        
         //run code for credit purchase (insert detail into journal)
         foreach ($detailAccounts->groupBy('chart_id') as $groupedRow) {
             $value = 0;

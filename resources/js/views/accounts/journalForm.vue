@@ -74,6 +74,13 @@
                     <b-container>
                         <b-row>
                             <b-col>
+                                <b-form-group :label="$t('commercial.Template')">
+                                   <b-form-select v-model="data.template_id"  @change="onTemplateLoad()">
+                                     <option v-for="item in templates" :key="item.key" :value="item.id">{{ item.name }}</option>
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                            <b-col>
                                 <b-form-group :label="$t('commercial.comment')">
                                     <b-input type="text" placeholder="Comment" v-model="data.comment"/>
                                 </b-form-group>
@@ -126,11 +133,15 @@ export default {
                 details: [{id:0}],
                 id: 0,
                 number: '',
-                comment: ''
+                comment: '',
+                selectedTempalte: ''
             },
             pageUrl: '/accounting/journals',
 
             accountCharts: [],
+
+            templates: [],
+
 
             lastDeletedRow: [],
         };
@@ -258,6 +269,31 @@ export default {
 
             this.data.details.push(this.lastDeletedRow);
         },
+
+        onTemplateLoad()
+        {
+            var app=this;
+            console.log(app.data.template_id);
+             crud.methods
+        .onRead(app.baseUrl + "/accounting/journal-templates/" + app.data.template_id)
+        .then(function (response) {
+        for (let index = 0; index < response.data.data.details.length; index++) {
+          
+            app.data.details.push({
+                id: 0,
+                chart_id: response.data.data.details[0].chart_id,
+                value: 0,
+             });
+            
+        }
+            
+        
+                     
+        });
+        
+       
+
+        }
     },
 
     mounted() {
@@ -279,6 +315,13 @@ export default {
         .onRead(app.baseUrl + "/accounting/charts/for/accountables/")
         .then(function (response) {
             app.accountCharts = response.data.data;
+        });
+
+
+        crud.methods
+        .onRead(app.baseUrl + "/accounting/journal-templates")
+        .then(function (response) {
+                        app.templates = response.data.data;
         });
 
 

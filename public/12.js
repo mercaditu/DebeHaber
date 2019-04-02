@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetList.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/fixedAssetList.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableList.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/payableList.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,15 +80,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {
-      currentPage: 1
-    };
+    return {};
   },
   computed: {
     formURL: function formURL() {
@@ -99,16 +108,20 @@ __webpack_require__.r(__webpack_exports__);
         key: 'date',
         sortable: true
       }, {
-        key: 'serial',
-        label: this.$i18n.t('commercial.serial'),
+        key: 'partner_name',
+        label: this.$i18n.t('commercial.customer'),
         sortable: true
       }, {
-        key: 'name',
-        label: this.$i18n.t('commercial.name'),
+        key: 'comment',
+        label: this.$i18n.t('commercial.comment'),
         sortable: true
       }, {
-        key: 'current_value',
-        label: this.$i18n.t('commercial.value'),
+        key: 'total',
+        label: this.$i18n.t('commercial.total'),
+        sortable: true
+      }, {
+        key: 'balance',
+        label: this.$i18n.t('commercial.balance'),
         sortable: true
       }, {
         key: 'actions',
@@ -121,10 +134,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetList.vue?vue&type=template&id=16846982&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/fixedAssetList.vue?vue&type=template&id=16846982& ***!
-  \************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableList.vue?vue&type=template&id=a92a0f2a&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/payableList.vue?vue&type=template&id=a92a0f2a& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -193,6 +206,10 @@ var render = function() {
                         staticClass: "d-none d-xl-block"
                       }),
                       _vm._v(" "),
+                      _c("invoices-this-month-kpi", {
+                        staticClass: "d-none d-xl-block"
+                      }),
+                      _vm._v(" "),
                       _c(
                         "b-card",
                         { attrs: { "no-body": "" } },
@@ -209,9 +226,9 @@ var render = function() {
                                     _vm._v("help")
                                   ]),
                                   _vm._v(
-                                    "\n                                " +
+                                    "\n                            " +
                                       _vm._s(_vm.$t("general.manual")) +
-                                      "\n                            "
+                                      "\n                        "
                                   )
                                 ]
                               ),
@@ -224,34 +241,11 @@ var render = function() {
                                     _vm._v("cloud_upload")
                                   ]),
                                   _vm._v(
-                                    "\n                                " +
+                                    "\n                            " +
                                       _vm._s(
                                         _vm.$t("general.uploadFromExcel")
                                       ) +
-                                      "\n                            "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-list-group-item",
-                                {
-                                  attrs: {
-                                    to: { name: _vm.formURL, params: { id: 0 } }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "i",
-                                    { staticClass: "material-icons md-light" },
-                                    [_vm._v("add_box")]
-                                  ),
-                                  _vm._v(
-                                    "\n                                " +
-                                      _vm._s(
-                                        _vm.$t("general.createNewRecord")
-                                      ) +
-                                      "\n                            "
+                                      "\n                        "
                                   )
                                 ]
                               )
@@ -311,13 +305,98 @@ var render = function() {
                                           fn: function(data) {
                                             return [
                                               _vm._v(
-                                                "\n                                    " +
+                                                "\n                                " +
                                                   _vm._s(
                                                     new Date(
                                                       data.item.date
                                                     ).toLocaleDateString()
                                                   ) +
-                                                  "\n                                "
+                                                  "\n                            "
+                                              )
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          key: "total",
+                                          fn: function(data) {
+                                            return [
+                                              _c(
+                                                "span",
+                                                { staticClass: "float-right" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(
+                                                        new Number(
+                                                          _vm.sum(
+                                                            data.item.details,
+                                                            "value"
+                                                          )
+                                                        ).toLocaleString()
+                                                      ) +
+                                                      "\n                                    "
+                                                  ),
+                                                  _c(
+                                                    "small",
+                                                    {
+                                                      staticClass:
+                                                        "text-success text-uppercase"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          data.item.currency
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          key: "balance",
+                                          fn: function(data) {
+                                            return [
+                                              _c(
+                                                "span",
+                                                { staticClass: "float-right" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    " +
+                                                      _vm._s(
+                                                        new Number(
+                                                          _vm.sum(
+                                                            data.item.details,
+                                                            "value"
+                                                          )
+                                                        ) -
+                                                          new Number(
+                                                            _vm.sum(
+                                                              data.item
+                                                                .account_movements,
+                                                              "debit"
+                                                            )
+                                                          )
+                                                      ) +
+                                                      "\n                                    "
+                                                  ),
+                                                  _c(
+                                                    "small",
+                                                    {
+                                                      staticClass:
+                                                        "text-success text-uppercase"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          data.item.currency
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
                                               )
                                             ]
                                           }
@@ -335,16 +414,22 @@ var render = function() {
                                         {
                                           key: "empty",
                                           fn: function(scope) {
-                                            return [_c("table-empty")]
+                                            return [
+                                              _c("table-empty", {
+                                                attrs: { isCreated: true }
+                                              })
+                                            ]
                                           }
                                         }
                                       ],
                                       null,
                                       false,
-                                      1793292682
+                                      2773969447
                                     )
                                   },
                                   [
+                                    _vm._v(" "),
+                                    _vm._v(" "),
                                     _vm._v(" "),
                                     _vm._v(" "),
                                     _c(
@@ -399,17 +484,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/fixedAssetList.vue":
-/*!***********************************************************!*\
-  !*** ./resources/js/views/commercials/fixedAssetList.vue ***!
-  \***********************************************************/
+/***/ "./resources/js/views/commercials/payableList.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/commercials/payableList.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _fixedAssetList_vue_vue_type_template_id_16846982___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fixedAssetList.vue?vue&type=template&id=16846982& */ "./resources/js/views/commercials/fixedAssetList.vue?vue&type=template&id=16846982&");
-/* harmony import */ var _fixedAssetList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fixedAssetList.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/fixedAssetList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _payableList_vue_vue_type_template_id_a92a0f2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./payableList.vue?vue&type=template&id=a92a0f2a& */ "./resources/js/views/commercials/payableList.vue?vue&type=template&id=a92a0f2a&");
+/* harmony import */ var _payableList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./payableList.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/payableList.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -419,9 +504,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _fixedAssetList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _fixedAssetList_vue_vue_type_template_id_16846982___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _fixedAssetList_vue_vue_type_template_id_16846982___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _payableList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _payableList_vue_vue_type_template_id_a92a0f2a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _payableList_vue_vue_type_template_id_a92a0f2a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -431,38 +516,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/commercials/fixedAssetList.vue"
+component.options.__file = "resources/js/views/commercials/payableList.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/fixedAssetList.vue?vue&type=script&lang=js&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/views/commercials/fixedAssetList.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************/
+/***/ "./resources/js/views/commercials/payableList.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/commercials/payableList.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./fixedAssetList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_payableList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./payableList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_payableList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/fixedAssetList.vue?vue&type=template&id=16846982&":
-/*!******************************************************************************************!*\
-  !*** ./resources/js/views/commercials/fixedAssetList.vue?vue&type=template&id=16846982& ***!
-  \******************************************************************************************/
+/***/ "./resources/js/views/commercials/payableList.vue?vue&type=template&id=a92a0f2a&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/commercials/payableList.vue?vue&type=template&id=a92a0f2a& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetList_vue_vue_type_template_id_16846982___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./fixedAssetList.vue?vue&type=template&id=16846982& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/fixedAssetList.vue?vue&type=template&id=16846982&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetList_vue_vue_type_template_id_16846982___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableList_vue_vue_type_template_id_a92a0f2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./payableList.vue?vue&type=template&id=a92a0f2a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableList.vue?vue&type=template&id=a92a0f2a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableList_vue_vue_type_template_id_a92a0f2a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_fixedAssetList_vue_vue_type_template_id_16846982___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableList_vue_vue_type_template_id_a92a0f2a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

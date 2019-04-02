@@ -23,6 +23,7 @@ class AccountMovementController extends Controller
 
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
+        
         if ($request->type != 2) {
             $accountMovement = AccountMovement::firstOrNew(['id' => $request->id]);
             $accountMovement->taxpayer_id = $taxPayer->id;

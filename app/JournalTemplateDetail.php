@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class JournalTemplateDetail extends Model
 {
-    //
+    protected $fillable = [
+      'id'
+    ];
 
     /**
      * Get the journalTemplate that owns the model.

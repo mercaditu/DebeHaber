@@ -19,6 +19,9 @@ class CreateJournalsTable extends Migration
             $table->unsignedInteger('cycle_id');
             $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
 
+            $table->unsignedInteger('cycle_id');
+            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
+
             $table->unsignedInteger('number')->nullable();
 
             $table->date('date');

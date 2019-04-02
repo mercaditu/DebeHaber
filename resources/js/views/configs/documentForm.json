@@ -10,9 +10,38 @@
                     "properties": [
                         {
                             "type": "select",
-                            "data": "chart_account_id",
+                            "data": "type",
                             "placeholder": "commercial.expiryDate",
-                            "api": "/accounting/charts/for/money/ ",
+                            "api": "",
+                            "options": [{ "value": "1", "text": "Invoice"
+                                },
+                                { "value": "2", "text": "DebitNote"
+                                },
+                                { "value": "3", "text": "CreditNote"
+                                },
+                                { "value": "4", "text": "CustomsClearence"
+                                },
+                                { "value": "5", "text": "SelfInvoice"
+                                },{
+                                    "value": "6",
+                                    "text": "Ticket"
+                                },
+                                {
+                                    "value": "7",
+                                    "text": "AirTicket"
+                                },
+                                {
+                                    "value": "8",
+                                    "text": "InvoiceFromAbroad"
+                                },
+                                {
+                                    "value": "9",
+                                    "text": "AbsorbedRetention"
+                                },
+                                {
+                                    "value": "10",
+                                    "text": "ElectronicAirTicket"
+                                }],
                             "condition": "payment_condition",
                             "required": false,
                             "location": "append ",
