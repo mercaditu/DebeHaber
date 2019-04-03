@@ -23,12 +23,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('taxpayer', 'TaxpayerController@destroy')->name('deleteTaxPayer');
 
     Route::prefix('{taxPayer}/{cycle}')->group(function () {
-           //Taxpayer Setting Routes
+    //Taxpayer Setting Routes
     Route::get('taxpayer-integration/{id}', 'TaxpayerIntegrationController@show')->name('editTaxPayer');
     
         Route::prefix('commercial')->group(function () {
             Route::prefix('reports')->group(function () {
-                 Route::get('PRY/hechauka/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');
+                Route::get('PRY/hechauka/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');
                 Route::get('purchases/{strDate}/{endDate}/{e?}', 'ReportController@purchases')->name('reports.purchases');
                 Route::get('purchases-byVAT/{strDate}/{endDate}/{e?}', 'ReportController@purchasesByVAT')->name('reports.purchaseByVAT');
                 Route::get('purchases-bySupplier/{strDate}/{endDate}/', 'ReportController@purchasesBySupplier')->name('reports.purchaseBySupplier');

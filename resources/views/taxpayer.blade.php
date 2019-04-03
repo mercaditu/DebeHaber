@@ -34,7 +34,6 @@
                 </b-col>
 
                 <b-col cols="8">
-
                     <h3>
                         <b-button type="submit">Save</b-button>
                         Configuration
@@ -42,52 +41,52 @@
 
                     <b-card no-body>
                         <b-tabs pills card v-model="tabIndex">
-                            <b-tab active>
-                                <template slot="title">
-                                    <i class="material-icons">info</i>
-                                    Information
-                                </template>
+                        <b-tab active>
+                            <template slot="title">
+                                <i class="material-icons">info</i>
+                                Information
+                            </template>
 
-                                <b-form-group label="Tax Identification" label-size="sm">
-                                    <b-form-input name="taxid" type="text" value="{{$Integration->taxpayer->taxid}}"/>
-                                </b-form-group>
+                            <b-form-group label="Tax Identification" label-size="sm">
+                                <b-form-input name="taxid" type="text" value="{{$Integration->taxpayer->taxid}}"/>
+                            </b-form-group>
 
-                                <b-form-group label="Taxpayer's Name" label-size="sm">
-                                    <b-form-input name="name" type="text" value="{{$Integration->taxpayer->name}}"></b-form-input>
-                                </b-form-group>
+                            <b-form-group label="Taxpayer's Name" label-size="sm">
+                                <b-form-input name="name" type="text" value="{{$Integration->taxpayer->name}}"></b-form-input>
+                            </b-form-group>
 
-                                <b-form-group label="Alias">
-                                    <b-form-input name="alias" type="text" value="{{$Integration->taxpayer->alias}}"></b-form-input>
-                                </b-form-group>
+                            <b-form-group label="Alias">
+                                <b-form-input name="alias" type="text" value="{{$Integration->taxpayer->alias}}"></b-form-input>
+                            </b-form-group>
 
-                                <hr>
-                                <b-row>
-                                    <b-col>
-                                        <b-form-checkbox checked="{{$Integration->taxpayer->is_company}}" name="check-button" switch>
-                                                This taxpayer is a Company
-                                        </b-form-checkbox>
-                                        <b-form-group label="Agent Name" label-size="sm">
-                                            <b-form-input name="alias" type="text" value="{{$Integration->taxpayer->agent_name}}"></b-form-input>
-                                        </b-form-group>
-                                        <b-form-group label="Agent TaxID" label-size="sm">
-                                            <b-form-input name="alias" type="text" value="{{$Integration->taxpayer->agent_taxid}}"></b-form-input>
-                                        </b-form-group>
-                                    </b-col>
-                                    <b-col>
-                                        <b-form-group label="Telephone" label-size="sm">
-                                            <b-form-input name="telephone" type="text" value="{{$Integration->taxpayer->telephone}}"/>
-                                        </b-form-group>
-        
-                                        <b-form-group label="Address" label-size="sm">
-                                            <b-form-input name="address" type="text" value="{{$Integration->taxpayer->address}}"/>
-                                        </b-form-group>
-        
-                                        <b-form-group label="Email" label-size="sm">
-                                            <b-form-input name="email" type="text" value="{{$Integration->taxpayer->email}}"/>
-                                        </b-form-group>
-                                    </b-col>
-                                </b-row>
-                            </b-tab>
+                            <hr>
+                            <b-row>
+                                <b-col>
+                                    <b-form-checkbox checked="{{$Integration->taxpayer->is_company}}" name="check-button" switch>
+                                            This taxpayer is a Company
+                                    </b-form-checkbox>
+                                    <b-form-group label="Agent Name" label-size="sm">
+                                        <b-form-input name="agent_name" type="text" value="{{$Integration->taxpayer->agent_name}}"></b-form-input>
+                                    </b-form-group>
+                                    <b-form-group label="Agent TaxID" label-size="sm">
+                                        <b-form-input name="agent_taxid" type="text" value="{{$Integration->taxpayer->agent_taxid}}"></b-form-input>
+                                    </b-form-group>
+                                </b-col>
+                                <b-col>
+                                    <b-form-group label="Telephone" label-size="sm">
+                                        <b-form-input name="telephone" type="text" value="{{$Integration->taxpayer->telephone}}"/>
+                                    </b-form-group>
+    
+                                    <b-form-group label="Address" label-size="sm">
+                                        <b-form-input name="address" type="text" value="{{$Integration->taxpayer->address}}"/>
+                                    </b-form-group>
+    
+                                    <b-form-group label="Email" label-size="sm">
+                                        <b-form-input name="email" type="text" value="{{$Integration->taxpayer->email}}"/>
+                                    </b-form-group>
+                                </b-col>
+                            </b-row>
+                        </b-tab>
                                 <b-tab>
                                     <template slot="title">
                                         <i class="material-icons">settings</i>
@@ -194,9 +193,9 @@
                                         </b-form-group>
                                     </b-tab>
                                 </b-tabs>
-                            </b-card>
-                        </b-col>
-                    </b-row>
-                </b-container>
-            </form>
-        @endsection
+                    </b-card>
+                </b-col>
+            </b-row>
+        </b-container>
+    </form>
+@endsection
