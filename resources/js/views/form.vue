@@ -20,12 +20,7 @@
       <b-button-toolbar class="float-right d-none d-md-block">
         
         <b-button-group class="ml-15">
-          <b-btn
-            variant="primary"
-            v-shortkey="['ctrl', 'n']"
-            @shortkey="onSaveNew()"
-            @click="onSaveNew()"
-          >
+          <b-btn variant="primary" v-shortkey="['ctrl', 'n']" @shortkey="onSaveNew()" @click="onSaveNew()">
             <i class="material-icons">save</i>
             {{ $t('general.save') }}
           </b-btn>
@@ -36,21 +31,11 @@
         </b-button-group>
       </b-button-toolbar>
       <b-button-toolbar class="float-right d-md-none">
-        <b-btn
-          class="ml-15"
-          v-shortkey="['ctrl', 'd']"
-          @shortkey="addDetailRow()"
-          @click="addDetailRow()"
-        >
+        <b-btn class="ml-15" v-shortkey="['ctrl', 'd']" @shortkey="addDetailRow()" @click="addDetailRow()" >
           <i class="material-icons">playlist_add</i>
         </b-btn>
         <b-button-group class="ml-15">
-          <b-btn
-            variant="primary"
-            v-shortkey="['ctrl', 'n']"
-            @shortkey="onSaveNew()"
-            @click="onSaveNew()"
-          >
+          <b-btn variant="primary" v-shortkey="['ctrl', 'n']" @shortkey="onSaveNew()" @click="onSaveNew()" >
             <i class="material-icons">save</i>
           </b-btn>
           <b-btn variant="danger" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
@@ -65,44 +50,30 @@
         <b-row v-for="row in card.rows" v-bind:key="row.index">
           <b-col v-for="col in row.fields" v-bind:key="col.index">
             <b-form-group :label="$t(col.label)">
-              <span v-for="property in col.properties" v-bind:key="property.index">
-               
-                <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
-                  <search-taxpayer
+              <b-input-group v-for="property in col.properties" v-bind:key="property.index">
+                  
+                  <b-input-group-prepend v-if="property.location == 'prepend'">
+                    <b-input :type="property.type" v-model="data[property.data]" :required="property.required" :placeholder="property.placeholder" />
+                  </b-input-group-prepend>
+
+                  <search-taxpayer v-if="property.type === 'customer' || col.type === 'supplier'"
                     v-bind:partner_name.sync="data[property.data[0]['name']]"
-                    v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
-                  ></search-taxpayer>
-                </b-input-group>
-                <b-input-group v-else-if="property.type === 'select'">
-                  <select-data v-bind:Id.sync="data[property.data]" :api="property.api" :options="property.options"></select-data>
-                </b-input-group>
-                <b-input-group v-else>
-                  <b-input
-                    v-if="property.location === ''"
+                    v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"></search-taxpayer>
+                  <select-data v-else-if="property.type === 'select'" v-bind:Id.sync="data[property.data]" :api="property.api" :options="property.options"></select-data>
+                  <b-input v-else
                     :type="property.type"
                     v-model="data[property.data]"
                     :required="property.required"
-                    :placeholder="property.placeholder"
-                  />
-                  
-                  <b-input-group-append v-if="property.location === 'append'">
+                    :placeholder="property.placeholder" /> 
+
+                  <b-input-group-append v-if="property.location == 'append'">
                      <b-input 
                       :type="property.type"
                       v-model="data[property.data]"
                       :required="property.required"
-                      :placeholder="property.placeholder"
-                    />
+                      :placeholder="property.placeholder" />
                   </b-input-group-append>
-                  <b-input-group-prepend v-else-if="property.location === 'prepend'">
-                    <b-input
-                      :type="property.type"
-                      v-model="data[property.data]"
-                      :required="property.required"
-                      :placeholder="property.placeholder"
-                    />
-                  </b-input-group-prepend>
-                </b-input-group>
-              </span>
+              </b-input-group>
             </b-form-group>
           </b-col>
         </b-row>

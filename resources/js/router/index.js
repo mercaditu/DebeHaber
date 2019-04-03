@@ -11,42 +11,20 @@ import DocumentForm from '../views/configs/documentForm.json';
 import RateForm from '../views/configs/rateForm.json';
 
 import MoneyMovementForm from '../views/commercials/moneyMovementForm.json';
-
 import JournalTemplateForm from '../views/accounts/templateForm.json';
 
-const FourZeroFour = () => import('../views/404')
-const DashBoard = () => import('../views/index')
-const SearchResult = () => import('../views/searchResult')
-const Form = () => import('../views/form')
-
-const List = () => import('../views/list')
+import FourZeroFour from '../views/404';
+import DashBoard from '../views/index';
+import SearchResult from '../views/searchResult';
+import Form from '../views/form';
+import List from '../views/list';
 
 const Commercial = () => import('../views/commercials/index')
-//const SalesList = () => import('../views/commercials/salesList')
-//const SalesForm = () => import('../views/commercials/salesForm')
 const SalesUpload = () => import('../views/commercials/salesUpload')
-//const PurchaseList = () => import('../views/commercials/purchaseList')
-//const PurchaseForm = () => import('../views/commercials/purchaseForm')
-//const CreditList = () => import('../views/commercials/creditList')
-//const CreditForm = () => import('../views/commercials/creditForm')
-//const DebitList = () => import('../views/commercials/debitList')
-//const DebitForm = () => import('../views/commercials/debitForm')
-//const FixedAssetList = () => import('../views/commercials/fixedAssetList')
-//const FixedAssetForm = () => import('../views/commercials/fixedAssetForm')
-//const InventoryList = () => import('../views/commercials/inventoryList')
-//const InventoryForm = () => import('../views/commercials/inventoryForm')
-const ImpexList = () => import('../views/commercials/impexList')
 const ImpexForm = () => import('../views/commercials/impexForm')
 
-const ReceivableList = () => import('../views/commercials/receivableList')
 const ReceivableForm = () => import('../views/commercials/receivableForm')
-
-const PayableList = () => import('../views/commercials/payableList')
 const PayableForm = () => import('../views/commercials/payableForm')
-
-//const PaymentForm = () => import('../views/commercials/paymentForm')
-//const MoneyMovementList = () => import('../views/commercials/moneyMovementList')
-//const MoneyMovementForm = () => import('../views/commercials/moneyMovementForm')
 
 const Accounting = () => import('../views/accounts/index')
 const JournalList = () => import('../views/accounts/journalList')
@@ -60,13 +38,10 @@ const ChartForm = () => import('../views/accounts/chartForm')
 
 const Config = () => import('../views/configs/index')
 const DocumentList = () => import('../views/configs/documentList')
-//const DocumentForm = () => import('../views/configs/documentForm')
 const RateList = () => import('../views/configs/rateList')
-//const RateForm = () => import('../views/configs/rateForm')
 const VersionList = () => import('../views/configs/versionList')
 const VersionForm = () => import('../views/configs/versionForm')
 const CycleList = () => import('../views/configs/cycleList')
-//const CycleForm = () => import('../views/configs/cycleForm')
 
 const CommercialReports = () => import('../views/commercials/reports')
 const AccountingReports = () => import('../views/accounts/reports')
@@ -110,7 +85,6 @@ export default
         },
         children:
         [
-            
             {
                 path: 'sales',
                 component: List,
@@ -296,7 +270,6 @@ export default
                         component: Form,
                         name: 'debitForm',
                         meta: DebitForm
-
                     }
                 ]
             },
