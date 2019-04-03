@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AccountMovement;
 use App\Transaction;
+use App\TransactionDetail;
 use App\Taxpayer;
 use App\Cycle;
 use App\Chart;
@@ -21,11 +22,17 @@ class AccountPayableController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
-            Transaction::MyPurchases()
-            ->with('details')
-            ->with('accountMovements')
-            ->where('payment_condition', '>', 0)
-            ->paginate(50)
+            TransactionDetail::
+              leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
+                ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
+                ->where('transactions.taxpayer_id',$taxPayer->id)
+                ->where('transactions.type',1)
+                ->where('transactions.sub_type',1)
+                ->where('transactions.payment_condition','>',0)
+                ->having(DB::raw('sum(transaction_details.value * transactions.rate)'),'!=','sum(am.debit * am.rate)')
+                ->select(DB::raw('sum(transactions.number) as number'),DB::raw('sum(transaction_details.value * transactions.rate) as sales'),DB::raw('sum(am.credit * am.rate) as Payment'),
+                DB::raw('sum(transaction_details.value * transactions.rate)-sum(am.debit * am.rate) as Balance'))
+                ->groupBy('transactions.id')->get()
         );
     }
 

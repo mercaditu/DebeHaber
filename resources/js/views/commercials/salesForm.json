@@ -12,8 +12,8 @@
                 {
                     "label":  "commercial.document",
                     "properties": [
-                        { "type":  "text", "data":  "code", "placeholder":  "commercial.code", "required": false, "location":  "" },
-                        { "type":  "date", "data":  "code_expiry", "placeholder":  "commercial.expiryDate", "required": false, "location": "append" }
+                        { "type":  "text", "data":  "code", "placeholder":  "commercial.code", "required": false, "location":  "prepend" },
+                        { "type":  "date", "data":  "code_expiry", "placeholder":  "commercial.expiryDate", "required": false }
                     ]
                 }
 
@@ -49,6 +49,7 @@
         },
         {
             "fields": [
+
                 {
 
                 },
@@ -65,6 +66,7 @@
     }],
     "tables": [{
         "data":  "details",
+        "actions": true,
         "fields": [
             {
                 "label":  "commercial.chart",

@@ -50,30 +50,35 @@
         <b-row v-for="row in card.rows" v-bind:key="row.index">
           <b-col v-for="col in row.fields" v-bind:key="col.index">
             <b-form-group :label="$t(col.label)">
-              <b-input-group v-for="property in col.properties" v-bind:key="property.index">
+              {{col.properties[0].length}}
+              <!-- <span v-if="col.properties.length === 1"> 
+                <search-taxpayer v-if="col.properties[0].type === 'customer' || col.type === 'supplier'"
+                    v-bind:partner_name.sync="data[col.properties[0].data[0]['name']]"
+                    v-bind:partner_taxid.sync="data[col.properties[0].data[0]['taxid']]"></search-taxpayer>
+                    </span>
+             
+              <b-input-group v-else>
                   
-                  <b-input-group-prepend v-if="property.location == 'prepend'">
-                    <b-input :type="property.type" v-model="data[property.data]" :required="property.required" :placeholder="property.placeholder" />
+                  <b-input-group-prepend v-if="col.properties[0].location == 'prepend'">
+                    <b-input :type="col.properties[0].type" v-model="data[col.properties[0].data]" :required="col.properties[0].required" :placeholder="col.properties[0].placeholder" />
                   </b-input-group-prepend>
 
-                  <search-taxpayer v-if="property.type === 'customer' || col.type === 'supplier'"
-                    v-bind:partner_name.sync="data[property.data[0]['name']]"
-                    v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"></search-taxpayer>
-                  <select-data v-else-if="property.type === 'select'" v-bind:Id.sync="data[property.data]" :api="property.api" :options="property.options"></select-data>
+                  
+                  <select-data v-else-if="col.properties[0].type === 'select'" v-bind:Id.sync="data[col.properties[0].data]" :api="col.properties[0].api" :options="col.properties[0].options"></select-data>
                   <b-input v-else
-                    :type="property.type"
-                    v-model="data[property.data]"
-                    :required="property.required"
-                    :placeholder="property.placeholder" /> 
+                    :type="col.properties[0].type"
+                    v-model="data[col.properties[0].data]"
+                    :required="col.properties[0].required"
+                    :placeholder="col.properties[0].placeholder" /> 
 
-                  <b-input-group-append v-if="property.location == 'append'">
+                  <b-input-group-append v-if="col.properties[0].location == 'append'">
                      <b-input 
-                      :type="property.type"
-                      v-model="data[property.data]"
-                      :required="property.required"
-                      :placeholder="property.placeholder" />
+                      :type="col.properties[0].type"
+                      v-model="data[col.properties[0].data]"
+                      :required="col.properties[0].required"
+                      :placeholder="col.properties[0].placeholder" />
                   </b-input-group-append>
-              </b-input-group>
+              </b-input-group> -->
             </b-form-group>
           </b-col>
         </b-row>

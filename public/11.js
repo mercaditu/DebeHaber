@@ -1,20 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/crud.vue */ "./resources/js/components/crud.vue");
-//
-//
-//
-//
-//
 //
 //
 //
@@ -116,7 +111,7 @@ __webpack_require__.r(__webpack_exports__);
         rate: 1,
         payment_value: 0
       },
-      pageUrl: '/commercial/accounts-payable',
+      pageUrl: '/commercial/accounts-receivable',
       currencies: [],
       accountCharts: [],
       lastDeletedRow: []
@@ -132,7 +127,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.accountPayableSaved')
+          text: app.$i18n.t('commercial.accountReceivableSaved')
         });
         app.$router.go(-1);
       }).catch(function (error) {
@@ -183,10 +178,10 @@ __webpack_require__.r(__webpack_exports__);
           }, 0);
         }
 
+        app.data.payment_value = total - paid;
         app.data.date = new Date(Date.now()).toISOString().split("T")[0];
-        app.data.payment_value = new Number(total) - new Number(paid);
-        app.data.currency = app.currencies[0].code;
-        app.data.chart_id = app.accountCharts[0].id;
+        app.data.chart_account_id = app.accountCharts[0] != null ? app.accountCharts[0].id : null;
+        app.data.currency = app.spark.taxPayerData.currency;
         app.data.rate = 1;
       });
     }
@@ -199,10 +194,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -636,15 +631,7 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("b-card", [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.data.accountMovements) +
-                    "\n            "
-                )
-              ])
+              )
             ],
             1
           )
@@ -662,17 +649,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/payableForm.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/views/commercials/payableForm.vue ***!
-  \********************************************************/
+/***/ "./resources/js/views/commercials/receivableForm.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/views/commercials/receivableForm.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./payableForm.vue?vue&type=template&id=7771d191& */ "./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&");
-/* harmony import */ var _payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./payableForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./receivableForm.vue?vue&type=template&id=e2781ab6& */ "./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&");
+/* harmony import */ var _receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./receivableForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -682,9 +669,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -694,38 +681,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/commercials/payableForm.vue"
+component.options.__file = "resources/js/views/commercials/receivableForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./payableForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./receivableForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./payableForm.vue?vue&type=template&id=7771d191& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/payableForm.vue?vue&type=template&id=7771d191&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./receivableForm.vue?vue&type=template&id=e2781ab6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_payableForm_vue_vue_type_template_id_7771d191___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AccountMovement;
 use App\Transaction;
+use App\TransactionDetail;
 use App\Taxpayer;
 use App\Cycle;
 use App\Chart;
@@ -20,15 +21,27 @@ class AccountReceivableController extends Controller
   */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        return GeneralResource::collection(
-            //model balance column calculated
-            //whereHas(function sum of accMove < totalDetail)
-            Transaction::MySales()
-                ->where('payment_condition', '>', 0)
-                ->with('details:value')
-                ->with('accountMovements:credit,debit,rate')
-                ->paginate(50)
-        );
+    //    $data=DB::select("select *,Payable-Paid as Balance from (select Max(transactions.number) as number,
+    //    sum(transaction_details.value) * transactions.rate as Payable ,sum(account_movements.credit * account_movements.rate) as Paid 
+    //    from transaction_details
+    //             left join account_movements  on account_movements.transaction_id=transaction_details.transaction_id
+    //             join transactions on transactions.id=transaction_details.transaction_id 
+    //             where transactions.taxpayer_id= " . $taxPayer->id . " and type=2 and sub_type=1
+    //             group by transactions.id) as accounts");
+
+           return GeneralResource::collection(TransactionDetail::
+              leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
+                ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
+                ->where('transactions.taxpayer_id',$taxPayer->id)
+                ->where('transactions.type',2)
+                ->where('transactions.sub_type',1)
+                ->having(DB::raw('sum(transaction_details.value * transactions.rate)'),'!=','sum(am.credit * am.rate)')
+                ->select(DB::raw('sum(transaction_details.value * transactions.rate) as sales'),DB::raw('sum(am.credit * am.rate) as Payment'),
+                DB::raw('sum(transaction_details.value * transactions.rate)-sum(am.credit * am.rate) as Balance'))
+                ->groupBy('transactions.id')->get());
+         
+        
+        
     }
 
     /**
