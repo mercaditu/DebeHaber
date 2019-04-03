@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TaxpayerIntegration;
-use App\TaxpayerSetting;
 use App\Taxpayer;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class TaxpayerIntegrationController extends Controller
@@ -36,13 +34,13 @@ class TaxpayerIntegrationController extends Controller
     * @param  \App\TaxpayerIntegration  $taxpayerIntegration
     * @return \Illuminate\Http\Response
     */
-    public function show($taxPayer,$cycle,$taxpayerIntegrationID)
+    public function show($taxPayer, $cycle, $taxpayerIntegrationID)
     {
         $taxPayerIntegration = TaxpayerIntegration::where('id', $taxpayerIntegrationID)
         ->with(['taxpayer'])
         ->first();
 
-        return view('taxpayer')->with('Integration', $taxPayerIntegration);
+        return view('taxpayer')->with('taxPayerIntegration', $taxPayerIntegration);
     }
 
     /**
@@ -55,11 +53,9 @@ class TaxpayerIntegrationController extends Controller
     public function store(Request $request)
     {
         $taxPayerIntegration = taxPayerIntegration::where('taxpayer_id', $request->id)->first();
-        
-        dd($request);
 
         $taxPayerIntegration->type = $request->type ?? 1; //Default to 1 if nothing is selected
-        $taxPayerIntegration->notification_monthly = $request->notification_monthly == true ? 1 : 0;
+        $taxPayerIntegration->notification_monthly = $request->notification_monthly ?? 0;
         $taxPayerIntegration->notification_quarterly = $request->notification_quarterly == true ? 1 : 0;
         $taxPayerIntegration->notification_semesterly = $request->notification_semesterly == true ? 1 : 0;
         $taxPayerIntegration->notification_yearly = $request->notification_yearly == true ? 1 : 0;
@@ -89,8 +85,13 @@ class TaxpayerIntegrationController extends Controller
                 $taxPayer->save();
             }
         }
+        
+        $taxPayerIntegration = TaxpayerIntegration::where('id', $taxPayerIntegration->id)
+        ->with(['taxpayer'])
+        ->first();
+
         // return view('selectTaxPayer', $taxPayerIntegration->taxpayer);
-        return view('taxpayer')->with('Integration', $taxPayerIntegration);
+        return view('taxpayer')->with('taxPayerIntegration', $taxPayerIntegration);
     }
 
     /**
