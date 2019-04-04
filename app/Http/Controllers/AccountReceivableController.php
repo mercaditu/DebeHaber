@@ -36,7 +36,7 @@ class AccountReceivableController extends Controller
                 ->where('transactions.type',2)
                 ->where('transactions.sub_type',1)
                 ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'),'!=','COALESCE(sum(am.credit * am.rate),0)')
-                ->select(DB::raw('max(transactions.number) as number'),DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as sales'),DB::raw('COALESCE(sum(am.credit * am.rate),0) as payment'),
+                ->select(DB::raw('max(transactions.id) as id'),DB::raw('max(transactions.number) as number'),DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as sales'),DB::raw('COALESCE(sum(am.credit * am.rate),0) as payment'),
                 DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.credit * am.rate),0) as balance'))
                 ->groupBy('transactions.id')->paginate(50));
          
@@ -147,7 +147,7 @@ class AccountReceivableController extends Controller
         $journal->comment = $comment;
         $journal->is_automatic = 1;
         $journal->save();
-
+       
         $chartController = new ChartController();
 
         //2nd Query: Movements related to Credit Purchases. Cash Purchases are ignored.

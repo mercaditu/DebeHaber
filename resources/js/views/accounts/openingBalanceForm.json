@@ -2,66 +2,6 @@
     "pageurl": "/commercial/debit-notes",
     "title":  "commercial.Debit Note",
     "img":  "/img/apps/debit-note.svg",
-    "cards": [{
-        "rows": [{
-            "fields": [
-                {
-                    "label":  "commercial.date",
-                    "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
-                },
-                {
-                    "label":  "commercial.document",
-                    "properties": [
-                        { "type":  "text", "data":  "code", "placeholder":  "commercial.code", "required": false, "location":  "" },
-                        { "type":  "date", "data":  "code_expiry", "placeholder":  "commercial.expiryDate", "required": false, "location":  "append" }
-                    ]
-                }
-
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label":  "commercial.customer",
-                    "properties": [{ "type":  "customer", "data": [{ "name":  "partner_name", "taxid":  "partner_taxid" }], "placeholder":  "commercial.customer ", "required": false, "location":  "" }]
-                },
-                {
-                    "label":  "commercial.number",
-                    "properties": [{ "type":  "text", "data":  "number", "placeholder":  "commercial.number ", "required": false, "location":  "" }]
-                }
-
-
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label":  "commercial.paymentCondition",
-                    "properties": [
-                        { "type":  "text", "data":  "payment_condition", "placeholder":  "commercial.condition", "required": false, "location":  "" },
-                        {
-                            "type":  "select", "data":  "chart_account_id", "placeholder":  "commercial.expiryDate", "api":  "/accounting/charts/for/money/ ", "condition": "payment_condition","required": false, "location":  "append ", "select": [{ "value":  "id", "label":  "name" }]
-                        }
-                    ]
-                }
-
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label":  "commercial.currency ",
-                    "properties": [
-                        { "type":  "text", "data":  "rate", "placeholder":  "commercial.rate", "required": false, "location":  "" },
-                        {
-                            "type":  "select", "data":  "currency", "placeholder":  "commercial.currency", "api":  "/config/currencies/", "required": false, "location":  "append ", "select": [{ "value":  "code", "label":  "name " }]
-                        }
-                    ]
-                }
-
-            ]
-        }]
-    }],
     "tables": [{
         "data":  "details",
         "fields": [

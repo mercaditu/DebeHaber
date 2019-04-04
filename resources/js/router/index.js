@@ -448,6 +448,11 @@ export default
                             key: 'balance',
                             label: 'commercial.balance',
                             sortable: true
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
                         }
                     ]
                     
@@ -481,8 +486,8 @@ export default
                             sortable: true
                         },
                         {
-                            key: 'sales',
-                            label: 'commercial.sales',
+                            key: 'purchase',
+                            label: 'commercial.purchase',
                             sortable: true
                         },
                         {
@@ -494,6 +499,11 @@ export default
                             key: 'balance',
                             label: 'commercial.balance',
                             sortable: true
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
                         }
                     ]
                 },
@@ -597,7 +607,7 @@ export default
                 
             {
                 path: 'opening-balance',
-                component: OpeningBalance,
+                component: Form,
                 name: 'openingBalanceForm',
                 meta: {
                     title: 'Opening Balance',

@@ -53,7 +53,7 @@
                             </b-col>
                             <b-col>
                                 <b-form-group :label="$t('commercial.chart')">
-                                    <b-form-select v-model="data.chart_id">
+                                    <b-form-select v-model="data.chart_account_id">
                                         <option v-for="item in accountCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
                                     </b-form-select>
                                 </b-form-group>

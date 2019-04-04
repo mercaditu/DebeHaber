@@ -20,7 +20,12 @@
       <b-button-toolbar class="float-right d-none d-md-block">
         
         <b-button-group class="ml-15">
-          <b-btn variant="primary" v-shortkey="['ctrl', 'n']" @shortkey="onSaveNew()" @click="onSaveNew()">
+          <b-btn
+            variant="primary"
+            v-shortkey="['ctrl', 'n']"
+            @shortkey="onSaveNew()"
+            @click="onSaveNew()"
+          >
             <i class="material-icons">save</i>
             {{ $t('general.save') }}
           </b-btn>
@@ -31,11 +36,21 @@
         </b-button-group>
       </b-button-toolbar>
       <b-button-toolbar class="float-right d-md-none">
-        <b-btn class="ml-15" v-shortkey="['ctrl', 'd']" @shortkey="addDetailRow()" @click="addDetailRow()" >
+        <b-btn
+          class="ml-15"
+          v-shortkey="['ctrl', 'd']"
+          @shortkey="addDetailRow()"
+          @click="addDetailRow()"
+        >
           <i class="material-icons">playlist_add</i>
         </b-btn>
         <b-button-group class="ml-15">
-          <b-btn variant="primary" v-shortkey="['ctrl', 'n']" @shortkey="onSaveNew()" @click="onSaveNew()" >
+          <b-btn
+            variant="primary"
+            v-shortkey="['ctrl', 'n']"
+            @shortkey="onSaveNew()"
+            @click="onSaveNew()"
+          >
             <i class="material-icons">save</i>
           </b-btn>
           <b-btn variant="danger" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
@@ -50,35 +65,46 @@
         <b-row v-for="row in card.rows" v-bind:key="row.index">
           <b-col v-for="col in row.fields" v-bind:key="col.index">
             <b-form-group :label="$t(col.label)">
-             
-              <span v-if="col.properties.length === 1"> 
-                <search-taxpayer v-if="col.properties[0].type === 'customer' || col.type === 'supplier'"
-                    v-bind:partner_name.sync="data[col.properties[0].data[0]['name']]"
-                    v-bind:partner_taxid.sync="data[col.properties[0].data[0]['taxid']]"></search-taxpayer>
-                    </span>
-             
-              <b-input-group v-else>
+              <span v-for="property in col.properties" v-bind:key="property.index">
+               
+                <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
+                  <search-taxpayer
+                    v-bind:partner_name.sync="data[property.data[0]['name']]"
+                    v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
+                  ></search-taxpayer>
+                </b-input-group>
+                <b-input-group v-else-if="property.type === 'select'">
+                  <select-data v-bind:Id.sync="data[property.data]" :api="property.api" :options="property.options"></select-data>
+                </b-input-group>
+                 <b-input-group v-else-if="property.type === 'payment'">
+                  <payment-condition
+                    v-bind:payment_condition.sync="data[property.data[0]['paymentcondition']]"
+                    v-bind:chart_account_id.sync="data[property.data[0]['chartaccount']]"
+                  ></payment-condition>
+                </b-input-group>
+                 <b-input-group v-else-if="property.type === 'document'">
+                  <document
+                    v-bind:code.sync="data[property.data[0]['documentcode']]"
+                    v-bind:code_expiry.sync="data[property.data[0]['codeexpiry']]"
+                  ></document>
+                </b-input-group>
+                <b-input-group v-else-if="property.type === 'currency'">
+                  <currency  :date="data[property.data[0]['date']]" :type="card.module"
+                    v-bind:currency.sync="data[property.data[0]['salecurrency']]"
+                    v-bind:rate.sync="data[property.data[0]['currencyrate']]"
+                  ></currency>
+                </b-input-group>
+                <b-input-group v-else>
+                  <b-input
+                    v-if="property.location === ''"
+                    :type="property.type"
+                    v-model="data[property.data]"
+                    :required="property.required"
+                    :placeholder="property.placeholder"
+                  />
                   
-                  <b-input-group-prepend v-if="col.properties[0].location == 'prepend'">
-                    <b-input :type="col.properties[0].type" v-model="data[col.properties[0].data]" :required="col.properties[0].required" :placeholder="col.properties[0].placeholder" />
-                  </b-input-group-prepend>
-
-                  
-                  <select-data v-else-if="col.properties[0].type === 'select'" v-bind:Id.sync="data[col.properties[0].data]" :api="col.properties[0].api" :options="col.properties[0].options"></select-data>
-                  <b-input v-else
-                    :type="col.properties[0].type"
-                    v-model="data[col.properties[0].data]"
-                    :required="col.properties[0].required"
-                    :placeholder="col.properties[0].placeholder" /> 
-
-                  <b-input-group-append v-if="col.properties[0].location == 'append'">
-                     <b-input 
-                      :type="col.properties[0].type"
-                      v-model="data[col.properties[0].data]"
-                      :required="col.properties[0].required"
-                      :placeholder="col.properties[0].placeholder" />
-                  </b-input-group-append>
-              </b-input-group>
+                </b-input-group>
+              </span>
             </b-form-group>
           </b-col>
         </b-row>
@@ -102,9 +128,6 @@
         <!-- Rows -->
         <b-row v-for="detail in data.details" v-bind:key="detail.index">
           <div v-for="col in table.fields" v-bind:key="col.index">
-            <b-col col="">
-
-            </b-col>
               <span v-for="property in col.properties" v-bind:key="property.index">
               <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
                 <search-taxpayer

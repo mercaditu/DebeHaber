@@ -36,6 +36,18 @@ Vue.component(
     require('./search-taxpayer.vue').default
 );
 Vue.component(
+    'payment-condition',
+    require('./payment-condition.vue').default
+);
+Vue.component(
+    'document',
+    require('./document.vue').default
+);
+Vue.component(
+    'currency',
+    require('./currency.vue').default
+);
+Vue.component(
     'search-chart',
     require('./search-chart.vue').default
 );

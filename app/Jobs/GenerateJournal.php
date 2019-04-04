@@ -156,6 +156,7 @@ class GenerateJournal implements ShouldQueue
         */
         if (AccountMovement::My($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
         {
+
             $controller = new AccountMovementController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }

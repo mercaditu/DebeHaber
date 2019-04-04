@@ -1,8 +1,15 @@
 <template>
     <div>
-         <b-form-select v-model="document_id">
-            <option v-for="doc in collections" :key="doc.key"  :value="doc.id">{{ doc.name }}</option>
-        </b-form-select>
+        <b-input-group>
+          <b-input type="text" :placeholder="$t('commercial.code')" v-model="document_code"/>
+                        <b-input-group-append>
+                            <b-input
+                            type="date"
+                            :placeholder="$t('commercial.expiryDate')"
+                            v-model="document_expiry"
+                            />
+                        </b-input-group-append>
+        </b-input-group>
        
     </div>
 </template>
@@ -11,20 +18,30 @@
 import crud from "../components/crud.vue";
 export default {
     components: { crud: crud },
-    props: ['Id','api','label','value'],
+    props: ['code','code_expiry'],
     data: () => ({
         collections:[]
     }),
     computed: {
 
-        document_id: {
+        document_code: {
                     // getter
                     get: function () {
-                    return this.Id
+                    return this.code
                     },
                     // setter
                     set: function (newValue) {
-                        this.$emit('update:Id', newValue);
+                        this.$emit('update:code', newValue);
+                    }
+        },
+        document_expiry: {
+                    // getter
+                    get: function () {
+                    return this.code_expiry
+                    },
+                    // setter
+                    set: function (newValue) {
+                        this.$emit('update:code_expiry', newValue);
                     }
         },
         baseUrl() {
@@ -36,11 +53,7 @@ export default {
     mounted() {
         //do something after mounting vue instance
         var app = this;
-         crud.methods
-        .onRead(app.baseUrl + app.api)
-        .then(function(response) {
-            app.collections = response.data.data;
-        });
+      
     }
 }
 </script>

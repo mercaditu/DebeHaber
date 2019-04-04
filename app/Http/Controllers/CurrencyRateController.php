@@ -43,11 +43,6 @@ class CurrencyRateController extends Controller
         ->whereDay('date', '=', $date->day)
         ->whereMonth('date', '=', $date->month)
         ->whereYear('date', '=', $date->year)
-        ->where(function ($q) use($taxPayerID) {
-            $q->whereNull('taxpayer_id')
-            ->orWhere('taxpayer_id', $taxPayerID);
-        })
-        ->orderBy('taxpayer_id')
         ->first();
 
         if (isset($currencyRate))
@@ -57,21 +52,21 @@ class CurrencyRateController extends Controller
         else
         {
             //swap fx
-            $currCode = Currency::where('id', $currencyID)->select('code')->first()->code;
-            $currCompanyCode = TaxpayerSetting::where('taxpayer_id', $taxPayerID)->select('currency')->first()->currency;
+            $currCode = Currency::where('code', $currencyID)->select('code')->first()->code;
+            $currCompanyCode = Taxpayer::where('id', $taxPayerID)->select('currency')->first()->currency;
 
             //check that CompanyCode, CurrencyCode, and that both aren't the same.
             if ($currCompanyCode != null && $currCode != null && $currCompanyCode != $currCode)
             {
                 //$str = 'USD/EUR';
                 $str = $currCode . '/' . $currCompanyCode;
-                $rate = Swap::historical($str, Carbon::parse($date));
+                $rate = 1 ;//Swap::historical($str, Carbon::parse($date));
 
                 $currencyRate = new CurrencyRate();
                 $currencyRate->date = $date;
                 $currencyRate->currency_id = $currencyID;
-                $currencyRate->buy_rate = $rate->getValue();
-                $currencyRate->sell_rate = $rate->getValue();
+                $currencyRate->buy_rate = 1;//$rate->getValue();
+                $currencyRate->sell_rate = 1;//$rate->getValue();
                 $currencyRate->save();
 
                 return response()->json($currencyRate);

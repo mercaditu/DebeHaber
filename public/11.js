@@ -509,11 +509,15 @@ var render = function() {
                                     "b-form-select",
                                     {
                                       model: {
-                                        value: _vm.data.chart_id,
+                                        value: _vm.data.chart_account_id,
                                         callback: function($$v) {
-                                          _vm.$set(_vm.data, "chart_id", $$v)
+                                          _vm.$set(
+                                            _vm.data,
+                                            "chart_account_id",
+                                            $$v
+                                          )
                                         },
-                                        expression: "data.chart_id"
+                                        expression: "data.chart_account_id"
                                       }
                                     },
                                     _vm._l(_vm.accountCharts, function(item) {

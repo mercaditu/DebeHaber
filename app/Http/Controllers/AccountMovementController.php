@@ -77,7 +77,7 @@ class AccountMovementController extends Controller
         \DB::connection()->disableQueryLog();
 
         $queryAccountMovements = AccountMovement::My($startDate, $endDate, $taxPayer->id);
-
+       
         if ($queryAccountMovements->where('journal_id', '!=', null)->count() > 0) {
             $arrJournalIDs = $queryAccountMovements->where('journal_id', '!=', null)->pluck('journal_id')->get();
 
@@ -101,7 +101,7 @@ class AccountMovementController extends Controller
         $journal->comment = $comment;
         $journal->is_automatic = 1;
         $journal->save();
-
+        
         $chartController = new ChartController();
 
         //1st Query: Movements related to Credit Sales. Cash Sales are ignored.
@@ -109,7 +109,7 @@ class AccountMovementController extends Controller
             ->whereHas('transaction', function ($q) use ($taxPayer) {
                 $q->where('taxpayer_id', '=', $taxPayer->id)
                     ->where('payment_condition', '>', 0)
-                    ->where('type',3);
+                    ->where('type',2);
             })
             ->with('transaction')
             ->get();
@@ -165,7 +165,7 @@ class AccountMovementController extends Controller
             })
             ->with('transaction')
             ->get();
-
+           
         //run code for credit purchase (insert detail into journal)
         foreach ($listOfPayables as $row) {
             $value = $row->debit * $row->rate;
@@ -208,7 +208,7 @@ class AccountMovementController extends Controller
                     $journal->details()->save($detail);
                 }
         }
-
+        
         //3rd Query: Movements that have no transactions. Example bank transfers and deposits
         $listOfMovements = AccountMovement::My($startDate, $endDate, $taxPayer->id)
             ->doesntHave('transaction')
@@ -229,7 +229,7 @@ class AccountMovementController extends Controller
                 $journal->details()->save($detail);
             }
         }
-
+    
         if ($journal->details()->count() == 0) {
             $journal->details()->delete();
             $journal->delete();
