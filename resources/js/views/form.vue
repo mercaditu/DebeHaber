@@ -50,8 +50,8 @@
         <b-row v-for="row in card.rows" v-bind:key="row.index">
           <b-col v-for="col in row.fields" v-bind:key="col.index">
             <b-form-group :label="$t(col.label)">
-              {{col.properties[0].length}}
-              <!-- <span v-if="col.properties.length === 1"> 
+             
+              <span v-if="col.properties.length === 1"> 
                 <search-taxpayer v-if="col.properties[0].type === 'customer' || col.type === 'supplier'"
                     v-bind:partner_name.sync="data[col.properties[0].data[0]['name']]"
                     v-bind:partner_taxid.sync="data[col.properties[0].data[0]['taxid']]"></search-taxpayer>
@@ -78,7 +78,7 @@
                       :required="col.properties[0].required"
                       :placeholder="col.properties[0].placeholder" />
                   </b-input-group-append>
-              </b-input-group> -->
+              </b-input-group>
             </b-form-group>
           </b-col>
         </b-row>
@@ -102,6 +102,9 @@
         <!-- Rows -->
         <b-row v-for="detail in data.details" v-bind:key="detail.index">
           <div v-for="col in table.fields" v-bind:key="col.index">
+            <b-col col="">
+
+            </b-col>
               <span v-for="property in col.properties" v-bind:key="property.index">
               <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
                 <search-taxpayer

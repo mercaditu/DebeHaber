@@ -35,10 +35,10 @@ class AccountReceivableController extends Controller
                 ->where('transactions.taxpayer_id',$taxPayer->id)
                 ->where('transactions.type',2)
                 ->where('transactions.sub_type',1)
-                ->having(DB::raw('sum(transaction_details.value * transactions.rate)'),'!=','sum(am.credit * am.rate)')
-                ->select(DB::raw('sum(transaction_details.value * transactions.rate) as sales'),DB::raw('sum(am.credit * am.rate) as Payment'),
-                DB::raw('sum(transaction_details.value * transactions.rate)-sum(am.credit * am.rate) as Balance'))
-                ->groupBy('transactions.id')->get());
+                ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'),'!=','COALESCE(sum(am.credit * am.rate),0)')
+                ->select(DB::raw('max(transactions.number) as number'),DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as sales'),DB::raw('COALESCE(sum(am.credit * am.rate),0) as payment'),
+                DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.credit * am.rate),0) as balance'))
+                ->groupBy('transactions.id')->paginate(50));
          
         
         

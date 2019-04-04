@@ -52,6 +52,7 @@ class TaxpayerIntegrationController extends Controller
     */
     public function store(Request $request)
     {
+       
         $taxPayerIntegration = taxPayerIntegration::where('taxpayer_id', $request->id)->first();
 
         $taxPayerIntegration->type = $request->type ?? 1; //Default to 1 if nothing is selected
@@ -76,10 +77,10 @@ class TaxpayerIntegrationController extends Controller
                 $taxPayer->regime_type = $request->setting_regime ? 1 : 0;
                 $taxPayer->agent_name = $request->agent_name;
                 $taxPayer->agent_taxid = $request->agent_taxid;
-                $taxPayer->show_inventory = $request->setting_inventory ? 1 : 0;
-                $taxPayer->show_production = $request->setting_production ? 1 : 0;
-                $taxPayer->show_fixedasset = $request->setting_fixedasset ? 1 : 0;
-                $taxPayer->is_company = $request->setting_is_company ? 1 : 0;
+                $taxPayer->show_inventory = $request->show_inventory ? 1 : 0;
+                $taxPayer->show_production = $request->show_production ? 1 : 0;
+                $taxPayer->show_fixedasset = $request->show_fixedasset ? 1 : 0;
+                $taxPayer->is_company = $request->is_company ? 1 : 0;
                 $taxPayer->does_import = $request->does_import ? 1 : 0;
                 $taxPayer->does_export = $request->does_export ? 1 : 0;
                 $taxPayer->save();

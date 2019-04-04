@@ -39,7 +39,7 @@
                         Configuration
                     </h3>
 
-                    {{-- {{ $taxPayerIntegration }} --}}
+                     <!-- {{ $taxPayerIntegration }}  -->
 
                     <b-card no-body>
                         <b-tabs pills card v-model="tabIndex">
@@ -64,9 +64,15 @@
                             <hr>
                             <b-row>
                                 <b-col>
-                                    <b-form-checkbox checked="{{$taxPayerIntegration->taxpayer->is_company}}" name="check-button" switch>
-                                            This taxpayer is a Company
-                                    </b-form-checkbox>
+                                    @if ($taxPayerIntegration->taxpayer->is_company === 1)
+                                        <b-form-checkbox checked="true" name="is_company" switch>
+                                                This taxpayer is a Company
+                                        </b-form-checkbox>
+                                    @else
+                                        <b-form-checkbox checked="false" name="is_company" switch>
+                                                This taxpayer is a Company
+                                        </b-form-checkbox>
+                                    @endif
                                     <b-form-group label="Agent Name" label-size="sm">
                                         <b-form-input name="agent_name" type="text" value="{{$taxPayerIntegration->taxpayer->agent_name}}"></b-form-input>
                                     </b-form-group>
@@ -100,24 +106,55 @@
 
                                     <br>
                                     <h6>General Modules</h6>
-                                    <b-form-checkbox checked="{{$taxPayerIntegration->taxpayer->show_inventory}}" name="show_inventory" switch>
+                                     @if ($taxPayerIntegration->taxpayer->show_inventory === 1)
+                                        <b-form-checkbox checked="true" name="show_inventory" switch>
                                         Inventory
-                                    </b-form-checkbox>
-                                    <b-form-checkbox checked="{{$taxPayerIntegration->taxpayer->show_production}}" name="show_production" switch>
+                                        </b-form-checkbox>  
+                                    @else
+                                        <b-form-checkbox checked="false" name="show_inventory" switch>
+                                        Inventory
+                                        </b-form-checkbox>
+                                    @endif
+                                    @if ($taxPayerIntegration->taxpayer->show_production === 1)
+                                        <b-form-checkbox checked="true" name="show_production" switch>
                                         Production
-                                    </b-form-checkbox>
-                                    <b-form-checkbox checked="{{$taxPayerIntegration->taxpayer->show_fixedasset}}" name="show_fixedasset" switch>
+                                        </b-form-checkbox>
+                                    @else
+                                         <b-form-checkbox checked="false" name="show_production" switch>
+                                        Production
+                                        </b-form-checkbox>
+                                    @endif
+                                    @if ($taxPayerIntegration->taxpayer->show_fixedasset === 1)
+                                        <b-form-checkbox checked="true" name="show_fixedasset" switch>
                                         Fixed Assets
-                                    </b-form-checkbox>
-
+                                        </b-form-checkbox>
+                                    @else
+                                         <b-form-checkbox checked="false" name="show_fixedasset" switch>
+                                        Fixed Assets
+                                        </b-form-checkbox>
+                                    @endif
                                     <br>
                                     <h6>Internacional Commerce</h6>
-                                    <b-form-checkbox checked="{{$taxPayerIntegration->taxpayer->does_import}}" name="does_import" switch>
+                                    @if ($taxPayerIntegration->taxpayer->does_import === 1)
+                                       <b-form-checkbox checked="true" name="does_import" switch>
                                         Importation
-                                    </b-form-checkbox>
-                                    <b-form-checkbox checked="{{$taxPayerIntegration->taxpayer->does_export}}" nname="does_export" switch>
+                                        </b-form-checkbox>
+                                    @else
+                                        <b-form-checkbox checked="false" name="does_import" switch>
+                                        Importation
+                                        </b-form-checkbox>
+                                    @endif
+                                    @if ($taxPayerIntegration->taxpayer->does_export === 1)
+                                      <b-form-checkbox checked="true" name="does_export" switch>
                                         Exportation
-                                    </b-form-checkbox>
+                                        </b-form-checkbox>
+                                    @else
+                                       <b-form-checkbox checked="false" name="does_export" switch>
+                                        Exportation
+                                        </b-form-checkbox>
+                                    @endif
+                                    
+                                    
                                 </b-tab>
                                     <b-tab>
                                         <template slot="title">
@@ -174,21 +211,46 @@
                                             
                                             <br>
                                             <h6>How often would you like to receive Email Summaries of this Taxpayer</h6>
-                                            <b-form-checkbox checked="{{$taxPayerIntegration->notification_quarterly}}" name="notification_quarterly" switch>
+                                           
+                                             @if ($taxPayerIntegration->notification_quarterly === 1)
+                                                <b-form-checkbox checked="true" name="notification_quarterly" switch>
                                                 Quarterly Notification
-                                            </b-form-checkbox>
-                                            <b-form-checkbox checked="{{$taxPayerIntegration->notification_semesterly}}" name="notification_semesterly" switch>
+                                                </b-form-checkbox>
+                                            @else
+                                                <b-form-checkbox checked="false" name="notification_quarterly" switch>
+                                                Quarterly Notification
+                                                </b-form-checkbox>
+                                            @endif
+                                            @if ($taxPayerIntegration->notification_semesterly === 1)
+                                                <b-form-checkbox checked="true" name="notification_semesterly" switch>
                                                 Semesterly Notification
-                                            </b-form-checkbox>
-                                            <b-form-checkbox checked="{{$taxPayerIntegration->notification_yearly}}" name="notification_yearly" switch>
+                                                </b-form-checkbox>
+                                            @else
+                                                <b-form-checkbox checked="false" name="notification_semesterly" switch>
+                                                Semesterly Notification
+                                                </b-form-checkbox>
+                                            @endif
+                                            @if ($taxPayerIntegration->notification_yearly === 1)
+                                                 <b-form-checkbox checked="true" name="notification_yearly" switch>
                                                 Yearly Notification
-                                            </b-form-checkbox>
-        
+                                                </b-form-checkbox>
+                                            @else
+                                                 <b-form-checkbox checked="false" name="notification_yearly" switch>
+                                                Yearly Notification
+                                                </b-form-checkbox>
+                                            @endif
                                             <br>
                                             <h6>Sync</h6>
-                                            <b-form-checkbox checked="{{$taxPayerIntegration->notification_sync}}" name="notification_sync" switch>
+                                            @if ($taxPayerIntegration->notification_yearly === 1)
+                                                 <b-form-checkbox checked="true" name="notification_sync" switch>
                                                 Notify each time a user Sync's data
-                                            </b-form-checkbox>
+                                                </b-form-checkbox>
+                                            @else
+                                                <b-form-checkbox checked="false" name="notification_sync" switch>
+                                                Notify each time a user Sync's data
+                                                </b-form-checkbox>
+                                            @endif
+                                            
 
                                         </b-form-group>
                                     </b-tab>

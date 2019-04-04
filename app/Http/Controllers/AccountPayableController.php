@@ -29,10 +29,11 @@ class AccountPayableController extends Controller
                 ->where('transactions.type',1)
                 ->where('transactions.sub_type',1)
                 ->where('transactions.payment_condition','>',0)
-                ->having(DB::raw('sum(transaction_details.value * transactions.rate)'),'!=','sum(am.debit * am.rate)')
-                ->select(DB::raw('sum(transactions.number) as number'),DB::raw('sum(transaction_details.value * transactions.rate) as sales'),DB::raw('sum(am.credit * am.rate) as Payment'),
-                DB::raw('sum(transaction_details.value * transactions.rate)-sum(am.debit * am.rate) as Balance'))
-                ->groupBy('transactions.id')->get()
+                               ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'),'!=','COALESCE(sum(am.debit * am.rate),0)')
+                ->select(DB::raw('max(transactions.number) as number'),DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as sales'),
+                DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
+                DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.debit * am.rate),0) as balance'))
+                ->groupBy('transactions.id')->paginate(50)
         );
     }
 

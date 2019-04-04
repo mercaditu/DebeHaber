@@ -37,9 +37,11 @@
         </b-row>
         <b-row>
             <b-col>
+                 
                 <div v-if="$route.name.includes('List')">
-               
+                   
                     <crud :columns="$route.meta.columns" inline-template>
+                       
                         <b-card no-body>
                             <b-table hover responsive :items="items" :fields="$route.meta.columns" :current-page="currentPage" show-empty>
 

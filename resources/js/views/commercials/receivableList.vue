@@ -92,34 +92,11 @@ export default {
         },
         columns()
         {
-            return  [ {
-                key: 'date',
-                sortable: true
-            },
+            return  [ 
             {
-                key: 'partner_name',
-                label: this.$i18n.t('commercial.customer'),
+                key: 'sales',
+                label: this.$i18n.t('commercial.sales'),
                 sortable: true
-            },
-            {
-                key: 'comment',
-                label: this.$i18n.t('commercial.comment'),
-                sortable: true
-            },
-            {
-                key: 'total',
-                label: this.$i18n.t('commercial.total'),
-                sortable: true
-            },
-            {
-                key: 'balance',
-                label: this.$i18n.t('commercial.balance'),
-                sortable: true
-            },
-            {
-                key: 'actions',
-                label: '',
-                sortable: false
             }];
         }
     }

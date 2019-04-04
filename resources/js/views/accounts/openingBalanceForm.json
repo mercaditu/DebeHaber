@@ -1,7 +1,7 @@
 {
-    "pageurl": "/commercial/sales",
-    "title":  "commercial.Sale",
-    "img":  "/img/apps/sales.svg",
+    "pageurl": "/commercial/debit-notes",
+    "title":  "commercial.Debit Note",
+    "img":  "/img/apps/debit-note.svg",
     "cards": [{
         "rows": [{
             "fields": [
@@ -12,8 +12,8 @@
                 {
                     "label":  "commercial.document",
                     "properties": [
-                        { "type":  "text", "data":  "code", "placeholder":  "commercial.code", "required": false, "location":  "prepend" },
-                        { "type":  "date", "data":  "code_expiry", "placeholder":  "commercial.expiryDate", "required": false }
+                        { "type":  "text", "data":  "code", "placeholder":  "commercial.code", "required": false, "location":  "" },
+                        { "type":  "date", "data":  "code_expiry", "placeholder":  "commercial.expiryDate", "required": false, "location":  "append" }
                     ]
                 }
 
@@ -35,33 +35,27 @@
         },
         {
             "fields": [
-                { 
-                    "properties": [{"location": ""}]
-                },
                 {
                     "label":  "commercial.paymentCondition",
                     "properties": [
-                        { "type": "text", "data": "payment_condition", "placeholder": "commercial.condition", "required": false, "location": "prepend" },
-                        { "type": "select", "data": "chart_account_id", "placeholder": "commercial.expiryDate", "api":  "/accounting/charts/for/money/ ", "condition": "payment_condition", "required": false, "select": [{ "value":  "id", "label": "name" }] }
+                        { "type":  "text", "data":  "payment_condition", "placeholder":  "commercial.condition", "required": false, "location":  "" },
+                        {
+                            "type":  "select", "data":  "chart_account_id", "placeholder":  "commercial.expiryDate", "api":  "/accounting/charts/for/money/ ", "condition": "payment_condition","required": false, "location":  "append ", "select": [{ "value":  "id", "label":  "name" }]
+                        }
                     ]
                 }
+
             ]
         },
         {
             "fields": [
-
-                {
-                    "properties": [
-                        {
-                            "location": ""
-                        }
-                    ]
-                },
                 {
                     "label":  "commercial.currency ",
                     "properties": [
-                        { "type": "text", "data":  "rate", "placeholder": "commercial.rate", "required": false, "location": "prepend" },
-                        { "type": "select", "data":  "currency", "placeholder":  "commercial.currency", "api":  "/config/currencies/", "required": false, "select": [{ "value": "code", "label": "name " }] }
+                        { "type":  "text", "data":  "rate", "placeholder":  "commercial.rate", "required": false, "location":  "" },
+                        {
+                            "type":  "select", "data":  "currency", "placeholder":  "commercial.currency", "api":  "/config/currencies/", "required": false, "location":  "append ", "select": [{ "value":  "code", "label":  "name " }]
+                        }
                     ]
                 }
 
@@ -70,13 +64,12 @@
     }],
     "tables": [{
         "data":  "details",
-        "actions": true,
         "fields": [
             {
                 "label":  "commercial.chart",
                 "properties": [
                     {
-                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api": "/accounting/charts/for/income/",
+                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api":  "/accounting/charts/for/income/",
                         "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
                     }
                 ]

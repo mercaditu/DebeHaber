@@ -428,35 +428,29 @@ export default
                     title: 'commercial.accountsReceivable',
                     description: 'Some description',
                     img: '/img/apps/account-receivable.svg',
-                    columns: [{
-                        key: 'date',
+                    columns: [
+                        {
+                            key: 'number',
+                            label: 'commercial.number',
+                            sortable: true
+                        },
+                        {
+                        key: 'sales',
+                        label: 'commercial.sales',
                         sortable: true
-                    },
-                    {
-                        key: 'partner_name',
-                        label: 'commercial.customer',
-                        sortable: true
-                    },
-                    {
-                        key: 'comment',
-                        label: 'commercial.comment',
-                        sortable: true
-                    },
-                    {
-                        key: 'total',
-                        label: 'commercial.total',
-                        sortable: true
-                    },
-                    {
-                        key: 'balance',
-                        label: 'commercial.balance',
-                        sortable: true
-                    },
-                    {
-                        key: 'actions',
-                        label: '',
-                        sortable: false
-                    }]
+                        },
+                        {
+                            key: 'payment',
+                            label: 'commercial.payment',
+                            sortable: true
+                        },
+                        {
+                            key: 'balance',
+                            label: 'commercial.balance',
+                            sortable: true
+                        }
+                    ]
+                    
                 },
                 children:
                 [
@@ -480,35 +474,28 @@ export default
                     title: 'commercial.accountsPayable',
                     description: 'Some description',
                     img: '/img/apps/account-payable.svg',
-                    columns: [{
-                        key: 'date',
-                        sortable: true
-                    },
-                    {
-                        key: 'partner_name',
-                        label: 'commercial.customer',
-                        sortable: true
-                    },
-                    {
-                        key: 'comment',
-                        label: 'commercial.comment',
-                        sortable: true
-                    },
-                    {
-                        key: 'total',
-                        label: 'commercial.total',
-                        sortable: true
-                    },
-                    {
-                        key: 'balance',
-                        label: 'commercial.balance',
-                        sortable: true
-                    },
-                    {
-                        key: 'actions',
-                        label: '',
-                        sortable: false
-                    }]
+                    columns: [
+                        {
+                            key: 'number',
+                            label: 'commercial.number',
+                            sortable: true
+                        },
+                        {
+                            key: 'sales',
+                            label: 'commercial.sales',
+                            sortable: true
+                        },
+                        {
+                            key: 'payment',
+                            label: 'commercial.payment',
+                            sortable: true
+                        },
+                        {
+                            key: 'balance',
+                            label: 'commercial.balance',
+                            sortable: true
+                        }
+                    ]
                 },
                 children:
                 [

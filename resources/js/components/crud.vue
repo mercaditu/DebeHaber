@@ -29,9 +29,11 @@ export default {
 
             axios.get('/api' + this.$route.path + '?page=' + page )
             .then(({ data }) => {
+                
                 app.items = data.data;
                 app.meta = data.meta;
                 app.skip += app.pageSize;
+               
                 //finishes the top progress bar
             }).catch(function (error) {
                 // this.$refs.topProgress.fail();

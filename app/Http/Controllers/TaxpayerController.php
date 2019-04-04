@@ -43,6 +43,7 @@ class TaxpayerController extends Controller
         })
         ->take(25)
         ->get();
+
         return response()->json($taxPayers);
     }
 
@@ -69,7 +70,7 @@ class TaxpayerController extends Controller
     */
     public function store(Request $request)
     {
-
+        
         //Used below for date and year.
         $current_date = Carbon::now();
 
