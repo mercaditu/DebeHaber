@@ -57,7 +57,7 @@ class ClosingBalanceController extends Controller
         }
 
         $closingBalance = $charts->sortBy('type')->sortBy('code');
-        return response()->json(GeneralResource::collection($closingBalance));
+        return GeneralResource::collection($closingBalance);
     }
 
     /**

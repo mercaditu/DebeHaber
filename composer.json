@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "florianv/laravel-swap": "^2.0",
         "laravel/cashier": "~9.0",
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.2",
@@ -17,6 +18,9 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "nasyrov/laravel-enums": "^1.1",
+        "nyholm/psr7": "^1.1",
+        "php-http/curl-client": "^2.0",
+        "php-http/message": "^1.7",
         "predis/predis": "^1.1",
         "rweber7912/timezoned": "dev-master",
         "spatie/laravel-cookie-consent": "^2.6",

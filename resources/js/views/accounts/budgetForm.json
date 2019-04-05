@@ -1,0 +1,57 @@
+{
+    "pageurl": "/accounting/budgets",
+    "title": "accounting.budget",
+    "img": "/img/apps/budget.svg",
+    "module": 1,
+    "tables": [
+        {
+            "data": "data",
+            "actions": false,
+            "fields": [
+                {
+                    "label": "commercial.code",
+                    "properties": [
+                        {
+                            "type": "label",
+                            "data": "code"
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.chart",
+                    "properties": [
+                        {
+                            "type": "label",
+                            "data": "name"
+                            
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.debit",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "debit",
+                            "placeholder": "commercial.debit",
+                            "required": false,
+                            "location": "is_accountable"
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.credit",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "credit",
+                            "placeholder": "commercial.credit",
+                            "required": false,
+                            "location": "is_accountable"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

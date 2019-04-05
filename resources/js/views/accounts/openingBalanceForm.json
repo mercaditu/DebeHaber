@@ -1,40 +1,57 @@
 {
-    "pageurl": "/commercial/debit-notes",
-    "title":  "commercial.Debit Note",
-    "img":  "/img/apps/debit-note.svg",
-    "tables": [{
-        "data":  "details",
-        "fields": [
-            {
-                "label":  "commercial.chart",
-                "properties": [
-                    {
-                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api":  "/accounting/charts/for/income/",
-                        "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
-                    }
-                ]
-            },
-            {
-                "label":  "commercial.vat",
-                "properties": [
-                    {
-                        "type":  "select", "data":  "chart_vat_id", "placeholder":  "commercial.vat", "api":  "/accounting/charts/for/vats-debit/ ",
-                        "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
-                    }
-                ]
-            },
-            {
-                "label":  "commercial.value",
-                "properties": [
-                    {
-                        "type":  "text", "data":  "value", "placeholder":  "commercial.vat",
-                        "required": false, "location":  ""
-                    }
-                ]
-            }
-
-
-        ]
-
-    }]
+    "pageurl": "/accounting/opening-balance",
+    "title": "accounting.openingbalance",
+    "img": "/img/apps/opening-balance.svg",
+    "module": 1,
+    "tables": [
+        {
+            "data": "data",
+            "actions": false,
+            "fields": [
+                {
+                    "label": "commercial.code",
+                    "properties": [
+                        {
+                            "type": "label",
+                            "data": "code"
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.chart",
+                    "properties": [
+                        {
+                            "type": "label",
+                            "data": "name"
+                            
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.debit",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "debit",
+                            "placeholder": "commercial.debit",
+                            "required": false,
+                            "location": "is_accountable"
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.credit",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "credit",
+                            "placeholder": "commercial.credit",
+                            "required": false,
+                            "location": "is_accountable"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }

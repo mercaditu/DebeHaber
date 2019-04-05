@@ -52,7 +52,7 @@ class BudgetController extends Controller
         }
 
         $budgets = $charts->sortBy('type')->sortBy('code');
-        return response()->json(GeneralResource::collection($budgets));
+        return GeneralResource::collection($budgets);
     }
 
     /**

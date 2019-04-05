@@ -65,14 +65,15 @@ export default {
             {
                 date=moment().format("DD-MM-YYYY")
             }
+            
            crud.methods
         .onRead("/api/" + this.$route.params.taxPayer + "/get-rates/by/"+ app.sale_currency + "/" + date)
         .then(function(response) {
             if(app.type==1){
-           this.$emit('update:rate', response.data.sell_rate);
+                app.$emit('update:rate', response.data.sell_rate);
             }
             else{
-            this.$emit('update:rate', response.data.buy_rate);
+                 app.$emit('update:rate', response.data.buy_rate);
             }
             
         });

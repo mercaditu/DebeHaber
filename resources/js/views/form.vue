@@ -111,7 +111,7 @@
       </b-card>
     </div>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
-      <b-btn
+      <b-btn v-show="table.data==='details'"
           class="ml-15"
           v-shortkey="['ctrl', 'd']"
           @shortkey="addRow(table.data)"
@@ -123,51 +123,30 @@
       <b-card no-body>
         <!-- Labels -->
         <b-row>
-          <b-col v-for="col in table.fields" v-bind:key="col.index">{{ $t(col.label) }}</b-col>
+          <b-col v-for="col in table.fields" v-bind:key="col.index"><b>{{ $t(col.label) }}</b></b-col>
         </b-row>
         <!-- Rows -->
-        <b-row v-for="detail in data.details" v-bind:key="detail.index">
-          <div v-for="col in table.fields" v-bind:key="col.index">
+        <b-row v-for="detail in data[table.data]" v-bind:key="detail.index">
+          <b-col v-for="col in table.fields" v-bind:key="col.index">
               <span v-for="property in col.properties" v-bind:key="property.index">
-              <b-input-group v-if="property.type === 'customer' || col.type === 'supplier'">
-                <search-taxpayer
-                  v-bind:partner_name.sync="detail[property.data[0]['name']]"
-                  v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
-                ></search-taxpayer>
-              </b-input-group>
-              <b-input-group v-else-if="property.type === 'select'">
-                <select-data v-bind:Id.sync="detail[property.data]" :api="property.api" :options="property.options"></select-data>
-              </b-input-group>
-              <b-input-group v-else>
-                <b-input
-                  v-if="property.location === ''"
-                  :type="col.type"
-                  v-model="detail[property.data]"
-                  :required="col.required"
-                  :placeholder="col.placeholder"
-                />
-                <b-input-group-append v-if="property.location === 'append'">
-                  <b-input
-                    :type="col.type"
-                    v-model="detail[property.data]"
-                    :required="col.required"
-                    :placeholder="col.placeholder"
-                  />
-                </b-input-group-append>
-                <b-input-group-prepend v-else-if="property.location === 'prepend'">
-                  <b-input
-                    :type="col.type"
-                    v-model="detail[property.data]"
-                    :required="col.required"
-                    :placeholder="col.placeholder"
-                  />
-                </b-input-group-prepend>
-              </b-input-group>
-            </span>
-          </div>
-            <b-button variant="link" @click="deleteRow(detail,table.data)">
-                        <i class="material-icons text-danger">delete_outline</i>
-            </b-button>
+                 <b-input-group v-if="property.type === 'label'">
+                 {{detail[property.data]}}
+                </b-input-group>
+                <b-input-group v-if="property.type === 'select'">
+                  <select-data v-bind:Id.sync="detail[property.data]" :api="property.api" :options="property.options"></select-data>
+                </b-input-group>
+                <b-input-group v-else>
+                        <b-input
+                          :type="property.type"
+                          v-model="detail[property.data]"
+                          :required="property.required"
+                          :placeholder="property.placeholder"
+                        />
+                 </b-input-group>
+              </span>
+          </b-col>
+         
+          
         </b-row>
       </b-card>
     </div>
@@ -278,19 +257,21 @@ export default {
     },
   mounted() {
     var app = this;
-    console.log(
-      app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id
-    );
+    var url="";
     if (app.$route.params.id > 0) {
-      crud.methods
+      url=app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id;
+       crud.methods
         .onRead(
-          app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id
+          url
         )
         .then(function(response) {
           //console.log(response);
           app.data = response.data.data;
         });
     }
+   
+
+    
   }
   
     

@@ -53,7 +53,7 @@ class OpeningBalanceController extends Controller
         }
 
         $openingBalance = $charts->sortBy('type')->sortBy('code');
-        return response()->json(GeneralResource::collection($openingBalance));
+        return GeneralResource::collection($openingBalance);
     }
 
     /**
@@ -72,8 +72,9 @@ class OpeningBalanceController extends Controller
         $journal->cycle_id = $cycle->id;
         $journal->save();
 
+        
         $details = collect($request)->where('is_accountable', '=', 1);
-
+       
         foreach ($details as $detail) {
             if ($detail['id'] > 0) {
                 //Save only if there are values ot be saved. avoid saving blank values.

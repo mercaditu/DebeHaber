@@ -1,15 +1,32 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -85,66 +102,34 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      pageUrl: '/accounting/opening-balance',
-      data: [],
+      data: {
+        chart_account_id: 0,
+        comment: '',
+        currency: '',
+        date: '',
+        id: 0,
+        rate: 1,
+        payment_value: 0
+      },
+      pageUrl: '/commercial/accounts-receivable',
+      currencies: [],
+      accountCharts: [],
       lastDeletedRow: []
     };
   },
   computed: {
-    columns: function columns() {
-      return [{
-        key: 'code',
-        label: this.$i18n.t('commercial.code'),
-        sortable: true
-      }, {
-        key: 'name',
-        label: this.$i18n.t('commercial.name'),
-        sortable: true
-      }, {
-        key: 'debit',
-        label: this.$i18n.t('commercial.debit'),
-        sortable: true
-      }, {
-        key: 'credit',
-        label: this.$i18n.t('commercial.credit'),
-        sortable: true
-      }, {
-        key: 'actions',
-        label: '',
-        sortable: false
-      }];
-    },
     baseUrl: function baseUrl() {
       return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
     }
   },
   methods: {
-    onSave: function onSave() {
-      var app = this;
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
-        app.$snack.success({
-          text: app.$i18n.t('commercial.OpeningBalanceSaved')
-        });
-        app.$router.go(-1);
-      }).catch(function (error) {
-        app.$snack.danger({
-          text: 'Error OMG!'
-        });
-      });
-    },
     onSaveNew: function onSaveNew() {
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.OpeningBalanceSaved')
+          text: app.$i18n.t('commercial.accountReceivableSaved')
         });
-        app.$router.push({
-          name: app.$route.name,
-          params: {
-            id: '0'
-          }
-        });
-        app.data = [];
+        app.$router.go(-1);
       }).catch(function (error) {
         app.$snack.danger({
           text: this.$i18n.t('general.errorMessage')
@@ -170,18 +155,49 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var app = this;
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl).then(function (response) {
-      app.data = response.data;
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + '/config/currencies').then(function (response) {
+      app.currencies = response.data.data;
+    });
+
+    if (app.$route.params.id > 0) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + '/' + app.$route.params.id).then(function (response) {
+        app.data = response.data.data;
+        var total = 0;
+
+        if (app.data.details != null) {
+          total = app.data.details.reduce(function (sum, row) {
+            return sum + new Number(row['value']);
+          }, 0);
+        }
+
+        var paid = 0;
+
+        if (app.data.accountMovements != null) {
+          paid = app.data.accountMovements.reduce(function (sum, row) {
+            return sum + new Number(row['debit']);
+          }, 0);
+        }
+
+        app.data.payment_value = total - paid;
+        app.data.date = new Date(Date.now()).toISOString().split("T")[0];
+        app.data.chart_account_id = app.accountCharts[0] != null ? app.accountCharts[0].id : null;
+        app.data.currency = app.spark.taxPayerData.currency;
+        app.data.rate = 1;
+      });
+    }
+
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/money/").then(function (response) {
+      app.accountCharts = response.data.data;
     });
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -229,9 +245,9 @@ var render = function() {
                     _vm._v("keyboard_backspace")
                   ]),
                   _vm._v(
-                    "\n        " +
+                    "\n                " +
                       _vm._s(_vm.$t("general.return")) +
-                      "\n        "
+                      "\n                "
                   )
                 ]
               ),
@@ -242,7 +258,9 @@ var render = function() {
                   attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
                 }),
                 _vm._v(
-                  "\n        " + _vm._s(_vm.$route.meta.title) + "\n      "
+                  "\n                " +
+                    _vm._s(_vm.$route.meta.title) +
+                    "\n            "
                 )
               ])
             ],
@@ -286,9 +304,9 @@ var render = function() {
                             _vm._v("save")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                        " +
                               _vm._s(_vm.$t("general.save")) +
-                              "\n          "
+                              "\n                    "
                           )
                         ]
                       ),
@@ -319,9 +337,9 @@ var render = function() {
                             _vm._v("cancel")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                        " +
                               _vm._s(_vm.$t("general.cancel")) +
-                              "\n          "
+                              "\n                    "
                           )
                         ]
                       )
@@ -416,85 +434,205 @@ var render = function() {
             [
               _c(
                 "b-card",
-                { attrs: { "no-body": "" } },
                 [
-                  _c("b-table", {
-                    attrs: { hover: "", items: _vm.data, fields: _vm.columns },
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "code",
-                          fn: function(data) {
-                            return [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(data.item.code) +
-                                  "\n          "
+                  _c(
+                    "b-container",
+                    [
+                      _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                { attrs: { label: _vm.$t("commercial.date") } },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "date",
+                                      required: "",
+                                      placeholder: "Missing Information"
+                                    },
+                                    model: {
+                                      value: _vm.data.date,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data, "date", $$v)
+                                      },
+                                      expression: "data.date"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.value") }
+                                },
+                                [
+                                  _c("b-input", {
+                                    attrs: {
+                                      type: "number",
+                                      placeholder: "Value"
+                                    },
+                                    model: {
+                                      value: _vm.data.payment_value,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "payment_value",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.payment_value"
+                                    }
+                                  })
+                                ],
+                                1
                               )
-                            ]
-                          }
-                        },
-                        {
-                          key: "name",
-                          fn: function(data) {
-                            return [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(data.item.name) +
-                                  "\n          "
-                              )
-                            ]
-                          }
-                        },
-                        {
-                          key: "debit",
-                          fn: function(data) {
-                            return data.item.is_accountable
-                              ? [
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.chart") }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      model: {
+                                        value: _vm.data.chart_account_id,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data,
+                                            "chart_account_id",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data.chart_account_id"
+                                      }
+                                    },
+                                    _vm._l(_vm.accountCharts, function(item) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: item.key,
+                                          domProps: { value: item.id }
+                                        },
+                                        [_vm._v(_vm._s(item.name))]
+                                      )
+                                    }),
+                                    0
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: _vm.$t("commercial.exchangeRate")
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-input-group",
+                                    [
+                                      _c(
+                                        "b-input-group-prepend",
+                                        [
+                                          _c(
+                                            "b-form-select",
+                                            {
+                                              model: {
+                                                value: _vm.data.currency,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.data,
+                                                    "currency",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "data.currency"
+                                              }
+                                            },
+                                            _vm._l(_vm.currencies, function(
+                                              currency
+                                            ) {
+                                              return _c(
+                                                "option",
+                                                {
+                                                  key: currency.key,
+                                                  domProps: {
+                                                    value: currency.code
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(currency.name))]
+                                              )
+                                            }),
+                                            0
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("b-input", {
+                                        attrs: {
+                                          type: "number",
+                                          placeholder: _vm.$t(
+                                            "commercial.rate"
+                                          ),
+                                          value: _vm.data.rate
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: _vm.$t("commercial.comment") }
+                                },
+                                [
                                   _c("b-input", {
                                     attrs: {
                                       type: "text",
-                                      placeholder: "Debit"
+                                      required: "",
+                                      placeholder: "Missing Information"
                                     },
                                     model: {
-                                      value: data.item.debit,
+                                      value: _vm.data.comment,
                                       callback: function($$v) {
-                                        _vm.$set(data.item, "debit", $$v)
+                                        _vm.$set(_vm.data, "comment", $$v)
                                       },
-                                      expression: "data.item.debit"
+                                      expression: "data.comment"
                                     }
                                   })
-                                ]
-                              : undefined
-                          }
-                        },
-                        {
-                          key: "credit",
-                          fn: function(data) {
-                            return data.item.is_accountable
-                              ? [
-                                  _c("b-input", {
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "credit"
-                                    },
-                                    model: {
-                                      value: data.item.credit,
-                                      callback: function($$v) {
-                                        _vm.$set(data.item, "credit", $$v)
-                                      },
-                                      expression: "data.item.credit"
-                                    }
-                                  })
-                                ]
-                              : undefined
-                          }
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -515,17 +653,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/accounts/openingBalanceForm.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/views/accounts/openingBalanceForm.vue ***!
-  \************************************************************/
+/***/ "./resources/js/views/commercials/receivableForm.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/views/commercials/receivableForm.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./openingBalanceForm.vue?vue&type=template&id=6b798362& */ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&");
-/* harmony import */ var _openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./openingBalanceForm.vue?vue&type=script&lang=js& */ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./receivableForm.vue?vue&type=template&id=e2781ab6& */ "./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&");
+/* harmony import */ var _receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./receivableForm.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -535,9 +673,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -547,38 +685,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/accounts/openingBalanceForm.vue"
+component.options.__file = "resources/js/views/commercials/receivableForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./openingBalanceForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./receivableForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./openingBalanceForm.vue?vue&type=template&id=6b798362& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/openingBalanceForm.vue?vue&type=template&id=6b798362&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./receivableForm.vue?vue&type=template&id=e2781ab6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/receivableForm.vue?vue&type=template&id=e2781ab6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_openingBalanceForm_vue_vue_type_template_id_6b798362___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_receivableForm_vue_vue_type_template_id_e2781ab6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

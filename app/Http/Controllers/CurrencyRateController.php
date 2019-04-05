@@ -35,11 +35,15 @@ class CurrencyRateController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function get_ratesByCurrency($taxPayerID, $currencyID, $date)
+    public function get_ratesByCurrency(TaxPayer $taxPayer, $currencycode, $date)
     {
         $date = Carbon::parse($date) ?? Carbon::now();
 
-        $currencyRate = CurrencyRate::where('currency_id', $currencyID)
+        $currencyRate = CurrencyRate::
+        whereHas('currency', function ($q) use ($taxPayer,$currencycode) {
+                $q->where('country', '=', $taxPayer->country)
+                    ->where('code', $currencycode);
+            })
         ->whereDay('date', '=', $date->day)
         ->whereMonth('date', '=', $date->month)
         ->whereYear('date', '=', $date->year)
@@ -52,21 +56,23 @@ class CurrencyRateController extends Controller
         else
         {
             //swap fx
-            $currCode = Currency::where('code', $currencyID)->select('code')->first()->code;
-            $currCompanyCode = Taxpayer::where('id', $taxPayerID)->select('currency')->first()->currency;
+            $currency=Currency::where('code', $currencycode)->first();
+            $currCode = $currency->code;
+            $currCompanyCode = Taxpayer::where('id', $taxPayer->id)->select('currency')->first()->currency;
 
             //check that CompanyCode, CurrencyCode, and that both aren't the same.
             if ($currCompanyCode != null && $currCode != null && $currCompanyCode != $currCode)
             {
                 //$str = 'USD/EUR';
                 $str = $currCode . '/' . $currCompanyCode;
-                $rate = 1 ;//Swap::historical($str, Carbon::parse($date));
+             
+                $rate =1;// Swap::historical($str, Carbon::parse($date));
 
                 $currencyRate = new CurrencyRate();
                 $currencyRate->date = $date;
-                $currencyRate->currency_id = $currencyID;
-                $currencyRate->buy_rate = 1;//$rate->getValue();
-                $currencyRate->sell_rate = 1;//$rate->getValue();
+                $currencyRate->currency_id = $currency->id;
+                $currencyRate->buy_rate =1; //$rate->getValue();
+                $currencyRate->sell_rate =1;// $rate->getValue();
                 $currencyRate->save();
 
                 return response()->json($currencyRate);
@@ -76,7 +82,7 @@ class CurrencyRateController extends Controller
         //Create object, but do not store data.
         $currencyRate = new CurrencyRate();
         $currencyRate->date = $date;
-        $currencyRate->currency_id = $currencyID;
+        $currencyRate->currency_id = $currencycode;
         $currencyRate->buy_rate = 1;
         $currencyRate->sell_rate = 1;
 

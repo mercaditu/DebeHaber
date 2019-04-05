@@ -2,6 +2,8 @@
 import CreditForm from '../views/commercials/creditForm.json';
 import DebitForm from '../views/commercials/debitForm.json';
 import SalesForm from '../views/commercials/salesForm.json';
+import ReceivableForm from '../views/commercials/receivableForm.json';
+import PayableForm from '../views/commercials/payableForm.json';
 import PurchaseForm from '../views/commercials/purchaseForm.json';
 import InventoryForm from '../views/commercials/inventoryForm.json';
 import FixedAssetForm from '../views/commercials/fixedAssetForm.json';
@@ -12,27 +14,29 @@ import RateForm from '../views/configs/rateForm.json';
 
 import MoneyMovementForm from '../views/commercials/moneyMovementForm.json';
 import JournalTemplateForm from '../views/accounts/templateForm.json';
+import openingBalanceForm from '../views/accounts/openingBalanceForm.json';
+import closingBalanceForm from '../views/accounts/closingBalanceForm.json';
+import budgetForm from '../views/accounts/budgetForm.json';
 
 import FourZeroFour from '../views/404';
 import DashBoard from '../views/index';
 import SearchResult from '../views/searchResult';
 import Form from '../views/form';
+import FormList from '../views/formList';
 import List from '../views/list';
+
 
 const Commercial = () => import('../views/commercials/index')
 const SalesUpload = () => import('../views/commercials/salesUpload')
 const ImpexForm = () => import('../views/commercials/impexForm')
 
-const ReceivableForm = () => import('../views/commercials/receivableForm')
-const PayableForm = () => import('../views/commercials/payableForm')
+
+
 
 const Accounting = () => import('../views/accounts/index')
 const JournalList = () => import('../views/accounts/journalList')
 const JournalForm = () => import('../views/accounts/journalForm')
-const OpeningBalance = () => import('../views/accounts/openingBalanceForm')
-const ClosingBalance = () => import('../views/accounts/closingBalanceForm')
-const AnualBudget = () => import('../views/accounts/budgetForm')
-const TemplateForm = () => import('../views/commercials/index')
+
 const ChartList = () => import('../views/accounts/chartList')
 const ChartForm = () => import('../views/accounts/chartForm')
 
@@ -41,7 +45,6 @@ const DocumentList = () => import('../views/configs/documentList')
 const RateList = () => import('../views/configs/rateList')
 const VersionList = () => import('../views/configs/versionList')
 const VersionForm = () => import('../views/configs/versionForm')
-const CycleList = () => import('../views/configs/cycleList')
 
 const CommercialReports = () => import('../views/commercials/reports')
 const AccountingReports = () => import('../views/accounts/reports')
@@ -461,12 +464,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component: ReceivableForm,
+                        component: Form,
                         name: 'receivableForm',
-                        meta: {
-                            title: 'commercial.payment',
-                            img: '/img/apps/account-receivable.svg',
-                        },
+                        meta: ReceivableForm
 
                     }
                 ]
@@ -511,12 +511,9 @@ export default
                 [
                     {
                         path: ':id',
-                        component:PayableForm,
+                        component:Form,
                         name: 'payableForm',
-                        meta: {
-                            title: 'commercial.payment',
-                            img: '/img/apps/account-payable.svg',
-                        },
+                        meta: PayableForm
 
                     }
                 ]
@@ -607,33 +604,21 @@ export default
                 
             {
                 path: 'opening-balance',
-                component: Form,
+                component: FormList,
                 name: 'openingBalanceForm',
-                meta: {
-                    title: 'Opening Balance',
-                    description: 'Some description',
-                    img: '/img/apps/opening.svg',
-                },
+                meta: openingBalanceForm,
             },
             {
                 path: 'closing-balance',
-                component: ClosingBalance,
+                component: FormList,
                 name: 'closingBalanceForm',
-                meta: {
-                    title: 'Closing Balance',
-                    description: 'Some description',
-                    img: '/img/apps/closing.svg',
-                },
+                meta: closingBalanceForm
             },
             {
                 path: 'budget',
-                component: AnualBudget,
+                component: FormList,
                 name: 'budgetForm',
-                meta: {
-                    title: 'Anual Budget',
-                    description: 'Some description',
-                    img: '/img/apps/budget.svg',
-                },
+                meta: budgetForm,
             },
             {
                 path: 'charts',
@@ -695,12 +680,28 @@ export default
             },
             {
                 path: 'cycles',
-                component: CycleList,
+                component: List,
                 name: 'cycleList',
                 meta: {
                     title: 'accounting.fiscalYear',
                     description: 'Some description',
                     img: '/img/apps/sales.svg',
+                    columns: [
+                        {
+                            key: "chart_version.name",
+                            sortable: true
+                        },
+                        {
+                            key: "year",
+                            sortable: false
+                        },
+                        {
+                            key: 'actions',
+                            label: '',
+                            sortable: false
+                        }
+
+                    ]
                 },
                 children:
                 [
