@@ -13,10 +13,10 @@ use DB;
 class SalesController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
@@ -39,25 +39,24 @@ class SalesController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $request->type = 2;
-        $request->sub_type = 1;
-        (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 1; (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\Transaction  $transaction
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         return new GeneralResource(
@@ -69,11 +68,11 @@ class SalesController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.(Soft Delete)
-    *
-    * @param  \App\Transaction  $transaction
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.(Soft Delete)
+     *
+     * @param  \App\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         try {
@@ -88,11 +87,11 @@ class SalesController extends Controller
         }
     }
     /**
-    * Remove the specified resource from storage (Force Delete).
-    *
-    * @param  \App\Transaction  $transaction
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage (Force Delete).
+     *
+     * @param  \App\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
     public function destroyForce(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         try {
@@ -108,42 +107,30 @@ class SalesController extends Controller
     }
 
     /**
-    * Generates one journal for all sales in date range.
-    */
+     * Generates one journal for all sales in date range.
+     */
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
 
-        $querySales = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
-            ->get();
+        $journal = \App\Journal()->firstOrNew([
+            'cycle_id' => $cycle->id,
+            'date' => $endDate,
+            'is_automatic' => 1
+        ])->with('details');
 
-        if ($querySales->where('journal_id', '!=', null)->count() > 0) {
-            $arrJournalIDs = $querySales->where('journal_id', '!=', null)->pluck('journal_id');
-            //## Important! Null all references of Journal in Transactions.
-            Transaction::whereIn('journal_id', [$arrJournalIDs])
-                ->update(['journal_id' => null]);
-
-            //Delete the journals & details with id
-            // \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-            //     ->forceDelete();
-            // \App\Journal::whereIn('id', [$arrJournalIDs])
-            //     ->forceDelete();
+        //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+        foreach ($journal->details() as $detail) {
+            $detail->credit = 0;
+            $detail->debit = 0;
         }
 
-        $journal = new \App\Journal();
         $comment = __('accounting.SalesBookComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
-
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
-        //$journal->save();
-
-        //Assign all transactions the new journal_id.
-        //No need for If Count > 0, because if it was 0, it would not have gone in this function.
-
-        // Transaction::whereIn('id', $querySales->pluck('id'))
-        //     ->update(['journal_id' => $journal->id]);
+        $journal->save();
 
         //Sales Transactionsd done in cash. Must affect direct cash account.
         $salesInCash = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
@@ -222,27 +209,8 @@ class SalesController extends Controller
             $journal->details()->add($detail);
         }
 
-        //find old journal from database
-        $insertedjournal= \App\Journal::where('cycle_id',$cycle->id)->where('date',$endDate)
-        ->where('is_automatic',1)->with('details')->first();
-        //if not found then insert journal
-        if(isset($insertedjournal))
-        {
-            foreach ($insertedjournal->details() as $detail) {
-              $detail=\App\JournalDetail::where('chart_id',$detail->chart_id)->first();
-              if (isset($detail))
-              {
-                if($detail->debit)
-              } 
-              else
-              {
-                  //new detail
-              }
-            }
-        }
-        else
-        {
-            $journal->save();
-        }
+        //delete where credit and debit == 0. This will clean up old charts that were used, but not in new.
+        $journal->details()->where('debit', 0)->where('credit', 0)->delete();
+        $journal->save();
     }
 }
