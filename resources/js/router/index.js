@@ -31,8 +31,6 @@ const SalesUpload = () => import('../views/commercials/salesUpload')
 const ImpexForm = () => import('../views/commercials/impexForm')
 
 
-
-
 const Accounting = () => import('../views/accounts/index')
 const JournalList = () => import('../views/accounts/journalList')
 const JournalForm = () => import('../views/accounts/journalForm')

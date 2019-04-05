@@ -124,10 +124,10 @@ class SalesController extends Controller
                 ->update(['journal_id' => null]);
 
             //Delete the journals & details with id
-            \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-                ->forceDelete();
-            \App\Journal::whereIn('id', [$arrJournalIDs])
-                ->forceDelete();
+            // \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
+            //     ->forceDelete();
+            // \App\Journal::whereIn('id', [$arrJournalIDs])
+            //     ->forceDelete();
         }
 
         $journal = new \App\Journal();
@@ -137,12 +137,13 @@ class SalesController extends Controller
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
-        $journal->save();
+        //$journal->save();
 
         //Assign all transactions the new journal_id.
         //No need for If Count > 0, because if it was 0, it would not have gone in this function.
-        Transaction::whereIn('id', $querySales->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+
+        // Transaction::whereIn('id', $querySales->pluck('id'))
+        //     ->update(['journal_id' => $journal->id]);
 
         //Sales Transactionsd done in cash. Must affect direct cash account.
         $salesInCash = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
@@ -164,7 +165,7 @@ class SalesController extends Controller
 
             $detail = $journal->details()->firstOrNew(['chart_id' => $accountChartID]);
             $detail->credit += $row->total * $row->rate;
-            $journal->details()->save($detail);
+            $journal->details()->add($detail);
         }
 
         //2nd Query: Sales Transactions done in Credit. Must affect customer credit account.
@@ -187,7 +188,7 @@ class SalesController extends Controller
 
             $detail = $journal->details()->firstOrNew(['chart_id' => $customerChartID]);
             $detail->credit += $row->total * $row->rate;
-            $journal->details()->save($detail);
+            $journal->details()->add($detail);
         }
 
         //one detail query, to avoid being heavy for db. Group by fx rate, vat, and item type.
@@ -208,7 +209,7 @@ class SalesController extends Controller
         foreach ($detailAccounts->where('coefficient', '>', 0) as $row) {
             $detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_vat_id]);
             $detail->debit += ($row->total - ($row->total / (1 + $row->coefficient))) * $row->rate;
-            $journal->details()->save($detail);
+            $journal->details()->add($detail);
         }
 
         //run code for credit sales (insert detail into journal)
@@ -218,7 +219,30 @@ class SalesController extends Controller
 
             $detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_id]);
             $detail->debit += ($row->total / (1 + $coefficient)) * $row->rate;
-            $journal->details()->save($detail);
+            $journal->details()->add($detail);
+        }
+
+        //find old journal from database
+        $insertedjournal= \App\Journal::where('cycle_id',$cycle->id)->where('date',$endDate)
+        ->where('is_automatic',1)->with('details')->first();
+        //if not found then insert journal
+        if(isset($insertedjournal))
+        {
+            foreach ($insertedjournal->details() as $detail) {
+              $detail=\App\JournalDetail::where('chart_id',$detail->chart_id)->first();
+              if (isset($detail))
+              {
+                if($detail->debit)
+              } 
+              else
+              {
+                  //new detail
+              }
+            }
+        }
+        else
+        {
+            $journal->save();
         }
     }
 }
