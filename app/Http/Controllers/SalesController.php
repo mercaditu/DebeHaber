@@ -112,23 +112,26 @@ class SalesController extends Controller
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
-        
-        $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 3)
-            ->with('details')->first()?? new \App\Journal();   
-             
-        
+
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 3)
+            ->with('details')->first() ?? new \App\Journal();
+
+
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
-             
+
             $detail->credit = 0;
             $detail->debit = 0;
             $detail->save();
         }
 
-        
+        $salesQuery = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate');
+
 
         $comment = __('accounting.SalesBookComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
@@ -141,9 +144,7 @@ class SalesController extends Controller
         $chartController = new ChartController();
 
         //Sales Transactionsd done in cash. Must affect direct cash account.
-        $salesInCash = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
-            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->groupBy('rate', 'chart_account_id')
+        $salesInCash = $salesQuery
             ->where('payment_condition', '=', 0)
             ->select(
                 DB::raw('max(rate) as rate'),
@@ -151,7 +152,7 @@ class SalesController extends Controller
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();
-           
+
         //run code for cash sales (insert detail into journal)
         foreach ($salesInCash as $row) {
             // search if chart exists, or else create it. we don't want an error causing all transactions not to be accounted.
@@ -164,9 +165,7 @@ class SalesController extends Controller
         }
 
         //2nd Query: Sales Transactions done in Credit. Must affect customer credit account.
-        $creditSales = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
-            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->groupBy('rate')
+        $creditSales = $salesQuery
             ->groupBy('partner_taxid')
             ->where('payment_condition', '>', 0)
             ->select(
@@ -175,14 +174,14 @@ class SalesController extends Controller
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();
- 
+
 
         //run code for credit sales (insert detail into journal)
         foreach ($creditSales as $row) {
             $customerChartID = $chartController->createIfNotExists_AccountsReceivables($taxPayer, $cycle, $row->partner_taxid, $row->partner_name)->id;
 
             $detail = $journal->details()->firstOrNew(['chart_id' => $customerChartID]);
-           
+
             $detail->credit += $row->total * $row->rate;
             $detail->chart_id = $customerChartID;
             $journal->details()->save($detail);
@@ -202,7 +201,7 @@ class SalesController extends Controller
             )
             ->get();
 
-            //run code for credit sales (insert detail into journal)
+        //run code for credit sales (insert detail into journal)
         foreach ($detailAccounts as $row) {
             $coefficient = $row->coefficient ?? 0;
             $vatValue = $row->total - ($row->total / (1 + $coefficient));
@@ -220,7 +219,6 @@ class SalesController extends Controller
             }
         }
 
-       
         //delete where credit and debit == 0. This will clean up old charts that were used, but not in new.
         $journal->details()
             ->where('debit', 0)
@@ -229,9 +227,6 @@ class SalesController extends Controller
 
         $journal->save();
 
-        Transaction::whereIn('id', $salesInCash->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
-        Transaction::whereIn('id', $creditSales->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+        $salesQuery->update(['journal_id' => $journal->id]);
     }
 }
