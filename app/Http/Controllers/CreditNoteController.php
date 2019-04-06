@@ -85,7 +85,7 @@ class CreditNoteController extends Controller
         $journal = \App\Journal::where('cycle_id' , $cycle->id)
             ->where('date' , $endDate->format('Y-m-d'))
             ->where('is_automatic' , 1)
-            ->where('module_id' , 3)
+            ->where('module_id' , 4)
             ->with('details')->first()?? new \App\Journal();   
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
@@ -168,6 +168,8 @@ class CreditNoteController extends Controller
 
         $journal->save();
 
+        Transaction::whereIn('id', $listOfCreditNotes->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
       
     }
 }

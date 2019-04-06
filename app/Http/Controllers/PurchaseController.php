@@ -118,7 +118,7 @@ class PurchaseController extends Controller
        $journal = \App\Journal::where('cycle_id' , $cycle->id)
             ->where('date' , $endDate->format('Y-m-d'))
             ->where('is_automatic' , 1)
-            ->where('module_id' , 3)
+            ->where('module_id' , 1)
             ->with('details')->first()?? new \App\Journal();   
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
@@ -224,5 +224,10 @@ class PurchaseController extends Controller
             ->delete();
 
         $journal->save();
+
+        Transaction::whereIn('id', $cashPurchases->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
+        Transaction::whereIn('id', $creditPurchases->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
     }
 }

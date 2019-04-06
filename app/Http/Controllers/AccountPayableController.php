@@ -102,7 +102,7 @@ class AccountPayableController extends Controller
        $journal = \App\Journal::where('cycle_id' , $cycle->id)
             ->where('date' , $endDate->format('Y-m-d'))
             ->where('is_automatic' , 1)
-            ->where('module_id' , 3)
+            ->where('module_id' , 6)
             ->with('details')->first()?? new \App\Journal();   
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
@@ -117,6 +117,7 @@ class AccountPayableController extends Controller
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
+        $journal->module_id = 6;
         $journal->save();
 
         $chartController = new ChartController();
@@ -174,6 +175,8 @@ class AccountPayableController extends Controller
             $journal->delete();
         }
 
+        AccountMovement::whereIn('id', $listOfPayables->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
        
     }
 }

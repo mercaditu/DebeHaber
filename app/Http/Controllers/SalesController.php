@@ -228,5 +228,10 @@ class SalesController extends Controller
             ->delete();
 
         $journal->save();
+
+        Transaction::whereIn('id', $salesInCash->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
+        Transaction::whereIn('id', $creditSales->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
     }
 }

@@ -117,28 +117,18 @@ class AccountReceivableController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-        $queryAccountMovements = AccountMovement::PaymentsRecieved($startDate, $endDate, $taxPayer->id);
+         $journal = \App\Journal::where('cycle_id' , $cycle->id)
+            ->where('date' , $endDate->format('Y-m-d'))
+            ->where('is_automatic' , 1)
+            ->where('module_id' , 5)
+            ->with('details')->first()?? new \App\Journal();   
 
-        if ($queryAccountMovements->where('journal_id', '!=', null)->count() > 0) {
-
-            $arrJournalIDs = $queryAccountMovements
-                ->where('journal_id', '!=', null)
-                ->pluck('journal_id')
-                ->get();
-
-            //## Important! Null all references of Journal in Transactions.
-            AccountMovement::whereIn('journal_id', [$arrJournalIDs])
-                ->update(['journal_id' => null]);
-
-            //Delete the journals & details with id
-            \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-                ->forceDelete();
-
-            \App\Journal::whereIn('id', [$arrJournalIDs])
-                ->forceDelete();
+        //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+        foreach ($journal->details()->get() as $detail) {
+            $detail->credit = 0;
+            $detail->debit = 0;
+            $detail->save();
         }
-
-        $journal = new \App\Journal();
 
         $comment = __('Payments Received', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
 
@@ -146,10 +136,12 @@ class AccountReceivableController extends Controller
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
+        $journal->module_id = 5;
         $journal->save();
        
         $chartController = new ChartController();
 
+        $queryAccountMovements = AccountMovement::PaymentsRecieved($startDate, $endDate, $taxPayer->id);
         //2nd Query: Movements related to Credit Purchases. Cash Purchases are ignored.
         $listOfPayables = $queryAccountMovements->get();
 
