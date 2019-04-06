@@ -115,17 +115,17 @@ class PurchaseController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-        $journal = \App\Journal()->firstOrNew([
-            'cycle_id' => $cycle->id,
-            'date' => $endDate,
-            'is_automatic' => 1,
-            'module_id' => 1
-        ])->with('details');
+       $journal = \App\Journal::where('cycle_id' , $cycle->id)
+            ->where('date' , $endDate->format('Y-m-d'))
+            ->where('is_automatic' , 1)
+            ->where('module_id' , 3)
+            ->with('details')->first()?? new \App\Journal();   
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
-        foreach ($journal->details() as $detail) {
+        foreach ($journal->details()->get() as $detail) {
             $detail->credit = 0;
             $detail->debit = 0;
+            $detail->save();
         }
 
         $comment = __('accounting.PurchaseBookComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
@@ -207,13 +207,13 @@ class PurchaseController extends Controller
             $detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_id]);
             $detail->credit += ($row->total - $vatValue) * $row->rate;
             $detail->chart_id = $row->chart_id;
-            $journal->details()->add($detail);
+            $journal->details()->save($detail);
 
             if ($coefficient > 0) {
                 $vatDetail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_vat_id]);
                 $vatDetail->credit += $vatValue * $row->rate;
                 $vatDetail->chart_id = $row->chart_vat_id;
-                $journal->details()->add($vatDetail);
+                $journal->details()->save($vatDetail);
             }
         }
 

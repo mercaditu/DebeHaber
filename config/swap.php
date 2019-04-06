@@ -63,8 +63,9 @@ return [
     |   ]
     |
     */
+    
     'services' => [
-        'fixer' => ['access_key' => 'YOUR_KEY', 'enterprise' => false],
+        'fixer' => ['access_key' => '', 'enterprise' => true],
         'currency_layer' => ['access_key' => 'secret', 'enterprise' => false],
         'forge' => ['api_key' => 'secret'],
     ],

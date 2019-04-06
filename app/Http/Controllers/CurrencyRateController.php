@@ -51,6 +51,7 @@ class CurrencyRateController extends Controller
 
         if (isset($currencyRate))
         {
+         
             return response()->json($currencyRate);
         }
         else
@@ -66,15 +67,15 @@ class CurrencyRateController extends Controller
                 //$str = 'USD/EUR';
                 $str = $currCode . '/' . $currCompanyCode;
              
-                $rate =1;// Swap::historical($str, Carbon::parse($date));
+                $rate =Swap::historical($str, Carbon::parse($date));
 
                 $currencyRate = new CurrencyRate();
                 $currencyRate->date = $date;
                 $currencyRate->currency_id = $currency->id;
-                $currencyRate->buy_rate =1; //$rate->getValue();
-                $currencyRate->sell_rate =1;// $rate->getValue();
+                $currencyRate->buy_rate =$rate->getValue();
+                $currencyRate->sell_rate =$rate->getValue();
                 $currencyRate->save();
-
+                
                 return response()->json($currencyRate);
             }
         }
@@ -85,7 +86,7 @@ class CurrencyRateController extends Controller
         $currencyRate->currency_id = $currencycode;
         $currencyRate->buy_rate = 1;
         $currencyRate->sell_rate = 1;
-
+      
         return response()->json($currencyRate);
     }
 
