@@ -143,7 +143,7 @@ class AccountReceivableController extends Controller
 
         $queryAccountMovements = AccountMovement::PaymentsRecieved($startDate, $endDate, $taxPayer->id);
         //2nd Query: Movements related to Credit Purchases. Cash Purchases are ignored.
-        $listOfPayables = $queryAccountMovements->get();
+        $listOfPayables = AccountMovement::PaymentsRecieved($startDate, $endDate, $taxPayer->id)->get();
 
         //run code for credit purchase (insert detail into journal)
         foreach ($listOfPayables as $row) {
@@ -194,7 +194,6 @@ class AccountReceivableController extends Controller
             $journal->delete();
         }
 
-        AccountMovement::whereIn('id', $queryAccountMovements->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+        $queryAccountMovements->update(['journal_id' => $journal->id]);
     }
 }

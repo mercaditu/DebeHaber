@@ -95,6 +95,10 @@ class CreditNoteController extends Controller
             $detail->save();
         }
 
+        $creditnoteQuery = Transaction::MyCreditNotesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate');
+
         $comment = __('accounting.CreditNoteComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
         $journal->date = $endDate;
@@ -168,8 +172,7 @@ class CreditNoteController extends Controller
 
         $journal->save();
 
-        Transaction::whereIn('id', $listOfCreditNotes->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+        $creditnoteQuery->update(['journal_id' => $journal->id]);
       
     }
 }

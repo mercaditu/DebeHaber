@@ -144,7 +144,9 @@ class SalesController extends Controller
         $chartController = new ChartController();
 
         //Sales Transactionsd done in cash. Must affect direct cash account.
-        $salesInCash = $salesQuery
+        $salesInCash = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate')
             ->where('payment_condition', '=', 0)
             ->select(
                 DB::raw('max(rate) as rate'),
@@ -165,7 +167,9 @@ class SalesController extends Controller
         }
 
         //2nd Query: Sales Transactions done in Credit. Must affect customer credit account.
-        $creditSales = $salesQuery
+        $creditSales =Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate')
             ->groupBy('partner_taxid')
             ->where('payment_condition', '>', 0)
             ->select(

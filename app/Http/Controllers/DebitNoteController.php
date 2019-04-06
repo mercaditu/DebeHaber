@@ -93,6 +93,10 @@ class DebitNoteController extends Controller
             $detail->debit = 0;
             $detail->save();
         }
+            $debitnoteQuery =Transaction::MyDebitNotesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate');
+
 
         $comment = __('accounting.DebitNoteComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
@@ -107,7 +111,7 @@ class DebitNoteController extends Controller
         //1st Query: Sales Transactions done in Credit. Must affect customer credit account.
         $listOfDebitNotes = Transaction::MyDebitNotesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->groupBy('rate', 'partner_taxid')
+            ->groupBy('rate')
             ->select(
                 DB::raw('max(rate) as rate'),
                 DB::raw('max(partner_taxid) as partner_taxid'),
@@ -165,7 +169,6 @@ class DebitNoteController extends Controller
 
         $journal->save();
 
-        Transaction::whereIn('id', $listOfDebitNotes->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+        $debitnoteQuery->update(['journal_id' => $journal->id]);
     }
 }

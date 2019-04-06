@@ -112,6 +112,8 @@ class AccountPayableController extends Controller
             $detail->save();
         }
 
+
+
         $comment = __('Payments Made', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id;
         $journal->date = $endDate;
@@ -124,7 +126,7 @@ class AccountPayableController extends Controller
 
         //2nd Query: Movements related to Credit Purchases. Cash Purchases are ignored.
         $queryAccountMovements = AccountMovement::PaymentsMade($startDate, $endDate, $taxPayer->id);
-        $listOfPayables = $queryAccountMovements->get();
+        $listOfPayables = AccountMovement::PaymentsMade($startDate, $endDate, $taxPayer->id)->get();
 
         //run code for credit purchase (insert detail into journal)
         foreach ($listOfPayables as $row) {
@@ -175,8 +177,7 @@ class AccountPayableController extends Controller
             $journal->delete();
         }
 
-        AccountMovement::whereIn('id', $listOfPayables->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+        $queryAccountMovements->update(['journal_id' => $journal->id]);
        
     }
 }

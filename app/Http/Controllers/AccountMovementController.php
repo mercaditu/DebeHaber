@@ -76,30 +76,28 @@ class AccountMovementController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-        $queryAccountMovements = AccountMovement::My($startDate, $endDate, $taxPayer->id);
-       
-        if ($queryAccountMovements->where('journal_id', '!=', null)->count() > 0) {
-            $arrJournalIDs = $queryAccountMovements->where('journal_id', '!=', null)->pluck('journal_id')->get();
+         $journal = \App\Journal::where('cycle_id' , $cycle->id)
+            ->where('date' , $endDate->format('Y-m-d'))
+            ->where('is_automatic' , 1)
+            ->where('module_id' , 7)
+            ->with('details')->first()?? new \App\Journal();   
 
-            //## Important! Null all references of Journal in Transactions.
-            AccountMovement::whereIn('journal_id', [$arrJournalIDs])
-                ->update(['journal_id' => null]);
-
-            //Delete the journals & details with id
-            \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-                ->forceDelete();
-
-            \App\Journal::whereIn('id', [$arrJournalIDs])
-                ->forceDelete();
+        //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+        foreach ($journal->details()->get() as $detail) {
+            $detail->credit = 0;
+            $detail->debit = 0;
+            $detail->save();
         }
 
-        $journal = new \App\Journal();
+        $queryAccountMovements = AccountMovement::My($startDate, $endDate, $taxPayer->id);
+
         $comment = __('accounting.AccountComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
 
         $journal->cycle_id = $cycle->id;
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
+        $journal->module_id = 7;
         $journal->save();
         
         $chartController = new ChartController();

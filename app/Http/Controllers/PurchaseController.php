@@ -127,6 +127,9 @@ class PurchaseController extends Controller
             $detail->debit = 0;
             $detail->save();
         }
+            $purchaseQuery=Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate');
 
         $comment = __('accounting.PurchaseBookComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
@@ -141,7 +144,7 @@ class PurchaseController extends Controller
         //Sales Transactionsd done in cash. Must affect direct cash account.
         $cashPurchases = Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->groupBy('rate', 'chart_account_id')
+            ->groupBy('rate')
             ->where('payment_condition', '=', 0)
             ->select(
                 DB::raw('max(rate) as rate'),
@@ -165,7 +168,8 @@ class PurchaseController extends Controller
         //2nd Query: Sales Transactions done in Credit. Must affect customer credit account.
         $creditPurchases = Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->groupBy('rate', 'partner_taxid')
+            ->groupBy('rate')
+            ->groupBy('partner_taxid')
             ->where('payment_condition', '>', 0)
             ->select(
                 DB::raw('max(rate) as rate'),
@@ -225,9 +229,6 @@ class PurchaseController extends Controller
 
         $journal->save();
 
-        Transaction::whereIn('id', $cashPurchases->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
-        Transaction::whereIn('id', $creditPurchases->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
+        $purchaseQuery->update(['journal_id' => $journal->id]);
     }
 }
