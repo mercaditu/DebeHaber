@@ -13,10 +13,10 @@ use DB;
 class DebitNoteController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
@@ -29,25 +29,24 @@ class DebitNoteController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $request->type = 1;
-        $request->sub_type = 2;
-        (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 2; (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\Transaction  $transaction
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         return new GeneralResource(
@@ -59,11 +58,11 @@ class DebitNoteController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\Transaction  $transaction
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Transaction  $transaction
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         try {
@@ -82,35 +81,26 @@ class DebitNoteController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-        $queryPurchases = Transaction::MyDebitNotesForJournals($startDate, $endDate, $taxPayer->id)
-            ->get();
+        $journal = \App\Journal()->firstOrNew([
+            'cycle_id' => $cycle->id,
+            'date' => $endDate,
+            'is_automatic' => 1,
+            'module_id' => 2
+        ])->with('details');
 
-        if ($queryPurchases->where('journal_id', '!=', null)->count() > 0) {
-            $arrJournalIDs = $queryPurchases->where('journal_id', '!=', null)->pluck('journal_id');
-            //## Important! Null all references of Journal in Transactions.
-            Transaction::whereIn('journal_id', [$arrJournalIDs])
-                ->update(['journal_id' => null]);
-
-            //Delete the journals & details with id
-            \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-                ->forceDelete();
-            \App\Journal::whereIn('id', [$arrJournalIDs])
-                ->forceDelete();
+        //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+        foreach ($journal->details() as $detail) {
+            $detail->credit = 0;
+            $detail->debit = 0;
         }
 
-        $journal = new \App\Journal();
         $comment = __('accounting.DebitNoteComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
-
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
+        $journal->module_id = 2;
         $journal->save();
-
-        //Assign all transactions the new journal_id.
-        //No need for If Count > 0, because if it was 0, it would not have gone in this function.
-        Transaction::whereIn('id', $queryPurchases->pluck('id'))
-            ->update(['journal_id' => $journal->id]);
 
         $ChartController = new ChartController();
 
@@ -130,14 +120,10 @@ class DebitNoteController extends Controller
         foreach ($listOfDebitNotes as $row) {
             $supplierChartID = $ChartController->createIfNotExists_AccountsPayable($taxPayer, $cycle, $row->partner_taxid, $row->partner_name)->id;
 
-            $value = $row->total * $row->rate;
             $detail = $journal->details()->firstOrNew(['chart_id' => $supplierChartID]);
-            //$detail = $journal->details->where('chart_id', $supplierChartID)->first() ?? new \App\JournalDetail();
-            $detail->debit = 0;
-            $detail->credit += $value;
+            $detail->credit += $row->total * $row->rate;
             $detail->chart_id = $supplierChartID;
             $journal->details()->save($detail);
-            //$journal->load('details');
         }
 
         //one detail query, to avoid being heavy for db. Group by fx rate, vat, and item type.
@@ -154,34 +140,29 @@ class DebitNoteController extends Controller
             )
             ->get();
 
-        //run code for credit purchase (insert detail into journal)
-        foreach ($detailAccounts->where('coefficient', '>', 0)->groupBy('chart_vat_id') as $groupedRow) {
-            $groupTotal = $groupedRow->sum('total');
-            $value = ($groupTotal - ($groupTotal / (1 + $groupedRow->first()->coefficient))) * $groupedRow->first()->rate;
-            $detail = $journal->details()->firstOrNew(['chart_id' => $groupedRow->first()->chart_vat_id]);
-            //  $detail = $journal->details->where('chart_id', $groupedRow->first()->chart_vat_id)->first() ?? new \App\JournalDetail();
-            $detail->debit += $value;
-            $detail->credit = 0;
-            $detail->chart_id = $groupedRow->first()->chart_vat_id;
-            $journal->details()->save($detail);
-            //$journal->load('details');
-        }
+        foreach ($detailAccounts as $row) {
+            $coefficient = $row->coefficient ?? 0;
+            $vatValue = $row->total - ($row->total / (1 + $coefficient));
 
-        //run code for credit purchase (insert detail into journal)
-        foreach ($detailAccounts->groupBy('chart_id') as $groupedRow) {
-            $value = 0;
+            $detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_id]);
+            $detail->debit += ($row->total - $vatValue) * $row->rate;
+            $detail->chart_id = $row->chart_id;
+            $journal->details()->add($detail);
 
-            //Discount Vat Value for these items.
-            foreach ($groupedRow->groupBy('coefficient') as $row) {
-                $value += ($row->sum('total') / (1 + $row->first()->coefficient)) * $row->first()->rate;
+            if ($coefficient > 0) {
+                $vatDetail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_vat_id]);
+                $vatDetail->debit += $vatValue * $row->rate;
+                $vatDetail->chart_id = $row->chart_vat_id;
+                $journal->details()->add($vatDetail);
             }
-            $detail = $journal->details()->firstOrNew(['chart_id' => $groupedRow->first()->chart_id]);
-            //$detail = $journal->details->where('chart_id', $groupedRow->first()->chart_id)->first() ?? new \App\JournalDetail();
-            $detail->debit += $value;
-            $detail->credit = 0;
-            $detail->chart_id = $groupedRow->first()->chart_id;
-            $journal->details()->save($detail);
-            //$journal->load('details');
         }
+
+        //delete where credit and debit == 0. This will clean up old charts that were used, but not in new.
+        $journal->details()
+            ->where('debit', 0)
+            ->where('credit', 0)
+            ->delete();
+
+        $journal->save();
     }
 }

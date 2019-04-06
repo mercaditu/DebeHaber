@@ -29,11 +29,11 @@ class TransactionController extends Controller
 
 				if ($groupedRow->first()['Type'] == 2) {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['SupplierTaxID'], $groupedRow->first()['SupplierName']);
-				} else if ($groupedRow->first()['Type'] == 1 ) {
+				} else if ($groupedRow->first()['Type'] == 1) {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['CustomerTaxID'], $groupedRow->first()['CustomerName']);
 				}
-				
-				
+
+
 
 				//check and create cycle
 				$firstDate = Carbon::parse($groupedRow->first()["Date"]);
@@ -68,7 +68,7 @@ class TransactionController extends Controller
 		$transaction = Transaction::where('number', $data['Number'])
 			->where(function ($query) use ($transactionType, $transactionSubType) {
 				return $query->where('type', $transactionType)
-				->where('sub_type', $transactionSubType);
+					->where('sub_type', $transactionSubType);
 			})
 			->where('taxpayer_id', $taxPayer->id)
 			->whereDate('date', $this->convert_date($data['Date']))
@@ -78,15 +78,15 @@ class TransactionController extends Controller
 		$transaction->sub_type = $transactionSubType;
 		$transaction->taxpayer_id = $taxPayer->id;
 
-		$transaction->partner_name = ($transactionType == 1 ) ? $data['SupplierName'] : $data['CustomerName'];
-		$transaction->partner_taxid = ($transactionType == 1 ) ? $data['SupplierTaxID'] : $data['CustomerTaxID'];
+		$transaction->partner_name = ($transactionType == 1) ? $data['SupplierName'] : $data['CustomerName'];
+		$transaction->partner_taxid = ($transactionType == 1) ? $data['SupplierTaxID'] : $data['CustomerTaxID'];
 
 		//TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
 		$transaction->currency = $data['CurrencyCode'] ?? $taxPayer->currency;
 
 		if ($data['CurrencyRate'] ==  '') {
 			$currency_id = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
-			$transaction->rate = $this->checkCurrencyRate($transaction->currency , $taxPayer, $data['Date']) ?? 1;
+			$transaction->rate = $this->checkCurrencyRate($transaction->currency, $taxPayer, $data['Date']) ?? 1;
 		} else {
 			$transaction->rate = $data['CurrencyRate'];
 		}
@@ -149,5 +149,116 @@ class TransactionController extends Controller
 				}
 			}
 		}
+	}
+
+	/**
+	 * Generates one journal for all sales in date range.
+	 */
+	public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
+	{
+		\DB::connection()->disableQueryLog();
+
+		$journal = \App\Journal()->firstOrNew([
+			'cycle_id' => $cycle->id,
+			'date' => $endDate,
+			'is_automatic' => 1,
+			'module' => 1
+		])->with('details');
+
+		//Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+		foreach ($journal->details() as $detail) {
+			$detail->credit = 0;
+			$detail->debit = 0;
+		}
+
+		$comment = __('accounting.SalesBookComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
+		$journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
+		$journal->date = $endDate;
+		$journal->comment = $comment;
+		$journal->is_automatic = 1;
+		$journal->save();
+
+		$chartController = new ChartController();
+
+		//Sales Transactionsd done in cash. Must affect direct cash account.
+		$salesInCash = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+			->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+			->groupBy('rate', 'chart_account_id')
+			->where('payment_condition', '=', 0)
+			->select(
+				DB::raw('max(rate) as rate'),
+				DB::raw('max(chart_account_id) as chart_account_id'),
+				DB::raw('sum(transaction_details.value) as total')
+			)
+			->get();
+
+		//run code for cash sales (insert detail into journal)
+		foreach ($salesInCash as $row) {
+			// search if chart exists, or else create it. we don't want an error causing all transactions not to be accounted.
+			$accountChartID = $row->chart_account_id ?? $chartController->createIfNotExists_CashAccounts($taxPayer, $cycle, $row->chart_account_id)->id;
+
+			$detail = $journal->details()->firstOrNew(['chart_id' => $accountChartID]);
+			$detail->credit += $row->total * $row->rate;
+			$detail->chart_id = $accountChartID;
+			$journal->details()->add($detail);
+		}
+
+		//2nd Query: Sales Transactions done in Credit. Must affect customer credit account.
+		$creditSales = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+			->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+			->groupBy('rate')
+			->groupBy('partner_taxid')
+			->where('payment_condition', '>', 0)
+			->select(
+				DB::raw('max(rate) as rate'),
+				DB::raw('max(partner_taxid) as partner_taxid'),
+				DB::raw('sum(transaction_details.value) as total')
+			)
+			->get();
+
+
+		//run code for credit sales (insert detail into journal)
+		foreach ($creditSales as $row) {
+			$customerChartID = $chartController->createIfNotExists_AccountsReceivables($taxPayer, $cycle, $row->partner_taxid, $row->partner_name)->id;
+
+			$detail = $journal->details()->firstOrNew(['chart_id' => $customerChartID]);
+			$detail->credit += $row->total * $row->rate;
+			$detail->chart_id = $customerChartID;
+			$journal->details()->add($detail);
+		}
+
+		//one detail query, to avoid being heavy for db. Group by fx rate, vat, and item type.
+		$detailAccounts = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+			->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+			->leftJoin('charts', 'charts.id', '=', 'transaction_details.chart_vat_id')
+			->groupBy('rate', 'transaction_details.chart_id', 'transaction_details.chart_vat_id')
+			->select(
+				DB::raw('max(rate) as rate'),
+				DB::raw('max(charts.coefficient) as coefficient'),
+				DB::raw('max(transaction_details.chart_vat_id) as chart_vat_id'),
+				DB::raw('max(transaction_details.chart_id) as chart_id'),
+				DB::raw('sum(transaction_details.value) as total')
+			)
+			->get();
+
+		//run code for credit sales (insert detail into journal)
+		foreach ($detailAccounts as $row) {
+			$coefficient = $row->coefficient ?? 0;
+			$detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_id]);
+			$detail->debit += ($row->total - ($row->total / (1 + $coefficient))) * $row->rate;
+			$detail->chart_id = $row->chart_id;
+			$journal->details()->add($detail);
+
+			if ($row->coefficient > 0) {
+				$vatDetail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_id]);
+				$vatDetail->debit += ($row->total / (1 + $row->coefficient)) * $row->rate;
+				$vatDetail->chart_id = $row->chart_vat_id;
+				$journal->details()->add($vatDetail);
+			}
+		}
+
+		//delete where credit and debit == 0. This will clean up old charts that were used, but not in new.
+		$journal->details()->where('debit', 0)->where('credit', 0)->delete();
+		$journal->save();
 	}
 }

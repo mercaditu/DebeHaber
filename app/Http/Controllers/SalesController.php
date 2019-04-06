@@ -116,7 +116,8 @@ class SalesController extends Controller
         $journal = \App\Journal()->firstOrNew([
             'cycle_id' => $cycle->id,
             'date' => $endDate,
-            'is_automatic' => 1
+            'is_automatic' => 1,
+            'module_id' => 3
         ])->with('details');
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
@@ -130,7 +131,10 @@ class SalesController extends Controller
         $journal->date = $endDate;
         $journal->comment = $comment;
         $journal->is_automatic = 1;
+        $journal->module_id = 3;
         $journal->save();
+
+        $chartController = new ChartController();
 
         //Sales Transactionsd done in cash. Must affect direct cash account.
         $salesInCash = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
@@ -146,12 +150,12 @@ class SalesController extends Controller
 
         //run code for cash sales (insert detail into journal)
         foreach ($salesInCash as $row) {
-            $ChartController = new ChartController();
             // search if chart exists, or else create it. we don't want an error causing all transactions not to be accounted.
-            $accountChartID = $row->chart_account_id ?? $ChartController->createIfNotExists_CashAccounts($taxPayer, $cycle, $row->chart_account_id)->id;
+            $accountChartID = $row->chart_account_id ?? $chartController->createIfNotExists_CashAccounts($taxPayer, $cycle, $row->chart_account_id)->id;
 
             $detail = $journal->details()->firstOrNew(['chart_id' => $accountChartID]);
             $detail->credit += $row->total * $row->rate;
+            $detail->chart_id = $accountChartID;
             $journal->details()->add($detail);
         }
 
@@ -168,13 +172,14 @@ class SalesController extends Controller
             )
             ->get();
 
+
         //run code for credit sales (insert detail into journal)
         foreach ($creditSales as $row) {
-            $ChartController = new ChartController();
-            $customerChartID = $ChartController->createIfNotExists_AccountsReceivables($taxPayer, $cycle, $row->partner_taxid, $row->partner_name)->id;
+            $customerChartID = $chartController->createIfNotExists_AccountsReceivables($taxPayer, $cycle, $row->partner_taxid, $row->partner_name)->id;
 
             $detail = $journal->details()->firstOrNew(['chart_id' => $customerChartID]);
             $detail->credit += $row->total * $row->rate;
+            $detail->chart_id = $customerChartID;
             $journal->details()->add($detail);
         }
 
@@ -193,24 +198,29 @@ class SalesController extends Controller
             ->get();
 
         //run code for credit sales (insert detail into journal)
-        foreach ($detailAccounts->where('coefficient', '>', 0) as $row) {
-            $detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_vat_id]);
-            $detail->debit += ($row->total - ($row->total / (1 + $row->coefficient))) * $row->rate;
-            $journal->details()->add($detail);
-        }
-
-        //run code for credit sales (insert detail into journal)
         foreach ($detailAccounts as $row) {
-            //Incase chart_vat_id is null, coefficient should be 0.
             $coefficient = $row->coefficient ?? 0;
+            $vatValue = $row->total - ($row->total / (1 + $coefficient));
 
             $detail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_id]);
-            $detail->debit += ($row->total / (1 + $coefficient)) * $row->rate;
+            $detail->debit += ($row->total - $vatValue) * $row->rate;
+            $detail->chart_id = $row->chart_id;
             $journal->details()->add($detail);
+
+            if ($coefficient > 0) {
+                $vatDetail = $journal->details()->firstOrNew(['chart_id' =>  $row->chart_vat_id]);
+                $vatDetail->debit += $vatValue * $row->rate;
+                $vatDetail->chart_id = $row->chart_vat_id;
+                $journal->details()->add($vatDetail);
+            }
         }
 
         //delete where credit and debit == 0. This will clean up old charts that were used, but not in new.
-        $journal->details()->where('debit', 0)->where('credit', 0)->delete();
+        $journal->details()
+            ->where('debit', 0)
+            ->where('credit', 0)
+            ->delete();
+
         $journal->save();
     }
 }

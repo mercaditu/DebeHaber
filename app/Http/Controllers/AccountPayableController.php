@@ -7,7 +7,6 @@ use App\Transaction;
 use App\TransactionDetail;
 use App\Taxpayer;
 use App\Cycle;
-use App\Chart;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
 use DB;
@@ -15,34 +14,37 @@ use DB;
 class AccountPayableController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
-            TransactionDetail::
-              leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
+            TransactionDetail::leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
                 ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
-                ->where('transactions.taxpayer_id',$taxPayer->id)
-                ->where('transactions.type',1)
-                ->where('transactions.sub_type',1)
-                ->where('transactions.payment_condition','>',0)
-                               ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'),'!=','COALESCE(sum(am.debit * am.rate),0)')
-                ->select(DB::raw('max(transactions.id) as id'),DB::raw('max(transactions.number) as number'),DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as purchase'),
-                DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
-                DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.debit * am.rate),0) as balance'))
+                ->where('transactions.taxpayer_id', $taxPayer->id)
+                ->where('transactions.type', 1)
+                ->where('transactions.sub_type', 1)
+                ->where('transactions.payment_condition', '>', 0)
+                ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.debit * am.rate),0)')
+                ->select(
+                    DB::raw('max(transactions.id) as id'),
+                    DB::raw('max(transactions.number) as number'),
+                    DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as purchase'),
+                    DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
+                    DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.debit * am.rate),0) as balance')
+                )
                 ->groupBy('transactions.id')->paginate(50)
         );
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         if ($request->payment_value > 0) {
@@ -68,28 +70,28 @@ class AccountPayableController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\AccountMovement  $accountMovement
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\AccountMovement  $accountMovement
+     * @return \Illuminate\Http\Response
+     */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         return new GeneralResource(
             Transaction::MyPurchases()
-            ->where('id', $transactionId)
-            ->with('details')
-            ->with('accountMovements')
-            ->first()
+                ->where('id', $transactionId)
+                ->with('details')
+                ->with('accountMovements')
+                ->first()
         );
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\AccountMovement  $accountMovement
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\AccountMovement  $accountMovement
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Taxpayer $taxPayer, Cycle $cycle, $transactionID)
     { }
 
@@ -102,20 +104,20 @@ class AccountPayableController extends Controller
         if ($queryAccountMovements->where('journal_id', '!=', null)->count() > 0) {
 
             $arrJournalIDs = $queryAccountMovements
-            ->where('journal_id', '!=', null)
-            ->pluck('journal_id')
-            ->get();
+                ->where('journal_id', '!=', null)
+                ->pluck('journal_id')
+                ->get();
 
             //## Important! Null all references of Journal in Transactions.
             AccountMovement::whereIn('journal_id', [$arrJournalIDs])
-            ->update(['journal_id' => null]);
+                ->update(['journal_id' => null]);
 
             //Delete the journals & details with id
             \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-            ->forceDelete();
+                ->forceDelete();
 
             \App\Journal::whereIn('id', [$arrJournalIDs])
-            ->forceDelete();
+                ->forceDelete();
         }
 
         $journal = new \App\Journal();
@@ -183,6 +185,6 @@ class AccountPayableController extends Controller
         }
 
         AccountMovement::whereIn('id', $queryAccountMovements->pluck('id'))
-        ->update(['journal_id' => $journal->id]);
+            ->update(['journal_id' => $journal->id]);
     }
 }
