@@ -36,7 +36,7 @@ class AccountMovement extends Model
                 $q->where('taxpayer_id', '=', $taxPayerID)
                     ->where('payment_condition', '>', 0)
                     ->where('type', 1);
-            })->get();;
+            });
     }
 
     public function scopePaymentsRecieved($query, $startDate, $endDate, $taxPayerID)
@@ -49,7 +49,7 @@ class AccountMovement extends Model
                 $q->where('taxpayer_id', '=', $taxPayerID)
                     ->where('payment_condition', '>', 0)
                     ->where('type', 3);
-            })->get();;
+            });
     }
 
     /**

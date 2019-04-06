@@ -151,6 +151,25 @@ class GenerateJournal implements ShouldQueue
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
 
+
+        /*
+        Accounts Payable
+        */
+        if (AccountMovement::PaymentsMade($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
+        {
+            $controller = new AccountPayableController();
+            $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
+        }
+
+        /*
+        Accounts Receivable
+        */
+        if (AccountMovement::PaymentsRecieved($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
+        {
+            $controller = new AccountReceivableController();
+            $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
+        }
+
         /*
         Accounts Payable
         */
