@@ -99,31 +99,20 @@ class AccountPayableController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-        $queryAccountMovements = AccountMovement::PaymentsMade($startDate, $endDate, $taxPayer->id);
+        $journal = \App\Journal()->firstOrNew([
+            'cycle_id' => $cycle->id,
+            'date' => $endDate,
+            'is_automatic' => 1,
+            'module_id' => 4
+        ])->with('details');
 
-        if ($queryAccountMovements->where('journal_id', '!=', null)->count() > 0) {
-
-            $arrJournalIDs = $queryAccountMovements
-                ->where('journal_id', '!=', null)
-                ->pluck('journal_id')
-                ->get();
-
-            //## Important! Null all references of Journal in Transactions.
-            AccountMovement::whereIn('journal_id', [$arrJournalIDs])
-                ->update(['journal_id' => null]);
-
-            //Delete the journals & details with id
-            \App\JournalDetail::whereIn('journal_id', [$arrJournalIDs])
-                ->forceDelete();
-
-            \App\Journal::whereIn('id', [$arrJournalIDs])
-                ->forceDelete();
+        //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+        foreach ($journal->details() as $detail) {
+            $detail->credit = 0;
+            $detail->debit = 0;
         }
 
-        $journal = new \App\Journal();
-
         $comment = __('Payments Made', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
-
         $journal->cycle_id = $cycle->id;
         $journal->date = $endDate;
         $journal->comment = $comment;
@@ -133,6 +122,7 @@ class AccountPayableController extends Controller
         $chartController = new ChartController();
 
         //2nd Query: Movements related to Credit Purchases. Cash Purchases are ignored.
+        $queryAccountMovements = AccountMovement::PaymentsMade($startDate, $endDate, $taxPayer->id);
         $listOfPayables = $queryAccountMovements->get();
 
         //run code for credit purchase (insert detail into journal)

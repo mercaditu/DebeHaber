@@ -167,5 +167,8 @@ class CreditNoteController extends Controller
             ->delete();
 
         $journal->save();
+
+        Transaction::whereIn('id', $queryAccountMovements->pluck('id'))
+            ->update(['journal_id' => $journal->id]);
     }
 }

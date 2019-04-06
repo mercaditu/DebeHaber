@@ -17,9 +17,13 @@ class IntegrationServices extends Migration
             $table->string('avatar')->after('alias')->nullable();
         });
 
+        Schema::table('journals', function (Blueprint $table) {
+            $table->unsignedTinyInteger('module_id')->after('is_automatic')->nullable();
+        });
+
         Schema::create('integration_services', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->unsignedInteger('taxpayer_id');
             $table->foreign('taxpayer_id')->references('id')->on('taxpayers')->onDelete('cascade');
 
@@ -41,7 +45,7 @@ class IntegrationServices extends Migration
 
         Schema::create('integration_service_mappings', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->unsignedInteger('integration_service_id');
             $table->foreign('integration_service_id')->references('id')->on('integration_services')->onDelete('cascade');
 
@@ -62,6 +66,10 @@ class IntegrationServices extends Migration
     {
         Schema::table('taxpayers', function (Blueprint $table) {
             $table->dropColumn('avatar');
+        });
+
+        Schema::table('journals', function (Blueprint $table) {
+            $table->dropColumn('module_id');
         });
 
         Schema::dropIfExists('integration_service_mappings');
