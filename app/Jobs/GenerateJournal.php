@@ -2,10 +2,6 @@
 
 namespace App\Jobs;
 
-use Illuminate\Support\Facades\Auth;
-
-use DB;
-use App\Inventory;
 use App\AccountMovement;
 use App\Transaction;
 use App\Http\Controllers\SalesController;
@@ -18,11 +14,6 @@ use App\Http\Controllers\AccountMovementController;
 use App\Taxpayer;
 use App\Cycle;
 use Carbon\Carbon;
-use App\Http\Controllers\ChartController;
-use Illuminate\Http\Request;
-use App\Http\Resources\JournalCollection;
-
-use App\Notifications\JournalCompleted;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -41,10 +32,10 @@ class GenerateJournal implements ShouldQueue
     protected $type;
 
     /**
-    * Create a new job instance.
-    *
-    * @return void
-    */
+     * Create a new job instance.
+     *
+     * @return void
+     */
     public function __construct(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
     {
         $this->taxPayer = $taxPayer;
@@ -54,10 +45,10 @@ class GenerateJournal implements ShouldQueue
     }
 
     /**
-    * Execute the job.
-    *
-    * @return void
-    */
+     * Execute the job.
+     *
+     * @return void
+     */
     public function handle()
     {
         $this->generateByMonth();
@@ -65,8 +56,8 @@ class GenerateJournal implements ShouldQueue
     }
 
     /**
-    * Generate journals on daily basis. This function is for PAID customers only.
-    */
+     * Generate journals on daily basis. This function is for PAID customers only.
+     */
     public function generateByDay()
     {
         //Get startOf and endOf to cover entire week of range.
@@ -76,8 +67,7 @@ class GenerateJournal implements ShouldQueue
         //Number of weeks helps with the for loop
         $numberOfDays = $currentDate->diffInDays($endDate);
 
-        for ($x = 0; $x <= $numberOfDays; $x++)
-        {
+        for ($x = 0; $x <= $numberOfDays; $x++) {
             //Get current date start of and end of week to run the query.
             $dayStartDate = Carbon::parse($currentDate->startOfDay());
             $dayEndDate = Carbon::parse($currentDate->endOfDay());
@@ -90,8 +80,8 @@ class GenerateJournal implements ShouldQueue
     }
 
     /**
-    * Generate journals on monthly basis.
-    */
+     * Generate journals on monthly basis.
+     */
     public function generateByMonth()
     {
         //Get startOf and endOf to cover entire week of range.
@@ -101,8 +91,7 @@ class GenerateJournal implements ShouldQueue
         //Number of weeks helps with the for loop
         $numberOfMonths = $currentDate->diffInMonths($endingDate);
 
-        for ($x = 0; $x <= $numberOfMonths; $x++)
-        {
+        for ($x = 0; $x <= $numberOfMonths; $x++) {
             //Get current date start of and end of week to run the query.
             $firstDay = Carbon::parse($currentDate->startOfMonth());
             $lastDay = Carbon::parse($currentDate->endOfMonth());
@@ -118,8 +107,7 @@ class GenerateJournal implements ShouldQueue
         /*
         Sales Invoices
         */
-        if (Transaction::MySalesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
+        if (Transaction::MySalesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new SalesController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
@@ -127,8 +115,7 @@ class GenerateJournal implements ShouldQueue
         /*
         Purchase Invoices
         */
-        if (Transaction::MyPurchasesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
+        if (Transaction::MyPurchasesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new PurchaseController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
@@ -136,8 +123,7 @@ class GenerateJournal implements ShouldQueue
         /*
         Credit Notes
         */
-        if (Transaction::MyCreditNotesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
+        if (Transaction::MyCreditNotesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new CreditNoteController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
@@ -145,18 +131,15 @@ class GenerateJournal implements ShouldQueue
         /*
         Debit Notes
         */
-        if (Transaction::MyDebitNotesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
+        if (Transaction::MyDebitNotesForJournals($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new DebitNoteController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
 
-
         /*
         Accounts Payable
         */
-        if (AccountMovement::PaymentsMade($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
+        if (AccountMovement::PaymentsMade($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new AccountPayableController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
@@ -164,8 +147,7 @@ class GenerateJournal implements ShouldQueue
         /*
         Accounts Receivable
         */
-        if (AccountMovement::PaymentsRecieved($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
+        if (AccountMovement::PaymentsRecieved($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new AccountReceivableController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
@@ -173,9 +155,7 @@ class GenerateJournal implements ShouldQueue
         /*
         Accounts Payable
         */
-        if (AccountMovement::My($startingDate, $endingDate, $this->taxPayer->id)->count() > 0)
-        {
-
+        if (AccountMovement::My($startingDate, $endingDate, $this->taxPayer->id)->count() > 0) {
             $controller = new AccountMovementController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }

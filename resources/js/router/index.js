@@ -1,154 +1,96 @@
+import CreditForm from "../views/commercials/creditForm.json";
+import DebitForm from "../views/commercials/debitForm.json";
+import SalesForm from "../views/commercials/salesForm.json";
+import ReceivableForm from "../views/commercials/receivableForm.json";
+import PayableForm from "../views/commercials/payableForm.json";
+import PurchaseForm from "../views/commercials/purchaseForm.json";
+import InventoryForm from "../views/commercials/inventoryForm.json";
+import FixedAssetForm from "../views/commercials/fixedAssetForm.json";
 
-import CreditForm from '../views/commercials/creditForm.json';
-import DebitForm from '../views/commercials/debitForm.json';
-import SalesForm from '../views/commercials/salesForm.json';
-import ReceivableForm from '../views/commercials/receivableForm.json';
-import PayableForm from '../views/commercials/payableForm.json';
-import PurchaseForm from '../views/commercials/purchaseForm.json';
-import InventoryForm from '../views/commercials/inventoryForm.json';
-import FixedAssetForm from '../views/commercials/fixedAssetForm.json';
+import CycleForm from "../views/configs/cycleForm.json";
+import DocumentForm from "../views/configs/documentForm.json";
+import RateForm from "../views/configs/rateForm.json";
 
-import CycleForm from '../views/configs/cycleForm.json';
-import DocumentForm from '../views/configs/documentForm.json';
-import RateForm from '../views/configs/rateForm.json';
+import MoneyMovementForm from "../views/commercials/moneyMovementForm.json";
+import JournalTemplateForm from "../views/accounts/templateForm.json";
+import openingBalanceForm from "../views/accounts/openingBalanceForm.json";
+import closingBalanceForm from "../views/accounts/closingBalanceForm.json";
+import budgetForm from "../views/accounts/budgetForm.json";
 
-import MoneyMovementForm from '../views/commercials/moneyMovementForm.json';
-import JournalTemplateForm from '../views/accounts/templateForm.json';
-import openingBalanceForm from '../views/accounts/openingBalanceForm.json';
-import closingBalanceForm from '../views/accounts/closingBalanceForm.json';
-import budgetForm from '../views/accounts/budgetForm.json';
+import FourZeroFour from "../views/404";
+import DashBoard from "../views/index";
+import SearchResult from "../views/searchResult";
+import Form from "../views/form";
+import FormList from "../views/formList";
+import List from "../views/list";
 
-import FourZeroFour from '../views/404';
-import DashBoard from '../views/index';
-import SearchResult from '../views/searchResult';
-import Form from '../views/form';
-import FormList from '../views/formList';
-import List from '../views/list';
+const Commercial = () => import("../views/commercials/index");
+const SalesUpload = () => import("../views/commercials/salesUpload");
+const ImpexForm = () => import("../views/commercials/impexForm");
 
+const Accounting = () => import("../views/accounts/index");
+const JournalList = () => import("../views/accounts/journalList");
+const JournalForm = () => import("../views/accounts/journalForm");
 
-const Commercial = () => import('../views/commercials/index')
-const SalesUpload = () => import('../views/commercials/salesUpload')
-const ImpexForm = () => import('../views/commercials/impexForm')
+const ChartList = () => import("../views/accounts/chartList");
+const ChartForm = () => import("../views/accounts/chartForm");
 
+const Config = () => import("../views/configs/index");
+const DocumentList = () => import("../views/configs/documentList");
+const RateList = () => import("../views/configs/rateList");
+const VersionList = () => import("../views/configs/versionList");
+const VersionForm = () => import("../views/configs/versionForm");
 
-const Accounting = () => import('../views/accounts/index')
-const JournalList = () => import('../views/accounts/journalList')
-const JournalForm = () => import('../views/accounts/journalForm')
+const CommercialReports = () => import("../views/commercials/reports");
+const AccountingReports = () => import("../views/accounts/reports");
 
-const ChartList = () => import('../views/accounts/chartList')
-const ChartForm = () => import('../views/accounts/chartForm')
-
-const Config = () => import('../views/configs/index')
-const DocumentList = () => import('../views/configs/documentList')
-const RateList = () => import('../views/configs/rateList')
-const VersionList = () => import('../views/configs/versionList')
-const VersionForm = () => import('../views/configs/versionForm')
-
-const CommercialReports = () => import('../views/commercials/reports')
-const AccountingReports = () => import('../views/accounts/reports')
-
-export default
-[
+export default [
     //This will cause 404 Errors to be redirected to proper site.
     {
-        path: '', component: FourZeroFour,
+        path: "",
+        component: FourZeroFour
     },
     {
-        path: '/:taxPayer/:cycle/',
+        path: "/:taxPayer/:cycle/",
         component: DashBoard,
-        name: 'taxPayer',
+        name: "taxPayer",
         meta: {
-            url: 'index',
-            title: 'Dashboard',
-            description: 'Some description',
-            img: '/img/apps/dashboard.svg',
+            url: "index",
+            title: "Dashboard",
+            description: "Some description",
+            img: "/img/apps/dashboard.svg"
         }
     },
     {
-        path: '/:taxPayer/:cycle/search/q={q}',
+        path: "/:taxPayer/:cycle/search/q={q}",
         component: SearchResult,
-        name: 'searchResult',
+        name: "searchResult",
         meta: {
-            url: 'search',
-            title: 'Search',
-            description: '',
-            img: '/img/apps/search.svg',
+            url: "search",
+            title: "Search",
+            description: "",
+            img: "/img/apps/search.svg"
         }
     },
     {
-        path: '/:taxPayer/:cycle/commercial/',
+        path: "/:taxPayer/:cycle/commercial/",
         component: Commercial,
-        name: 'commercialMenu',
+        name: "commercialMenu",
         meta: {
-            title: 'Dashboard',
-            description: 'Some description',
-            img: '/img/apps/sales.svg',
+            title: "Dashboard",
+            description: "Some description",
+            img: "/img/apps/sales.svg"
         },
-        children:
-        [
+        children: [
             {
-                path: 'sales',
+                path: "sales",
                 component: List,
-                name: 'salesList',
+                name: "salesList",
                 meta: {
-                    apiUrl: 'sales',
-                    title: 'commercial.salesBook',
-                    description: 'Some description',
-                    img: '/img/apps/sales.svg',
-                    columns : [{
-                            key: 'date',
-                            sortable: true
-                        },
-                        {
-                            key: 'partner_name',
-                            label: 'commercial.customer',
-                            sortable: true
-                        },
-                        {
-                            key: 'number',
-                            label: 'commercial.number',
-                            sortable: true
-                        },
-                        {
-                            key: 'total',
-                            label: 'commercial.total',
-                            sortable: true
-                        },
-                        {
-                            key: 'actions',
-                            label: '',
-                            sortable: false
-                        }]
-                    
-                },
-                children:
-                [
-                    {
-                        path: 'upload',
-                        component: SalesUpload,
-                        name: 'salesUpload',
-                        meta: {
-                            title: 'commercial.salesInvoice',
-                            img: '/img/apps/sales.svg',
-                        },
-                    },
-                    {
-                        path: ':id',
-                        component: Form,
-                        name: 'salesForm',
-                        meta: SalesForm
-
-                    }
-                ]
-            },
-            {
-                path: 'credit-notes',
-                component: List,
-                name: 'creditList',
-                meta: {
-                    title: 'commercial.creditBook',
-                    description: 'Some description',
-                    img: '/img/apps/credit-note.svg',
+                    apiUrl: "sales",
+                    title: "commercial.salesBook",
+                    description: "Some description",
+                    img: "/img/apps/sales.svg",
                     columns: [
                         {
                             key: "date",
@@ -176,514 +118,579 @@ export default
                         }
                     ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: "upload",
+                        component: SalesUpload,
+                        name: "salesUpload",
+                        meta: {
+                            title: "commercial.salesInvoice",
+                            img: "/img/apps/sales.svg"
+                        }
+                    },
+                    {
+                        path: ":id",
                         component: Form,
-                        name: 'creditForm',
-                        meta: CreditForm
-
+                        name: "salesForm",
+                        meta: SalesForm
                     }
                 ]
             },
             {
-                path: 'purchases',
+                path: "credit-notes",
                 component: List,
-                name: 'purchaseList',
+                name: "creditList",
                 meta: {
-                    title: 'commercial.purchaseBook',
-                    description: 'Some description',
-                    img: '/img/apps/purchase-v1.svg',
-                    columns: [{
-                        key: 'date',
-                        sortable: true
-                    },
-                    {
-                        key: 'partner_name',
-                        label: 'commercial.supplier',
-                        sortable: true
-                    },
-                    {
-                        key: 'number',
-                        label: 'commercial.number',
-                        sortable: true
-                    },
-                    {
-                        key: 'total',
-                        label: 'commercial.total',
-                        sortable: true
-                    },
-                    {
-                        key: 'actions',
-                        label: '',
-                        sortable: false
-                    }]
-                },
-                children:
-                [
-                    {
-                        path: ':id',
-                        component: Form,
-                        name: 'purchaseForm',
-                        meta: PurchaseForm
-
-                    }
-                ]
-            },
-            {
-                path: 'debit-notes',
-                component: List,
-                name: 'debitList',
-                meta: {
-                    title: 'commercial.debitBook',
-                    description: 'Some description',
-                    img: '/img/apps/credit-note.svg',
-                    columns: [{
-                        key: 'date',
-                        sortable: true
-                    },
+                    title: "commercial.creditBook",
+                    description: "Some description",
+                    img: "/img/apps/credit-note.svg",
+                    columns: [
                         {
-                            key: 'partner_name',
-                            label: 'commercial.customer',
+                            key: "date",
                             sortable: true
                         },
                         {
-                            key: 'number',
-                            label: 'commercial.number',
+                            key: "partner_name",
+                            label: "commercial.customer",
                             sortable: true
                         },
                         {
-                            key: 'total',
-                            label: 'commercial.total',
+                            key: "number",
+                            label: "commercial.number",
                             sortable: true
                         },
                         {
-                            key: 'actions',
-                            label: '',
+                            key: "total",
+                            label: "commercial.total",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
                             sortable: false
-                        }]
+                        }
+                    ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: Form,
-                        name: 'debitForm',
+                        name: "creditForm",
+                        meta: CreditForm
+                    }
+                ]
+            },
+            {
+                path: "purchases",
+                component: List,
+                name: "purchaseList",
+                meta: {
+                    title: "commercial.purchaseBook",
+                    description: "Some description",
+                    img: "/img/apps/purchase-v1.svg",
+                    columns: [
+                        {
+                            key: "date",
+                            sortable: true
+                        },
+                        {
+                            key: "partner_name",
+                            label: "commercial.supplier",
+                            sortable: true
+                        },
+                        {
+                            key: "number",
+                            label: "commercial.number",
+                            sortable: true
+                        },
+                        {
+                            key: "total",
+                            label: "commercial.total",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
+                            sortable: false
+                        }
+                    ]
+                },
+                children: [
+                    {
+                        path: ":id",
+                        component: Form,
+                        name: "purchaseForm",
+                        meta: PurchaseForm
+                    }
+                ]
+            },
+            {
+                path: "debit-notes",
+                component: List,
+                name: "debitList",
+                meta: {
+                    title: "commercial.debitBook",
+                    description: "Some description",
+                    img: "/img/apps/credit-note.svg",
+                    columns: [
+                        {
+                            key: "date",
+                            sortable: true
+                        },
+                        {
+                            key: "partner_name",
+                            label: "commercial.customer",
+                            sortable: true
+                        },
+                        {
+                            key: "number",
+                            label: "commercial.number",
+                            sortable: true
+                        },
+                        {
+                            key: "total",
+                            label: "commercial.total",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
+                            sortable: false
+                        }
+                    ]
+                },
+                children: [
+                    {
+                        path: ":id",
+                        component: Form,
+                        name: "debitForm",
                         meta: DebitForm
                     }
                 ]
             },
             {
-                path: 'fixed-assets',
+                path: "fixed-assets",
                 component: List,
-                name: 'fixedAssetList',
+                name: "fixedAssetList",
                 meta: {
-                    title: 'commercial.fixedAssets',
-                    description: 'Some description',
-                    img: '/img/apps/fixed-asset.svg',
-                    columns: [{
-                        key: 'date',
-                        sortable: true
-                    },
+                    title: "commercial.fixedAssets",
+                    description: "Some description",
+                    img: "/img/apps/fixed-asset.svg",
+                    columns: [
                         {
-                            key: 'serial',
-                            label: 'commercial.serial',
+                            key: "date",
                             sortable: true
                         },
                         {
-                            key: 'name',
-                            label: 'commercial.name',
+                            key: "serial",
+                            label: "commercial.serial",
                             sortable: true
                         },
                         {
-                            key: 'current_value',
-                            label: 'commercial.value',
+                            key: "name",
+                            label: "commercial.name",
                             sortable: true
                         },
                         {
-                            key: 'actions',
-                            label: '',
+                            key: "current_value",
+                            label: "commercial.value",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
                             sortable: false
-                        }]
+                        }
+                    ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: Form,
-                        name: 'fixedAssetForm',
+                        name: "fixedAssetForm",
                         meta: FixedAssetForm
-
                     }
                 ]
             },
             {
-                path: 'money-movements',
+                path: "money-movements",
                 component: List,
-                name: 'moneyMovementList',
+                name: "moneyMovementList",
                 meta: {
-                    title: 'commercial.moneyMovements',
-                    description: 'Some description',
-                    img: '/img/apps/account-payable.svg',
-                    columns: [{
-                        key: 'date',
-                        sortable: true
-                    },
+                    title: "commercial.moneyMovements",
+                    description: "Some description",
+                    img: "/img/apps/account-payable.svg",
+                    columns: [
                         {
-                            key: 'chart.name',
-                            label: 'commercial.account',
+                            key: "date",
                             sortable: true
                         },
                         {
-                            key: 'comment',
-                            label: 'general.comment',
+                            key: "chart.name",
+                            label: "commercial.account",
                             sortable: true
                         },
                         {
-                            key: 'currency.code',
-                            label: 'general.currency',
+                            key: "comment",
+                            label: "general.comment",
                             sortable: true
                         },
                         {
-                            key: 'debit',
-                            label: 'commercial.debit',
+                            key: "currency.code",
+                            label: "general.currency",
                             sortable: true
                         },
                         {
-                            key: 'credit',
-                            label: 'commercial.credit',
+                            key: "debit",
+                            label: "commercial.debit",
                             sortable: true
                         },
                         {
-                            key: 'actions',
-                            label: '',
+                            key: "credit",
+                            label: "commercial.credit",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
                             sortable: false
-                        }]
+                        }
+                    ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: Form,
-                        name: 'moneyMovementForm',
+                        name: "moneyMovementForm",
                         meta: MoneyMovementForm
-
                     }
                 ]
             },
             {
-                path: 'inventories',
+                path: "inventories",
                 component: List,
-                name: 'inventoryList',
+                name: "inventoryList",
                 meta: {
-                    title: 'commercial.inventories',
-                    description: 'Some description',
-                    img: '/img/apps/inventory.svg',
-                    columns: [{
-                        key: 'date',
-                        sortable: true
-                    },
-                    {
-                        key: 'start_date',
-                        label: 'commercial.startDate',
-                        sortable: true
-                    },
-                    {
-                        key: 'start_date',
-                        label: 'commercial.endDate',
-                        sortable: true
-                    },
-                    {
-                        key: 'inventory_value',
-                        label: 'commercial.value',
-                        sortable: true
-                    },
-                    {
-                        key: 'comments',
-                        label: 'commercial.comment',
-                        sortable: true
-                    },
-                    {
-                        key: 'actions',
-                        label: '',
-                        sortable: false
-                    }]
+                    title: "commercial.inventories",
+                    description: "Some description",
+                    img: "/img/apps/inventory.svg",
+                    columns: [
+                        {
+                            key: "date",
+                            sortable: true
+                        },
+                        {
+                            key: "start_date",
+                            label: "commercial.startDate",
+                            sortable: true
+                        },
+                        {
+                            key: "start_date",
+                            label: "commercial.endDate",
+                            sortable: true
+                        },
+                        {
+                            key: "inventory_value",
+                            label: "commercial.value",
+                            sortable: true
+                        },
+                        {
+                            key: "comments",
+                            label: "commercial.comment",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
+                            sortable: false
+                        }
+                    ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: Form,
-                        name: 'inventoryForm',
+                        name: "inventoryForm",
                         meta: InventoryForm
-
                     }
                 ]
             },
             {
-                path: 'accounts-receivable',
+                path: "accounts-receivable",
                 component: List,
-                name: 'receivableList',
+                name: "receivableList",
                 meta: {
-                    title: 'commercial.accountsReceivable',
-                    description: 'Some description',
-                    img: '/img/apps/account-receivable.svg',
+                    title: "commercial.accountsReceivable",
+                    description: "Some description",
+                    img: "/img/apps/account-receivable.svg",
                     columns: [
                         {
-                            key: 'number',
-                            label: 'commercial.number',
+                            key: "date",
+                            format: "date",
+                            label: "commercial.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
-                        key: 'sales',
-                        label: 'commercial.sales',
-                        sortable: true
-                        },
-                        {
-                            key: 'payment',
-                            label: 'commercial.payment',
+                            key: "partner",
+                            label: "commercial.customer",
+                            formatter: (value, key, item) => {
+                                return item.partner.substring(0, 15) + "...";
+                            },
                             sortable: true
                         },
                         {
-                            key: 'balance',
-                            label: 'commercial.balance',
+                            key: "number",
+                            label: "commercial.number",
                             sortable: true
                         },
                         {
-                            key: 'actions',
-                            label: '',
+                            key: "sales",
+                            label: "commercial.sales",
+                            formatter: (value, key, item) => {
+                                return new Number(item.sales).toLocaleString();
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "credit",
+                            label: "commercial.payment",
+                            formatter: (value, key, item) => {
+                                return new Number(item.credit).toLocaleString();
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "balance",
+                            format: "numeric",
+                            label: "commercial.balance",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.balance
+                                ).toLocaleString();
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
                             sortable: false
                         }
                     ]
-                    
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: Form,
-                        name: 'receivableForm',
+                        name: "receivableForm",
                         meta: ReceivableForm
-
                     }
                 ]
             },
             {
-                path: 'accounts-payable',
+                path: "accounts-payable",
                 component: List,
-                name: 'payableList',
+                name: "payableList",
                 meta: {
-                    title: 'commercial.accountsPayable',
-                    description: 'Some description',
-                    img: '/img/apps/account-payable.svg',
+                    title: "commercial.accountsPayable",
+                    description: "Some description",
+                    img: "/img/apps/account-payable.svg",
                     columns: [
                         {
-                            key: 'number',
-                            label: 'commercial.number',
+                            key: "number",
+                            label: "commercial.number",
                             sortable: true
                         },
                         {
-                            key: 'purchase',
-                            label: 'commercial.purchase',
+                            key: "purchase",
+                            label: "commercial.purchase",
                             sortable: true
                         },
                         {
-                            key: 'payment',
-                            label: 'commercial.payment',
+                            key: "payment",
+                            label: "commercial.payment",
                             sortable: true
                         },
                         {
-                            key: 'balance',
-                            label: 'commercial.balance',
+                            key: "balance",
+                            label: "commercial.balance",
                             sortable: true
                         },
                         {
-                            key: 'actions',
-                            label: '',
+                            key: "actions",
+                            label: "",
                             sortable: false
                         }
                     ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
-                        component:Form,
-                        name: 'payableForm',
+                        path: ":id",
+                        component: Form,
+                        name: "payableForm",
                         meta: PayableForm
-
                     }
                 ]
             },
             {
-                path: 'impexes',
+                path: "impexes",
                 component: List,
-                name: 'impexList',
+                name: "impexList",
                 meta: {
-                    title: 'commercial.impex',
-                    description: 'Some description',
-                    img: '/img/apps/impex.svg',
+                    title: "commercial.impex",
+                    description: "Some description",
+                    img: "/img/apps/impex.svg"
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
-                        component:ImpexForm,
-                        name: 'impexForm',
+                        path: ":id",
+                        component: ImpexForm,
+                        name: "impexForm",
                         meta: {
-                            title: 'commercial.impex',
-                            img: '/img/apps/account-payable.svg',
-                        },
-
+                            title: "commercial.impex",
+                            img: "/img/apps/account-payable.svg"
+                        }
                     }
                 ]
-            },
+            }
         ]
     },
     {
-        path: '/:taxPayer/:cycle/accounting/',
+        path: "/:taxPayer/:cycle/accounting/",
         component: Accounting,
-        name: 'accountingMenu',
+        name: "accountingMenu",
         meta: {
-            title: 'Accounting',
-            description: 'All your accounting data is here',
+            title: "Accounting",
+            description: "All your accounting data is here"
         },
-        children:
-        [
+        children: [
             {
-                    path: 'journal-templates',
-                    component: List,
-                    name: 'journalTemplateList',
-                    meta: {
-                        title: 'accounting.journal',
-                        description: 'Some description',
-                        img: '/img/apps/journals.svg',
-                        columns: [
-                            {
-                                key: "name",
-                                sortable: true
-                            }
-
-                        ]
-                    },
-                    children:
-                        [
-                            {
-                                path: ':id',
-                                component: Form,
-                                name: 'journalTemplateForm',
-                                meta: JournalTemplateForm
-                            }
-                        ]
-            },
-            {
-                path: 'journals',
-                component: JournalList,
-                name: 'journalList',
+                path: "journal-templates",
+                component: List,
+                name: "journalTemplateList",
                 meta: {
-                    title: 'accounting.journal',
-                    description: 'Some description',
-                    img: '/img/apps/journals.svg',
+                    title: "accounting.journal",
+                    description: "Some description",
+                    img: "/img/apps/journals.svg",
+                    columns: [
+                        {
+                            key: "name",
+                            sortable: true
+                        }
+                    ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
-                        component: JournalForm,
-                        name: 'journalForm',
-                        meta: {
-                            title: 'accounting.journal',
-                            img: '/img/apps/journals.svg',
-                        },
+                        path: ":id",
+                        component: Form,
+                        name: "journalTemplateForm",
+                        meta: JournalTemplateForm
                     }
                 ]
             },
-                
             {
-                path: 'opening-balance',
+                path: "journals",
+                component: JournalList,
+                name: "journalList",
+                meta: {
+                    title: "accounting.journal",
+                    description: "Some description",
+                    img: "/img/apps/journals.svg"
+                },
+                children: [
+                    {
+                        path: ":id",
+                        component: JournalForm,
+                        name: "journalForm",
+                        meta: {
+                            title: "accounting.journal",
+                            img: "/img/apps/journals.svg"
+                        }
+                    }
+                ]
+            },
+
+            {
+                path: "opening-balance",
                 component: FormList,
-                name: 'openingBalanceForm',
-                meta: openingBalanceForm,
+                name: "openingBalanceForm",
+                meta: openingBalanceForm
             },
             {
-                path: 'closing-balance',
+                path: "closing-balance",
                 component: FormList,
-                name: 'closingBalanceForm',
+                name: "closingBalanceForm",
                 meta: closingBalanceForm
             },
             {
-                path: 'budget',
+                path: "budget",
                 component: FormList,
-                name: 'budgetForm',
-                meta: budgetForm,
+                name: "budgetForm",
+                meta: budgetForm
             },
             {
-                path: 'charts',
+                path: "charts",
                 component: ChartList,
-                name: 'chartList',
+                name: "chartList",
                 meta: {
-                    title: 'accounting.chartOfAccounts',
-                    description: 'Some description',
-                    img: '/img/apps/chart-of-accounts.svg',
+                    title: "accounting.chartOfAccounts",
+                    description: "Some description",
+                    img: "/img/apps/chart-of-accounts.svg"
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: ChartForm,
-                        name: 'chartForm',
+                        name: "chartForm",
                         meta: {
-                            title: 'Chart Form',
-                            img: '/img/apps/chart-of-accounts.svg',
-                        },
-
+                            title: "Chart Form",
+                            img: "/img/apps/chart-of-accounts.svg"
+                        }
                     }
                 ]
-            },
+            }
         ]
     },
     {
-        path: '/:taxPayer/:cycle/config/',
+        path: "/:taxPayer/:cycle/config/",
         component: Config,
-        name: 'configMenu',
+        name: "configMenu",
         meta: {
-            title: 'Dashboard',
-            description: 'Some description',
-            img: '/img/apps/sales.svg',
+            title: "Dashboard",
+            description: "Some description",
+            img: "/img/apps/sales.svg"
         },
-        children:
-        [
+        children: [
             {
-                path: 'chart-versions',
+                path: "chart-versions",
                 component: VersionList,
-                name: 'versionList',
+                name: "versionList",
                 meta: {
-                    title: 'accounting.chartVersion',
-                    description: 'Some description',
-                    img: '/img/apps/sales.svg',
+                    title: "accounting.chartVersion",
+                    description: "Some description",
+                    img: "/img/apps/sales.svg"
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: VersionForm,
-                        name: 'versionForm',
+                        name: "versionForm",
                         meta: {
-                            title: 'Version Form',
-                        },
-
+                            title: "Version Form"
+                        }
                     }
                 ]
             },
             {
-                path: 'cycles',
+                path: "cycles",
                 component: List,
-                name: 'cycleList',
+                name: "cycleList",
                 meta: {
-                    title: 'accounting.fiscalYear',
-                    description: 'Some description',
-                    img: '/img/apps/sales.svg',
+                    title: "accounting.fiscalYear",
+                    description: "Some description",
+                    img: "/img/apps/sales.svg",
                     columns: [
                         {
                             key: "chart_version.name",
@@ -694,76 +701,77 @@ export default
                             sortable: false
                         },
                         {
-                            key: 'actions',
-                            label: '',
+                            key: "actions",
+                            label: "",
                             sortable: false
                         }
-
                     ]
                 },
-                children:
-                [
+                children: [
                     {
-                        path: ':id',
+                        path: ":id",
                         component: Form,
-                        name: 'cycleForm',
+                        name: "cycleForm",
                         meta: CycleForm
-
                     }
                 ]
             },
             {
-                path: 'documents',
+                path: "documents",
                 component: DocumentList,
-                name: 'documentList',
+                name: "documentList",
                 meta: {
-                    title: 'commercial.documents',
-                    description: 'Some description',
-                    img: '/img/apps/sales.svg',
+                    title: "commercial.documents",
+                    description: "Some description",
+                    img: "/img/apps/sales.svg"
                 },
-                children: [{
-                    path: ':id',
-                    component: Form,
-                    name: 'documentForm',
-                    meta: DocumentForm
-                }]
+                children: [
+                    {
+                        path: ":id",
+                        component: Form,
+                        name: "documentForm",
+                        meta: DocumentForm
+                    }
+                ]
             },
             {
-                path: 'rates',
+                path: "rates",
                 component: RateList,
-                name: 'rateList',
+                name: "rateList",
                 meta: {
-                    title: 'commercial.exchangeRates',
-                    description: 'Some description',
-                    img: '/img/apps/sales.svg',
+                    title: "commercial.exchangeRates",
+                    description: "Some description",
+                    img: "/img/apps/sales.svg"
                 },
-                children: [{
-                    path: ':id',
-                    component: Form,
-                    name: 'rateForm',
-                    meta: RateForm
-                }]
-            },
+                children: [
+                    {
+                        path: ":id",
+                        component: Form,
+                        name: "rateForm",
+                        meta: RateForm
+                    }
+                ]
+            }
         ]
     },
     {
-        path: '/:taxPayer/:cycle/commercial/reports',
+        path: "/:taxPayer/:cycle/commercial/reports",
         component: CommercialReports,
-        name: 'commercialReports',
+        name: "commercialReports",
         meta: {
-            title: 'Commercial Reports',
-            description: 'All your accounting data is here',
-            img: '/img/apps/sales.svg',
+            title: "Commercial Reports",
+            description: "All your accounting data is here",
+            img: "/img/apps/sales.svg"
         }
     },
     {
-        path: '/:taxPayer/:cycle/accounting/reports',
+        path: "/:taxPayer/:cycle/accounting/reports",
         component: AccountingReports,
-        name: 'accountingReports',
+        name: "accountingReports",
         meta: {
-            title: 'Accounting Reports',
-            description: 'All your accounting data is here',
-            img: '/img/apps/sales.svg',
+            title: "Accounting Reports",
+            description: "All your accounting data is here",
+            img: "/img/apps/sales.svg"
         }
     }
-]
+];

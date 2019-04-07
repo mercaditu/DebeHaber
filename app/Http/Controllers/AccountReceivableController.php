@@ -15,44 +15,39 @@ use DB;
 class AccountReceivableController extends Controller
 {
     /**
-  * Display a listing of the resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-    //    $data=DB::select("select *,Payable-Paid as Balance from (select Max(transactions.number) as number,
-    //    sum(transaction_details.value) * transactions.rate as Payable ,sum(account_movements.credit * account_movements.rate) as Paid 
-    //    from transaction_details
-    //             left join account_movements  on account_movements.transaction_id=transaction_details.transaction_id
-    //             join transactions on transactions.id=transaction_details.transaction_id 
-    //             where transactions.taxpayer_id= " . $taxPayer->id . " and type=2 and sub_type=1
-    //             group by transactions.id) as accounts");
-
-           return GeneralResource::collection(TransactionDetail::
-              leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
-                ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
-                ->where('transactions.taxpayer_id',$taxPayer->id)
-                ->where('transactions.type',2)
-                ->where('transactions.sub_type',1)
-                ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'),'!=','COALESCE(sum(am.credit * am.rate),0)')
-                ->select(DB::raw('max(transactions.id) as id'),DB::raw('max(transactions.number) as number'),DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as sales'),DB::raw('COALESCE(sum(am.credit * am.rate),0) as payment'),
-                DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.credit * am.rate),0) as balance'))
-                ->groupBy('transactions.id')->paginate(50));
-         
-        
-        
+        return GeneralResource::collection(TransactionDetail::leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
+            ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
+            ->where('transactions.taxpayer_id', $taxPayer->id)
+            ->where('transactions.type', 2)
+            ->where('transactions.sub_type', 1)
+            ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.credit * am.rate),0)')
+            ->select(
+                DB::raw('max(transactions.id) as id'),
+                DB::raw('max(transactions.date) as date'),
+                DB::raw('max(transactions.partner_name) as partner'),
+                DB::raw('max(transactions.number) as number'),
+                DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as sales'),
+                DB::raw('COALESCE(sum(am.credit * am.rate),0) as credit'),
+                DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.credit * am.rate),0) as balance')
+            )
+            ->groupBy('transactions.id')->paginate(50));
     }
 
     /**
-  * Store a newly created resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @return \Illuminate\Http\Response
-  */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        if ($request->payment_value > 0 ) {
+        if ($request->payment_value > 0) {
 
             $accountMovement = AccountMovement::where('transaction_id', $request->id)->first() ?? new AccountMovement();
             $accountMovement->taxpayer_id = $taxPayer->id;
@@ -74,11 +69,11 @@ class AccountReceivableController extends Controller
     }
 
     /**
-  * Display the specified resource.
-  *
-  * @param  \App\AccountMovement  $accountMovement
-  * @return \Illuminate\Http\Response
-  */
+     * Display the specified resource.
+     *
+     * @param  \App\AccountMovement  $accountMovement
+     * @return \Illuminate\Http\Response
+     */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         return new GeneralResource(
@@ -91,11 +86,11 @@ class AccountReceivableController extends Controller
     }
 
     /**
-  * Remove the specified resource from storage.
-  *
-  * @param  \App\AccountMovement  $accountMovement
-  * @return \Illuminate\Http\Response
-  */
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\AccountMovement  $accountMovement
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Taxpayer $taxPayer, Cycle $cycle, $transactionID)
     {
         // try
@@ -117,11 +112,11 @@ class AccountReceivableController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-         $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 5)
-            ->with('details')->first()?? new \App\Journal();   
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 5)
+            ->with('details')->first() ?? new \App\Journal();
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
@@ -138,7 +133,7 @@ class AccountReceivableController extends Controller
         $journal->is_automatic = 1;
         $journal->module_id = 5;
         $journal->save();
-       
+
         $chartController = new ChartController();
 
         $queryAccountMovements = AccountMovement::PaymentsRecieved($startDate, $endDate, $taxPayer->id);

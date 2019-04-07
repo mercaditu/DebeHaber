@@ -33,8 +33,6 @@ class TransactionController extends Controller
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['CustomerTaxID'], $groupedRow->first()['CustomerName']);
 				}
 
-
-
 				//check and create cycle
 				$firstDate = Carbon::parse($groupedRow->first()["Date"]);
 				$cycle = Cycle::My($taxPayer, $firstDate)->first();

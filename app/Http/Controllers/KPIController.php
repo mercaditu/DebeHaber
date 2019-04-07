@@ -43,29 +43,29 @@ class KPIController extends Controller
     public function totalVatDebit($taxPayerID)
     {
         return App\AccountMovement::join('charts', 'charts.id', '=', 'account_movements')
-               ->where('charts.type' , 1)
-               ->Orwhere('charts.type' , 12)
-               ->select(
+            ->where('charts.type', 1)
+            ->Orwhere('charts.type', 12)
+            ->select(
                 DB::raw('sum(account_movements.debit) as Total'),
                 'charts.name as Item'
-                )
-                ->groupBy('account_movements.chart_id')
-                ->get();
+            )
+            ->groupBy('account_movements.chart_id')
+            ->get();
     }
-     public function totalVatCredit($taxPayerID)
+
+    public function totalVatCredit($taxPayerID)
     {
         return App\AccountMovement::join('charts', 'charts.id', '=', 'account_movements')
-               ->where('charts.type' , 2)
-               ->Orwhere('charts.type' , 3)
-               ->select(
+            ->where('charts.type', 2)
+            ->Orwhere('charts.type', 3)
+            ->select(
                 DB::raw('sum(account_movements.credit) as Total'),
                 'charts.name as Item'
-                )
-                ->groupBy('account_movements.chart_id')
-                ->get();
+            )
+            ->groupBy('account_movements.chart_id')
+            ->get();
     }
+
     public function DiffrenceinVat($taxPayerID)
-    {
-       
-    }
+    { }
 }
