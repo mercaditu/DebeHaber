@@ -447,14 +447,6 @@ export default [
                             sortable: true
                         },
                         {
-                            key: "sales",
-                            label: "commercial.sales",
-                            formatter: (value, key, item) => {
-                                return new Number(item.sales).toLocaleString();
-                            },
-                            sortable: true
-                        },
-                        {
                             key: "credit",
                             label: "commercial.payment",
                             formatter: (value, key, item) => {
@@ -499,23 +491,45 @@ export default [
                     img: "/img/apps/account-payable.svg",
                     columns: [
                         {
+                            key: "date",
+                            format: "date",
+                            label: "commercial.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "partner",
+                            label: "commercial.supplier",
+                            formatter: (value, key, item) => {
+                                return item.partner.substring(0, 15) + "...";
+                            },
+                            sortable: true
+                        },
+                        {
                             key: "number",
                             label: "commercial.number",
                             sortable: true
                         },
                         {
-                            key: "purchase",
-                            label: "commercial.purchase",
-                            sortable: true
-                        },
-                        {
                             key: "payment",
                             label: "commercial.payment",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.payment
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
                             key: "balance",
                             label: "commercial.balance",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.balance
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {

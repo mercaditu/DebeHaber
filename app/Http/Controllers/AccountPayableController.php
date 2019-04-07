@@ -30,6 +30,8 @@ class AccountPayableController extends Controller
                 ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.debit * am.rate),0)')
                 ->select(
                     DB::raw('max(transactions.id) as id'),
+                    DB::raw('max(transactions.date) as date'),
+                    DB::raw('max(transactions.partner_name) as partner'),
                     DB::raw('max(transactions.number) as number'),
                     DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as purchase'),
                     DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
@@ -99,11 +101,11 @@ class AccountPayableController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-       $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 6)
-            ->with('details')->first()?? new \App\Journal();   
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 6)
+            ->with('details')->first() ?? new \App\Journal();
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
@@ -178,6 +180,5 @@ class AccountPayableController extends Controller
         }
 
         $queryAccountMovements->update(['journal_id' => $journal->id]);
-       
     }
 }
