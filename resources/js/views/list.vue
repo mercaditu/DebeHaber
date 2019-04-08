@@ -32,7 +32,7 @@
     <b-row>
       <b-col>
         <div v-if="$route.name.includes('List')">
-          <crud :columns="$route.meta.columns" inline-template>
+          <crud :columns="$route.meta.columns"  inline-template>
             <b-card no-body>
               <b-table
                 hover
@@ -85,12 +85,13 @@ import crud from "../components/crud.vue";
 export default {
   components: { crud },
   data: () => ({
-    currentPage: 1
+    currentPage: 1,
   }),
-  computed: {
+   computed: {
     formURL: function() {
       return this.$route.name.replace("List", "Form");
     }
   }
+   
 };
 </script>

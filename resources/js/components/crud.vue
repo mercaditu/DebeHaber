@@ -141,7 +141,8 @@ export default {
     },
     mounted() {
         var app = this;
-        app.onList();
+        console.log('ads');
+       app.onList();
     }
 }
 </script>

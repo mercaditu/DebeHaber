@@ -6,6 +6,7 @@ import PayableForm from "../views/commercials/payableForm.json";
 import PurchaseForm from "../views/commercials/purchaseForm.json";
 import InventoryForm from "../views/commercials/inventoryForm.json";
 import FixedAssetForm from "../views/commercials/fixedAssetForm.json";
+import ImpexForm from "../views/commercials/impexForm.json";
 
 import CycleForm from "../views/configs/cycleForm.json";
 import DocumentForm from "../views/configs/documentForm.json";
@@ -26,7 +27,7 @@ import List from "../views/list";
 
 const Commercial = () => import("../views/commercials/index");
 const SalesUpload = () => import("../views/commercials/salesUpload");
-const ImpexForm = () => import("../views/commercials/impexForm");
+
 
 const Accounting = () => import("../views/accounts/index");
 const JournalList = () => import("../views/accounts/journalList");
@@ -555,17 +556,43 @@ export default [
                 meta: {
                     title: "commercial.impex",
                     description: "Some description",
-                    img: "/img/apps/impex.svg"
+                    img: "/img/apps/impex.svg",
+                    columns: [
+                        {
+                            key: "date",
+                            format: "date",
+                            label: "commercial.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "partner",
+                            label: "commercial.supplier",
+                            formatter: (value, key, item) => {
+                                return item.partner.substring(0, 15) + "...";
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "code",
+                            label: "commercial.code",
+                            sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
+                            sortable: false
+                        }
+                    ]
                 },
                 children: [
                     {
                         path: ":id",
-                        component: ImpexForm,
+                        component: Form,
                         name: "impexForm",
-                        meta: {
-                            title: "commercial.impex",
-                            img: "/img/apps/account-payable.svg"
-                        }
+                        meta: ImpexForm
                     }
                 ]
             }
