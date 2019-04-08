@@ -8,7 +8,7 @@
     </h3>
 
     <b-button variant="light" class="mb-10" v-b-toggle.collapse-taxpayer>
-        <i class="material-icons float-left">expand_more</i>
+        {{-- <i class="material-icons float-left">expand_more</i> --}}
         <span class="nav-heading"> @{{ spark.taxPayerData.alias }} </span>
         <b-badge variant="primary">
             {{-- {{ spark.taxPayerData->where('id', request()->route('cycle'))->first()->year }} --}}
@@ -87,7 +87,7 @@
     </h3>
 
     <b-button variant="light" class="mb-10" v-b-toggle.collapse-commercial>
-        <i class="material-icons float-left">expand_more</i>
+        {{-- <i class="material-icons float-left">expand_more</i> --}}
         <span class="nav-heading"> @{{ $t('general.transactions') }} </span>
     </b-button>
 
@@ -157,7 +157,7 @@
     </b-collapse>
 
     <b-button variant="light" class="mb-10" v-b-toggle.collapse-accounting>
-        <i class="material-icons float-left">expand_more</i>
+        {{-- <i class="material-icons float-left">expand_more</i> --}}
         <span class="nav-heading"> @{{ $t('general.accounting') }} </span>
     </b-button>
 
@@ -172,7 +172,7 @@
             </b-nav-item>
             <b-nav-item class="sub-menu" :to="{ name: 'journalTemplateList'}">
                 <i class="material-icons md-18 ml-10 mr-10">notes</i>
-                @{{ $t('accounting.journalTemplate') }}
+                @{{ $t('accounting.template') }}
             </b-nav-item>
         </b-nav>
         <h3 class="nav-heading sub">
@@ -208,12 +208,12 @@
     </b-collapse>
 
     <b-button variant="light" class="mb-10" v-b-toggle.collapse-accounting @if($teamRole != 'Audit') disabled @endif>
-        <i class="material-icons float-left">expand_more</i>
+        {{-- <i class="material-icons float-left">expand_more</i> --}}
         <span class="nav-heading"> @{{ $t('general.auditing') }} </span>
     </b-button>
 
     <b-button variant="light" v-b-toggle.collapse-reporting>
-        <i class="material-icons float-left">expand_more</i>
+        {{-- <i class="material-icons float-left">expand_more</i> --}}
         <span class="nav-heading"> @{{ $t('general.report') }} </span>
     </b-button>
 

@@ -28,5 +28,7 @@
     "upload": "Upload",
     "create": "Create",
 
-    "createNewRecord": "Create New Record"
+    "createNewRecord": "Create New Record",
+    "uploadFromExcel": "Upload from Excel",
+    "manual": "Manual"
 }

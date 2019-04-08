@@ -1,6 +1,6 @@
 {
     "pageurl": "/commercial/sales",
-    "title": "commercial.Sale",
+    "title": "commercial.salesInvoice",
     "img": "/img/apps/sales.svg",
     "module": 2,
     "cards": [
@@ -76,7 +76,7 @@
                     "fields": [
                         {},
                         {
-                            "label": "commercial.paymentcondition",
+                            "label": "commercial.paymentCondition",
                             "properties": [
                                 {
                                     "type": "payment",
@@ -125,7 +125,7 @@
             "actions": true,
             "fields": [
                 {
-                    "label": "commercial.chart",
+                    "label": "commercial.item",
                     "properties": [
                         {
                             "type": "select",

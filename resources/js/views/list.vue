@@ -32,44 +32,37 @@
     <b-row>
       <b-col>
         <div v-if="$route.name.includes('List')">
-          <crud :columns="$route.meta.columns"  inline-template>
-            <b-card no-body>
-              <b-table
-                hover
-                responsive
-                :items="items"
-                :fields="$route.meta.columns"
-                :current-page="currentPage"
-                show-empty
-              >
-                <template slot="total" slot-scope="data">
-                  <span class="float-right">
-                    {{ new Number(sum(data.item.details, 'value')).toLocaleString() }}
-                    <small
-                      class="text-success text-uppercase"
-                    >{{ data.item.currency }}</small>
-                  </span>
-                </template>
+          <crud inline-template>
+            <div>
+              <b-card no-body>
+                <b-table
+                  hover
+                  responsive
+                  :items="items"
+                  :fields="$route.meta.columns"
+                  :current-page="currentPage"
+                  show-empty
+                >
+                  <template slot="actions" slot-scope="data">
+                    <table-actions :row="data.item"></table-actions>
+                  </template>
 
-                <template slot="actions" slot-scope="data">
-                  <table-actions :row="data.item"></table-actions>
-                </template>
+                  <div slot="table-busy">
+                    <table-loading></table-loading>
+                  </div>
 
-                <div slot="table-busy">
-                  <table-loading></table-loading>
-                </div>
-
-                <template slot="empty" slot-scope="scope">
-                  <table-empty></table-empty>
-                </template>
-              </b-table>
+                  <template slot="empty" slot-scope="data">
+                    <table-empty></table-empty>
+                  </template>
+                </b-table>
+              </b-card>
               <b-pagination
                 align="center"
                 :total-rows="meta.total"
                 :per-page="meta.per_page"
                 @change="onList()"
               ></b-pagination>
-            </b-card>
+            </div>
           </crud>
         </div>
         <keep-alive v-else>
@@ -85,13 +78,12 @@ import crud from "../components/crud.vue";
 export default {
   components: { crud },
   data: () => ({
-    currentPage: 1,
+    currentPage: 1
   }),
-   computed: {
+  computed: {
     formURL: function() {
       return this.$route.name.replace("List", "Form");
     }
   }
-   
 };
 </script>

@@ -14,45 +14,45 @@
 */
 
 //Base Components
-require('spark-bootstrap');
-require('./components/bootstrap');
-require('vue-tour/dist/vue-tour.css')
+require("spark-bootstrap");
+require("./components/bootstrap");
+require("vue-tour/dist/vue-tour.css");
 
-import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
-import Router from './router';
-import i18n from './plugins/i18n';
-import VueGoogleCharts from 'vue-google-charts';
-import VueSweetalert2 from 'vue-sweetalert2';
-import VueMask from 'v-mask';
-import VueSnackbar from 'vue-snack';
-import 'vue-snack/dist/vue-snack.min.css';
-import VueCsvImport from 'vue-csv-import';
+import Vue from "vue";
+import BootstrapVue from "bootstrap-vue";
+import VueRouter from "vue-router";
+import Router from "./router";
+import i18n from "./plugins/i18n";
+import VueGoogleCharts from "vue-google-charts";
+import VueSweetalert2 from "vue-sweetalert2";
+import VueMask from "v-mask";
+import VueSnackbar from "vue-snack";
+import "vue-snack/dist/vue-snack.min.css";
+// import VueCsvImport from "vue-csv-import";
 
-Vue.use(VueCsvImport);
+// Vue.use(VueCsvImport);
 Vue.use(VueSnackbar);
 Vue.use(VueMask);
 Vue.use(VueSweetalert2);
 Vue.use(VueGoogleCharts);
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
-Vue.use(require('vue-shortkey'));
+Vue.use(require("vue-shortkey"));
 
 Vue.config.productionTip = false;
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: Router
-});
-
 //Saves new fields into registration form.
 Spark.forms.register = {
-    language: 'en'
+    language: "en"
 };
+
+const router = new VueRouter({
+    mode: "history",
+    routes: Router
+});
 
 const app = new Vue({
     i18n,
     router,
-    mixins: [require('spark')]
+    mixins: [require("spark")]
 });

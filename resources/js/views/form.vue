@@ -3,18 +3,16 @@
     <b-row>
       <b-col>
         <b-btn
-          class="d-none d-md-block float-left"
+          class="d-none d-md-block float-left mr-15"
           v-shortkey="['esc']"
           @shortkey="onCancel()"
           @click="onCancel()"
         >
           <i class="material-icons">keyboard_backspace</i>
-          {{ $t('general.return') }}
-          <!-- {{ $t('welcomeMsg') }} -->
         </b-btn>
         <h3 class="upper-case">
           <img :src="$route.meta.img" alt class="mr-10" width="32">
-          {{ $route.meta.title }}
+          {{ $t($route.meta.title) }}
         </h3>
       </b-col>
       <b-col>
@@ -105,7 +103,7 @@
                     :type="property.type"
                     v-model="data[property.data]"
                     :required="property.required"
-                    :placeholder="property.placeholder"
+                    :placeholder="$t(property.placeholder)"
                   />
                 </b-input-group>
               </span>
@@ -115,17 +113,19 @@
       </b-card>
     </div>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
+      <!-- v-show="table.data==='details'" -->
       <b-btn
-        v-show="table.data==='details'"
-        class="ml-15"
+        class="mb-5"
+        size="sm"
         v-shortkey="['ctrl', 'd']"
         @shortkey="addRow(table.data)"
         @click="addRow(table.data)"
       >
-        <i class="material-icons">playlist_add</i>
+        <i class="material-icons mi-18">playlist_add</i>
         {{ $t('general.addRowDetail') }}
       </b-btn>
-      <b-card no-body>
+
+      <b-card>
         <!-- Labels -->
         <b-row>
           <b-col v-for="col in table.fields" v-bind:key="col.index">
@@ -182,14 +182,13 @@ export default {
       crud.methods
         .onUpdate(app.baseUrl + app.$route.meta.pageurl, app.data)
         .then(function(response) {
-          if(response.status==200)
-          {
-              app.$snack.success({
-                text: app.$i18n.t("commercial.Saved")
-              });
+          if (response.status == 200) {
+            app.$snack.success({
+              text: app.$i18n.t("commercial.Saved")
+            });
 
-              app.data = [];
-              app.$router.push({ name: app.$route.name, params: { id: "0" } });
+            app.data = [];
+            app.$router.push({ name: app.$route.name, params: { id: "0" } });
           }
         })
         .catch(function(error) {

@@ -1,7 +1,7 @@
 {
     "pageurl": "/commercial/debit-notes",
-    "title":  "commercial.Debit Note",
-    "img":  "/img/apps/debit-note.svg",
+    "title": "commercial.debitNote",
+    "img": "/img/apps/credit-note.svg",
     "module": 1,
     "cards": [
         {
@@ -65,28 +65,6 @@
                                     "type": "text",
                                     "data": "number",
                                     "placeholder": "commercial.number ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {},
-                        {
-                            "label": "commercial.paymentcondition",
-                            "properties": [
-                                {
-                                    "type": "payment",
-                                    "data": [
-                                        {
-                                            "paymentcondition": "payment_condition",
-                                            "chartaccount": "chart_account_id"
-                                        }
-                                    ],
-                                    "placeholder": "commercial.customer ",
                                     "required": false,
                                     "location": ""
                                 }

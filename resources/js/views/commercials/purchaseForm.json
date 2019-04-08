@@ -1,7 +1,7 @@
 {
     "pageurl": "/commercial/purchases",
-    "title": "commercial.Purchase",
-    "img": "/img/apps/purchases.svg",
+    "title": "commercial.purchaseInvoice",
+    "img": "/img/apps/purchase-v1.svg",
     "module": 1,
     "cards": [
         {
@@ -76,7 +76,7 @@
                     "fields": [
                         {},
                         {
-                            "label": "commercial.paymentcondition",
+                            "label": "commercial.paymentCondition",
                             "properties": [
                                 {
                                     "type": "payment",

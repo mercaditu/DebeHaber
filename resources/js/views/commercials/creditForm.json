@@ -1,7 +1,7 @@
 {
     "pageurl": "/commercial/credit-notes",
-    "title":  "commercial.Credit Note",
-    "img":  "/img/apps/credit-note.svg",
+    "title": "commercial.creditNote",
+    "img": "/img/apps/credit-note.svg",
     "cards": [
         {
             "rows": [
@@ -75,28 +75,6 @@
                     "fields": [
                         {},
                         {
-                            "label": "commercial.paymentcondition",
-                            "properties": [
-                                {
-                                    "type": "payment",
-                                    "data": [
-                                        {
-                                            "paymentcondition": "payment_condition",
-                                            "chartaccount": "chart_account_id"
-                                        }
-                                    ],
-                                    "placeholder": "commercial.customer ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {},
-                        {
                             "label": "commercial.currency",
                             "properties": [
                                 {
@@ -124,14 +102,14 @@
             "actions": true,
             "fields": [
                 {
-                    "label": "commercial.chart",
+                    "label": "commercial.item",
                     "properties": [
                         {
                             "type": "select",
                             "data": "chart_id",
-                            "placeholder": "commercial.chart",
+                            "placeholder": "commercial.products",
                             "api": "/accounting/charts/for/income/",
-                            "required": false,
+                            "required": true,
                             "location": "",
                             "select": [
                                 {
@@ -168,7 +146,7 @@
                             "type": "text",
                             "data": "value",
                             "placeholder": "commercial.vat",
-                            "required": false,
+                            "required": true,
                             "location": ""
                         }
                     ]

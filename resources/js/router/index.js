@@ -28,7 +28,6 @@ import List from "../views/list";
 const Commercial = () => import("../views/commercials/index");
 const SalesUpload = () => import("../views/commercials/salesUpload");
 
-
 const Accounting = () => import("../views/accounts/index");
 const JournalList = () => import("../views/accounts/journalList");
 const JournalForm = () => import("../views/accounts/journalForm");
@@ -95,6 +94,10 @@ export default [
                     columns: [
                         {
                             key: "date",
+                            label: "commercial.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
@@ -421,7 +424,7 @@ export default [
                 component: List,
                 name: "receivableList",
                 meta: {
-                    title: "commercial.accountsReceivable",
+                    title: "commercial.accountReceivables",
                     description: "Some description",
                     img: "/img/apps/account-receivable.svg",
                     columns: [
@@ -487,7 +490,7 @@ export default [
                 component: List,
                 name: "payableList",
                 meta: {
-                    title: "commercial.accountsPayable",
+                    title: "commercial.accountPayables",
                     description: "Some description",
                     img: "/img/apps/account-payable.svg",
                     columns: [
