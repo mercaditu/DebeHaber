@@ -30,5 +30,8 @@
 
     "createNewRecord": "Create New Record",
     "uploadFromExcel": "Upload from Excel",
-    "manual": "Manual"
+    "manual": "Manual",
+
+    "debit": "haber",
+    "credit": "debe"
 }

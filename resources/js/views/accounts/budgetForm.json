@@ -23,29 +23,28 @@
                         {
                             "type": "label",
                             "data": "name"
-                            
                         }
                     ]
                 },
                 {
-                    "label": "commercial.debit",
+                    "label": "general.debit",
                     "properties": [
                         {
                             "type": "text",
                             "data": "debit",
-                            "placeholder": "commercial.debit",
+                            "placeholder": "general.debit",
                             "required": false,
                             "location": "is_accountable"
                         }
                     ]
                 },
                 {
-                    "label": "commercial.credit",
+                    "label": "general.credit",
                     "properties": [
                         {
                             "type": "text",
                             "data": "credit",
-                            "placeholder": "commercial.credit",
+                            "placeholder": "general.credit",
                             "required": false,
                             "location": "is_accountable"
                         }

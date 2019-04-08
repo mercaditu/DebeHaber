@@ -1,9 +1,6 @@
 <spark-navbar :user="user" :teams="teams" :current-team="currentTeam" :unread-announcements-count="unreadAnnouncementsCount" :unread-notifications-count="unreadNotificationsCount" inline-template>
     <nav class="navbar navbar-light navbar-expand-md navbar-spark mb-25">
         <ul class="nav navbar-nav flex-fill w-100 flex-nowrap">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Menu</a>
-            </li>
             <li class="nav-item d-none d-md-block">
                 @includeIf('spark::nav.user-left')
             </li>

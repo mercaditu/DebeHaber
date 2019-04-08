@@ -29,5 +29,8 @@
 
     "createNewRecord": "Crear Registro",
     "uploadFromExcel": "Subir desde Excel",
-    "manual": "Manual"
+    "manual": "Manual",
+
+    "debit": "Debit",
+    "credit": "Credit"
 }

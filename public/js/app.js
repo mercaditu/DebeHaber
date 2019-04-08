@@ -4315,6 +4315,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -88107,10 +88108,7 @@ var render = function() {
                 [
                   _c("i", { staticClass: "material-icons" }, [
                     _vm._v("keyboard_backspace")
-                  ]),
-                  _vm._v(
-                    "\n      " + _vm._s(_vm.$t("general.return")) + "\n      "
-                  )
+                  ])
                 ]
               ),
               _vm._v(" "),
@@ -88119,7 +88117,9 @@ var render = function() {
                   staticClass: "mr-10",
                   attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
                 }),
-                _vm._v("\n      " + _vm._s(_vm.$route.meta.title) + "\n    ")
+                _vm._v(
+                  "\n        " + _vm._s(_vm.$route.meta.title) + "\n      "
+                )
               ])
             ],
             1
@@ -88162,9 +88162,9 @@ var render = function() {
                             _vm._v("save")
                           ]),
                           _vm._v(
-                            "\n          " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.save")) +
-                              "\n        "
+                              "\n          "
                           )
                         ]
                       ),
@@ -88195,9 +88195,9 @@ var render = function() {
                             _vm._v("cancel")
                           ]),
                           _vm._v(
-                            "\n          " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.cancel")) +
-                              "\n        "
+                              "\n          "
                           )
                         ]
                       )
@@ -88319,7 +88319,6 @@ var render = function() {
           [
             _c(
               "b-card",
-              { attrs: { "no-body": "" } },
               [
                 _c(
                   "b-row",
@@ -88346,11 +88345,9 @@ var render = function() {
                             [
                               property.type === "label"
                                 ? _c("b-input-group", [
-                                    _vm._v(
-                                      "\n               " +
-                                        _vm._s(detail[property.data]) +
-                                        "\n              "
-                                    )
+                                    _c("b", [
+                                      _vm._v(_vm._s(detail[property.data]))
+                                    ])
                                   ])
                                 : _vm._e(),
                               _vm._v(" "),
@@ -105166,10 +105163,10 @@ module.exports = {"customer":"Customer | Customers","supplier":"Supplier | Suppl
 /*!**********************************************!*\
   !*** ./resources/js/plugins/en/general.json ***!
   \**********************************************/
-/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, reports, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, default */
+/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, reports, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, debit, credit, default */
 /***/ (function(module) {
 
-module.exports = {"taxPayer":"Taxpayer","documentation":"Documentation","askForHelp":"Ask for Help","notifications":"Notifications","showMore":"show more","change":"Change","changeTaxPayer":"Change Taxpayer","settingsTaxPayer":"Taxpayer Settings","teamDashBoard":"Team Dashboard","teamSettings":"Team Settings","dashBoard":"Dashboard","configuration":"Configuration","settings":"Settings","transactions":"Transactions","accounting":"Accounting","auditing":"Auditing","reports":"Reports","integrations":"Integrations","addRowDetail":"Add Row Detail","save":"Save","saveReturn":"Save & Return","cancel":"Cancel","return":"Return","report":"Report","upload":"Upload","create":"Create","createNewRecord":"Create New Record","uploadFromExcel":"Upload from Excel","manual":"Manual"};
+module.exports = {"taxPayer":"Taxpayer","documentation":"Documentation","askForHelp":"Ask for Help","notifications":"Notifications","showMore":"show more","change":"Change","changeTaxPayer":"Change Taxpayer","settingsTaxPayer":"Taxpayer Settings","teamDashBoard":"Team Dashboard","teamSettings":"Team Settings","dashBoard":"Dashboard","configuration":"Configuration","settings":"Settings","transactions":"Transactions","accounting":"Accounting","auditing":"Auditing","reports":"Reports","integrations":"Integrations","addRowDetail":"Add Row Detail","save":"Save","saveReturn":"Save & Return","cancel":"Cancel","return":"Return","report":"Report","upload":"Upload","create":"Create","createNewRecord":"Create New Record","uploadFromExcel":"Upload from Excel","manual":"Manual","debit":"haber","credit":"debe"};
 
 /***/ }),
 
@@ -105199,10 +105196,10 @@ module.exports = {"customer":"Cliente","supplier":"Proveedor","income":"Ingreso 
 /*!**********************************************!*\
   !*** ./resources/js/plugins/es/general.json ***!
   \**********************************************/
-/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, default */
+/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, debit, credit, default */
 /***/ (function(module) {
 
-module.exports = {"taxPayer":"Contribuyente","documentation":"Documentación","askForHelp":"Solicitar Ayuda","notifications":"Notificaciones","showMore":"más","change":"Cambiar","changeTaxPayer":"Cambiar de Contribuyente","settingsTaxPayer":"Configuración (Contribuyente)","teamDashBoard":"Tablero del Equipo","teamSettings":"Configuración del Equipo","dashBoard":"Tablero","configuration":"Configuración","settings":"Ajustes","transactions":"Transacciones","accounting":"Contabilidad","auditing":"Auditoria","integrations":"Integrations","addRowDetail":"Agregar Detalle","save":"Guardar","saveReturn":"Guardar y Regresar","cancel":"Cancelar","return":"Regresar","report":"Informe | Informes","upload":"Importar","create":"Crear","createNewRecord":"Crear Registro","uploadFromExcel":"Subir desde Excel","manual":"Manual"};
+module.exports = {"taxPayer":"Contribuyente","documentation":"Documentación","askForHelp":"Solicitar Ayuda","notifications":"Notificaciones","showMore":"más","change":"Cambiar","changeTaxPayer":"Cambiar de Contribuyente","settingsTaxPayer":"Configuración (Contribuyente)","teamDashBoard":"Tablero del Equipo","teamSettings":"Configuración del Equipo","dashBoard":"Tablero","configuration":"Configuración","settings":"Ajustes","transactions":"Transacciones","accounting":"Contabilidad","auditing":"Auditoria","integrations":"Integrations","addRowDetail":"Agregar Detalle","save":"Guardar","saveReturn":"Guardar y Regresar","cancel":"Cancelar","return":"Regresar","report":"Informe | Informes","upload":"Importar","create":"Crear","createNewRecord":"Crear Registro","uploadFromExcel":"Subir desde Excel","manual":"Manual","debit":"Debit","credit":"Credit"};
 
 /***/ }),
 
@@ -106954,7 +106951,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! exports provided: pageurl, title, img, module, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/accounting/budgets","title":"accounting.budget","img":"/img/apps/budget.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"commercial.chart","properties":[{"type":"label","data":"name"}]},{"label":"commercial.debit","properties":[{"type":"text","data":"debit","placeholder":"commercial.debit","required":false,"location":"is_accountable"}]},{"label":"commercial.credit","properties":[{"type":"text","data":"credit","placeholder":"commercial.credit","required":false,"location":"is_accountable"}]}]}]};
+module.exports = {"pageurl":"/accounting/budgets","title":"accounting.budget","img":"/img/apps/budget.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"commercial.chart","properties":[{"type":"label","data":"name"}]},{"label":"general.debit","properties":[{"type":"text","data":"debit","placeholder":"general.debit","required":false,"location":"is_accountable"}]},{"label":"general.credit","properties":[{"type":"text","data":"credit","placeholder":"general.credit","required":false,"location":"is_accountable"}]}]}]};
 
 /***/ }),
 
