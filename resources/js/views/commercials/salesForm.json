@@ -1,134 +1,170 @@
-{ 
+{
     "pageurl": "/commercial/sales",
-    "title":  "commercial.Sale",
-    "img":  "/img/apps/sales.svg",
+    "title": "commercial.Sale",
+    "img": "/img/apps/sales.svg",
     "module": 2,
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label":  "commercial.date",
-                    "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                    "fields": [
+                        {
+                            "label": "commercial.date",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.document",
+                            "properties": [
+                                {
+                                    "type": "document",
+                                    "data": [
+                                        {
+                                            "documentcode": "code",
+                                            "codeexpiry": "code_expiry"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.customer ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "label": "commercial.document",
+                    "fields": [
+                        {
+                            "label": "commercial.customer",
+                            "properties": [
+                                {
+                                    "type": "partner",
+                                    "data": [
+                                        {
+                                            "name": "partner_name",
+                                            "taxid": "partner_taxid"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.customer",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.number",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "number",
+                                    "placeholder": "commercial.number ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {},
+                        {
+                            "label": "commercial.paymentcondition",
+                            "properties": [
+                                {
+                                    "type": "payment",
+                                    "data": [
+                                        {
+                                            "paymentcondition": "payment_condition",
+                                            "chartaccount": "chart_account_id"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.customer ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {},
+                        {
+                            "label": "commercial.currency",
+                            "properties": [
+                                {
+                                    "type": "currency",
+                                    "data": [
+                                        {
+                                            "salecurrency": "currency",
+                                            "currencyrate": "rate"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.currency ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "tables": [
+        {
+            "data": "details",
+            "actions": true,
+            "fields": [
+                {
+                    "label": "commercial.chart",
                     "properties": [
                         {
-                            "type": "document",
-                            "data": [
-                                {
-                                    "documentcode": "code",
-                                    "codeexpiry": "code_expiry"
-                                }
-                            ],
-                            "placeholder": "commercial.customer ",
+                            "type": "select",
+                            "data": "chart_id",
+                            "placeholder": "commercial.chart",
+                            "api": "/accounting/charts/for/income/",
+                            "required": false,
+                            "location": "",
+                            "select": [{ "value": "id", "label": "name" }]
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.vat",
+                    "properties": [
+                        {
+                            "type": "select",
+                            "data": "chart_vat_id",
+                            "placeholder": "commercial.vat",
+                            "api": "/accounting/charts/for/vats-debit/ ",
+                            "required": false,
+                            "location": "",
+                            "select": [{ "value": "id", "label": "name" }]
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.value",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "value",
+                            "placeholder": "commercial.value",
                             "required": false,
                             "location": ""
                         }
                     ]
                 }
-
             ]
-        },
-        {
-            "fields": [
-                {
-                    "label":  "commercial.customer",
-                    "properties": [{ "type":  "customer", "data": [{ "name":  "partner_name", "taxid":  "partner_taxid" }], "placeholder":  "commercial.customer ", "required": false, "location":  "" }]
-                },
-                {
-                    "label":  "commercial.number",
-                    "properties": [{ "type":  "text", "data":  "number", "placeholder":  "commercial.number ", "required": false, "location":  "" }]
-                }
-
-
-            ]
-        },
-        {
-            "fields": [
-                { 
-                    
-                },
-                {
-                    "label": "commercial.paymentcondition",
-                    "properties": [
-                        {
-                            "type": "payment",
-                            "data": [
-                                {
-                                    "paymentcondition": "payment_condition",
-                                    "chartaccount": "chart_account_id"
-                                }
-                            ],
-                            "placeholder": "commercial.customer ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "fields": [
-
-                {
-                    
-                },
-                {
-                    "label": "commercial.currency",
-                    "properties": [
-                        {
-                            "type": "currency",
-                            "data": [
-                                {
-                                    "salecurrency": "currency",
-                                    "currencyrate": "rate"
-                                }
-                            ],
-                            "placeholder": "commercial.currency ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-
-            ]
-        }]
-    }],
-    "tables": [{
-        "data":  "details",
-        "actions": true,
-        "fields": [
-            {
-                "label":  "commercial.chart",
-                "properties": [
-                    {
-                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api": "/accounting/charts/for/income/",
-                        "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
-                    }
-                ]
-            },
-            {
-                "label":  "commercial.vat",
-                "properties": [
-                    {
-                        "type":  "select", "data":  "chart_vat_id", "placeholder":  "commercial.vat", "api":  "/accounting/charts/for/vats-debit/ ",
-                        "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
-                    }
-                ]
-            },
-            {
-                "label":  "commercial.value",
-                "properties": [
-                    {
-                        "type":  "text", "data":  "value", "placeholder":  "commercial.vat",
-                        "required": false, "location":  ""
-                    }
-                ]
-            }
-
-
-        ]
-
-    }]
+        }
+    ]
 }

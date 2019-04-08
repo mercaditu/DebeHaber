@@ -1,7 +1,7 @@
 {
     "pageurl": "/commercial/purchases",
-    "title":  "commercial.Purchase",
-    "img":  "/img/apps/purchases.svg",
+    "title": "commercial.Purchase",
+    "img": "/img/apps/purchases.svg",
     "module": 1,
     "cards": [
         {
@@ -45,14 +45,14 @@
                             "label": "commercial.supplier",
                             "properties": [
                                 {
-                                    "type": "supplier",
+                                    "type": "partner",
                                     "data": [
                                         {
                                             "name": "partner_name",
                                             "taxid": "partner_taxid"
                                         }
                                     ],
-                                    "placeholder": "commercial.supplier ",
+                                    "placeholder": "commercial.supplier",
                                     "required": false,
                                     "location": ""
                                 }
@@ -131,7 +131,7 @@
                             "type": "select",
                             "data": "chart_id",
                             "placeholder": "commercial.chart",
-                            "api": "/accounting/charts/for/income/",
+                            "api": "/accounting/charts/for/expense",
                             "required": false,
                             "location": "",
                             "select": [
@@ -150,7 +150,7 @@
                             "type": "select",
                             "data": "chart_vat_id",
                             "placeholder": "commercial.vat",
-                            "api": "/accounting/charts/for/vats-debit/ ",
+                            "api": "/accounting/charts/for/vats-credit",
                             "required": false,
                             "location": "",
                             "select": [
@@ -168,7 +168,7 @@
                         {
                             "type": "text",
                             "data": "value",
-                            "placeholder": "commercial.vat",
+                            "placeholder": "commercial.value",
                             "required": false,
                             "location": ""
                         }
