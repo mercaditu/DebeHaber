@@ -38,7 +38,8 @@ class CycleController extends Controller
      */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        $cycle = Cycle::findOrNew(['id' => $request->id]);
+        $cycle = Cycle::where('id' , $request->id)->first()?? new Cycle();
+        
         $cycle->taxpayer_id = $taxPayer->id;
         $cycle->chart_version_id = $request->chart_version_id;
         $cycle->year = $request->year;

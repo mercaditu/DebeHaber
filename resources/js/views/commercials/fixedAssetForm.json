@@ -7,7 +7,7 @@
             "fields": [
                 {
                     "label":  "commercial.date",
-                    "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                    "properties": [{ "type":  "date", "data":  "purchase_date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
                 },
                 {
                     "label": "commercial.chart",
@@ -46,28 +46,19 @@
                     ]
                 },
                 {
-                    "label": "commercial.currency ",
+                    "label": "commercial.currency",
                     "properties": [
                         {
-                            "type": "text",
-                            "data": "rate",
-                            "placeholder": "commercial.rate",
+                            "type": "currency",
+                            "data": [
+                                {
+                                    "salecurrency": "currency",
+                                    "currencyrate": "rate"
+                                }
+                            ],
+                            "placeholder": "commercial.currency ",
                             "required": false,
                             "location": ""
-                        },
-                        {
-                            "type": "select",
-                            "data": "currency",
-                            "placeholder": "commercial.currency",
-                            "api": "/config/currencies/",
-                            "required": false,
-                            "location": "append ",
-                            "select": [
-                                {
-                                    "value": "code",
-                                    "label": "name "
-                                }
-                            ]
                         }
                     ]
                 }

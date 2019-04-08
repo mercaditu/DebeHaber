@@ -360,7 +360,7 @@ export default {
         }
 
         crud.methods
-        .onRead(app.baseUrl + "/accounting/charts/for/vats-debit")
+        .onRead(app.baseUrl + "/accounting/charts/for/vats-credit")
         .then(function (response) {
             app.vatCharts = response.data.data;
         });

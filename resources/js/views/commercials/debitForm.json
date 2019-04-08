@@ -131,7 +131,7 @@
                             "type": "select",
                             "data": "chart_id",
                             "placeholder": "commercial.chart",
-                            "api": "/accounting/charts/for/income/",
+                            "api": "/accounting/charts/for/expense/",
                             "required": false,
                             "location": "",
                             "select": [

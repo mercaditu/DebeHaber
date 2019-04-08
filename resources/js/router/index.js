@@ -278,7 +278,7 @@ export default [
                     img: "/img/apps/fixed-asset.svg",
                     columns: [
                         {
-                            key: "date",
+                            key: "purchase_date",
                             sortable: true
                         },
                         {

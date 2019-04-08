@@ -182,12 +182,15 @@ export default {
       crud.methods
         .onUpdate(app.baseUrl + app.$route.meta.pageurl, app.data)
         .then(function(response) {
-          app.$snack.success({
-            text: app.$i18n.t("commercial.invoiceSaved")
-          });
+          if(response.status==200)
+          {
+              app.$snack.success({
+                text: app.$i18n.t("commercial.Saved")
+              });
 
-          app.data = [];
-          app.$router.push({ name: app.$route.name, params: { id: "0" } });
+              app.data = [];
+              app.$router.push({ name: app.$route.name, params: { id: "0" } });
+          }
         })
         .catch(function(error) {
           console.log(error);
