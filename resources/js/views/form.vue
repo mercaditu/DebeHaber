@@ -164,7 +164,7 @@
               <b-input-group v-else>
                 <b-input
                   :type="property.type"
-                  v-bind="detail[property.data]"
+                   v-model="detail[property.data]"
                   :required="property.required"
                   :placeholder="property.placeholder"
                 />
