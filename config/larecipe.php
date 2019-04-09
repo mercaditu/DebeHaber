@@ -32,9 +32,9 @@ return [
     */
 
     'versions'      => [
-        'default'   => 'en',
+        'default'   => '1.0',
         'published' => [
-            'en'
+            '1.0'
         ]
     ],
 
@@ -47,20 +47,11 @@ return [
     | where you can limit the access to only authenticated users in your
     | system. It is false initially so that guests can view your docs.
     |
-    | You may also specify links to show under the auth dropdown menu.
-    | Logout link will show by default.
-    |
     |
     */
 
     'settings' => [
         'auth'  => false,
-        'auth_links' => [
-            [
-                'name' => '',
-                'url' => '',
-            ],
-        ],
         'ga_id' => ''
     ],
 
@@ -111,52 +102,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Documentation Repository
-    |--------------------------------------------------------------------------
-    |
-    | This is an optional config you can set in order to show an external link
-    | to your documentation's repository if you have one. Once you set the
-    | value of the url, LaRecipe automatically will show the nav button.
-    |
-    |
-    */
-
-    'repository'   => [
-        'provider' => 'github',
-        'url'      => 'https://github.com/saleem-hadad/larecipe'
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Appearance
     |--------------------------------------------------------------------------
     |
     | Here you can add configure the appearance of your docs. For example,
-    | you can swap the default logo to custom one that matches your Id
-    | Also, you can change the theme of your docs if you prefer that
+    | you can set the primary and secondary colors that will give your
+    | documentation a unique look. You can set the fav of your docs.
     |
-    | Supported Themes: 'light', 'dark'
     |
     */
 
     'ui'                 => [
-        'show_app_name'  => true,
-        'logo'           => '', // e.g.: /images/logo.svg
-        'fav'            => '', // e.g.: /fav.png
-        'theme'          => 'light',
-        'code'           => 'dark',
-        'back_to_top'    => true,
-        'show_side_bar'  => true,
+        'code_theme'     => 'dark', // or: light
+        'fav'            => '',     // eg: fav.png
         'colors'         => [
             'primary'    => '#787AF6',
-            'secondary'  => '#2b9cf2',
-            'selection'  => '#f4f5f7'
-        ],
-        'additional_css' => [
-            //'css/custom.css',
-        ],
-        'additional_js'  => [
-            //'js/custom.js',
+            'secondary'  => '#2b9cf2'
         ],
     ],
 
@@ -198,7 +159,7 @@ return [
    |
    */
 
-  'forum'                 => [
+  'forum'                   => [
         'enabled'           => false,
         'default'           => 'disqus',
         'services'          => [
