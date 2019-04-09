@@ -7,7 +7,9 @@ use App\Cycle;
 use App\Transaction;
 use App\Chart;
 use Illuminate\Http\Request;
+use App\Http\Resources\GeneralResource;
 use App\Http\Resources\ModelResource;
+use DB;
 
 class SearchController extends Controller
 {
@@ -51,39 +53,23 @@ class SearchController extends Controller
         return ModelResource::collection($results->load('customer'));
     }
 
-    public function searchTransactions($taxPayer, $cycle, $q)
+    public function searchPurchaseTransactions(TaxPayer $taxPayer, $cycle, $q)
     {
+        
         $taxPayerID = $taxPayer->id ?? $taxPayer;
 
         return GeneralResource::collection(
-            Transaction::where(function ($query) use ($taxPayer, $q) {
-                $query
-                    ->where(function ($subQuery) use ($taxPayer, $q) {
-                        $subQuery->whereIn('type', [4, 5])
-                            ->where('supplier_id', $taxPayer->id)
-                            ->where('number', 'like', '%' . $q . '%')
-                            ->where('code', 'like', '%' . $q . '%')
-                            ->whereHas('customer', function ($subSubQuery) use ($q) {
-                                $subSubQuery->where('name', 'like', '%' . $q . '%')
-                                    ->where('taxid', 'like', '%' . $q . '%');
-                            });
-                    })
-                    ->orWhere(function ($subQuery) use ($taxPayer, $q) {
-                        $subQuery->whereIn('type', [1, 2, 3])
-                            ->where('customer_id', $$taxPayer->id)
-                            ->where(function ($subSubQuery) use ($q) {
-                                $subSubQuery->where('number', 'like', '%' . $q . '%')
-                                    ->orWhere('code', 'like', '%' . $q . '%');
-                            })
-                            ->whereHas('supplier', function ($subSubQuery) use ($q) {
-                                $subSubQuery->where('name', 'like', '%' . $q . '%')
-                                    ->where('taxid', 'like', '%' . $q . '%');
-                            });
-                    });
-            })
-                ->with('details')
-                ->with('customer')
-                ->with('supplier')
+            Transaction::where('type', 1)
+                        ->where('taxpayer_id', $taxPayer->id)
+                        ->where('number', 'like', '%' . $q . '%')
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->select(
+                DB::raw('max(number) as number'),
+                DB::raw('sum(transaction_details.value) as total')
+            )
+            ->paginate(50)
+           
+                
         );
     }
 

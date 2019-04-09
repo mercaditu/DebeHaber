@@ -57,50 +57,47 @@
         "data":  "details",
         "fields": [
             {
-                "label":  "commercial.chart",
+                "label": "commercial.Purchase || Commercial.Value ",
                 "properties": [
                     {
-                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api":  "/accounting/charts/for/income/",
-                        "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
-                    }
-                ]
-            },
-            {
-                "label":  "commercial.currency",
-                "properties": [
-                    {
-                        "type": "text",
-                        "data": "currency",
-                        "placeholder": "commercial.currency",
+                        "type": "transaction",
+                        "data": [{
+                            "transactionnumber": "number",
+                            "transactionvalue": "value"
+                               }],
+                        "placeholder": "commercial.number ",
                         "required": false,
                         "location": ""
-                    }
-                ]
-            },
-            {
-                "label": "commercial.rate",
-                "properties": [
-                    {
-                        "type": "text",
-                        "data": "rate",
-                        "placeholder": "commercial.rate",
-                        "required": false,
-                        "location": ""
-                    }
-                ]
-            },
-            {
-                "label":  "commercial.value",
-                "properties": [
-                    {
-                        "type":  "text", "data":  "value", "placeholder":  "commercial.vat",
-                        "required": false, "location":  ""
                     }
                 ]
             }
+           
 
 
         ]
 
+    },
+    {
+        "data": "details",
+        "fields": [
+            {
+                "label": "commercial.Purchase || Commercial.Value ",
+                "properties": [
+                    {
+                        "type": "transaction",
+                        "data": [
+                            {
+                                "transactionnumber": "number",
+                                "transactionvalue": "value"
+                            }
+                        ],
+                        "placeholder": "commercial.number ",
+                        "required": false,
+                        "location": ""
+                    }
+                ]
+            }
+        ]
     }]
+    
 }

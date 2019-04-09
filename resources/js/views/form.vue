@@ -97,6 +97,17 @@
                     v-bind:rate.sync="data[property.data[0]['currencyrate']]"
                   ></currency>
                 </b-input-group>
+                <b-input-group v-else-if="property.type === 'mask'">
+                  <b-input
+                    v-if="property.location === ''"
+                    :type="property.type"
+                    v-model="data[property.data]"
+                    v-mask="spark.taxPayerConfig.document_mask"
+                    :required="property.required"
+                    :placeholder="$t(property.placeholder)"
+                  />
+                </b-input-group>
+                
                 <b-input-group v-else>
                   <b-input
                     v-if="property.location === ''"
@@ -136,7 +147,6 @@
         <b-row v-for="detail in data[table.data]" v-bind:key="detail.index">
           <b-col v-for="col in table.fields" v-bind:key="col.index">
             <span v-for="property in col.properties" v-bind:key="property.index">
-              <b-input-group v-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
               <b-input-group v-if="property.type === 'select'">
                 <select-data
                   v-bind:Id.sync="detail[property.data]"
@@ -144,10 +154,17 @@
                   :options="property.options"
                 ></select-data>
               </b-input-group>
+              <b-input-group v-else-if="property.type === 'transaction'">
+                  <search-transaction
+                    v-bind:number.sync="detail[property.data[0]['transactionnumber']]"
+                    v-bind:value.sync="detail[property.data[0]['transactionvalue']]"
+                  ></search-transaction>
+                </b-input-group>
+                <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
               <b-input-group v-else>
                 <b-input
                   :type="property.type"
-                  v-model="detail[property.data]"
+                  v-bind="detail[property.data]"
                   :required="property.required"
                   :placeholder="property.placeholder"
                 />
@@ -166,7 +183,9 @@ export default {
   components: { crud: crud },
   data() {
     return {
-      data: {}
+      data: {
+        date : new Date(Date.now()).toISOString().split("T")[0]
+      }
     };
   },
   computed: {
@@ -271,6 +290,7 @@ export default {
         app.data = response.data.data;
       });
     }
+    app.data.type = app.$route.meta.type;
   }
 };
 </script>

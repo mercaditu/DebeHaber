@@ -62,7 +62,7 @@
                             "label": "commercial.number",
                             "properties": [
                                 {
-                                    "type": "text",
+                                    "type": "mask",
                                     "data": "number",
                                     "placeholder": "commercial.number ",
                                     "required": false,

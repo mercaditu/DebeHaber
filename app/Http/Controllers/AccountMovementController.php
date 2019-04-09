@@ -24,18 +24,18 @@ class AccountMovementController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         
-        // if ($request->type != 2) {
-        //     $accountMovement = AccountMovement::firstOrNew(['id' => $request->id]);
-        //     $accountMovement->taxpayer_id = $taxPayer->id;
-        //     $accountMovement->chart_id = $request->chart_id;
-        //     $accountMovement->date =  Carbon::now();
-        //     $accountMovement->debit = $request->debit ?? 0;
-        //     $accountMovement->credit = $request->credit ?? 0;
-        //     $accountMovement->currency = $request->currency;
-        //     $accountMovement->rate = $request->rate ?? 1;
-        //     $accountMovement->comment = $request->comment;
-        //     $accountMovement->save();
-        // } else {
+        if ($request->type != 2) {
+            $accountMovement = AccountMovement::firstOrNew(['id' => $request->id]);
+            $accountMovement->taxpayer_id = $taxPayer->id;
+            $accountMovement->chart_id = $request->chart_id;
+            $accountMovement->date =  Carbon::now();
+            $accountMovement->debit = $request->debit ?? 0;
+            $accountMovement->credit = $request->credit ?? 0;
+            $accountMovement->currency = $request->currency;
+            $accountMovement->rate = $request->rate ?? 1;
+            $accountMovement->comment = $request->comment;
+            $accountMovement->save();
+        } else {
             $fromAccountMovement = AccountMovement::where('id', $request->fromId)->first() ?? new AccountMovement();
             $fromAccountMovement->taxpayer_id = $taxPayer->id;
             $fromAccountMovement->chart_id = $request->from_chart_id;
@@ -55,7 +55,7 @@ class AccountMovementController extends Controller
             $toAccountMovement->rate = $request->rate ?? 1;
             $toAccountMovement->comment = $request->comment;
             $toAccountMovement->save();
-        // }
+         }
 
         return response()->json('Ok', 200);
     }

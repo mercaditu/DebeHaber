@@ -1,5 +1,5 @@
 {
-    "type": 2,
+    "type": 1,
     "pageurl": "/commercial/money-movements",
     "title":  "commercial.MoneyMovement",
     "img":  "/img/apps/money-movement.svg",
@@ -34,11 +34,11 @@
         {
             "fields": [
                {
-                "label": "commercial.Fromchart",
+                "label": "commercial.chart",
                 "properties": [
                     {
                         "type": "select",
-                        "data": "from_chart_id",
+                        "data": "chart_id",
                         "placeholder": "commercial.chart",
                         "api": "/accounting/charts/for/money/",
                         "required": false,
@@ -53,23 +53,7 @@
                 ]
             },
             {
-                "label": "commercial.Tochart",
-                "properties": [
-                    {
-                        "type": "select",
-                        "data": "to_chart_id",
-                        "placeholder": "commercial.chart",
-                        "api": "/accounting/charts/for/money/",
-                        "required": false,
-                        "location": "",
-                        "select": [
-                            {
-                                "value": "id",
-                                "label": "name"
-                            }
-                        ]
-                    }
-                ]
+                
             }
                
             ]

@@ -32,6 +32,10 @@ Vue.component(
     require('./select.vue').default
 );
 Vue.component(
+    'search-transaction',
+    require('./search-transaction.vue').default
+);
+Vue.component(
     'search-taxpayer',
     require('./search-taxpayer.vue').default
 );

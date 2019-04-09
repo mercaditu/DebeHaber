@@ -47,7 +47,8 @@ class SalesController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $request->type = 2;
-        $request->sub_type = 1; (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 1; 
+        (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
