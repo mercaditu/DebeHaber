@@ -1,80 +1,74 @@
 {
     "pageurl": "/config/rates",
-    "title":  "commercial.Rate",
-    "img":  "/img/apps/rate.svg",
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "title": "commercial.exchangeRates",
+    "img": "/img/apps/rate.svg",
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label": "commercial.Currency",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "select",
-                            "data": "currency_id",
-                            "placeholder": "commercial.expiryDate",
-                            "api": "/config/currencies ",
-                            "required": false,
-                            "location": "append ",
-                            "select": [
+                            "label": "commercial.Currency",
+                            "properties": [
                                 {
-                                    "value": "code",
-                                    "label": "name"
+                                    "type": "select",
+                                    "data": "currency_id",
+                                    "placeholder": "commercial.expiryDate",
+                                    "api": "/config/currencies ",
+                                    "required": false,
+                                    "location": "append ",
+                                    "select": [
+                                        {
+                                            "value": "code",
+                                            "label": "name"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.sellRate",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "sell_rate",
+                                    "placeholder": "commercial.sellRate",
+                                    "required": false,
+                                    "location": ""
                                 }
                             ]
                         }
-                       
                     ]
                 },
                 {
-                    "label": "commercial.sellRate",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "sell_rate",
-                            "placeholder": "commercial.sellRate",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.Date",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.buyRate",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "buy_rate",
+                                    "placeholder": "commercial.start",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
-                       
                     ]
                 }
-                
-                
-
-            ]
-        },
-        {
-            "fields": [
-               {
-                "label": "commercial.Date",
-                "properties": [
-                    {
-                        "type": "date",
-                        "data": "date",
-                        "placeholder": "commercial.date",
-                        "required": false,
-                        "location": ""
-                    }
-                ]
-            },
-            {
-                "label": "commercial.buyRate",
-                    "properties": [
-                        {
-                            "type": "text",
-                            "data": "buy_rate",
-                            "placeholder": "commercial.start",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                 }
-               
-
             ]
         }
-       
-        ]
-    }]
-    
+    ]
 }

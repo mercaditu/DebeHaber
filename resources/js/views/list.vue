@@ -75,6 +75,7 @@
 
 <script>
 import crud from "../components/crud.vue";
+
 export default {
   components: { crud },
   data: () => ({
@@ -84,13 +85,11 @@ export default {
     formURL: function() {
       return this.$route.name.replace("List", "Form");
     }
-      },
-  mounted()
-  {
+  },
+  mounted() {
     this.$route.meta.columns.forEach(element => {
-        element.label = this.$t(element.label);
-        
-      });
+      element.label = this.$t(element.label);
+    });
   }
 };
 </script>

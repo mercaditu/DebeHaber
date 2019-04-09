@@ -6,5 +6,6 @@
     "openingBalance": "Balance de Apertura",
     "closingBalance": "Balance de Cierre",
     "cycleBudget": "Presupuesto Anual",
-    "chartOfAccounts": "Plan de Cuentas"
+    "chartOfAccounts": "Plan de Cuentas",
+    "template": "Plantilla de Asientos"
 }

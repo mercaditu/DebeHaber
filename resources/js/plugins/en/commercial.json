@@ -40,5 +40,7 @@
     "value": "Value",
     "startingValue": "Starting Value",
     "currentRange": "Valor Actual",
-    "endingRange": "Valor Final"
+    "endingRange": "Valor Final",
+
+    "impex": "Intl Commerce"
 }

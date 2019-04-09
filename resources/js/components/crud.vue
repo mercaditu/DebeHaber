@@ -140,7 +140,6 @@ export default {
   },
   mounted() {
     var app = this;
-    console.log("ads");
     app.onList();
   }
 };

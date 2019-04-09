@@ -3,12 +3,13 @@
     <b-row>
       <b-col>
         <b-btn
+          size="sm"
           class="d-none d-md-block float-left mr-15"
           v-shortkey="['esc']"
           @shortkey="onCancel()"
           @click="onCancel()"
         >
-          <i class="material-icons">keyboard_backspace</i>
+          <i class="material-icons md-14">keyboard_backspace</i>
         </b-btn>
         <h3 class="upper-case">
           <img :src="$route.meta.img" alt class="mr-10" width="32">
@@ -19,22 +20,30 @@
         <b-button-toolbar class="float-right d-none d-md-block">
           <b-button-group class="ml-15">
             <b-btn
+              size="sm"
               variant="primary"
               v-shortkey="['ctrl', 'n']"
               @shortkey="onSaveNew()"
               @click="onSaveNew()"
             >
-              <i class="material-icons">save</i>
+              <i class="material-icons md-14">save</i>
               {{ $t('general.save') }}
             </b-btn>
-            <b-btn variant="danger" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
-              <i class="material-icons">cancel</i>
+            <b-btn
+              variant="danger"
+              size="sm"
+              v-shortkey="['esc']"
+              @shortkey="onCancel()"
+              @click="onCancel()"
+            >
+              <i class="material-icons md-14">cancel</i>
               {{ $t('general.cancel') }}
             </b-btn>
           </b-button-group>
         </b-button-toolbar>
         <b-button-toolbar class="float-right d-md-none">
           <b-btn
+            size="sm"
             class="ml-15"
             v-shortkey="['ctrl', 'd']"
             @shortkey="addDetailRow()"
@@ -44,6 +53,7 @@
           </b-btn>
           <b-button-group class="ml-15">
             <b-btn
+              size="sm"
               variant="primary"
               v-shortkey="['ctrl', 'n']"
               @shortkey="onSaveNew()"
@@ -107,7 +117,7 @@
                     :placeholder="$t(property.placeholder)"
                   />
                 </b-input-group>
-                
+
                 <b-input-group v-else>
                   <b-input
                     v-if="property.location === ''"
@@ -155,16 +165,16 @@
                 ></select-data>
               </b-input-group>
               <b-input-group v-else-if="property.type === 'transaction'">
-                  <search-transaction
-                    v-bind:number.sync="detail[property.data[0]['transactionnumber']]"
-                    v-bind:value.sync="detail[property.data[0]['transactionvalue']]"
-                  ></search-transaction>
-                </b-input-group>
-                <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
+                <search-transaction
+                  v-bind:number.sync="detail[property.data[0]['transactionnumber']]"
+                  v-bind:value.sync="detail[property.data[0]['transactionvalue']]"
+                ></search-transaction>
+              </b-input-group>
+              <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
               <b-input-group v-else>
                 <b-input
                   :type="property.type"
-                   v-model="detail[property.data]"
+                  v-model="detail[property.data]"
                   :required="property.required"
                   :placeholder="property.placeholder"
                 />
@@ -184,7 +194,7 @@ export default {
   data() {
     return {
       data: {
-        date : new Date(Date.now()).toISOString().split("T")[0]
+        date: new Date(Date.now()).toISOString().split("T")[0]
       }
     };
   },

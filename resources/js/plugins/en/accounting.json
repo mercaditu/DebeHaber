@@ -6,5 +6,6 @@
     "openingBalance": "Opening Balance",
     "closingBalance": "Closing Balance",
     "cycleBudget": "Cycle Budget",
-    "chartOfAccounts": "Chart of Accounts"
+    "chartOfAccounts": "Chart of Accounts",
+    "template": "Journal Template"
 }

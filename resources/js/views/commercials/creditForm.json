@@ -63,7 +63,7 @@
                                 {
                                     "type": "mask",
                                     "data": "number",
-                                    "placeholder": "commercial.number ",
+                                    "placeholder": "commercial.number",
                                     "required": false,
                                     "location": ""
                                 }

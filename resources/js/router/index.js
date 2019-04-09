@@ -94,7 +94,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "commercial.date",
+                            label: "general.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
@@ -103,6 +103,11 @@ export default [
                         {
                             key: "partner_name",
                             label: "commercial.customer",
+                            formatter: (value, key, item) => {
+                                return (
+                                    item.partner_name.substring(0, 15) + "..."
+                                );
+                            },
                             sortable: true
                         },
                         {
@@ -113,6 +118,13 @@ export default [
                         {
                             key: "total",
                             label: "commercial.total",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.details.reduce(function(sum, row) {
+                                        return sum + new Number(row["value"]);
+                                    }, 0)
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -151,11 +163,20 @@ export default [
                     columns: [
                         {
                             key: "date",
+                            label: "general.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
                             key: "partner_name",
                             label: "commercial.customer",
+                            formatter: (value, key, item) => {
+                                return (
+                                    item.partner_name.substring(0, 18) + "..."
+                                );
+                            },
                             sortable: true
                         },
                         {
@@ -166,6 +187,13 @@ export default [
                         {
                             key: "total",
                             label: "commercial.total",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.details.reduce(function(sum, row) {
+                                        return sum + new Number(row["value"]);
+                                    }, 0)
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -195,6 +223,10 @@ export default [
                     columns: [
                         {
                             key: "date",
+                            label: "general.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
@@ -210,6 +242,13 @@ export default [
                         {
                             key: "total",
                             label: "commercial.total",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.details.reduce(function(sum, row) {
+                                        return sum + new Number(row["value"]);
+                                    }, 0)
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -239,6 +278,10 @@ export default [
                     columns: [
                         {
                             key: "date",
+                            label: "general.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
@@ -254,6 +297,13 @@ export default [
                         {
                             key: "total",
                             label: "commercial.total",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.details.reduce(function(sum, row) {
+                                        return sum + new Number(row["value"]);
+                                    }, 0)
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -283,6 +333,12 @@ export default [
                     columns: [
                         {
                             key: "purchase_date",
+                            label: "general.date",
+                            formatter: (value, key, item) => {
+                                return new Date(
+                                    item.purchase_date
+                                ).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
@@ -298,6 +354,11 @@ export default [
                         {
                             key: "current_value",
                             label: "commercial.value",
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.current_value
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -327,6 +388,10 @@ export default [
                     columns: [
                         {
                             key: "date",
+                            label: "general.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
@@ -381,16 +446,30 @@ export default [
                     columns: [
                         {
                             key: "date",
+                            label: "general.date",
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
                             key: "start_date",
                             label: "commercial.startDate",
+                            formatter: (value, key, item) => {
+                                return new Date(
+                                    item.start_date
+                                ).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
-                            key: "start_date",
+                            key: "end_date",
                             label: "commercial.endDate",
+                            formatter: (value, key, item) => {
+                                return new Date(
+                                    item.end_date
+                                ).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {

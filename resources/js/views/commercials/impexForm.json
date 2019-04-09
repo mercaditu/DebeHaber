@@ -1,103 +1,118 @@
 {
     "pageurl": "/commercial/impexes",
-    "title":  "commercial.Impex",
-    "img":  "/img/apps/impex.svg",
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "title": "commercial.Impex",
+    "img": "/img/apps/impex.svg",
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label":  "commercial.date",
-                    "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                    "fields": [
+                        {
+                            "label": "commercial.date",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.currency ",
+                            "properties": [
+                                {
+                                    "type": "currency",
+                                    "data": [
+                                        {
+                                            "salecurrency": "currency",
+                                            "currencyrate": "rate"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.currency ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "label": "commercial.currency ",
+                    "fields": [
+                        {
+                            "label": "commercial.code",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "code",
+                                    "placeholder": "commercial.code ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "commercial.comment ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "tables": [
+        {
+            "data": "details",
+            "fields": [
+                {
+                    "label": "commercial.Purchase || Commercial.Value ",
                     "properties": [
                         {
-                            "type": "currency",
+                            "type": "transaction",
                             "data": [
                                 {
-                                    "salecurrency": "currency",
-                                    "currencyrate": "rate"
+                                    "transactionnumber": "number",
+                                    "transactionvalue": "value"
                                 }
                             ],
-                            "placeholder": "commercial.currency ",
+                            "placeholder": "commercial.number",
                             "required": false,
                             "location": ""
                         }
                     ]
                 }
-
             ]
         },
         {
+            "data": "details",
             "fields": [
                 {
-                    "label":  "commercial.code",
-                    "properties": [{ "type":  "text", "data":  "code", "placeholder":  "commercial.code ", "required": false, "location":  "" }]
-                },
-                {
-                    "label": "commercial.comment",
+                    "label": "commercial.Purchase || Commercial.Value ",
                     "properties": [
                         {
-                            "type": "text",
-                            "data": "comment",
-                            "placeholder": "commercial.comment ",
+                            "type": "transaction",
+                            "data": [
+                                {
+                                    "transactionnumber": "number",
+                                    "transactionvalue": "value"
+                                }
+                            ],
+                            "placeholder": "commercial.number",
                             "required": false,
                             "location": ""
                         }
                     ]
                 }
-
-
             ]
         }
-     ]
-    }],
-    "tables": [{
-        "data":  "details",
-        "fields": [
-            {
-                "label": "commercial.Purchase || Commercial.Value ",
-                "properties": [
-                    {
-                        "type": "transaction",
-                        "data": [{
-                            "transactionnumber": "number",
-                            "transactionvalue": "value"
-                               }],
-                        "placeholder": "commercial.number ",
-                        "required": false,
-                        "location": ""
-                    }
-                ]
-            }
-           
-
-
-        ]
-
-    },
-    {
-        "data": "details",
-        "fields": [
-            {
-                "label": "commercial.Purchase || Commercial.Value ",
-                "properties": [
-                    {
-                        "type": "transaction",
-                        "data": [
-                            {
-                                "transactionnumber": "number",
-                                "transactionvalue": "value"
-                            }
-                        ],
-                        "placeholder": "commercial.number ",
-                        "required": false,
-                        "location": ""
-                    }
-                ]
-            }
-        ]
-    }]
-    
+    ]
 }
