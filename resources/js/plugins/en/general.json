@@ -32,6 +32,7 @@
     "uploadFromExcel": "Upload from Excel",
     "manual": "Manual",
 
-    "debit": "haber",
-    "credit": "debe"
+    "debit": "Debit",
+    "credit": "Credit",
+    "total": "Total"
 }

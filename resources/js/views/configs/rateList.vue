@@ -38,39 +38,39 @@
           <crud :columns="columns" inline-template>
             <b-card no-body>
               <b-table
-              hover
-              responsive
-              :items="items"
-              :fields="columns"
-              :current-page="current_page"
-              show-empty
+                hover
+                responsive
+                :items="items"
+                :fields="columns"
+                :current-page="current_page"
+                show-empty
               >
-              <template slot="actions" slot-scope="data">
-                <table-actions :row="data.item"></table-actions>
-              </template>
+                <template slot="actions" slot-scope="data">
+                  <table-actions :row="data.item"></table-actions>
+                </template>
 
-              <div slot="table-busy">
-                <table-loading></table-loading>
-              </div>
+                <div slot="table-busy">
+                  <table-loading></table-loading>
+                </div>
 
-              <template slot="empty">
-                <table-empty></table-empty>
-              </template>
-            </b-table>
+                <template slot="empty">
+                  <table-empty></table-empty>
+                </template>
+              </b-table>
 
-            <b-pagination
-            align="center"
-            :total-rows="meta.total"
-            :per-page="meta.per_page"
-            @change="onList()"
-            ></b-pagination>
-          </b-card>
-        </crud>
-      </div>
-      <router-view v-else></router-view>
-    </b-col>
-  </b-row>
-</div>
+              <b-pagination
+                align="center"
+                :total-rows="meta.total"
+                :per-page="meta.per_page"
+                @change="onList()"
+              ></b-pagination>
+            </b-card>
+          </crud>
+        </div>
+        <router-view v-else></router-view>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
@@ -83,7 +83,7 @@ export default {
       return [
         {
           key: "date",
-          label: this.$i18n.t("general.date"),
+          label: this.$i18n.t("commercial.date"),
           sortable: true
         },
         {

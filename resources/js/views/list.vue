@@ -8,7 +8,7 @@
               <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26">
               {{ $t($route.meta.title) }}
             </h4>
-            <p class="lead" v-if="$route.name.includes('List')">{{ $t($route.meta.description) }}</p>
+            <!-- <p class="lead" v-if="$route.name.includes('List')">{{ $t($route.meta.description) }}</p> -->
           </b-card>
           <b-card no-body>
             <b-list-group flush>

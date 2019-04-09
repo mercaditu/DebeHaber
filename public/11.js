@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
     columns: function columns() {
       return [{
         key: "date",
-        label: this.$i18n.t("general.date"),
+        label: this.$i18n.t("commercial.date"),
         sortable: true
       }, {
         key: "currency.name",
@@ -174,9 +174,9 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n              " +
+                              "\n            " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n            "
+                                "\n          "
                             )
                           ]),
                           _vm._v(" "),
@@ -186,11 +186,11 @@ var render = function() {
                                 { staticClass: "lead" },
                                 [
                                   _vm._v(
-                                    "\n              " +
+                                    "\n            " +
                                       _vm._s(
                                         _vm.$t(_vm.$route.meta.description)
                                       ) +
-                                      ",\n              "
+                                      ",\n            "
                                   ),
                                   _c(
                                     "router-link",
@@ -233,11 +233,11 @@ var render = function() {
                                     _vm._v("cloud_upload")
                                   ]),
                                   _vm._v(
-                                    "\n                " +
+                                    "\n              " +
                                       _vm._s(_vm.$t("general.upload")) +
                                       " " +
                                       _vm._s(_vm.$route.meta.title) +
-                                      "\n              "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -256,11 +256,11 @@ var render = function() {
                                     [_vm._v("add_box")]
                                   ),
                                   _vm._v(
-                                    "\n                " +
+                                    "\n              " +
                                       _vm._s(_vm.$t("general.create")) +
                                       " " +
                                       _vm._s(_vm.$route.meta.title) +
-                                      "\n              "
+                                      "\n            "
                                   )
                                 ]
                               )

@@ -94,7 +94,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
@@ -117,7 +117,7 @@ export default [
                         },
                         {
                             key: "total",
-                            label: "commercial.total",
+                            label: "general.total",
                             formatter: (value, key, item) => {
                                 return new Number(
                                     item.details.reduce(function(sum, row) {
@@ -163,7 +163,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
@@ -186,7 +186,7 @@ export default [
                         },
                         {
                             key: "total",
-                            label: "commercial.total",
+                            label: "general.total",
                             formatter: (value, key, item) => {
                                 return new Number(
                                     item.details.reduce(function(sum, row) {
@@ -223,7 +223,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
@@ -241,7 +241,7 @@ export default [
                         },
                         {
                             key: "total",
-                            label: "commercial.total",
+                            label: "general.total",
                             formatter: (value, key, item) => {
                                 return new Number(
                                     item.details.reduce(function(sum, row) {
@@ -278,7 +278,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
@@ -296,7 +296,7 @@ export default [
                         },
                         {
                             key: "total",
-                            label: "commercial.total",
+                            label: "general.total",
                             formatter: (value, key, item) => {
                                 return new Number(
                                     item.details.reduce(function(sum, row) {
@@ -333,7 +333,7 @@ export default [
                     columns: [
                         {
                             key: "purchase_date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(
                                     item.purchase_date
@@ -388,7 +388,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
@@ -446,7 +446,7 @@ export default [
                     columns: [
                         {
                             key: "date",
-                            label: "general.date",
+                            label: "commercial.date",
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },

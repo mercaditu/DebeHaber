@@ -95061,15 +95061,7 @@ var render = function() {
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
                                 "\n          "
                             )
-                          ]),
-                          _vm._v(" "),
-                          _vm.$route.name.includes("List")
-                            ? _c("p", { staticClass: "lead" }, [
-                                _vm._v(
-                                  _vm._s(_vm.$t(_vm.$route.meta.description))
-                                )
-                              ])
-                            : _vm._e()
+                          ])
                         ]
                       ),
                       _vm._v(" "),
@@ -111667,10 +111659,10 @@ module.exports = {"customer":"Customer | Customers","supplier":"Supplier | Suppl
 /*!**********************************************!*\
   !*** ./resources/js/plugins/en/general.json ***!
   \**********************************************/
-/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, reports, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, debit, credit, default */
+/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, reports, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, debit, credit, total, default */
 /***/ (function(module) {
 
-module.exports = {"taxPayer":"Taxpayer","documentation":"Documentation","askForHelp":"Ask for Help","notifications":"Notifications","showMore":"show more","change":"Change","changeTaxPayer":"Change Taxpayer","settingsTaxPayer":"Taxpayer Settings","teamDashBoard":"Team Dashboard","teamSettings":"Team Settings","dashBoard":"Dashboard","configuration":"Configuration","settings":"Settings","transactions":"Transactions","accounting":"Accounting","auditing":"Auditing","reports":"Reports","integrations":"Integrations","addRowDetail":"Add Row Detail","save":"Save","saveReturn":"Save & Return","cancel":"Cancel","return":"Return","report":"Report","upload":"Upload","create":"Create","createNewRecord":"Create New Record","uploadFromExcel":"Upload from Excel","manual":"Manual","debit":"haber","credit":"debe"};
+module.exports = {"taxPayer":"Taxpayer","documentation":"Documentation","askForHelp":"Ask for Help","notifications":"Notifications","showMore":"show more","change":"Change","changeTaxPayer":"Change Taxpayer","settingsTaxPayer":"Taxpayer Settings","teamDashBoard":"Team Dashboard","teamSettings":"Team Settings","dashBoard":"Dashboard","configuration":"Configuration","settings":"Settings","transactions":"Transactions","accounting":"Accounting","auditing":"Auditing","reports":"Reports","integrations":"Integrations","addRowDetail":"Add Row Detail","save":"Save","saveReturn":"Save & Return","cancel":"Cancel","return":"Return","report":"Report","upload":"Upload","create":"Create","createNewRecord":"Create New Record","uploadFromExcel":"Upload from Excel","manual":"Manual","debit":"Debit","credit":"Credit","total":"Total"};
 
 /***/ }),
 
@@ -111700,10 +111692,10 @@ module.exports = {"customer":"Cliente","supplier":"Proveedor","income":"Ingreso 
 /*!**********************************************!*\
   !*** ./resources/js/plugins/es/general.json ***!
   \**********************************************/
-/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, debit, credit, default */
+/*! exports provided: taxPayer, documentation, askForHelp, notifications, showMore, change, changeTaxPayer, settingsTaxPayer, teamDashBoard, teamSettings, dashBoard, configuration, settings, transactions, accounting, auditing, integrations, addRowDetail, save, saveReturn, cancel, return, report, upload, create, createNewRecord, uploadFromExcel, manual, debit, credit, total, default */
 /***/ (function(module) {
 
-module.exports = {"taxPayer":"Contribuyente","documentation":"Documentación","askForHelp":"Solicitar Ayuda","notifications":"Notificaciones","showMore":"más","change":"Cambiar","changeTaxPayer":"Cambiar de Contribuyente","settingsTaxPayer":"Configuración (Contribuyente)","teamDashBoard":"Tablero del Equipo","teamSettings":"Configuración del Equipo","dashBoard":"Tablero","configuration":"Configuración","settings":"Ajustes","transactions":"Transacciones","accounting":"Contabilidad","auditing":"Auditoria","integrations":"Integrations","addRowDetail":"Agregar Detalle","save":"Guardar","saveReturn":"Guardar y Regresar","cancel":"Cancelar","return":"Regresar","report":"Informe | Informes","upload":"Importar","create":"Crear","createNewRecord":"Crear Registro","uploadFromExcel":"Subir desde Excel","manual":"Manual","debit":"Debit","credit":"Credit"};
+module.exports = {"taxPayer":"Contribuyente","documentation":"Documentación","askForHelp":"Solicitar Ayuda","notifications":"Notificaciones","showMore":"más","change":"Cambiar","changeTaxPayer":"Cambiar de Contribuyente","settingsTaxPayer":"Configuración (Contribuyente)","teamDashBoard":"Tablero del Equipo","teamSettings":"Configuración del Equipo","dashBoard":"Tablero","configuration":"Configuración","settings":"Ajustes","transactions":"Transacciones","accounting":"Contabilidad","auditing":"Auditoria","integrations":"Integrations","addRowDetail":"Agregar Detalle","save":"Guardar","saveReturn":"Guardar y Regresar","cancel":"Cancelar","return":"Regresar","report":"Informe | Informes","upload":"Importar","create":"Crear","createNewRecord":"Crear Registro","uploadFromExcel":"Subir desde Excel","manual":"Manual","debit":"Haber","credit":"Debe","total":"Total"};
 
 /***/ }),
 
@@ -111937,7 +111929,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/sales.svg",
       columns: [{
         key: "date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.date).toLocaleDateString();
         },
@@ -111955,7 +111947,7 @@ var AccountingReports = function AccountingReports() {
         sortable: true
       }, {
         key: "total",
-        label: "commercial.total",
+        label: "general.total",
         formatter: function formatter(value, key, item) {
           return new Number(item.details.reduce(function (sum, row) {
             return sum + new Number(row["value"]);
@@ -111992,7 +111984,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/credit-note.svg",
       columns: [{
         key: "date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.date).toLocaleDateString();
         },
@@ -112010,7 +112002,7 @@ var AccountingReports = function AccountingReports() {
         sortable: true
       }, {
         key: "total",
-        label: "commercial.total",
+        label: "general.total",
         formatter: function formatter(value, key, item) {
           return new Number(item.details.reduce(function (sum, row) {
             return sum + new Number(row["value"]);
@@ -112039,7 +112031,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/purchase-v1.svg",
       columns: [{
         key: "date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.date).toLocaleDateString();
         },
@@ -112054,7 +112046,7 @@ var AccountingReports = function AccountingReports() {
         sortable: true
       }, {
         key: "total",
-        label: "commercial.total",
+        label: "general.total",
         formatter: function formatter(value, key, item) {
           return new Number(item.details.reduce(function (sum, row) {
             return sum + new Number(row["value"]);
@@ -112083,7 +112075,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/credit-note.svg",
       columns: [{
         key: "date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.date).toLocaleDateString();
         },
@@ -112098,7 +112090,7 @@ var AccountingReports = function AccountingReports() {
         sortable: true
       }, {
         key: "total",
-        label: "commercial.total",
+        label: "general.total",
         formatter: function formatter(value, key, item) {
           return new Number(item.details.reduce(function (sum, row) {
             return sum + new Number(row["value"]);
@@ -112127,7 +112119,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/fixed-asset.svg",
       columns: [{
         key: "purchase_date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.purchase_date).toLocaleDateString();
         },
@@ -112169,7 +112161,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/account-payable.svg",
       columns: [{
         key: "date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.date).toLocaleDateString();
         },
@@ -112216,7 +112208,7 @@ var AccountingReports = function AccountingReports() {
       img: "/img/apps/inventory.svg",
       columns: [{
         key: "date",
-        label: "general.date",
+        label: "commercial.date",
         formatter: function formatter(value, key, item) {
           return new Date(item.date).toLocaleDateString();
         },
