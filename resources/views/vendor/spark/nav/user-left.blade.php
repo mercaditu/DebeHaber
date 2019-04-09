@@ -1,8 +1,12 @@
 <li class="nav-item dropdown">
-    <b-dropdown id="dropdown-1" :text="currentTeam.name" variant="outline-muted" size="sm">
-        <b-nav-item class="sub-menu" :to="{ name: 'taxPayer'}">
+    <b-dropdown id="dropdown-1" variant="outline-muted" size="sm">
+        <template slot="button-content">
+            <i class="material-icons md-18 mr-5">supervised_user_circle</i>
+            @{{ currentTeam.name }}
+        </template>
+        <b-nav-item class="sub-menu" href="/home" style="width:220px">
             <i class="material-icons md-18 ml-10 mr-10">dashboard</i>
-            @{{ $t('general.dashBoard') }}
+            @{{ $t('general.teamDashBoard') }}
         </b-nav-item>
 
         <b-dropdown-divider></b-dropdown-divider>
@@ -20,7 +24,11 @@
 @isset($taxPayerData)
     <!-- Left Side Of Navbar -->
     <li class="nav-item">
-        <b-dropdown id="dropdown-1" :text="spark.taxPayerData.alias" variant="outline-success" size="sm">
+        <b-dropdown id="dropdown-1" variant="outline-success" size="sm">
+            <template slot="button-content">
+                <i class="material-icons md-18 mr-5">business_center</i>
+                @{{ spark.taxPayerData.alias }}
+            </template>
             <b-nav-item class="sub-menu" :to="{ name: 'taxPayer'}">
                 <i class="material-icons md-18 ml-10 mr-10">dashboard</i>
                 @{{ $t('general.dashBoard') }}

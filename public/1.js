@@ -207,7 +207,7 @@ __webpack_require__.r(__webpack_exports__);
             text: app.$i18n.t('chart.saved', app.newChart.code)
           });
           app.$refs.accountModel.hide();
-        }).catch(function (error) {
+        })["catch"](function (error) {
           app.$snack.danger({
             text: this.$i18n.t('general.errorMessage')
           });

@@ -195,7 +195,7 @@ __webpack_require__.r(__webpack_exports__);
           text: app.$i18n.t('commercial.CharttSaved')
         });
         app.$router.go(-1);
-      }).catch(function (error) {
+      })["catch"](function (error) {
         app.$snack.danger({
           text: 'Error OMG!'
         });
@@ -213,7 +213,7 @@ __webpack_require__.r(__webpack_exports__);
             id: '0'
           }
         });
-      }).catch(function (error) {
+      })["catch"](function (error) {
         app.$snack.danger({
           text: this.$i18n.t('general.errorMessage')
         });
