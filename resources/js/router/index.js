@@ -84,7 +84,7 @@ export default [
         children: [
             {
                 path: "sales",
-                component: import("../views/list"),
+                component: List,
                 name: "salesList",
                 meta: {
                     apiUrl: "sales",
@@ -142,7 +142,7 @@ export default [
             },
             {
                 path: "credit-notes",
-                component: import("../views/list"),
+                component: List,
                 name: "creditList",
                 meta: {
                     title: "commercial.creditBook",

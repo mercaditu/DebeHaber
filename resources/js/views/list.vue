@@ -39,7 +39,7 @@
                   hover
                   responsive
                   :items="items"
-                  :fields="i18nColumns"
+                  :fields="$route.meta.columns"
                   :current-page="currentPage"
                   show-empty
                 >
@@ -83,15 +83,14 @@ export default {
   computed: {
     formURL: function() {
       return this.$route.name.replace("List", "Form");
-    },
-    i18nColumns: function() {
-      // $route.meta.columns
-      $route.meta.columns.forEach(element => {
-        //element.label = $t(element.label);
-        alert(element.label);
-      });
-      //foreach column, re assign label property
     }
+      },
+  mounted()
+  {
+    this.$route.meta.columns.forEach(element => {
+        element.label = this.$t(element.label);
+        
+      });
   }
 };
 </script>
