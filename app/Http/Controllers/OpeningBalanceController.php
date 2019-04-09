@@ -36,6 +36,8 @@ class OpeningBalanceController extends Controller
         ->orderBy('code')
         ->get();
 
+         
+
         if (isset($journalDetails))
         {
             // Loop through Journal entries and add to chart balance
@@ -45,7 +47,7 @@ class OpeningBalanceController extends Controller
 
                 if (isset($chart))
                 {
-                    $chart->detail_id = $detail->id_text;
+                    $chart->detail_id = $detail->id;
                     $chart->debit = $detail->debit;
                     $chart->credit = $detail->credit;
                 }
