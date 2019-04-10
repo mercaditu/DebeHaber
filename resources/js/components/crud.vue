@@ -26,7 +26,7 @@ export default {
       // this.$refs.topProgress.start();
       app.loading = true;
 
-      var page = app.$children[0] != null ? app.$children[0].currentPage : 1;
+      var page = app.$children[1] != null ? app.$children[1].currentPage : 1;
 
       axios
         .get("/api" + this.$route.path + "?page=" + page)
@@ -145,6 +145,7 @@ export default {
     
     if (this.name != this.viewURL)
     {
+      this.$children[1].currentPage = 1;
       this.name = this.viewURL;
       this.onList(); 
     }

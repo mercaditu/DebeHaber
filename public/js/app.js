@@ -2283,7 +2283,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // this.$refs.topProgress.start();
 
       app.loading = true;
-      var page = app.$children[0] != null ? app.$children[0].currentPage : 1;
+      var page = app.$children[1] != null ? app.$children[1].currentPage : 1;
       axios.get("/api" + this.$route.path + "?page=" + page).then(function (_ref) {
         var data = _ref.data;
         app.items = data.data;
@@ -2407,6 +2407,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   beforeUpdate: function beforeUpdate() {
     //var app = this;
     if (this.name != this.viewURL) {
+      this.$children[1].currentPage = 1;
       this.name = this.viewURL;
       this.onList();
     }
@@ -109853,6 +109854,10 @@ var AccountingReports = function AccountingReports() {
       columns: [{
         key: "name",
         sortable: true
+      }, {
+        key: "actions",
+        label: "",
+        sortable: false
       }]
     },
     children: [{
@@ -110979,7 +110984,7 @@ module.exports = {"pageurl":"/accounting/opening-balance","title":"accounting.op
 /*! exports provided: pageurl, title, img, cards, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/accounting/journal-templates","title":"accounting.Journal Template","img":"/img/apps/template.svg","cards":[{"rows":[{"fields":[{"label":"commercial.name","properties":[{"type":"text","data":"name","placeholder":"commercial.date","required":false,"location":""}]}]}]}],"tables":[{"data":"details","fields":[{"label":"accounting.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/accountables/","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"accounting.debitCoef","properties":[{"type":"text","data":"debit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"accounting.creditCoef","properties":[{"type":"text","data":"credit_coef","placeholder":"commercial.vat","required":false,"location":""}]}]}]};
+module.exports = {"pageurl":"/accounting/journal-templates","title":"accounting.Journal Template","img":"/img/apps/template.svg","cards":[{"rows":[{"fields":[{"label":"commercial.name","properties":[{"type":"text","data":"name","placeholder":"commercial.date","required":false,"location":""}]}]}]}],"tables":[{"data":"details","fields":[{"label":"accounting.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/accountables/","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"accounting.debitCoef","properties":[{"type":"text","data":"debit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"accounting.creditCoef","properties":[{"type":"text","data":"credit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"","properties":[{"type":"actions","data":"","api":"/commercial/details","placeholder":"","required":false,"location":""}]}]}]};
 
 /***/ }),
 

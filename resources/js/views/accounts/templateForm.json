@@ -47,6 +47,19 @@
                         "location": ""
                     }
                 ]
+            },
+            {
+                "label": "",
+                "properties": [
+                    {
+                        "type": "actions",
+                        "data": "",
+                        "api": "/commercial/details",
+                        "placeholder": "",
+                        "required": false,
+                        "location": ""
+                    }
+                ]
             }
 
 

@@ -711,6 +711,11 @@ export default [
                         {
                             key: "name",
                             sortable: true
+                        },
+                        {
+                            key: "actions",
+                            label: "",
+                            sortable: false
                         }
                     ]
                 },
