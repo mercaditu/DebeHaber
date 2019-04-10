@@ -1,4 +1,5 @@
 <script>
+
 export default {
   props: ["columns"],
   data: () => ({
@@ -6,7 +7,8 @@ export default {
     items: [],
     meta: [],
     loading: false,
-    lastDeletedItem: []
+    lastDeletedItem: [],
+    name:''
   }),
   computed: {
     formURL: function() {
@@ -24,7 +26,7 @@ export default {
       // this.$refs.topProgress.start();
       app.loading = true;
 
-      var page = app.$children[1] != null ? app.$children[1].currentPage : 1;
+      var page = app.$children[0] != null ? app.$children[0].currentPage : 1;
 
       axios
         .get("/api" + this.$route.path + "?page=" + page)
@@ -138,9 +140,22 @@ export default {
       return 0;
     }
   },
-  mounted() {
+   beforeUpdate() {
+    //var app = this;
+    
+    if (this.name != this.viewURL)
+    {
+      this.name = this.viewURL;
+      this.onList(); 
+    }
+  },
+  mounted()
+  {
     var app = this;
-    app.onList();
+     this.name = this.viewURL;
+      app.onList(); 
+    
   }
+
 };
 </script>

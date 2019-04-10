@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "00b64e8e7a60b8df45af2e60525eb74e",
@@ -325,16 +325,16 @@
         },
         {
             "name": "clue/stream-filter",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/php-stream-filter.git",
-                "reference": "d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0"
+                "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0",
-                "reference": "d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0",
+                "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
+                "reference": "5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71",
                 "shasum": ""
             },
             "require": {
@@ -349,7 +349,7 @@
                     "Clue\\StreamFilter\\": "src/"
                 },
                 "files": [
-                    "src/functions.php"
+                    "src/functions_include.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -373,7 +373,7 @@
                 "stream_filter_append",
                 "stream_filter_register"
             ],
-            "time": "2017-08-18T09:54:01+00:00"
+            "time": "2019-04-09T12:31:48+00:00"
         },
         {
             "name": "defuse/php-encryption",
@@ -1931,7 +1931,8 @@
             "dist": {
                 "type": "path",
                 "url": "./spark",
-                "reference": "e8ca36ab2280851f041e0479cd9cc17f48319d97"
+                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6",
+                "shasum": null
             },
             "require": {
                 "erusev/parsedown": "~1.0",
@@ -5754,28 +5755,28 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.8.0",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e"
+                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/d50a81aea91bb188651e1e81e77c73ba95d8370e",
-                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/6a920a441783a50d7c95d08b3ae9189b149b259f",
+                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f",
                 "shasum": ""
             },
             "require": {
                 "illuminate/cookie": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/view": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": "^7.2"
+                "php": "^7.1"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
                 "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
-                "phpunit/phpunit": "^8.0"
+                "phpunit/phpunit": "^6.3|^7.0|^8.0"
             },
             "type": "library",
             "extra": {
@@ -5818,20 +5819,20 @@
                 "law",
                 "spatie"
             ],
-            "time": "2019-03-28T23:13:20+00:00"
+            "time": "2019-02-27T08:10:09+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
-            "version": "1.17.0",
+            "version": "1.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-query-builder.git",
-                "reference": "3a30aa48911c26fa86728360b6cee30e9c010bc0"
+                "reference": "f7c4a6d1ac19a08f8b8848e829d3b304132cdc6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/3a30aa48911c26fa86728360b6cee30e9c010bc0",
-                "reference": "3a30aa48911c26fa86728360b6cee30e9c010bc0",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/f7c4a6d1ac19a08f8b8848e829d3b304132cdc6e",
+                "reference": "f7c4a6d1ac19a08f8b8848e829d3b304132cdc6e",
                 "shasum": ""
             },
             "require": {
@@ -5875,20 +5876,20 @@
                 "laravel-query-builder",
                 "spatie"
             ],
-            "time": "2019-03-11T09:33:55+00:00"
+            "time": "2019-04-09T14:29:08+00:00"
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.31.3",
+            "version": "v6.31.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "d14f02d603c47824d7acaf88491195e3f199408d"
+                "reference": "917973d36f77d8658ecc54b70a8d6b32232c51e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/d14f02d603c47824d7acaf88491195e3f199408d",
-                "reference": "d14f02d603c47824d7acaf88491195e3f199408d",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/917973d36f77d8658ecc54b70a8d6b32232c51e4",
+                "reference": "917973d36f77d8658ecc54b70a8d6b32232c51e4",
                 "shasum": ""
             },
             "require": {
@@ -5931,7 +5932,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-04-02T18:31:38+00:00"
+            "time": "2019-04-05T17:10:58+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

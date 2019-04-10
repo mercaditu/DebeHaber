@@ -12,6 +12,7 @@ import CycleForm from "../views/configs/cycleForm.json";
 import DocumentForm from "../views/configs/documentForm.json";
 import RateForm from "../views/configs/rateForm.json";
 
+import MoneyMovementDebitForm from "../views/commercials/moneyMovementDebitForm.json";
 import MoneyMovementForm from "../views/commercials/moneyMovementForm.json";
 import JournalTemplateForm from "../views/accounts/templateForm.json";
 import openingBalanceForm from "../views/accounts/openingBalanceForm.json";
@@ -378,6 +379,13 @@ export default [
                 ]
             },
             {
+                path: "money-transfers",
+                component: Form,
+                name: "moneyTransferForm",
+                meta: MoneyMovementForm
+                
+            },
+            {
                 path: "money-movements",
                 component: List,
                 name: "moneyMovementList",
@@ -431,8 +439,10 @@ export default [
                         path: ":id",
                         component: Form,
                         name: "moneyMovementForm",
-                        meta: MoneyMovementForm
-                    }
+                        meta: MoneyMovementDebitForm
+                    },
+                    
+
                 ]
             },
             {

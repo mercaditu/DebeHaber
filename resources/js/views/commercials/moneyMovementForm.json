@@ -12,14 +12,40 @@
                     "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
                 },
                 {
-                    "label": "commercial.currency ",
+
+                }
+                
+
+            ]
+        },
+        {
+            "fields": [
+                {
+                    "label": "commercial.Fromcurrency ",
                     "properties": [
                         {
                             "type": "currency",
                             "data": [
                                 {
-                                    "salecurrency": "currency",
-                                    "currencyrate": "rate"
+                                    "salecurrency": "from_currency",
+                                    "currencyrate": "from_rate"
+                                }
+                            ],
+                            "placeholder": "commercial.currency ",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.Tocurrency ",
+                    "properties": [
+                        {
+                            "type": "currency",
+                            "data": [
+                                {
+                                    "salecurrency": "to_currency",
+                                    "currencyrate": "to_rate"
                                 }
                             ],
                             "placeholder": "commercial.currency ",
@@ -28,7 +54,7 @@
                         }
                     ]
                 }
-
+               
             ]
         },
         {

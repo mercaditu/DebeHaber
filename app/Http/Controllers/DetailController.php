@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\TransactionDetail;
+use App\Taxpayer;
+use App\Cycle;
 use Illuminate\Http\Request;
 
 class DetailController extends Controller

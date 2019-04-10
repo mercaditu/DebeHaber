@@ -145,8 +145,21 @@
                         {
                             "type": "text",
                             "data": "value",
-                            "placeholder": "commercial.vat",
+                            "placeholder": "commercial.value",
                             "required": true,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "",
+                    "properties": [
+                        {
+                            "type": "actions",
+                            "data": "",
+                            "api": "/commercial/details",
+                            "placeholder": "",
+                            "required": false,
                             "location": ""
                         }
                     ]

@@ -77,8 +77,10 @@
                     'money-movements' => 'AccountMovementController',
                     'inventories' => 'InventoryController',
                     'fixed-assets' => 'FixedAssetController',
+                    'details' => 'DetailController',
                 ]);
 
+                
                 // Route::get('sales/by-id/{id}', 'SalesController@get_salesByID');
                 Route::get('sales/default/{partnerID}', 'SalesController@getLastSale');
                 Route::get('sales/last', 'SalesController@get_lastDate');
@@ -96,7 +98,7 @@
 
                 Route::resources([
                     'journals' => 'JournalController',
-                    'post' => 'JournalTemplateController',
+                    'journal-templates' => 'JournalTemplateController',
                     'budgets' => 'BudgetController',
                     'opening-balance' => 'OpeningBalanceController',
                     'closing-balance' => 'ClosingBalanceController',

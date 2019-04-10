@@ -41,8 +41,8 @@ class AccountMovementController extends Controller
             $fromAccountMovement->chart_id = $request->from_chart_id;
             $fromAccountMovement->date =  Carbon::now();
             $fromAccountMovement->debit = $request->debit ?? 0;
-            $fromAccountMovement->currency = $request->currency;
-            $fromAccountMovement->rate = $request->rate ?? 1;
+            $fromAccountMovement->currency = $request->from_currency;
+            $fromAccountMovement->rate = $request->from_rate ?? 1;
             $fromAccountMovement->comment = $request->comment;
             $fromAccountMovement->save();
 
@@ -51,8 +51,8 @@ class AccountMovementController extends Controller
             $toAccountMovement->chart_id = $request->to_chart_id;
             $toAccountMovement->date =  Carbon::now();
             $toAccountMovement->credit = $request->credit ?? 0;
-            $toAccountMovement->currency = $request->currency;
-            $toAccountMovement->rate = $request->rate ?? 1;
+            $toAccountMovement->currency = $request->to_currency;
+            $toAccountMovement->rate = $request->ro_rate ?? 1;
             $toAccountMovement->comment = $request->comment;
             $toAccountMovement->save();
          }
@@ -66,6 +66,7 @@ class AccountMovementController extends Controller
             AccountMovement::with('chart')
                 ->with('transaction:id,number,comment')
                 ->where('id', $movement)
+                //->select('id','chart_id as from_chart_id','taxpayer_id','journal_id','partner_id','transaction_id','currency as from_currency','rate as from_rate','date','debit','credit')
                 ->first()
         );
        

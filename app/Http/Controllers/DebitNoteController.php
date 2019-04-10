@@ -50,7 +50,7 @@ class DebitNoteController extends Controller
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
         return new GeneralResource(
-            Transaction::MyDebitNotes()->with('supplier:name,taxid,id')
+            Transaction::MyDebitNotes()
                 ->where('id', $transactionId)
                 ->with('details')
                 ->first()

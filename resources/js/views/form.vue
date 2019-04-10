@@ -171,6 +171,11 @@
                 ></search-transaction>
               </b-input-group>
               <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
+              <b-input-group v-else-if="property.type === 'actions'">
+               <b-button variant="link" @click="deleteRow(detail,table.data,property.api)">
+                        <i class="material-icons text-danger">delete_outline</i>
+                    </b-button>
+              </b-input-group>
               <b-input-group v-else>
                 <b-input
                   :type="property.type"
@@ -179,6 +184,7 @@
                   :placeholder="property.placeholder"
                 />
               </b-input-group>
+               
             </span>
           </b-col>
         </b-row>
@@ -258,11 +264,12 @@ export default {
       this.$forceUpdate();
     },
 
-    deleteRow(item, table) {
+    deleteRow(item, table,api) {
       var app = this;
+      console.log(item,table);
       if (item.id > 0) {
         crud.methods
-          .onDelete(app.baseUrl + app.$route.meta.pageurl + "/details", item.id)
+          .onDelete(app.baseUrl + api , item.id)
           .then(function(response) {});
       }
 

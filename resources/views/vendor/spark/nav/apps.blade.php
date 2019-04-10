@@ -65,6 +65,10 @@
                 <i class="material-icons md-18 ml-10 mr-10">attach_money</i>
                 @{{ $t('commercial.moneyMovements') }}
             </b-nav-item>
+            <b-nav-item class="sub-menu":to="{ name: 'moneyTransferForm'}">
+                <i class="material-icons md-18 ml-10 mr-10">attach_money</i>
+                @{{ $t('commercial.moneyTransfers') }}
+            </b-nav-item>
         </b-nav>
     </b-collapse>
 

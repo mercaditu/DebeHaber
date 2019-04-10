@@ -86,10 +86,15 @@ export default {
       return this.$route.name.replace("List", "Form");
     }
   },
+ 
   mounted() {
-    this.$route.meta.columns.forEach(element => {
-      element.label = this.$t(element.label);
-    });
+    if (this.$route.meta.columns != null)
+    {
+        this.$route.meta.columns.forEach(element => {
+          element.label = this.$t(element.label);
+        });
+    }
+    
   }
 };
 </script>

@@ -8,7 +8,7 @@
             {
                 "fields": [
                 {
-                    "label":  "commercial.startdate",
+                    "label":  "commercial.date",
                     "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
                 },
                 {
