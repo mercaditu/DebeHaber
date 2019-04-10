@@ -2,6 +2,9 @@
     "customer": "Customer | Customers",
     "supplier": "Supplier | Suppliers",
 
+    "name": "Name",
+    "serial": "Serial Number",
+
     "income": "Income | Incomes",
     "salesBook": "Sales Book",
     "salesInvoice": "Sales Invoice",

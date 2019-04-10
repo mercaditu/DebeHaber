@@ -2,6 +2,9 @@
     "customer": "Cliente",
     "supplier": "Proveedor",
 
+    "name": "Nombre",
+    "serial": "Numero de Serie",
+
     "income": "Ingreso | Ingresos",
     "salesBook": "Libro de Ventas",
     "salesInvoice": "Factura de Ventas",

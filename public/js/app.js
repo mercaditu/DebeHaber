@@ -4012,10 +4012,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['row'],
+  props: ["row"],
   computed: {
     formURL: function formURL() {
-      return this.$route.name.replace('List', 'Form');
+      return this.$route.name.replace("List", "Form");
     }
   },
   data: function data() {
@@ -93520,7 +93520,10 @@ var render = function() {
           _c(
             "b-button",
             {
-              attrs: { to: { name: _vm.formURL, params: { id: _vm.row.id } } }
+              attrs: {
+                to: { name: _vm.formURL, params: { id: _vm.row.id } },
+                variant: "primary"
+              }
             },
             [_c("i", { staticClass: "material-icons md-18" }, [_vm._v("edit")])]
           ),
@@ -93528,6 +93531,7 @@ var render = function() {
           _c(
             "b-button",
             {
+              attrs: { variant: "light" },
               on: {
                 click: function($event) {
                   return _vm.$parent.$parent.onDestroy(_vm.row)
@@ -111575,10 +111579,10 @@ module.exports = {"ledger":"Ledger","cycle":"Cycle | Cycles","journal":"Journal"
 /*!*************************************************!*\
   !*** ./resources/js/plugins/en/commercial.json ***!
   \*************************************************/
-/*! exports provided: customer, supplier, income, salesBook, salesInvoice, creditBook, creditNote, accountReceivables, expense, purchaseBook, purchaseInvoice, debitBook, debitNote, accountPayables, fixedAssets, inventories, productions, moneyMovements, date, expiryDate, dueDate, number, code, document, documents, currency, exchangeRate, exchangeRates, paymentCondition, account, concept, vat, value, startingValue, currentRange, endingRange, impex, default */
+/*! exports provided: customer, supplier, name, serial, income, salesBook, salesInvoice, creditBook, creditNote, accountReceivables, expense, purchaseBook, purchaseInvoice, debitBook, debitNote, accountPayables, fixedAssets, inventories, productions, moneyMovements, date, expiryDate, dueDate, number, code, document, documents, currency, exchangeRate, exchangeRates, paymentCondition, account, concept, vat, value, startingValue, currentRange, endingRange, impex, default */
 /***/ (function(module) {
 
-module.exports = {"customer":"Customer | Customers","supplier":"Supplier | Suppliers","income":"Income | Incomes","salesBook":"Sales Book","salesInvoice":"Sales Invoice","creditBook":"Credit Book","creditNote":"Credit Note","accountReceivables":"Account Receivables","expense":"Expense | Expenses","purchaseBook":"Purchase Book","purchaseInvoice":"Purchase Invoice","debitBook":"Debit Book","debitNote":"Debit Note","accountPayables":"Account Payables","fixedAssets":"Fixed Assets","inventories":"Inventories","productions":"Productions","moneyMovements":"Money Movements","date":"Date","expiryDate":"Expiry Date","dueDate":"Due Date","number":"Number","code":"Code","document":"Document","documents":"Documents","currency":"Currency","exchangeRate":"Exchange Rate","exchangeRates":"Exchange Rates","paymentCondition":"Payment Condition","account":"Account","concept":"Concept","vat":"Vat","value":"Value","startingValue":"Starting Value","currentRange":"Valor Actual","endingRange":"Valor Final","impex":"Intl Commerce"};
+module.exports = {"customer":"Customer | Customers","supplier":"Supplier | Suppliers","name":"Name","serial":"Serial Number","income":"Income | Incomes","salesBook":"Sales Book","salesInvoice":"Sales Invoice","creditBook":"Credit Book","creditNote":"Credit Note","accountReceivables":"Account Receivables","expense":"Expense | Expenses","purchaseBook":"Purchase Book","purchaseInvoice":"Purchase Invoice","debitBook":"Debit Book","debitNote":"Debit Note","accountPayables":"Account Payables","fixedAssets":"Fixed Assets","inventories":"Inventories","productions":"Productions","moneyMovements":"Money Movements","date":"Date","expiryDate":"Expiry Date","dueDate":"Due Date","number":"Number","code":"Code","document":"Document","documents":"Documents","currency":"Currency","exchangeRate":"Exchange Rate","exchangeRates":"Exchange Rates","paymentCondition":"Payment Condition","account":"Account","concept":"Concept","vat":"Vat","value":"Value","startingValue":"Starting Value","currentRange":"Valor Actual","endingRange":"Valor Final","impex":"Intl Commerce"};
 
 /***/ }),
 
@@ -111608,10 +111612,10 @@ module.exports = {"ledger":"Diario","cycle":"Fiscal","journal":"Asiento","accoun
 /*!*************************************************!*\
   !*** ./resources/js/plugins/es/commercial.json ***!
   \*************************************************/
-/*! exports provided: customer, supplier, income, salesBook, salesInvoice, creditBook, creditNote, accountReceivables, expense, purchaseBook, purchaseInvoice, debitBook, debitNote, accountPayables, fixedAssets, inventories, productions, moneyMovements, date, expiryDate, dueDate, number, code, document, documents, currency, exchangeRate, exchangeRates, paymentCondition, account, concept, item, vat, value, startingValue, currentRange, endingRange, impex, default */
+/*! exports provided: customer, supplier, name, serial, income, salesBook, salesInvoice, creditBook, creditNote, accountReceivables, expense, purchaseBook, purchaseInvoice, debitBook, debitNote, accountPayables, fixedAssets, inventories, productions, moneyMovements, date, expiryDate, dueDate, number, code, document, documents, currency, exchangeRate, exchangeRates, paymentCondition, account, concept, item, vat, value, startingValue, currentRange, endingRange, impex, default */
 /***/ (function(module) {
 
-module.exports = {"customer":"Cliente","supplier":"Proveedor","income":"Ingreso | Ingresos","salesBook":"Libro de Ventas","salesInvoice":"Factura de Ventas","creditBook":"Notas de Credito","creditNote":"Nota de Credito","accountReceivables":"Cuentas por Cobrar","expense":"Egreso | Egresos","purchaseBook":"Libro de Compras","purchaseInvoice":"Factura de Compra","debitBook":"Notas de Debito","debitNote":"Nota de Debito","accountPayables":"Cuentas por Pagar","fixedAssets":"Activos Fijos","inventories":"Inventario","productions":"Producción","moneyMovements":"Movimiento de Dinero","date":"Fecha","expiryDate":"Caducidad","dueDate":"Vencimiento","number":"Número","code":"Código","document":"Documento","documents":"Documentos","currency":"Moneda","exchangeRate":"Cotización","exchangeRates":"Cotizaciones","paymentCondition":"Condición de Pago","account":"Cuenta","concept":"Concepto","item":"Producto","vat":"IVA","value":"Valor","startingValue":"Valor Inicial","currentRange":"Valor Actual","endingRange":"Valor Final","impex":"Comercio Intl."};
+module.exports = {"customer":"Cliente","supplier":"Proveedor","name":"Nombre","serial":"Numero de Serie","income":"Ingreso | Ingresos","salesBook":"Libro de Ventas","salesInvoice":"Factura de Ventas","creditBook":"Notas de Credito","creditNote":"Nota de Credito","accountReceivables":"Cuentas por Cobrar","expense":"Egreso | Egresos","purchaseBook":"Libro de Compras","purchaseInvoice":"Factura de Compra","debitBook":"Notas de Debito","debitNote":"Nota de Debito","accountPayables":"Cuentas por Pagar","fixedAssets":"Activos Fijos","inventories":"Inventario","productions":"Producción","moneyMovements":"Movimiento de Dinero","date":"Fecha","expiryDate":"Caducidad","dueDate":"Vencimiento","number":"Número","code":"Código","document":"Documento","documents":"Documentos","currency":"Moneda","exchangeRate":"Cotización","exchangeRates":"Cotizaciones","paymentCondition":"Condición de Pago","account":"Cuenta","concept":"Concepto","item":"Producto","vat":"IVA","value":"Valor","startingValue":"Valor Inicial","currentRange":"Valor Actual","endingRange":"Valor Final","impex":"Comercio Intl."};
 
 /***/ }),
 
@@ -111776,7 +111780,7 @@ var JournalList = function JournalList() {
 };
 
 var JournalForm = function JournalForm() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/accounts/journalForm */ "./resources/js/views/accounts/journalForm.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/journalForm */ "./resources/js/components/journalForm.vue"));
 };
 
 var ChartList = function ChartList() {
@@ -113478,7 +113482,7 @@ module.exports = {"pageurl":"/accounting/opening-balance","title":"accounting.op
 /*! exports provided: pageurl, title, img, cards, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/accounting/journal-templates","title":"accounting.Journal Template","img":"/img/apps/template.svg","cards":[{"rows":[{"fields":[{"label":"commercial.name","properties":[{"type":"text","data":"name","placeholder":"commercial.date","required":false,"location":""}]}]}]}],"tables":[{"data":"details","fields":[{"label":"accounting.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/accountables/","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"accounting.debitCoef","properties":[{"type":"text","data":"debit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"accounting.creditCoef","properties":[{"type":"text","data":"credit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"","properties":[{"type":"actions","data":"","api":"/commercial/details","placeholder":"","required":false,"location":""}]}]}]};
+module.exports = {"pageurl":"/accounting/journal-templates","title":"accounting.Journal Template","img":"/img/apps/template.svg","cards":[{"rows":[{"fields":[{"label":"commercial.name","properties":[{"type":"text","data":"name","placeholder":"commercial.date","required":false,"location":""}]}]}]}],"tables":[{"data":"details","fields":[{"label":"accounting.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/accountables/","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"accounting.debitCoef","properties":[{"type":"text","data":"debit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"accounting.creditCoef","properties":[{"type":"text","data":"credit_coef","placeholder":"commercial.vat","required":false,"location":""}]},{"label":"","properties":[{"type":"actions","data":"","api":"/commercial/template-details","placeholder":"","required":false,"location":""}]}]}]};
 
 /***/ }),
 
