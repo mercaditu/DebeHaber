@@ -2,69 +2,36 @@
   <div>
     <b-row>
       <b-col>
-        <b-btn
-          size="sm"
-          class="d-none d-md-block float-left mr-15"
-          v-shortkey="['esc']"
-          @shortkey="onCancel()"
-          @click="onCancel()"
-        >
-          <i class="material-icons md-14">keyboard_backspace</i>
-        </b-btn>
         <h3 class="upper-case">
           <img :src="$route.meta.img" alt class="mr-10" width="32">
           {{ $t($route.meta.title) }}
         </h3>
       </b-col>
       <b-col>
-        <b-button-toolbar class="float-right d-none d-md-block">
-          <b-button-group class="ml-15">
-            <b-btn
-              size="sm"
-              variant="primary"
-              v-shortkey="['ctrl', 'n']"
+        <b-button-toolbar class="float-right">
+          <b-dropdown :text="$t('general.actions')" variant="primary" right>
+            <b-dropdown-item
               @shortkey="onSaveNew()"
               @click="onSaveNew()"
+              v-shortkey="['ctrl', 's']"
+              style="width: 220px"
             >
-              <i class="material-icons md-14">save</i>
+              <i class="material-icons md-18">save</i>
               {{ $t('general.save') }}
-            </b-btn>
-            <b-btn
-              variant="danger"
-              size="sm"
-              v-shortkey="['esc']"
-              @shortkey="onCancel()"
-              @click="onCancel()"
-            >
-              <i class="material-icons md-14">cancel</i>
+              <small
+                class="text-secondary float-right"
+              >cntrl-s</small>
+            </b-dropdown-item>
+
+            <b-dropdown-item @shortkey="onCancel()" @click="onCancel()" v-shortkey="['esc']">
+              <i class="material-icons md-18">cancel</i>
               {{ $t('general.cancel') }}
-            </b-btn>
-          </b-button-group>
-        </b-button-toolbar>
-        <b-button-toolbar class="float-right d-md-none">
-          <b-btn
-            size="sm"
-            class="ml-15"
-            v-shortkey="['ctrl', 'd']"
-            @shortkey="addDetailRow()"
-            @click="addDetailRow()"
-          >
-            <i class="material-icons">playlist_add</i>
+              <small class="text-secondary float-right">esc</small>
+            </b-dropdown-item>
+          </b-dropdown>
+          <b-btn v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
+            <i class="material-icons">cancel</i>
           </b-btn>
-          <b-button-group class="ml-15">
-            <b-btn
-              size="sm"
-              variant="primary"
-              v-shortkey="['ctrl', 'n']"
-              @shortkey="onSaveNew()"
-              @click="onSaveNew()"
-            >
-              <i class="material-icons">save</i>
-            </b-btn>
-            <b-btn variant="danger" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
-              <i class="material-icons">cancel</i>
-            </b-btn>
-          </b-button-group>
         </b-button-toolbar>
       </b-col>
     </b-row>
@@ -172,9 +139,9 @@
               </b-input-group>
               <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
               <b-input-group v-else-if="property.type === 'actions'">
-               <b-button variant="link" @click="deleteRow(detail,table.data,property.api)">
-                        <i class="material-icons text-danger">delete_outline</i>
-                    </b-button>
+                <b-button variant="link" @click="deleteRow(detail,table.data,property.api)">
+                  <i class="material-icons text-danger">delete_outline</i>
+                </b-button>
               </b-input-group>
               <b-input-group v-else>
                 <b-input
@@ -184,7 +151,6 @@
                   :placeholder="property.placeholder"
                 />
               </b-input-group>
-               
             </span>
           </b-col>
         </b-row>
@@ -264,12 +230,12 @@ export default {
       this.$forceUpdate();
     },
 
-    deleteRow(item, table,api) {
+    deleteRow(item, table, api) {
       var app = this;
-      console.log(item,table);
+      console.log(item, table);
       if (item.id > 0) {
         crud.methods
-          .onDelete(app.baseUrl + api , item.id)
+          .onDelete(app.baseUrl + api, item.id)
           .then(function(response) {});
       }
 

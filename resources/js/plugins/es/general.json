@@ -30,6 +30,7 @@
     "createNewRecord": "Crear Registro",
     "uploadFromExcel": "Subir desde Excel",
     "manual": "Manual",
+    "actions": "Acciones",
 
     "debit": "Haber",
     "credit": "Debe",
