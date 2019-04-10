@@ -54,7 +54,7 @@
                     {
                         "type": "actions",
                         "data": "",
-                        "api": "/commercial/details",
+                        "api": "/commercial/template-details",
                         "placeholder": "",
                         "required": false,
                         "location": ""

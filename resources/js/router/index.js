@@ -31,7 +31,7 @@ const SalesUpload = () => import("../views/commercials/salesUpload");
 
 const Accounting = () => import("../views/accounts/index");
 const JournalList = () => import("../views/accounts/journalList");
-const JournalForm = () => import("../views/accounts/journalForm");
+const JournalForm = () => import("../components/journalForm");
 
 const ChartList = () => import("../views/accounts/chartList");
 const ChartForm = () => import("../views/accounts/chartForm");

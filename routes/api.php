@@ -78,6 +78,7 @@
                     'inventories' => 'InventoryController',
                     'fixed-assets' => 'FixedAssetController',
                     'details' => 'DetailController',
+                    'template-details' => 'JournalTemplateDetailController',
                 ]);
 
                 

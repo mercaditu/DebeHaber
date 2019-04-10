@@ -80,8 +80,18 @@ class JournalTemplateDetailController extends Controller
     * @param  \App\JournalTemplateDetail  $journalTemplateDetail
     * @return \Illuminate\Http\Response
     */
-    public function destroy(JournalTemplateDetail $journalTemplateDetail)
+    public function destroy(Taxpayer $taxPayer, Cycle $cycle, $templateDetailId)
     {
-        //
+        try
+        {
+
+            JournalTemplateDetail::where('id', $templateDetailId)->delete();
+
+            return response()->json('Ok', 200);
+        }
+        catch (\Exception $e)
+        {
+        return response()->json($e, 500);
+        }
     }
 }

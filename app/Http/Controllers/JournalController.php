@@ -51,6 +51,7 @@ class JournalController extends Controller
         $journal->number = $request->number;
         $journal->comment = $request->comment ?? '';
         $journal->cycle_id = $cycle->id;
+        $journal->template_id = $request->template_id;
 
         $journal->save();
 
