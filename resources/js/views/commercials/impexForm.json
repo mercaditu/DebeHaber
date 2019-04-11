@@ -93,25 +93,35 @@
             ]
         },
         {
-            "data": "details",
+            "data": "expenses",
             "fields": [
                 {
-                    "label": "commercial.Purchase || Commercial.Value ",
+                    "label": "commercial.item",
                     "properties": [
                         {
-                            "type": "transaction",
-                            "data": [
-                                {
-                                    "transactionnumber": "number",
-                                    "transactionvalue": "value"
-                                }
-                            ],
-                            "placeholder": "commercial.number",
+                            "type": "select",
+                            "data": "chart_id",
+                            "placeholder": "commercial.chart",
+                            "api": "/accounting/charts/for/expense/",
+                            "required": false,
+                            "location": "",
+                            "select": [{ "value": "id", "label": "name" }]
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.value",
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "value",
+                            "placeholder": "commercial.value",
                             "required": false,
                             "location": ""
                         }
                     ]
                 }
+                
             ]
         }
     ]

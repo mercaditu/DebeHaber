@@ -57,8 +57,8 @@ class JournalTemplateController extends Controller
                 $journalTemplateDetail = JournalTemplateDetail::firstOrNew(['id' => $detail['id']]);
                 $journalTemplateDetail->journal_template_id = $journalTemplate->id;
                 $journalTemplateDetail->chart_id = $detail['chart_id'];
-                $journalTemplateDetail->debit_coef = $detail['debit_coef'];
-                $journalTemplateDetail->credit_coef = $detail['debit_coef'];
+                $journalTemplateDetail->debit_coef = $detail['debit_coef']??0;
+                $journalTemplateDetail->credit_coef = $detail['credit_coef']??0;
                 $journalTemplateDetail->save();
             }
         }

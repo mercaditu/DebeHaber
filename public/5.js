@@ -124,13 +124,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     GenerateReport: function GenerateReport(path, mode) {
+      console.log(mode);
       var app = this;
-
-      if (mode == 1) {
-        window.location.href = app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate;
-      } else {
-        window.location.href = app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate + "/e";
-      }
+      window.location.href = app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate;
     }
   },
   mounted: function mounted() {

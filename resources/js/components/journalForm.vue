@@ -68,8 +68,8 @@
                         <b-row>
                            <b-col>
                                 <b-form-group :label="$t('commercial.template')">
-                                    <b-form-select v-model="data.template_id">
-                                      <option v-for="item in templates" :key="item.key" :value="item.id">{{ item.name }}</option>
+                                    <b-form-select v-model="data.template">
+                                      <option v-for="item in templates" :key="item.key" :value="item">{{ item.name }}</option>
                                   </b-form-select>
                                 </b-form-group>
                             </b-col>
@@ -78,7 +78,7 @@
                                     <b-input-group-append >
                                         <b-input type="text" placeholder="Value" v-model="data.value"/>
                                          <b-btn variant="primary" @click="onGenerateDetail()">
-                                                {{ $t('general.save') }}
+                                                {{ $t('general.generate') }}
                                         </b-btn>
                                     </b-input-group-append>
                                 </b-form-group>
@@ -133,11 +133,14 @@ export default {
                 number: '',
                 comment: '',
                 template_id: '',
+                template: '',
                 value: ''
             },
             pageUrl: '/accounting/journals',
 
             accountCharts: [],
+
+            templates: [],
 
             lastDeletedRow: [],
         };
@@ -265,6 +268,19 @@ export default {
 
             this.data.details.push(this.lastDeletedRow);
         },
+        onGenerateDetail() {
+            var app=this;
+            app.data.template_id = app.data.template.id;
+            app.data.template.details.forEach(element => {
+                   app.data.details.push({
+                        id: 0,
+                        chart_id: element.chart_id,
+                        debit: app.data.value * element.debit_coef,
+                        credit: app.data.value * element.credit_coef
+                    });
+            });
+           
+        }
     },
 
     mounted() {

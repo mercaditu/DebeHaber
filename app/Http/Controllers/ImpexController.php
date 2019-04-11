@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Taxpayer;
 use App\Cycle;
 use App\Impex;
+use App\ImpexExpense;
+use App\Transaction;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
 
@@ -19,6 +21,7 @@ class ImpexController extends Controller
     {
         return GeneralResource::collection(
             Impex::with('transactions')
+            ->with('expenses')
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc')
             ->paginate(50)
@@ -33,7 +36,20 @@ class ImpexController extends Controller
     */
     public function store(Request $request)
     {
-        //$impex = Impex::
+       $impex = Impex::where('id',$request->id)->with('expenses')->first();
+       $transaction = Transaction::where('number',$request->details[0]['number'])->with('details')->first();
+       $impex->save();
+       foreach ($request->expenses as $expense) {
+        $detail=$transaction->details()->where('chart_id',$expense['chart_id'])->first();
+        $impexExpense= ImpexExpense::where('id', $expense['id'])->first();
+        $impexExpense->chart_id = $expense['chart_id'];
+        $impexExpense->transaction_detail_id = $detail->id;
+		$impexExpense->value = $detail->value;
+		$impexExpense->currency = $transaction->currency;
+		$impexExpense->rate = $transaction->rate;
+        $impexExpense->save();
+       }
+
     }
 
     /**
