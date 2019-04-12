@@ -40,7 +40,7 @@
               </div>
             </b-list-group-item>
             <b-list-group-item href="#">
-              <router-link :to="{ name: 'creditList'}">
+              <router-link :to="{ name: 'creditList', params: { taxPayer: $route.params.taxPayer , cycle: $route.params.cycle}}">
                 <img src="/img/icons/credit-note.svg" width="32" alt>
                 Credit Notes
               </router-link>
@@ -66,7 +66,7 @@
               </div>
             </b-list-group-item>
             <b-list-group-item href="#">
-              <router-link :to="{ name: 'creditList'}">
+              <router-link :to="{ name: 'creditList', params: { taxPayer: $route.params.taxPayer , cycle: $route.params.cycle}}">
                 <img src="/img/icons/credit-note.svg" width="32" alt>
                 Credit Notes
               </router-link>

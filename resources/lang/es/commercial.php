@@ -36,6 +36,7 @@ return [
 
     'Inventory' => 'Inventario',
     'MoneyMovements' => 'Movimientos Monetarios',
+    'MoneyTransfer' => 'Movimientos Transferir',
     'Productions' => 'Producciones',
     'FixedAssets' => 'Activos Fijos',
 

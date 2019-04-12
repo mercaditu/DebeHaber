@@ -48,7 +48,7 @@ const AccountingReports = () => import("../views/accounts/reports");
 export default [
     //This will cause 404 Errors to be redirected to proper site.
     {
-        path: "",
+        path: "/404",
         component: FourZeroFour
     },
     {
@@ -88,7 +88,19 @@ export default [
                 component: List,
                 name: "salesList",
                 meta: {
-                    apiUrl: "sales",
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.salesBook",
                     description: "Some description",
                     img: "/img/apps/sales.svg",
@@ -158,6 +170,19 @@ export default [
                 component: List,
                 name: "creditList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.creditBook",
                     description: "Some description",
                     img: "/img/apps/credit-note.svg",
@@ -218,6 +243,19 @@ export default [
                 component: List,
                 name: "purchaseList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.purchaseBook",
                     description: "Some description",
                     img: "/img/apps/purchase-v1.svg",
@@ -273,6 +311,19 @@ export default [
                 component: List,
                 name: "debitList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.debitBook",
                     description: "Some description",
                     img: "/img/apps/credit-note.svg",
@@ -328,6 +379,19 @@ export default [
                 component: List,
                 name: "fixedAssetList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.fixedAssets",
                     description: "Some description",
                     img: "/img/apps/fixed-asset.svg",
@@ -390,6 +454,19 @@ export default [
                 component: List,
                 name: "moneyMovementList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.moneyMovements",
                     description: "Some description",
                     img: "/img/apps/account-payable.svg",
@@ -450,6 +527,19 @@ export default [
                 component: List,
                 name: "inventoryList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.inventories",
                     description: "Some description",
                     img: "/img/apps/inventory.svg",
@@ -513,6 +603,19 @@ export default [
                 component: List,
                 name: "receivableList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.accountReceivables",
                     description: "Some description",
                     img: "/img/apps/account-receivable.svg",
@@ -579,6 +682,19 @@ export default [
                 component: List,
                 name: "payableList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.accountPayables",
                     description: "Some description",
                     img: "/img/apps/account-payable.svg",
@@ -646,6 +762,19 @@ export default [
                 component: List,
                 name: "impexList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.impex",
                     description: "Some description",
                     img: "/img/apps/impex.svg",
@@ -704,6 +833,19 @@ export default [
                 component: List,
                 name: "journalTemplateList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "accounting.journal",
                     description: "Some description",
                     img: "/img/apps/journals.svg",
@@ -733,6 +875,19 @@ export default [
                 component: JournalList,
                 name: "journalList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "accounting.journal",
                     description: "Some description",
                     img: "/img/apps/journals.svg"
@@ -773,6 +928,19 @@ export default [
                 component: ChartList,
                 name: "chartList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "accounting.chartOfAccounts",
                     description: "Some description",
                     img: "/img/apps/chart-of-accounts.svg"
@@ -806,6 +974,19 @@ export default [
                 component: VersionList,
                 name: "versionList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "accounting.chartVersion",
                     description: "Some description",
                     img: "/img/apps/sales.svg"
@@ -826,6 +1007,19 @@ export default [
                 component: List,
                 name: "cycleList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "accounting.fiscalYear",
                     description: "Some description",
                     img: "/img/apps/sales.svg",
@@ -859,6 +1053,19 @@ export default [
                 component: DocumentList,
                 name: "documentList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.documents",
                     description: "Some description",
                     img: "/img/apps/sales.svg"
@@ -877,6 +1084,19 @@ export default [
                 component: RateList,
                 name: "rateList",
                 meta: {
+                    buttons: [
+                        {
+                            name: 'manual',
+                            visible: true
+                        },
+                        {
+                            name: 'uploadFromExcel',
+                            visible: false
+                        },
+                        {
+                            name: 'createNewRecord',
+                            visible: true
+                        }],
                     title: "commercial.exchangeRates",
                     description: "Some description",
                     img: "/img/apps/sales.svg"

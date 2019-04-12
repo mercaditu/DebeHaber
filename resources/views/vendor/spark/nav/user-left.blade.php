@@ -29,7 +29,7 @@
                 <i class="material-icons md-18 mr-5">business_center</i>
                 @{{ spark.taxPayerData.alias }}
             </template>
-            <b-nav-item class="sub-menu" :to="{ name: 'taxPayer'}">
+            <b-nav-item class="sub-menu" :to="{ name: 'taxPayer', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
                 <i class="material-icons md-18 ml-10 mr-10">dashboard</i>
                 @{{ $t('general.dashBoard') }}
             </b-nav-item>
@@ -43,11 +43,11 @@
                 <i class="material-icons md-18 ml-10 mr-10">settings</i>
                 @{{ $t('general.taxPayer') }}
             </b-nav-item>
-            <b-nav-item class="sub-menu" :to="{ name: 'documentList'}">
+            <b-nav-item class="sub-menu" :to="{ name: 'documentList', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
                 <i class="material-icons md-18 ml-10 mr-10">file_copy</i>
                 @{{ $t('commercial.documents') }}
             </b-nav-item>
-            <b-nav-item class="sub-menu" :to="{ name: 'rateList'}">
+            <b-nav-item class="sub-menu" :to="{ name: 'rateList', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
                 <i class="material-icons md-18 ml-10 mr-10">public</i>
                 @{{ $t('commercial.exchangeRates') }}
             </b-nav-item>
@@ -74,7 +74,7 @@
                 </b-dropdown-item>
             @endforeach
             <b-dropdown-divider></b-dropdown-divider>
-            <b-dropdown-item :to="{ name: 'cycleList'}">
+            <b-dropdown-item :to="{ name: 'cycleList', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
                 <i class="material-icons md-18 ml-10 mr-10">more_horiz</i>
                 @{{ $t('general.showMore') }}
             </b-dropdown-item>

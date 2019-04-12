@@ -254,7 +254,17 @@ var render = function() {
                             [
                               _c(
                                 "router-link",
-                                { attrs: { to: { name: "creditList" } } },
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "creditList",
+                                      params: {
+                                        taxPayer: _vm.$route.params.taxPayer,
+                                        cycle: _vm.$route.params.cycle
+                                      }
+                                    }
+                                  }
+                                },
                                 [
                                   _c("img", {
                                     attrs: {
@@ -338,7 +348,17 @@ var render = function() {
                             [
                               _c(
                                 "router-link",
-                                { attrs: { to: { name: "creditList" } } },
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "creditList",
+                                      params: {
+                                        taxPayer: _vm.$route.params.taxPayer,
+                                        cycle: _vm.$route.params.cycle
+                                      }
+                                    }
+                                  }
+                                },
                                 [
                                   _c("img", {
                                     attrs: {

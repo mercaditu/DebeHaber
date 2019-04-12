@@ -4687,6 +4687,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     formURL: function formURL() {
       return this.$route.name.replace("List", "Form");
+    },
+    uploadURL: function uploadURL() {
+      return '';
     }
   },
   mounted: function mounted() {
@@ -92388,7 +92391,18 @@ var render = function() {
                             [
                               _c(
                                 "b-list-group-item",
-                                { attrs: { href: "#" } },
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.$route.meta.buttons[0].visible,
+                                      expression:
+                                        "$route.meta.buttons[0].visible"
+                                    }
+                                  ],
+                                  attrs: { href: "#" }
+                                },
                                 [
                                   _c("i", { staticClass: "material-icons" }, [
                                     _vm._v("help")
@@ -92403,7 +92417,18 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "b-list-group-item",
-                                { attrs: { to: { name: _vm.uploadURL } } },
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.$route.meta.buttons[1].visible,
+                                      expression:
+                                        "$route.meta.buttons[1].visible"
+                                    }
+                                  ],
+                                  attrs: { to: { name: _vm.uploadURL } }
+                                },
                                 [
                                   _c("i", { staticClass: "material-icons" }, [
                                     _vm._v("cloud_upload")
@@ -92421,6 +92446,15 @@ var render = function() {
                               _c(
                                 "b-list-group-item",
                                 {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.$route.meta.buttons[2].visible,
+                                      expression:
+                                        "$route.meta.buttons[2].visible"
+                                    }
+                                  ],
                                   attrs: {
                                     to: { name: _vm.formURL, params: { id: 0 } }
                                   }
@@ -108994,10 +109028,10 @@ module.exports = {"ledger":"Diario","cycle":"Fiscal","journal":"Asiento","accoun
 /*!*************************************************!*\
   !*** ./resources/js/plugins/es/commercial.json ***!
   \*************************************************/
-/*! exports provided: customer, supplier, name, serial, income, salesBook, salesInvoice, creditBook, creditNote, accountReceivables, expense, purchaseBook, purchaseInvoice, debitBook, debitNote, accountPayables, fixedAssets, inventories, productions, moneyMovements, date, expiryDate, dueDate, number, code, document, documents, currency, exchangeRate, exchangeRates, paymentCondition, account, concept, item, vat, value, startingValue, currentRange, endingRange, impex, default */
+/*! exports provided: customer, supplier, name, serial, income, salesBook, salesInvoice, creditBook, creditNote, accountReceivables, expense, purchaseBook, purchaseInvoice, debitBook, debitNote, accountPayables, fixedAssets, inventories, productions, moneyMovements, moneyTransfers, date, expiryDate, dueDate, number, code, document, documents, currency, exchangeRate, exchangeRates, paymentCondition, account, concept, item, vat, value, startingValue, currentRange, endingRange, impex, default */
 /***/ (function(module) {
 
-module.exports = {"customer":"Cliente","supplier":"Proveedor","name":"Nombre","serial":"Numero de Serie","income":"Ingreso | Ingresos","salesBook":"Libro de Ventas","salesInvoice":"Factura de Ventas","creditBook":"Notas de Credito","creditNote":"Nota de Credito","accountReceivables":"Cuentas por Cobrar","expense":"Egreso | Egresos","purchaseBook":"Libro de Compras","purchaseInvoice":"Factura de Compra","debitBook":"Notas de Debito","debitNote":"Nota de Debito","accountPayables":"Cuentas por Pagar","fixedAssets":"Activos Fijos","inventories":"Inventario","productions":"Producción","moneyMovements":"Movimiento de Dinero","date":"Fecha","expiryDate":"Caducidad","dueDate":"Vencimiento","number":"Número","code":"Código","document":"Documento","documents":"Documentos","currency":"Moneda","exchangeRate":"Cotización","exchangeRates":"Cotizaciones","paymentCondition":"Condición de Pago","account":"Cuenta","concept":"Concepto","item":"Producto","vat":"IVA","value":"Valor","startingValue":"Valor Inicial","currentRange":"Valor Actual","endingRange":"Valor Final","impex":"Comercio Intl."};
+module.exports = {"customer":"Cliente","supplier":"Proveedor","name":"Nombre","serial":"Numero de Serie","income":"Ingreso | Ingresos","salesBook":"Libro de Ventas","salesInvoice":"Factura de Ventas","creditBook":"Notas de Credito","creditNote":"Nota de Credito","accountReceivables":"Cuentas por Cobrar","expense":"Egreso | Egresos","purchaseBook":"Libro de Compras","purchaseInvoice":"Factura de Compra","debitBook":"Notas de Debito","debitNote":"Nota de Debito","accountPayables":"Cuentas por Pagar","fixedAssets":"Activos Fijos","inventories":"Inventario","productions":"Producción","moneyMovements":"Movimiento de Dinero","moneyTransfers":"Movimiento de Transferir","date":"Fecha","expiryDate":"Caducidad","dueDate":"Vencimiento","number":"Número","code":"Código","document":"Documento","documents":"Documentos","currency":"Moneda","exchangeRate":"Cotización","exchangeRates":"Cotizaciones","paymentCondition":"Condición de Pago","account":"Cuenta","concept":"Concepto","item":"Producto","vat":"IVA","value":"Valor","startingValue":"Valor Inicial","currentRange":"Valor Actual","endingRange":"Valor Final","impex":"Comercio Intl."};
 
 /***/ }),
 
@@ -109203,7 +109237,7 @@ var AccountingReports = function AccountingReports() {
 
 /* harmony default export */ __webpack_exports__["default"] = ([//This will cause 404 Errors to be redirected to proper site.
 {
-  path: "",
+  path: "/404",
   component: _views_404__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   path: "/:taxPayer/:cycle/",
@@ -109239,7 +109273,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "salesList",
     meta: {
-      apiUrl: "sales",
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.salesBook",
       description: "Some description",
       img: "/img/apps/sales.svg",
@@ -109295,6 +109338,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "creditList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.creditBook",
       description: "Some description",
       img: "/img/apps/credit-note.svg",
@@ -109342,6 +109395,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "purchaseList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.purchaseBook",
       description: "Some description",
       img: "/img/apps/purchase-v1.svg",
@@ -109386,6 +109449,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "debitList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.debitBook",
       description: "Some description",
       img: "/img/apps/credit-note.svg",
@@ -109430,6 +109503,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "fixedAssetList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.fixedAssets",
       description: "Some description",
       img: "/img/apps/fixed-asset.svg",
@@ -109477,6 +109560,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "moneyMovementList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.moneyMovements",
       description: "Some description",
       img: "/img/apps/account-payable.svg",
@@ -109524,6 +109617,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "inventoryList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.inventories",
       description: "Some description",
       img: "/img/apps/inventory.svg",
@@ -109573,6 +109676,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "receivableList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.accountReceivables",
       description: "Some description",
       img: "/img/apps/account-receivable.svg",
@@ -109627,6 +109740,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "payableList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.accountPayables",
       description: "Some description",
       img: "/img/apps/account-payable.svg",
@@ -109680,6 +109803,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "impexList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.impex",
       description: "Some description",
       img: "/img/apps/impex.svg",
@@ -109728,6 +109861,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "journalTemplateList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "accounting.journal",
       description: "Some description",
       img: "/img/apps/journals.svg",
@@ -109751,6 +109894,16 @@ var AccountingReports = function AccountingReports() {
     component: JournalList,
     name: "journalList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "accounting.journal",
       description: "Some description",
       img: "/img/apps/journals.svg"
@@ -109784,6 +109937,16 @@ var AccountingReports = function AccountingReports() {
     component: ChartList,
     name: "chartList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "accounting.chartOfAccounts",
       description: "Some description",
       img: "/img/apps/chart-of-accounts.svg"
@@ -109812,6 +109975,16 @@ var AccountingReports = function AccountingReports() {
     component: VersionList,
     name: "versionList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "accounting.chartVersion",
       description: "Some description",
       img: "/img/apps/sales.svg"
@@ -109829,6 +110002,16 @@ var AccountingReports = function AccountingReports() {
     component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: "cycleList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "accounting.fiscalYear",
       description: "Some description",
       img: "/img/apps/sales.svg",
@@ -109855,6 +110038,16 @@ var AccountingReports = function AccountingReports() {
     component: DocumentList,
     name: "documentList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.documents",
       description: "Some description",
       img: "/img/apps/sales.svg"
@@ -109870,6 +110063,16 @@ var AccountingReports = function AccountingReports() {
     component: RateList,
     name: "rateList",
     meta: {
+      buttons: [{
+        name: 'manual',
+        visible: true
+      }, {
+        name: 'uploadFromExcel',
+        visible: false
+      }, {
+        name: 'createNewRecord',
+        visible: true
+      }],
       title: "commercial.exchangeRates",
       description: "Some description",
       img: "/img/apps/sales.svg"

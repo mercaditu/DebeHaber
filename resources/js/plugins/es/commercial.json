@@ -23,6 +23,7 @@
     "inventories": "Inventario",
     "productions": "Producción",
     "moneyMovements": "Movimiento de Dinero",
+    "moneyTransfers": "Movimiento de Transferir",
 
     "date": "Fecha",
     "expiryDate": "Caducidad",

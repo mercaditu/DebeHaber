@@ -12,15 +12,15 @@
           </b-card>
           <b-card no-body>
             <b-list-group flush>
-              <b-list-group-item href="#">
+              <b-list-group-item href="#" v-show="$route.meta.buttons[0].visible">
                 <i class="material-icons">help</i>
                 {{ $t('general.manual') }}
               </b-list-group-item>
-              <b-list-group-item :to="{ name: uploadURL }">
+              <b-list-group-item :to="{ name: uploadURL }" v-show="$route.meta.buttons[1].visible">
                 <i class="material-icons">cloud_upload</i>
                 {{ $t('general.uploadFromExcel') }}
               </b-list-group-item>
-              <b-list-group-item :to="{ name: formURL, params: { id: 0}}">
+              <b-list-group-item :to="{ name: formURL, params: { id: 0}}" v-show="$route.meta.buttons[2].visible">
                 <i class="material-icons md-light">add_box</i>
                 {{ $t('general.createNewRecord') }}
               </b-list-group-item>
@@ -84,6 +84,9 @@ export default {
   computed: {
     formURL: function() {
       return this.$route.name.replace("List", "Form");
+    },
+    uploadURL: function() {
+      return '';
     }
   },
  
