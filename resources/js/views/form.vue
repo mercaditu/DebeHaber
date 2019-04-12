@@ -42,7 +42,7 @@
             <b-form-group :label="$t(col.label)">
               <span v-for="property in col.properties" v-bind:key="property.index">
                 <b-input-group v-if="property.type === 'partner'">
-                  <multiselect></multiselect>
+                  <!-- <multiselect></multiselect> -->
                   <search-taxpayer
                     v-bind:partner_name.sync="data[property.data[0]['name']]"
                     v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
