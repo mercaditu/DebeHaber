@@ -40,6 +40,10 @@ Vue.component(
     require('./search-taxpayer.vue').default
 );
 Vue.component(
+    'multiselect',
+    require('./multiselect.vue').default
+);
+Vue.component(
     'payment-condition',
     require('./payment-condition.vue').default
 );
