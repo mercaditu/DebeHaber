@@ -41,13 +41,26 @@ class ImpexController extends Controller
        $impex->save();
        foreach ($request->expenses as $expense) {
         $detail=$transaction->details()->where('chart_id',$expense['chart_id'])->first();
-        $impexExpense= ImpexExpense::where('id', $expense['id'])->first();
-        $impexExpense->chart_id = $expense['chart_id'];
-        $impexExpense->transaction_detail_id = $detail->id;
-		$impexExpense->value = $detail->value;
-		$impexExpense->currency = $transaction->currency;
-		$impexExpense->rate = $transaction->rate;
-        $impexExpense->save();
+        if($detail != null )
+        {
+            $impexExpense= ImpexExpense::where('id', $expense['id'])->first();
+            $impexExpense->chart_id = $detail->chart_id;
+            $impexExpense->transaction_detail_id = $detail->id;
+            $impexExpense->value = $detail->value;
+            $impexExpense->currency = $transaction->currency;
+            $impexExpense->rate = $transaction->rate;
+            $impexExpense->save();
+        }
+        else{
+            $impexExpense= ImpexExpense::where('id', $expense['id'])->first();
+            $impexExpense->chart_id = $expense['chart_id'];
+            $impexExpense->transaction_detail_id = null;
+            $impexExpense->value = $expense['value'];
+            $impexExpense->currency = $expense['currency'];
+            $impexExpense->rate = $expense['rate'];
+            $impexExpense->save();
+        }
+        
        }
 
     }

@@ -2192,6 +2192,51 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Integration/ErpNext.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Integration/ErpNext.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      collections: []
+    };
+  },
+  mounted: function mounted() {
+    console.log('asdas'); //do something after mounting vue instance
+
+    var app = this;
+    axios({
+      method: "post",
+      url: "http://45.77.230.101/api/resource/Item",
+      responseType: "json",
+      data: $data,
+      Authorization: "token bfaa68e561c944f:0d1087164f4542f"
+    }).then(function (response) {
+      console.log(response);
+      return response;
+    })["catch"](function (error) {
+      console.log(error.response);
+      return error.response;
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart-types.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart-types.vue?vue&type=script&lang=js& ***!
@@ -4301,7 +4346,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4670,6 +4714,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/crud.vue */ "./resources/js/components/crud.vue");
+//
 //
 //
 //
@@ -89169,6 +89214,30 @@ VueI18n.version = '8.10.0';
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Integration/ErpNext.vue?vue&type=template&id=2c6e7226&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Integration/ErpNext.vue?vue&type=template&id=2c6e7226& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart-types.vue?vue&type=template&id=05709862&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart-types.vue?vue&type=template&id=05709862& ***!
@@ -91364,8 +91433,6 @@ var render = function() {
                                   ? _c(
                                       "b-input-group",
                                       [
-                                        _c("multiselect"),
-                                        _vm._v(" "),
                                         _c("search-taxpayer", {
                                           attrs: {
                                             partner_name:
@@ -92467,21 +92534,28 @@ var render = function() {
                           }
                         },
                         [
-                          _c("h4", { staticClass: "upper-case" }, [
-                            _c("img", {
-                              staticClass: "ml-5 mr-5",
-                              attrs: {
-                                src: _vm.$route.meta.img,
-                                alt: "",
-                                width: "26"
-                              }
-                            }),
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n          "
-                            )
-                          ])
+                          _c(
+                            "h4",
+                            { staticClass: "upper-case" },
+                            [
+                              _c("Erp-next"),
+                              _vm._v(" "),
+                              _c("img", {
+                                staticClass: "ml-5 mr-5",
+                                attrs: {
+                                  src: _vm.$route.meta.img,
+                                  alt: "",
+                                  width: "26"
+                                }
+                              }),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(_vm.$t(_vm.$route.meta.title)) +
+                                  "\n          "
+                              )
+                            ],
+                            1
+                          )
                         ]
                       ),
                       _vm._v(" "),
@@ -111171,6 +111245,75 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/Integration/ErpNext.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/Integration/ErpNext.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ErpNext_vue_vue_type_template_id_2c6e7226___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ErpNext.vue?vue&type=template&id=2c6e7226& */ "./resources/js/Integration/ErpNext.vue?vue&type=template&id=2c6e7226&");
+/* harmony import */ var _ErpNext_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ErpNext.vue?vue&type=script&lang=js& */ "./resources/js/Integration/ErpNext.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ErpNext_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ErpNext_vue_vue_type_template_id_2c6e7226___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ErpNext_vue_vue_type_template_id_2c6e7226___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Integration/ErpNext.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Integration/ErpNext.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Integration/ErpNext.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ErpNext_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ErpNext.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Integration/ErpNext.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ErpNext_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Integration/ErpNext.vue?vue&type=template&id=2c6e7226&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Integration/ErpNext.vue?vue&type=template&id=2c6e7226& ***!
+  \*****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ErpNext_vue_vue_type_template_id_2c6e7226___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ErpNext.vue?vue&type=template&id=2c6e7226& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Integration/ErpNext.vue?vue&type=template&id=2c6e7226&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ErpNext_vue_vue_type_template_id_2c6e7226___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ErpNext_vue_vue_type_template_id_2c6e7226___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -111281,6 +111424,7 @@ Vue.component('payment-condition', __webpack_require__(/*! ./payment-condition.v
 Vue.component('document', __webpack_require__(/*! ./document.vue */ "./resources/js/components/document.vue")["default"]);
 Vue.component('currency', __webpack_require__(/*! ./currency.vue */ "./resources/js/components/currency.vue")["default"]);
 Vue.component('search-chart', __webpack_require__(/*! ./search-chart.vue */ "./resources/js/components/search-chart.vue")["default"]);
+Vue.component('Erp-next', __webpack_require__(/*! ../Integration/ErpNext.vue */ "./resources/js/Integration/ErpNext.vue")["default"]);
 Vue.component('table-actions', __webpack_require__(/*! ./table/actions.vue */ "./resources/js/components/table/actions.vue")["default"]);
 Vue.component('table-loading', __webpack_require__(/*! ./table/loading.vue */ "./resources/js/components/table/loading.vue")["default"]);
 Vue.component('table-empty', __webpack_require__(/*! ./table/empty.vue */ "./resources/js/components/table/empty.vue")["default"]);

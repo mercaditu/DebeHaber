@@ -60,6 +60,10 @@ Vue.component(
     require('./search-chart.vue').default
 );
 Vue.component(
+    'Erp-next',
+    require('../Integration/ErpNext.vue').default
+);
+Vue.component(
     'table-actions',
     require('./table/actions.vue').default
 );

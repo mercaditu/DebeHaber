@@ -1,49 +1,31 @@
 <template>
-    <div>
-         <b-form-select v-model="document_id" :options="collections">
-        </b-form-select>
-       
-    </div>
 </template>
 
 <script>
+import crud from "../components/crud.vue";
 export default {
+    components: { crud },
     data: () => ({
         collections:[]
     }),
     mounted() {
-        
+        console.log('asdas');
         //do something after mounting vue instance
         var app = this;
-        console.log(app.label);
-         crud.methods
-        .onRead(app.baseUrl + app.api)
+          axios({
+                method: "post",
+                url: "http://45.77.230.101/api/resource/Item",
+                responseType: "json",
+                data: $data,
+                Authorization:"token bfaa68e561c944f:0d1087164f4542f"
+                })
         .then(function(response) {
-                
-            if (app.value === 'code')
-            {
-            
-                response.data.data.forEach(element => {
-                     app.collections.push({
-                            // index: this.data.details.length + 1,
-                            value: element.code,
-                            text: element.name
-                        });
-                });
-               
-            } 
-            else{
-               response.data.data.forEach(element => {
-                   
-                     app.collections.push({
-                            // index: this.data.details.length + 1,
-                            value: element.id,
-                            text: element.name
-                        });
-                });
-            }
-           
-             console.log(app.collections);
+             console.log(response);
+          return response;
+        })
+        .catch(function(error) {
+          console.log(error.response);
+          return error.response;
         });
     }
 }
