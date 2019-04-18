@@ -115,10 +115,8 @@ class SalesController extends Controller
     {
         \DB::connection()->disableQueryLog();
         
-        $journal =Journal::where('cycle_id', $cycle->id)
-            ->where('date', $endDate->format('Y-m-d'))
-            ->where('is_automatic', 1)
-            ->where('module_id', 3)
+        $journal =Journal::Where('cycle_id', $cycle->id)
+            
             ->first();
             dd( $journal);
        
