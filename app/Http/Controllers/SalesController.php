@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AccountMovement;
 use App\Taxpayer;
+use App\Journal;
 use App\Cycle;
 use App\Transaction;
 use App\Http\Resources\GeneralResource;
@@ -113,13 +114,13 @@ class SalesController extends Controller
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
-        dd( $endDate->format('Y-m-d'));
-        $journal = \App\Journal::where('cycle_id', $cycle->id)
+        
+        $journal =Journal::where('cycle_id', $cycle->id)
             ->where('date', $endDate->format('Y-m-d'))
             ->where('is_automatic', 1)
             ->where('module_id', 3)
-            ->with('details')->first() ?? new \App\Journal();
-
+            ->with('details')->first();
+            dd( $journal);
        
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
