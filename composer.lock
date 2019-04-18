@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "00b64e8e7a60b8df45af2e60525eb74e",
@@ -1710,16 +1710,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.10",
+            "version": "v5.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "505325b4577968750e622d7a5a271cf8785a7a1a"
+                "reference": "a2cf7a7983329d63edc6fde43142b232bb61aa0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/505325b4577968750e622d7a5a271cf8785a7a1a",
-                "reference": "505325b4577968750e622d7a5a271cf8785a7a1a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a2cf7a7983329d63edc6fde43142b232bb61aa0a",
+                "reference": "a2cf7a7983329d63edc6fde43142b232bb61aa0a",
                 "shasum": ""
             },
             "require": {
@@ -1853,7 +1853,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-04-04T13:39:49+00:00"
+            "time": "2019-04-10T13:05:18+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1931,8 +1931,7 @@
             "dist": {
                 "type": "path",
                 "url": "./spark",
-                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6",
-                "shasum": null
+                "reference": "e8ca36ab2280851f041e0479cd9cc17f48319d97"
             },
             "require": {
                 "erusev/parsedown": "~1.0",
@@ -2688,16 +2687,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.8.1",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
+                "reference": "e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
-                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72",
+                "reference": "e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72",
                 "shasum": ""
             },
             "require": {
@@ -2732,7 +2731,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2018-06-11T23:09:50+00:00"
+            "time": "2019-04-07T13:18:21+00:00"
         },
         {
             "name": "nasyrov/laravel-enums",
@@ -3075,16 +3074,16 @@
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v3.8.1",
+            "version": "v3.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "51192972746beb3766327bb84838998d3a59e99c"
+                "reference": "598caa6f7813b8a29b2f1b69912b40659dcef79b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/51192972746beb3766327bb84838998d3a59e99c",
-                "reference": "51192972746beb3766327bb84838998d3a59e99c",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/598caa6f7813b8a29b2f1b69912b40659dcef79b",
+                "reference": "598caa6f7813b8a29b2f1b69912b40659dcef79b",
                 "shasum": ""
             },
             "require": {
@@ -3092,12 +3091,13 @@
                 "php": ">=7.1"
             },
             "require-dev": {
-                "laravel/framework": "~5.8.0",
+                "laravel/framework": "~5.8.3",
+                "laravel/laravel": "dev-master",
                 "mockery/mockery": "^1.0",
                 "phpunit/phpunit": "^7.5 || ^8.0"
             },
             "suggest": {
-                "laravel/framework": "Required for testing (~5.8.0).",
+                "laravel/framework": "Required for testing (~5.8.3).",
                 "mockery/mockery": "Allow to use Mockery for testing (^1.0).",
                 "orchestra/testbench-browser-kit": "Allow to use legacy Laravel BrowserKit for testing (^3.8).",
                 "orchestra/testbench-dusk": "Allow to use Laravel Dusk for testing (^3.8).",
@@ -3135,7 +3135,7 @@
                 "orchestral",
                 "testing"
             ],
-            "time": "2019-02-28T00:40:46+00:00"
+            "time": "2019-04-10T12:50:29+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -5755,28 +5755,28 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.6.3",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f"
+                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/6a920a441783a50d7c95d08b3ae9189b149b259f",
-                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/d50a81aea91bb188651e1e81e77c73ba95d8370e",
+                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e",
                 "shasum": ""
             },
             "require": {
                 "illuminate/cookie": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/view": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": "^7.1"
+                "php": "^7.2"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
                 "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
-                "phpunit/phpunit": "^6.3|^7.0|^8.0"
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
@@ -5819,20 +5819,20 @@
                 "law",
                 "spatie"
             ],
-            "time": "2019-02-27T08:10:09+00:00"
+            "time": "2019-03-28T23:13:20+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
-            "version": "1.17.1",
+            "version": "1.17.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-query-builder.git",
-                "reference": "f7c4a6d1ac19a08f8b8848e829d3b304132cdc6e"
+                "reference": "5c43fd28400bf4e8943692efb80fd5d67403520f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/f7c4a6d1ac19a08f8b8848e829d3b304132cdc6e",
-                "reference": "f7c4a6d1ac19a08f8b8848e829d3b304132cdc6e",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/5c43fd28400bf4e8943692efb80fd5d67403520f",
+                "reference": "5c43fd28400bf4e8943692efb80fd5d67403520f",
                 "shasum": ""
             },
             "require": {
@@ -5842,6 +5842,7 @@
                 "php": "^7.1"
             },
             "require-dev": {
+                "ext-json": "*",
                 "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0",
                 "phpunit/phpunit": "^7.0|^8.0"
             },
@@ -5876,20 +5877,20 @@
                 "laravel-query-builder",
                 "spatie"
             ],
-            "time": "2019-04-09T14:29:08+00:00"
+            "time": "2019-04-12T16:48:23+00:00"
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.31.4",
+            "version": "v6.31.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "917973d36f77d8658ecc54b70a8d6b32232c51e4"
+                "reference": "93393b090f7b98f47e7477e8dada4fdab8fcc394"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/917973d36f77d8658ecc54b70a8d6b32232c51e4",
-                "reference": "917973d36f77d8658ecc54b70a8d6b32232c51e4",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/93393b090f7b98f47e7477e8dada4fdab8fcc394",
+                "reference": "93393b090f7b98f47e7477e8dada4fdab8fcc394",
                 "shasum": ""
             },
             "require": {
@@ -5932,7 +5933,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-04-05T17:10:58+00:00"
+            "time": "2019-04-12T17:10:19+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
