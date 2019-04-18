@@ -120,7 +120,7 @@ class SalesController extends Controller
             ->where('module_id', 3)
             ->with('details')->first() ?? new \App\Journal();
 
-        dd($journal)
+        dd($journal);
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
 

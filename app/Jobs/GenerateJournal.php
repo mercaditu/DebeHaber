@@ -51,7 +51,7 @@ class GenerateJournal implements ShouldQueue
      */
     public function handle()
     {
-        dd('d');
+       
         $this->generateByMonth();
         //Auth::user()->notify(new JournalCompleted);
     }
