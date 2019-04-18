@@ -116,6 +116,7 @@ class SalesController extends Controller
        
         $journal = \App\Journal::Where('cycle_id', $cycle->id)
             ->Where('date', $endDate->format('Y-m-d'))
+            ->Where('is_automatic', 1)
             ->first() ?? new \App\Journal();
 
             dd($journal);
