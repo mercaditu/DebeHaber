@@ -55,6 +55,12 @@ class IntegrationServices extends Migration
 
             $table->timestamps();
         });
+
+        Schema::table('journal_template_details', function (Blueprint $table) {
+            // change() tells the Schema builder that we are altering a table
+            $table->unsignedDecimal('debit_coef', 4, 4)->default(0)->change();
+            $table->unsignedDecimal('credit_coef', 4, 4)->default(0)->change();
+        });
     }
 
     /**

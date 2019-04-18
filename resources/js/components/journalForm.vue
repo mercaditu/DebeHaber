@@ -169,6 +169,22 @@ export default {
                 sortable: false
             }];
         },
+        Balance()
+        {
+             var debit = 0;
+             var credit = 0;
+             this.data.details.forEach(e => {
+                    debit += e.debit;
+                    credit += e.credit;
+                    console.log(e);
+             });
+
+           
+
+             return debit-credit;
+
+                    
+        },
 
         baseUrl() {
             return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
@@ -179,21 +195,26 @@ export default {
         onSave() {
             var app = this;
 
-            crud.methods
-            .onUpdate(app.baseUrl + app.pageUrl, app.data)
-            .then(function (response) {
-              app.$snack.success({
-                        text: app.$i18n.t('commercial.JournalSaved'),
-                    });
-                app.$router.go(-1);
-            }).catch(function (error) {
-                app.$snack.danger({ text: 'Error OMG!' });
-            });
+            if(app.Balance < 0)
+            {
+                crud.methods
+                .onUpdate(app.baseUrl + app.pageUrl, app.data)
+                .then(function (response) {
+                app.$snack.success({
+                            text: app.$i18n.t('commercial.JournalSaved'),
+                        });
+                    app.$router.go(-1);
+                }).catch(function (error) {
+                    app.$snack.danger({ text: 'Error OMG!' });
+                });
+            }
         },
 
         onSaveNew() {
             var app = this;
 
+            if(app.Balance === 0)
+            {
             crud.methods
             .onUpdate(app.baseUrl + app.pageUrl, app.data)
             .then(function (response) {
@@ -210,6 +231,7 @@ export default {
                     text: this.$i18n.t('general.errorMessage'),
                 });
             });
+            }
         },
 
         onCancel() {

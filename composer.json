@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "binarytorch/larecipe": "^2.0",
+        "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "florianv/laravel-swap": "^2.0",
         "laravel/cashier": "~9.0",

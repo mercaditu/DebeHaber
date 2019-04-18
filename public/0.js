@@ -177,6 +177,16 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }];
     },
+    Balance: function Balance() {
+      var debit = 0;
+      var credit = 0;
+      this.data.details.forEach(function (e) {
+        debit += e.debit;
+        credit += e.credit;
+        console.log(e);
+      });
+      return debit - credit;
+    },
     baseUrl: function baseUrl() {
       return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
     }
@@ -184,38 +194,44 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onSave: function onSave() {
       var app = this;
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
-        app.$snack.success({
-          text: app.$i18n.t('commercial.JournalSaved')
+
+      if (app.Balance < 0) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+          app.$snack.success({
+            text: app.$i18n.t('commercial.JournalSaved')
+          });
+          app.$router.go(-1);
+        })["catch"](function (error) {
+          app.$snack.danger({
+            text: 'Error OMG!'
+          });
         });
-        app.$router.go(-1);
-      })["catch"](function (error) {
-        app.$snack.danger({
-          text: 'Error OMG!'
-        });
-      });
+      }
     },
     onSaveNew: function onSaveNew() {
       var app = this;
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
-        app.$snack.success({
-          text: app.$i18n.t('commercial.JournalSaved')
+
+      if (app.Balance === 0) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+          app.$snack.success({
+            text: app.$i18n.t('commercial.JournalSaved')
+          });
+          app.$router.push({
+            name: app.$route.name,
+            params: {
+              id: '0'
+            }
+          });
+          app.date = '';
+          app.id = 0;
+          app.number = '';
+          app.comment = '';
+        })["catch"](function (error) {
+          app.$snack.danger({
+            text: this.$i18n.t('general.errorMessage')
+          });
         });
-        app.$router.push({
-          name: app.$route.name,
-          params: {
-            id: '0'
-          }
-        });
-        app.date = '';
-        app.id = 0;
-        app.number = '';
-        app.comment = '';
-      })["catch"](function (error) {
-        app.$snack.danger({
-          text: this.$i18n.t('general.errorMessage')
-        });
-      });
+      }
     },
     onCancel: function onCancel() {
       var _this = this;
