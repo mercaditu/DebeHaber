@@ -151,7 +151,6 @@ export default {
             crud.methods
             .onRead(app.baseUrl + "/generate-journals/"+ app.cycle.start_date + "/" + app.cycle.end_date)
             .then(function (response) {
-                console.log(response);
                 app.$snack.success({
                     text: app.$i18n.t('commercial.GenerateJournal'),
                 });

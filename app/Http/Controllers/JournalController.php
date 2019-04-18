@@ -11,7 +11,6 @@ use App\Journal;
 use App\JournalDetail;
 use App\Http\Resources\GeneralResource;
 use App\Jobs\GenerateJournal;
-
 use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -98,7 +97,7 @@ class JournalController extends Controller
 
     public function generateJournalsByRange(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
     {
-        GenerateJournal::dispatch($taxPayer, $cycle, $startDate, $endDate);
+        //GenerateJournal::dispatch($taxPayer, $cycle, $startDate, $endDate);
         return back();
     }
 }
