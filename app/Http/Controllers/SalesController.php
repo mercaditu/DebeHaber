@@ -113,7 +113,7 @@ class SalesController extends Controller
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
-        dd($startDate);
+        dd($cycle);
         $journal = \App\Journal::where('cycle_id', $cycle->id)
             ->where('date', $endDate->format('Y-m-d'))
             ->where('is_automatic', 1)
