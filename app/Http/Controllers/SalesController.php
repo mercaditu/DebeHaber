@@ -118,7 +118,7 @@ class SalesController extends Controller
             ->Where('date', $endDate->format('Y-m-d'))
             ->Where('is_automatic', 1)
             ->Where('module_id', 3)
-            ->with('details')->first() ?? new \App\Journal();
+            ->With('details')->first() ?? new \App\Journal();
 
             dd($journal);
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
