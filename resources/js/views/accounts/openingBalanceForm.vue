@@ -42,17 +42,25 @@
       <b-col>
         <b-card no-body>
           <b-table hover :items="data" :fields="columns">
+            <template slot="type" slot-scope="data">
+              <chart-types :type="data.item.type" :sub_type="data.item.sub_type"/>
+            </template>
+
             <template slot="code" slot-scope="data">
-              {{data.item.code}}
+                <span v-if="data.item.is_accountable">{{ data.item.code }}</span>
+                <b v-else>{{ data.item.code }}</b>
             </template>
+
             <template slot="name" slot-scope="data">
-              {{data.item.name}}
+                <span v-if="data.item.is_accountable">{{ data.item.name }}</span>
+                <b v-else>{{ data.item.name }}</b>
             </template>
-            <template slot="debit" slot-scope="data" v-if="data.item.is_accountable">
-              <!-- mask?? -->
+            
+            <!-- <template slot="debit" slot-scope="data" v-if="data.item.is_accountable">
+              
               <b-input type="text" v-model="data.item.debit"  placeholder="Debit"/>
 
-            </template>
+            </template> -->
             <template slot="credit" slot-scope="data" v-if="data.item.is_accountable">
               <!-- mask?? -->
               <b-input type="text" v-model="data.item.credit"  placeholder="credit"/>
@@ -167,7 +175,6 @@ export default {
 
   mounted() {
     var app = this;
-
     crud.methods
     .onRead(app.baseUrl + app.pageUrl)
     .then(function (response) {

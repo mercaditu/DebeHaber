@@ -28,6 +28,21 @@
                     ]
                 },
                 {
+                    "label": "accounting.type",
+                    "properties": [
+                        {
+                            "type": "type",
+                            "data": [
+                                {
+                                    "type": "type",
+                                    "subtype": "sub_type"
+                                }
+                            ]
+                            
+                        }
+                    ]
+                },
+                {
                     "label": "commercial.debit",
                     "properties": [
                         {

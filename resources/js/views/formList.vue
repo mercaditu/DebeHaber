@@ -71,9 +71,13 @@
           <b-col v-for="col in table.fields" v-bind:key="col.index">
             <span v-for="property in col.properties" v-bind:key="property.index">
               <b-input-group v-if="property.type === 'label'">
-                <b>{{ detail[property.data] }}</b>
+                 <span v-if="detail['is_accountable']">{{ detail[property.data] }}</span>
+                  <b v-else>{{ detail[property.data] }}</b>
+               
               </b-input-group>
-
+               <b-input-group v-if="property.type === 'type'">
+                    <chart-types :type="detail[property.data[0]['type']]" :sub_type="detail[property.data[0]['subtype']]"/>
+              </b-input-group>
               <b-input-group v-if="property.type === 'select'">
                 <select-data
                   v-bind:Id.sync="detail[property.data]"
@@ -150,12 +154,23 @@ export default {
         });
     }
   },
+  beforeUpdate() {
+    //var app = this;
+    var app = this;
+
+   var url = "";
+    url = app.baseUrl + app.$route.meta.pageurl;
+    crud.methods.onRead(url).then(function(response) {
+      //console.log(response);
+      app.data = response.data.data;
+    });
+    
+  },
   mounted() {
     var app = this;
 
     var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
-    console.log(url);
     crud.methods.onRead(url).then(function(response) {
       //console.log(response);
       app.data = response.data.data;
