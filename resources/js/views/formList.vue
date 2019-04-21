@@ -67,37 +67,41 @@
           </b-col>
         </b-row>
         <!-- Rows -->
-        <b-row v-for="detail in data" v-bind:key="detail.index">
-          <b-col v-for="col in table.fields" v-bind:key="col.index">
-            <span v-for="property in col.properties" v-bind:key="property.index">
-              <b-input-group v-if="property.type === 'label'">
-                 <span v-if="detail['is_accountable']">{{ detail[property.data] }}</span>
+        <div v-for="detail in data" v-bind:key="detail.index">
+          <b-row>
+            <b-col v-for="col in table.fields" v-bind:key="col.index">
+              <span v-for="property in col.properties" v-bind:key="property.index">
+                <b-input-group v-if="property.type === 'label'">
+                  <span v-if="detail['is_accountable']">{{ detail[property.data] }}</span>
                   <b v-else>{{ detail[property.data] }}</b>
-               
-              </b-input-group>
-               <b-input-group v-if="property.type === 'type'">
-                    <chart-types :type="detail[property.data[0]['type']]" :sub_type="detail[property.data[0]['subtype']]"/>
-              </b-input-group>
-              <b-input-group v-if="property.type === 'select'">
-                <select-data
-                  v-bind:Id.sync="detail[property.data]"
-                  :api="property.api"
-                  :options="property.options"
-                ></select-data>
-              </b-input-group>
+                </b-input-group>
+                <b-input-group v-if="property.type === 'type'">
+                  <chart-types
+                    :type="detail[property.data[0]['type']]"
+                    :sub_type="detail[property.data[0]['subtype']]"
+                  />
+                </b-input-group>
+                <b-input-group v-if="property.type === 'select'">
+                  <select-data
+                    v-bind:Id.sync="detail[property.data]"
+                    :api="property.api"
+                    :options="property.options"
+                  ></select-data>
+                </b-input-group>
 
-              <b-input-group v-else>
-                <b-input
-                  v-if="detail[property.location]"
-                  :type="property.type"
-                  v-model="detail[property.data]"
-                  :required="property.required"
-                  :placeholder="property.placeholder"
-                />
-              </b-input-group>
-            </span>
-          </b-col>
-        </b-row>
+                <b-input-group v-else>
+                  <b-input
+                    v-if="detail[property.location]"
+                    :type="property.type"
+                    v-model="detail[property.data]"
+                    :required="property.required"
+                    :placeholder="property.placeholder"
+                  />
+                </b-input-group>
+              </span>
+            </b-col>
+          </b-row>
+        </div>
       </b-card>
     </div>
   </div>
@@ -158,13 +162,12 @@ export default {
     //var app = this;
     var app = this;
 
-   var url = "";
+    var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
     crud.methods.onRead(url).then(function(response) {
       //console.log(response);
       app.data = response.data.data;
     });
-    
   },
   mounted() {
     var app = this;
