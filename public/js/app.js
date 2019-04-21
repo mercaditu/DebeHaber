@@ -113111,13 +113111,13 @@ var AccountingReports = function AccountingReports() {
     name: "salesList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.salesBook",
@@ -113176,16 +113176,16 @@ var AccountingReports = function AccountingReports() {
     name: "creditList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
-      title: "commercial.creditBook",
+      title: "general.creditBook",
       description: "Some description",
       img: "/img/apps/credit-note.svg",
       columns: [{
@@ -113233,13 +113233,13 @@ var AccountingReports = function AccountingReports() {
     name: "purchaseList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.purchaseBook",
@@ -113287,16 +113287,16 @@ var AccountingReports = function AccountingReports() {
     name: "debitList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
-      title: "commercial.debitBook",
+      title: "general.debitBook",
       description: "Some description",
       img: "/img/apps/credit-note.svg",
       columns: [{
@@ -113341,13 +113341,13 @@ var AccountingReports = function AccountingReports() {
     name: "fixedAssetList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.fixedAssets",
@@ -113398,13 +113398,13 @@ var AccountingReports = function AccountingReports() {
     name: "moneyMovementList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.moneyMovements",
@@ -113431,11 +113431,11 @@ var AccountingReports = function AccountingReports() {
         sortable: true
       }, {
         key: "debit",
-        label: "commercial.debit",
+        label: "general.debit",
         sortable: true
       }, {
         key: "credit",
-        label: "commercial.credit",
+        label: "general.credit",
         sortable: true
       }, {
         key: "actions",
@@ -113455,13 +113455,13 @@ var AccountingReports = function AccountingReports() {
     name: "inventoryList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.inventories",
@@ -113514,13 +113514,13 @@ var AccountingReports = function AccountingReports() {
     name: "receivableList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.accountReceivables",
@@ -113578,13 +113578,13 @@ var AccountingReports = function AccountingReports() {
     name: "payableList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.accountPayables",
@@ -113641,13 +113641,13 @@ var AccountingReports = function AccountingReports() {
     name: "impexList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.impex",
@@ -113699,13 +113699,13 @@ var AccountingReports = function AccountingReports() {
     name: "journalTemplateList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "accounting.journal",
@@ -113732,13 +113732,13 @@ var AccountingReports = function AccountingReports() {
     name: "journalList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "accounting.journal",
@@ -113775,13 +113775,13 @@ var AccountingReports = function AccountingReports() {
     name: "chartList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "accounting.chartOfAccounts",
@@ -113813,13 +113813,13 @@ var AccountingReports = function AccountingReports() {
     name: "versionList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "accounting.chartVersion",
@@ -113840,13 +113840,13 @@ var AccountingReports = function AccountingReports() {
     name: "cycleList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "accounting.fiscalYear",
@@ -113876,13 +113876,13 @@ var AccountingReports = function AccountingReports() {
     name: "documentList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.documents",
@@ -113901,13 +113901,13 @@ var AccountingReports = function AccountingReports() {
     name: "rateList",
     meta: {
       buttons: [{
-        name: 'manual',
+        name: "manual",
         visible: true
       }, {
-        name: 'uploadFromExcel',
+        name: "uploadFromExcel",
         visible: false
       }, {
-        name: 'createNewRecord',
+        name: "createNewRecord",
         visible: true
       }],
       title: "commercial.exchangeRates",
@@ -114882,7 +114882,7 @@ module.exports = {"pageurl":"/accounting/budgets","title":"accounting.budget","i
 /*! exports provided: pageurl, title, img, module, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/accounting/closing-balance","title":"commercial.closingbalance","img":"/img/apps/closing-balance.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"commercial.chart","properties":[{"type":"label","data":"name"}]},{"label":"accounting.type","properties":[{"type":"type","data":[{"type":"type","subtype":"sub_type"}]}]},{"label":"commercial.debit","properties":[{"type":"text","data":"debit","placeholder":"commercial.debit","required":false,"location":"is_accountable"}]},{"label":"commercial.credit","properties":[{"type":"text","data":"credit","placeholder":"commercial.credit","required":false,"location":"is_accountable"}]}]}]};
+module.exports = {"pageurl":"/accounting/closing-balance","title":"commercial.closingbalance","img":"/img/apps/closing-balance.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"accounting.chartOfAccounts","properties":[{"type":"label","data":"name"}]},{"label":"general.types","properties":[{"type":"type","data":[{"type":"type","subtype":"sub_type"}]}]},{"label":"general.credit","properties":[{"type":"text","data":"credit","placeholder":"general.credit","required":false,"location":"is_accountable"}]},{"label":"general.debit","properties":[{"type":"text","data":"debit","placeholder":"general.debit","required":false,"location":"is_accountable"}]}]}]};
 
 /***/ }),
 
@@ -114893,7 +114893,7 @@ module.exports = {"pageurl":"/accounting/closing-balance","title":"commercial.cl
 /*! exports provided: pageurl, title, img, module, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/accounting/opening-balance","title":"accounting.openingbalance","img":"/img/apps/opening-balance.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"commercial.chart","properties":[{"type":"label","data":"name"}]},{"label":"accounting.type","properties":[{"type":"type","data":[{"type":"type","subtype":"sub_type"}]}]},{"label":"commercial.debit","properties":[{"type":"text","data":"debit","placeholder":"commercial.debit","required":false,"location":"is_accountable"}]},{"label":"commercial.credit","properties":[{"type":"text","data":"credit","placeholder":"commercial.credit","required":false,"location":"is_accountable"}]}]}]};
+module.exports = {"pageurl":"/accounting/opening-balance","title":"accounting.openingbalance","img":"/img/apps/opening-balance.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"accounting.chartOfAccounts","properties":[{"type":"label","data":"name"}]},{"label":"accounting.type","properties":[{"type":"type","data":[{"type":"type","subtype":"sub_type"}]}]},{"label":"general.debit","properties":[{"type":"text","data":"debit","placeholder":"general.debit","required":false,"location":"is_accountable"}]},{"label":"general.credit","properties":[{"type":"text","data":"credit","placeholder":"general.credit","required":false,"location":"is_accountable"}]}]}]};
 
 /***/ }),
 

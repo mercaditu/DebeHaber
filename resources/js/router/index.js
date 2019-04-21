@@ -90,17 +90,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.salesBook",
                     description: "Some description",
                     img: "/img/apps/sales.svg",
@@ -172,18 +173,19 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
-                    title: "commercial.creditBook",
+                        }
+                    ],
+                    title: "general.creditBook",
                     description: "Some description",
                     img: "/img/apps/credit-note.svg",
                     columns: [
@@ -245,17 +247,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.purchaseBook",
                     description: "Some description",
                     img: "/img/apps/purchase-v1.svg",
@@ -313,18 +316,19 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
-                    title: "commercial.debitBook",
+                        }
+                    ],
+                    title: "general.debitBook",
                     description: "Some description",
                     img: "/img/apps/credit-note.svg",
                     columns: [
@@ -381,17 +385,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.fixedAssets",
                     description: "Some description",
                     img: "/img/apps/fixed-asset.svg",
@@ -447,7 +452,6 @@ export default [
                 component: Form,
                 name: "moneyTransferForm",
                 meta: MoneyMovementForm
-                
             },
             {
                 path: "money-movements",
@@ -456,17 +460,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.moneyMovements",
                     description: "Some description",
                     img: "/img/apps/account-payable.svg",
@@ -496,12 +501,12 @@ export default [
                         },
                         {
                             key: "debit",
-                            label: "commercial.debit",
+                            label: "general.debit",
                             sortable: true
                         },
                         {
                             key: "credit",
-                            label: "commercial.credit",
+                            label: "general.credit",
                             sortable: true
                         },
                         {
@@ -517,9 +522,7 @@ export default [
                         component: Form,
                         name: "moneyMovementForm",
                         meta: MoneyMovementDebitForm
-                    },
-                    
-
+                    }
                 ]
             },
             {
@@ -529,17 +532,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.inventories",
                     description: "Some description",
                     img: "/img/apps/inventory.svg",
@@ -605,17 +609,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.accountReceivables",
                     description: "Some description",
                     img: "/img/apps/account-receivable.svg",
@@ -633,7 +638,9 @@ export default [
                             key: "partner",
                             label: "commercial.customer",
                             formatter: (value, key, item) => {
-                                return item.partner_name.substring(0, 15) + "...";
+                                return (
+                                    item.partner_name.substring(0, 15) + "..."
+                                );
                             },
                             sortable: true
                         },
@@ -684,17 +691,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.accountPayables",
                     description: "Some description",
                     img: "/img/apps/account-payable.svg",
@@ -712,7 +720,9 @@ export default [
                             key: "partner",
                             label: "commercial.supplier",
                             formatter: (value, key, item) => {
-                                return item.partner_name.substring(0, 15) + "...";
+                                return (
+                                    item.partner_name.substring(0, 15) + "..."
+                                );
                             },
                             sortable: true
                         },
@@ -764,17 +774,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.impex",
                     description: "Some description",
                     img: "/img/apps/impex.svg",
@@ -792,7 +803,9 @@ export default [
                             key: "partner",
                             label: "commercial.supplier",
                             formatter: (value, key, item) => {
-                                return item.partner_name.substring(0, 15) + "...";
+                                return (
+                                    item.partner_name.substring(0, 15) + "..."
+                                );
                             },
                             sortable: true
                         },
@@ -835,17 +848,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "accounting.journal",
                     description: "Some description",
                     img: "/img/apps/journals.svg",
@@ -877,17 +891,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "accounting.journal",
                     description: "Some description",
                     img: "/img/apps/journals.svg"
@@ -930,17 +945,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "accounting.chartOfAccounts",
                     description: "Some description",
                     img: "/img/apps/chart-of-accounts.svg"
@@ -976,17 +992,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "accounting.chartVersion",
                     description: "Some description",
                     img: "/img/apps/sales.svg"
@@ -1009,17 +1026,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "accounting.fiscalYear",
                     description: "Some description",
                     img: "/img/apps/sales.svg",
@@ -1055,17 +1073,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.documents",
                     description: "Some description",
                     img: "/img/apps/sales.svg"
@@ -1086,17 +1105,18 @@ export default [
                 meta: {
                     buttons: [
                         {
-                            name: 'manual',
+                            name: "manual",
                             visible: true
                         },
                         {
-                            name: 'uploadFromExcel',
+                            name: "uploadFromExcel",
                             visible: false
                         },
                         {
-                            name: 'createNewRecord',
+                            name: "createNewRecord",
                             visible: true
-                        }],
+                        }
+                    ],
                     title: "commercial.exchangeRates",
                     description: "Some description",
                     img: "/img/apps/sales.svg"

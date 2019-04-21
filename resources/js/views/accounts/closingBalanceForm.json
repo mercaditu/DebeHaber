@@ -18,17 +18,16 @@
                     ]
                 },
                 {
-                    "label": "commercial.chart",
+                    "label": "accounting.chartOfAccounts",
                     "properties": [
                         {
                             "type": "label",
                             "data": "name"
-                            
                         }
                     ]
                 },
                 {
-                    "label": "accounting.type",
+                    "label": "general.types",
                     "properties": [
                         {
                             "type": "type",
@@ -38,29 +37,28 @@
                                     "subtype": "sub_type"
                                 }
                             ]
-                            
                         }
                     ]
                 },
                 {
-                    "label": "commercial.debit",
+                    "label": "general.credit",
                     "properties": [
                         {
                             "type": "text",
-                            "data": "debit",
-                            "placeholder": "commercial.debit",
+                            "data": "credit",
+                            "placeholder": "general.credit",
                             "required": false,
                             "location": "is_accountable"
                         }
                     ]
                 },
                 {
-                    "label": "commercial.credit",
+                    "label": "general.debit",
                     "properties": [
                         {
                             "type": "text",
-                            "data": "credit",
-                            "placeholder": "commercial.credit",
+                            "data": "debit",
+                            "placeholder": "general.debit",
                             "required": false,
                             "location": "is_accountable"
                         }
