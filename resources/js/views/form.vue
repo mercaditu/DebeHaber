@@ -233,7 +233,7 @@ export default {
 
     deleteRow(item, table, api) {
       var app = this;
-      console.log(item, table);
+      //console.log(item, table);
       if (item.id > 0) {
         crud.methods
           .onDelete(app.baseUrl + api, item.id)

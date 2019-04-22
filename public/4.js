@@ -108,10 +108,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -601,46 +597,6 @@ var render = function() {
                                           }
                                         },
                                         {
-                                          key: "hasDetails",
-                                          fn: function(row) {
-                                            return [
-                                              _c(
-                                                "b-button-group",
-                                                {
-                                                  staticClass:
-                                                    "show-when-hovered",
-                                                  attrs: { size: "sm" }
-                                                },
-                                                [
-                                                  _c(
-                                                    "b-button",
-                                                    {
-                                                      on: {
-                                                        click: row.toggleDetails
-                                                      }
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "i",
-                                                        {
-                                                          staticClass:
-                                                            "material-icons md-19"
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "remove_red_eye"
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ]
-                                          }
-                                        },
-                                        {
                                           key: "actions",
                                           fn: function(data) {
                                             return [
@@ -659,11 +615,10 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      1404765324
+                                      1455951967
                                     )
                                   },
                                   [
-                                    _vm._v(" "),
                                     _vm._v(" "),
                                     _vm._v(" "),
                                     _vm._v(" "),

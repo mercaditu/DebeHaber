@@ -58,8 +58,14 @@ class IntegrationServices extends Migration
 
         Schema::table('journal_template_details', function (Blueprint $table) {
             // change() tells the Schema builder that we are altering a table
-            $table->unsignedDecimal('debit_coef', 4, 4)->default(0)->change();
-            $table->unsignedDecimal('credit_coef', 4, 4)->default(0)->change();
+            $table->unsignedDecimal('debit_coef', 5, 4)->default(0)->change();
+            $table->unsignedDecimal('credit_coef', 5, 4)->default(0)->change();
+        });
+
+        Schema::table('journals', function (Blueprint $table) {
+            // change() tells the Schema builder that we are altering a table
+            $table->string('number', 30)->nullable()->change();
+           
         });
     }
 
@@ -80,5 +86,17 @@ class IntegrationServices extends Migration
 
         Schema::dropIfExists('integration_service_mappings');
         Schema::dropIfExists('integration_services');
+
+        Schema::table('journal_template_details', function (Blueprint $table) {
+            // change() tells the Schema builder that we are altering a table
+            $table->unsignedDecimal('debit_coef', 4, 4)->default(0)->change();
+            $table->unsignedDecimal('credit_coef', 4, 4)->default(0)->change();
+        });
+
+        Schema::table('journals', function (Blueprint $table) {
+            // change() tells the Schema builder that we are altering a table
+            $table->unsignedInteger('number')->nullable()->change();
+           
+        });
     }
 }

@@ -176,7 +176,7 @@ export default {
 
     onSaveNew() {
       var app = this;
-      console.log(app.data);
+      //console.log(app.data);
       crud.methods
         .onUpdate(app.baseUrl + app.pageUrl, app.data)
         .then(function(response) {

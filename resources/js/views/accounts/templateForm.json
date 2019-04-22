@@ -7,7 +7,7 @@
             "fields": [
                 {
                     "label":  "commercial.name",
-                    "properties": [{ "type":  "text", "data":  "name", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                    "properties": [{ "type":  "text", "data":  "name", "placeholder":  "commercial.name", "required": false, "location":  "" }]
                 }
                 
 

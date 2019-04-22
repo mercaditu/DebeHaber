@@ -90,7 +90,7 @@ export default {
       return '';
     }
   },
- 
+   
   mounted() {
     if (this.$route.meta.columns != null)
     {

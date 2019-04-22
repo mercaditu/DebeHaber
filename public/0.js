@@ -132,6 +132,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -141,9 +152,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       data: {
         date: '',
-        details: [{
-          id: 0
-        }],
+        details: [],
         id: 0,
         number: '',
         comment: '',
@@ -183,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
       this.data.details.forEach(function (e) {
         debit += e.debit;
         credit += e.credit;
-        console.log(e);
+        //console.log(e);
       });
       return debit - credit;
     },
@@ -216,16 +225,13 @@ __webpack_require__.r(__webpack_exports__);
           app.$snack.success({
             text: app.$i18n.t('commercial.JournalSaved')
           });
+          app.data.date = '', app.data.details = [], app.data.id = 0, app.data.number = '', app.data.comment = '', app.data.template_id = '', app.data.template = '', app.data.value = '';
           app.$router.push({
             name: app.$route.name,
             params: {
-              id: '0'
+              id: "0"
             }
           });
-          app.date = '';
-          app.id = 0;
-          app.number = '';
-          app.comment = '';
         })["catch"](function (error) {
           app.$snack.danger({
             text: this.$i18n.t('general.errorMessage')
@@ -723,6 +729,40 @@ var render = function() {
           _c(
             "b-col",
             [
+              _c(
+                "b-btn",
+                {
+                  directives: [
+                    {
+                      name: "shortkey",
+                      rawName: "v-shortkey",
+                      value: ["ctrl", "d"],
+                      expression: "['ctrl', 'd']"
+                    }
+                  ],
+                  staticClass: "mb-5",
+                  attrs: { size: "sm" },
+                  on: {
+                    shortkey: function($event) {
+                      return _vm.addDetailRow(_vm.data.details)
+                    },
+                    click: function($event) {
+                      return _vm.addDetailRow(_vm.data.details)
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "material-icons mi-18" }, [
+                    _vm._v("playlist_add")
+                  ]),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$t("general.addRowDetail")) +
+                      "\n            "
+                  )
+                ]
+              ),
+              _vm._v(" "),
               _c(
                 "b-card",
                 { attrs: { "no-body": "" } },

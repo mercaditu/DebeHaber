@@ -124,7 +124,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     GenerateReport: function GenerateReport(path, mode) {
-      console.log(mode);
+      //console.log(mode);
       var app = this;
       window.location.href = app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate;
     }

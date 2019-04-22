@@ -91,8 +91,8 @@ class AccountMovementController extends Controller
         // }
 
         $accMovement->date = $this->convert_date($data['Date']);
-        $accMovement->credit = $data['Credit'] ?? 0;
-        $accMovement->debit = $data['Debit'] ?? 0;
+        $accMovement->credit = $data['Credit'] * $accMovement->rate ?? 0;
+        $accMovement->debit = $data['Debit'] * $accMovement->rate ?? 0;
         $accMovement->comment = $data['Comment'];
         $accMovement->save();
 

@@ -96,6 +96,7 @@
                 <b-card no-body>
                     <b-table hover :items="data.details" :fields="columns">
                         <template slot="chart_id" slot-scope="data">
+                            111
                             <b-form-select v-model="data.item.chart_id">
                                 <option v-for="item in accountCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
                             </b-form-select>
@@ -292,6 +293,7 @@ export default {
         });
         
        
+
 
         }
     },

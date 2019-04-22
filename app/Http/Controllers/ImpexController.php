@@ -78,4 +78,88 @@ class ImpexController extends Controller
     {
         //
     }
+
+    public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
+    {
+        \DB::connection()->disableQueryLog();
+       
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 5)
+            ->with('details')->first() ?? new \App\Journal();
+
+        //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
+        foreach ($journal->details()->get() as $detail) {
+            $detail->credit = 0;
+            $detail->debit = 0;
+            $detail->save();
+        }
+
+        //search impex
+        $impexQuery = Impex::pluck(id);
+
+        $comment = __('accounting.ImpexComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
+        $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
+        $journal->date = $endDate;
+        $journal->comment = $comment;
+        $journal->is_automatic = 1;
+        $journal->module_id = 3;
+        $journal->save();
+
+        $chartController = new ChartController();
+
+        //Sales Transactionsd done in cash. Must affect direct cash account.
+        $itemsQuery = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate')
+            ->where('payment_condition', '=', 0)
+            ->select(
+                DB::raw('max(rate) as rate'),
+                DB::raw('max(chart_account_id) as chart_account_id'),
+                DB::raw('sum(transaction_details.value) as total')
+            )
+            ->get();
+
+            $expenseQuery = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->groupBy('rate')
+            ->where('payment_condition', '=', 0)
+            ->select(
+                DB::raw('max(rate) as rate'),
+                DB::raw('max(chart_account_id) as chart_account_id'),
+                DB::raw('sum(transaction_details.value) as total')
+            )
+            ->get();
+
+        //run code for cash sales (insert detail into journal)
+        $totalTransaction = $itemsQuery->sum(value * rate);
+
+        foreach ($itemsQuery as $itemsRow) {
+            $percentageTransaction = $itemsRow/($totalTransaction ?? 1);
+            foreach ($expenseQuery as $expenseRow) {
+                //1st detail = increase item value
+                $detail = $journal->details()->firstOrNew(['chart_id' => $itemsRow->chart_id]);
+                $detail->credit += ($expenseRow->total * $percentageTransaction) * $expenseRow->rate;
+                $detail->chart_id = $itemsRow->chart_id;
+                $journal->details()->save($detail);
+
+                //2nd detail = decrease expense value
+                $detail = $journal->details()->firstOrNew(['chart_id' => $expenseRow->chart_id]);
+                $detail->credit += ($expenseRow->total * $percentageTransaction) * $expenseRow->rate;
+                $detail->chart_id = $expenseRow->chart_id;
+                $journal->details()->save($detail);
+            }
+        }
+
+        //delete where credit and debit == 0. This will clean up old charts that were used, but not in new.
+        $journal->details()
+            ->where('debit', 0)
+            ->where('credit', 0)
+            ->delete();
+
+        $journal->save();
+
+        $salesQuery->update(['journal_id' => $journal->id]);
+    }
 }

@@ -25,6 +25,7 @@
             </b-col>
         </b-row>
 
+
         <b-row>
             <b-col>
                 <b-card>
@@ -91,6 +92,16 @@
 
         <b-row>
             <b-col>
+             <b-btn
+                    class="mb-5"
+                    size="sm"
+                    v-shortkey="['ctrl', 'd']"
+                    @shortkey="addDetailRow(data.details)"
+                    @click="addDetailRow(data.details)">
+                    <i class="material-icons mi-18">playlist_add</i>
+                    {{ $t('general.addRowDetail') }}
+                </b-btn>
+
                 <b-card no-body>
                     <b-table hover :items="data.details" :fields="columns">
                         <template slot="chart_id" slot-scope="data">
@@ -128,7 +139,7 @@ export default {
         return {
             data: {
                 date: '',
-                details: [{id:0}],
+                details: [],
                 id: 0,
                 number: '',
                 comment: '',
@@ -221,11 +232,16 @@ export default {
                 app.$snack.success({
                           text: app.$i18n.t('commercial.JournalSaved'),
                       });
-                app.$router.push({ name: app.$route.name, params: { id: '0' }})
-                app.date= '';
-                app.id= 0;
-                app.number= '';
-                app.comment= '';
+                app.data.date = '',
+                app.data.details = [],
+                app.data.id = 0,
+                app.data.number = '',
+                app.data.comment = '',
+                app.data.template_id = '',
+                app.data.template = '',
+                app.data.value = ''
+                app.$router.push({ name: app.$route.name, params: { id: "0" } });
+               
             }).catch(function (error) {
                 app.$snack.danger({
                     text: this.$i18n.t('general.errorMessage'),

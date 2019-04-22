@@ -113,7 +113,7 @@ export default {
     methods: {
 
         GenerateReport(path,mode) {
-          console.log(mode);
+          //console.log(mode);
             var app = this;
             window.location.href = app.$route.path + "/" +  path + "/" +  app.startDate + "/" + app.endDate;
            
