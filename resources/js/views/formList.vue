@@ -59,6 +59,16 @@
       </b-col>
     </b-row>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
+      <b-btn
+        class="mb-5"
+        size="sm"
+        v-shortkey="['ctrl', 'd']"
+        @shortkey="addRow(table.data)"
+        @click="addRow(table.data)"
+      >
+        <i class="material-icons mi-18">playlist_add</i>
+        {{ $t('general.addRowDetail') }}
+      </b-btn>
       <b-card>
         <!-- Labels -->
         <b-row>
@@ -113,7 +123,8 @@ export default {
   components: { crud: crud },
   data() {
     return {
-      data: {}
+      data: {},
+      name:''
     };
   },
   computed: {
@@ -156,6 +167,18 @@ export default {
             this.$router.go(-1);
           }
         });
+    },
+    addRow(table) {
+      var app = this;
+      if (app.data[table] === undefined) {
+        app.data[table] = [];
+      }
+
+      app.data[table].push({
+        // index: this.data.details.length + 1,
+        id: 0
+      });
+      this.$forceUpdate();
     }
   },
   beforeUpdate() {
@@ -164,16 +187,22 @@ export default {
 
     var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
-    crud.methods.onRead(url).then(function(response) {
+    if (this.name != url)
+    {
+       app.name = url;
+       crud.methods.onRead(url).then(function(response) {
       //console.log(response);
       app.data = response.data.data;
-    });
+       });
+    }
+   
   },
   mounted() {
     var app = this;
 
     var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
+    app.name = url;
     crud.methods.onRead(url).then(function(response) {
       //console.log(response);
       app.data = response.data.data;

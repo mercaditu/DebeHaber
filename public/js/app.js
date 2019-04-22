@@ -4609,6 +4609,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4616,7 +4626,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      data: {}
+      data: {},
+      name: ''
     };
   },
   computed: {
@@ -4653,6 +4664,19 @@ __webpack_require__.r(__webpack_exports__);
           _this.$router.go(-1);
         }
       });
+    },
+    addRow: function addRow(table) {
+      var app = this;
+
+      if (app.data[table] === undefined) {
+        app.data[table] = [];
+      }
+
+      app.data[table].push({
+        // index: this.data.details.length + 1,
+        id: 0
+      });
+      this.$forceUpdate();
     }
   },
   beforeUpdate: function beforeUpdate() {
@@ -4660,15 +4684,20 @@ __webpack_require__.r(__webpack_exports__);
     var app = this;
     var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
-    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(url).then(function (response) {
-      //console.log(response);
-      app.data = response.data.data;
-    });
+
+    if (this.name != url) {
+      app.name = url;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(url).then(function (response) {
+        //console.log(response);
+        app.data = response.data.data;
+      });
+    }
   },
   mounted: function mounted() {
     var app = this;
     var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
+    app.name = url;
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(url).then(function (response) {
       //console.log(response);
       app.data = response.data.data;
@@ -92513,6 +92542,38 @@ var render = function() {
           "div",
           { key: table.index },
           [
+            _c(
+              "b-btn",
+              {
+                directives: [
+                  {
+                    name: "shortkey",
+                    rawName: "v-shortkey",
+                    value: ["ctrl", "d"],
+                    expression: "['ctrl', 'd']"
+                  }
+                ],
+                staticClass: "mb-5",
+                attrs: { size: "sm" },
+                on: {
+                  shortkey: function($event) {
+                    return _vm.addRow(table.data)
+                  },
+                  click: function($event) {
+                    return _vm.addRow(table.data)
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "material-icons mi-18" }, [
+                  _vm._v("playlist_add")
+                ]),
+                _vm._v(
+                  "\n      " + _vm._s(_vm.$t("general.addRowDetail")) + "\n    "
+                )
+              ]
+            ),
+            _vm._v(" "),
             _c(
               "b-card",
               [
