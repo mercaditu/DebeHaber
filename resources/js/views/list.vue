@@ -5,7 +5,7 @@
         <b-card-group deck>
           <b-card bg-variant="dark" text-variant="white">
             <h4 class="upper-case">
-              <Erp-next></Erp-next>
+              <!-- <Erp-next></Erp-next> -->
               <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26">
               {{ $t($route.meta.title) }}
             </h4>

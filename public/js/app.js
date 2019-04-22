@@ -92888,28 +92888,21 @@ var render = function() {
                           }
                         },
                         [
-                          _c(
-                            "h4",
-                            { staticClass: "upper-case" },
-                            [
-                              _c("Erp-next"),
-                              _vm._v(" "),
-                              _c("img", {
-                                staticClass: "ml-5 mr-5",
-                                attrs: {
-                                  src: _vm.$route.meta.img,
-                                  alt: "",
-                                  width: "26"
-                                }
-                              }),
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                  "\n          "
-                              )
-                            ],
-                            1
-                          )
+                          _c("h4", { staticClass: "upper-case" }, [
+                            _c("img", {
+                              staticClass: "ml-5 mr-5",
+                              attrs: {
+                                src: _vm.$route.meta.img,
+                                alt: "",
+                                width: "26"
+                              }
+                            }),
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(_vm.$t(_vm.$route.meta.title)) +
+                                "\n          "
+                            )
+                          ])
                         ]
                       ),
                       _vm._v(" "),
