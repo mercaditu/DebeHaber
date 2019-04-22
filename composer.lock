@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b963b3fb775626847f005937d88a88c",
+    "content-hash": "b9dd2a0b31bbf0c0022b8b92046892a6",
     "packages": [
         {
             "name": "binarytorch/larecipe",
@@ -2163,8 +2163,7 @@
             "dist": {
                 "type": "path",
                 "url": "./spark",
-                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6",
-                "shasum": null
+                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6"
             },
             "require": {
                 "erusev/parsedown": "~1.0",
@@ -5419,6 +5418,66 @@
                 "stylesheet"
             ],
             "time": "2016-07-19T19:14:21+00:00"
+        },
+        {
+            "name": "sandervanhooft/laravel-blade-readable-numbers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sandervanhooft/laravel-blade-readable-numbers.git",
+                "reference": "4728c93e3c6c98db9f138964bc81e5ad6cdf1855"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sandervanhooft/laravel-blade-readable-numbers/zipball/4728c93e3c6c98db9f138964bc81e5ad6cdf1855",
+                "reference": "4728c93e3c6c98db9f138964bc81e5ad6cdf1855",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.6",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SanderVanHooft\\ReadableNumbers\\ReadableNumbersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SanderVanHooft\\ReadableNumbers\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sander van Hooft",
+                    "email": "info@sandervanhooft.com",
+                    "homepage": "https://www.sandervanhooft.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A blade directive for human readable numbers, k-style.",
+            "homepage": "https://github.com/sandervanhooft/laravel-blade-readable-numbers",
+            "keywords": [
+                "Sander van Hooft",
+                "blade",
+                "human-readable",
+                "laravel",
+                "laravel-blade-readable-numbers"
+            ],
+            "time": "2018-12-05T19:37:18+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

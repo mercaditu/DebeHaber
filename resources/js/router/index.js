@@ -37,7 +37,7 @@ const ChartList = () => import("../views/accounts/chartList");
 const ChartForm = () => import("../views/accounts/chartForm");
 
 const Config = () => import("../views/configs/index");
-const DocumentList = () => import("../views/configs/documentList");
+// const DocumentList = () => import("../views/configs/documentList");
 const RateList = () => import("../views/configs/rateList");
 const VersionList = () => import("../views/configs/versionList");
 const VersionForm = () => import("../views/configs/versionForm");
@@ -860,7 +860,7 @@ export default [
                             visible: true
                         }
                     ],
-                    title: "accounting.journal",
+                    title: "accounting.journalTemplate",
                     description: "Some description",
                     img: "/img/apps/journals.svg",
                     columns: [
@@ -1068,7 +1068,7 @@ export default [
             },
             {
                 path: "documents",
-                component: DocumentList,
+                component: List,
                 name: "documentList",
                 meta: {
                     buttons: [
@@ -1100,7 +1100,7 @@ export default [
             },
             {
                 path: "rates",
-                component: RateList,
+                component: List,
                 name: "rateList",
                 meta: {
                     buttons: [

@@ -105,7 +105,7 @@
                     :type="property.type"
                     v-model="detail[property.data]"
                     :required="property.required"
-                    :placeholder="property.placeholder"
+                    :placeholder="$t(property.placeholder)"
                   />
                 </b-input-group>
               </span>
@@ -124,7 +124,7 @@ export default {
   data() {
     return {
       data: {},
-      name:''
+      name: ""
     };
   },
   computed: {
@@ -187,15 +187,13 @@ export default {
 
     var url = "";
     url = app.baseUrl + app.$route.meta.pageurl;
-    if (this.name != url)
-    {
-       app.name = url;
-       crud.methods.onRead(url).then(function(response) {
-      //console.log(response);
-      app.data = response.data.data;
-       });
+    if (this.name != url) {
+      app.name = url;
+      crud.methods.onRead(url).then(function(response) {
+        //console.log(response);
+        app.data = response.data.data;
+      });
     }
-   
   },
   mounted() {
     var app = this;

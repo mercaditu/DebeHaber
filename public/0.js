@@ -192,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
       this.data.details.forEach(function (e) {
         debit += e.debit;
         credit += e.credit;
-        //console.log(e);
+        console.log(e);
       });
       return debit - credit;
     },

@@ -65,7 +65,6 @@ class IntegrationServices extends Migration
         Schema::table('journals', function (Blueprint $table) {
             // change() tells the Schema builder that we are altering a table
             $table->string('number', 30)->nullable()->change();
-           
         });
     }
 
@@ -96,7 +95,6 @@ class IntegrationServices extends Migration
         Schema::table('journals', function (Blueprint $table) {
             // change() tells the Schema builder that we are altering a table
             $table->unsignedInteger('number')->nullable()->change();
-           
         });
     }
 }
