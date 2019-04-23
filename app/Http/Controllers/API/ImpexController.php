@@ -28,7 +28,7 @@ class ImpexController extends Controller
 
 			//groupby function group by year.
 			foreach ($groupData as $groupedRow) {
-				if ($data['Type']== 1) {
+				if ($groupedRow->first()['Type']== 1) {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['CustomerTaxID'], $groupedRow->first()['CustomerName']);
 				} else {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['SupplierTaxID'], $groupedRow->first()['SupplierName']);

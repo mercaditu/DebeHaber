@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\AccountMovement;
 use App\Transaction;
 use App\Impex;
-use App\Http\Controllers\ImpexController;
+use App\Http\Controllers\ImpexImportController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CreditNoteController;
 use App\Http\Controllers\DebitNoteController;
@@ -166,7 +166,7 @@ class GenerateJournal implements ShouldQueue
         Accounts Payable
         */
         if (Impex::where('taxpayer_id', $this->taxPayer->id)->count() > 0) {
-            $controller = new ImpexController();
+            $controller = new ImpexImportController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
     }

@@ -138,7 +138,7 @@ class ImpexImportController extends Controller
             ->select(
                 DB::raw('sum(transaction_details.value * transactions.rate) as total'),
                 DB::raw('max(transaction_details.chart_id) as chart_id'),
-                DB::raw('max(charts.name) as name'),
+                DB::raw('max(charts.name) as name')
             );
 
 
@@ -151,7 +151,7 @@ class ImpexImportController extends Controller
             ->select(
                 DB::raw('sum(impex_expenses.value * impex_expenses.rate) as total'),
                 DB::raw('max(impex_expenses.chart_id) as chart_id'),
-                DB::raw('max(charts.name) as name'),
+                DB::raw('max(charts.name) as name')
             );
 
         $expenseQuery = $expenseFromPurchaseQuery->union($expense)->get();
