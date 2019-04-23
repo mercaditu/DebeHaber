@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Transaction;
 use App\Taxpayer;
 use App\Cycle;
 use App\Impex;
+use App\ImpexExpense;
 use Illuminate\Http\Request;
+use DB;
 
 class ImpexImportController extends Controller
 {
@@ -133,8 +135,8 @@ class ImpexImportController extends Controller
             ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
             ->groupBy('transaction_details.chart_id')
             ->whereIn('transactions.impex_id', $impexQuery)
-            ->whereNot('transactions.type', 1)
-            ->whereNot('transactions.sub_type', 8)
+            ->where('transactions.type', '<>' , 1)
+            ->where('transactions.sub_type', '<>' , 8)
             ->select(
                 DB::raw('sum(transaction_details.value * transactions.rate) as total'),
                 DB::raw('max(transaction_details.chart_id) as chart_id'),
@@ -143,8 +145,8 @@ class ImpexImportController extends Controller
 
 
         $expense = ImpexExpense::whereIn('impex_expenses.impex_id', $impexQuery)
-            ->join('transaction_details', 'impex_expenses.transaction_detail_id', '=', 'transaction_details.id')
-            ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+            ->leftjoin('transaction_details', 'impex_expenses.transaction_detail_id', '=', 'transaction_details.id')
+            ->leftjoin('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->join('charts', 'charts.id', '=', 'impex_expenses.chart_id')
             ->groupBy('transaction_details.chart_id')
             ->where('payment_condition', '=', 0)
@@ -186,6 +188,11 @@ class ImpexImportController extends Controller
 
         $journal->save();
 
-        $impexQuery->update(['journal_id' => $journal->id]);
+        $impexs=Impex::whereIn('id', $impexQuery)->get();
+        foreach ($impexs as $impex) {
+            $impex->journal_id = $journal->id;
+            $impex->save();
+        }
+        
     }
 }

@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\AccountMovement;
 use App\Transaction;
 use App\Impex;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ImpexImportController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CreditNoteController;

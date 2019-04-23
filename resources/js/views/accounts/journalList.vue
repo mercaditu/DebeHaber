@@ -72,7 +72,11 @@
                                     <b-col col="3" class="text-sm-right">{{ new Number(detail.credit).toLocaleString() }}</b-col>
                                 </b-row>
                             </template>
-
+                             <template slot="hasDetails" slot-scope="row">
+                                <b-button-group size="sm" class="show-when-hovered">
+                                    <b-button @click="row.toggleDetails"><i class="material-icons md-19">remove_red_eye</i></b-button>
+                                </b-button-group>
+                            </template>
                             
                             <template slot="actions" slot-scope="data">
                                 <table-actions :row="data.item"></table-actions>
