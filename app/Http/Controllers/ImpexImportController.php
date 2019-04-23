@@ -105,7 +105,7 @@ class ImpexImportController extends Controller
         }
 
         //search impex
-        $impexQuery = Impex::where('taxpayer_id', $taxPayer->id)->pluck('id');
+        $impexQuery = Impex::where('taxpayer_id', $taxPayer->id)->select('id')->get();
 
         $comment = __('accounting.ImpexComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
@@ -114,7 +114,7 @@ class ImpexImportController extends Controller
         $journal->is_automatic = 1;
         $journal->module_id = 5;
         $journal->save();
-
+       
         //Sales Transactionsd done in cash. Must affect direct cash account.
         $itemsQuery = Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
@@ -126,17 +126,17 @@ class ImpexImportController extends Controller
             ->select(
                 DB::raw('sum(transaction_details.value * transactions.rate) as value'),
                 DB::raw('max(transaction_details.chart_id) as chart_id'),
-                DB::raw('max(charts.name) as name')
+                DB::raw('max(charts1.name) as name')
             )
             ->get();
-
+            
         $expenseFromPurchaseQuery = Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
             ->groupBy('transaction_details.chart_id')
             ->whereIn('transactions.impex_id', $impexQuery)
-            ->where('transactions.type', '<>' , 1)
-            ->where('transactions.sub_type', '<>' , 8)
+            ->where('transactions.type', '!=' , 1)
+            ->where('transactions.sub_type', '!=' , 8)
             ->select(
                 DB::raw('sum(transaction_details.value * transactions.rate) as total'),
                 DB::raw('max(transaction_details.chart_id) as chart_id'),
@@ -144,21 +144,18 @@ class ImpexImportController extends Controller
             );
 
 
-        $expense = ImpexExpense::whereIn('impex_expenses.impex_id', $impexQuery)
-            ->leftjoin('transaction_details', 'impex_expenses.transaction_detail_id', '=', 'transaction_details.id')
-            ->leftjoin('transactions', 'transactions.id', '=', 'transaction_details.transaction_id')
-            ->join('charts', 'charts.id', '=', 'impex_expenses.chart_id')
-            ->groupBy('transaction_details.chart_id')
-            ->where('payment_condition', '=', 0)
+        $expense = ImpexExpense::whereIn('impex_id', $impexQuery)
+            ->join('charts', 'charts.id', '=', 'chart_id')
+            ->groupBy('chart_id')
             ->select(
-                DB::raw('sum(impex_expenses.value * impex_expenses.rate) as total'),
-                DB::raw('max(impex_expenses.chart_id) as chart_id'),
+                DB::raw('sum(value * rate) as total'),
+                DB::raw('max(chart_id) as chart_id'),
                 DB::raw('max(charts.name) as name')
             );
 
         $expenseQuery = $expenseFromPurchaseQuery->union($expense)->get();
 
-        //run code for cash sales (insert detail into journal)
+                //run code for cash sales (insert detail into journal)
         $totalTransaction = $itemsQuery->sum('total');
 
         foreach ($itemsQuery as $itemsRow) {
