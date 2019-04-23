@@ -6,8 +6,6 @@ use App\Taxpayer;
 use App\Cycle;
 use App\Impex;
 use App\ImpexExpense;
-use App\Transaction;
-use App\TransactionDetail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -90,6 +88,7 @@ class ImpexController extends Controller
 		$i = 0;
 		$invoices = collect($data['Invoices']);
 		foreach ($invoices as $invoice) {
+
 			$controller = new TransactionController();
 			$invoice = $controller->processTransaction($invoice, $taxPayer, $cycle, $impex);
 			$invoice = $data['Invoices'][$i] = $data;
@@ -99,13 +98,15 @@ class ImpexController extends Controller
 		//Assign expenses . . .
 		$expenses = collect($data['Expenses']);
 		foreach ($expenses as $expense) {
+
 			$chartId = $this->checkChart($expense['Type'], $expense['Name'], $taxPayer, $cycle, 1);
 
-			$impexExpense = ImpexExpense::where('chart_id', $chartId)
-				->where('impex_id', $impex->id)
-				->first() ?? new ImpexExpense();
-
 			if ($chartId > 0) {
+
+				$impexExpense = ImpexExpense::where('chart_id', $chartId)
+					->where('impex_id', $impex->id)
+					->first() ?? new ImpexExpense();
+
 				$impexExpense->impex_id = $impex->id;
 				$impexExpense->chart_id = $chartId;
 				$impexExpense->value += $expense['Value'];
