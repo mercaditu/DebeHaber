@@ -58,7 +58,7 @@ class TransactionController extends Controller
 		return response()->json($transactionData);
 	}
 
-	public function processTransaction($data, Taxpayer $taxPayer, Cycle $cycle)
+	public function processTransaction($data, Taxpayer $taxPayer, Cycle $cycle, $impexId = null)
 	{
 		$transactionType = $data['Type'];
 		$transactionSubType = $data['SubType'];
@@ -69,12 +69,14 @@ class TransactionController extends Controller
 					->where('sub_type', $transactionSubType);
 			})
 			->where('taxpayer_id', $taxPayer->id)
+			->where('impex_id', $impexId)
 			->whereDate('date', $this->convert_date($data['Date']))
 			->first() ?? new Transaction();
 
 		$transaction->type = $transactionType;
 		$transaction->sub_type = $transactionSubType;
 		$transaction->taxpayer_id = $taxPayer->id;
+		$transaction->impex_id = $impexId;
 
 		$transaction->partner_name = ($transactionType == 1) ? $data['SupplierName'] : $data['CustomerName'];
 		$transaction->partner_taxid = ($transactionType == 1) ? $data['SupplierTaxID'] : $data['CustomerTaxID'];
@@ -83,7 +85,7 @@ class TransactionController extends Controller
 		$transaction->currency = $data['CurrencyCode'] ?? $taxPayer->currency;
 
 		if ($data['CurrencyRate'] ==  '') {
-			$currency_id = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
+			// $currency_id = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
 			$transaction->rate = $this->checkCurrencyRate($transaction->currency, $taxPayer, $data['Date']) ?? 1;
 		} else {
 			$transaction->rate = $data['CurrencyRate'];

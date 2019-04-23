@@ -28,7 +28,7 @@ class ImpexController extends Controller
 
 			//groupby function group by year.
 			foreach ($groupData as $groupedRow) {
-				if ($groupedRow->first()['Type']== 1) {
+				if ($groupedRow->first()['Type'] == 1) {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['CustomerTaxID'], $groupedRow->first()['CustomerName']);
 				} else {
 					$taxPayer = $this->checkTaxPayer($groupedRow->first()['SupplierTaxID'], $groupedRow->first()['SupplierName']);
@@ -52,6 +52,7 @@ class ImpexController extends Controller
 					} catch (\Exception $e) {
 						$data["Message"] = "Error loading Impex: " . $e;
 						$impexData[$i] = $data;
+						Log::error($e);
 					}
 				}
 			}
@@ -62,26 +63,25 @@ class ImpexController extends Controller
 
 	public function processImpex($data, Taxpayer $taxPayer, Cycle $cycle)
 	{
-
-
 		$impex = Impex::where('code', $data['Number'])
 			->where('taxpayer_id', $taxPayer->id)
 			->first() ?? new Impex();
 
 		$impex->date = $this->convert_date($data['Date']);
-		$impex->partner_name = ($data['Type']== 1 ) ? $data['SupplierName'] : $data['CustomerName'];
+		$impex->partner_name = ($data['Type'] == 1) ? $data['SupplierName'] : $data['CustomerName'];
 		$impex->partner_taxid = ($data['Type'] == 1) ? $data['SupplierTaxID'] : $data['CustomerTaxID'];
 		$impex->taxpayer_id = $taxPayer->id;
 		$impex->code = $data['Number'] ?? '';
-		$impex->comment = $data['comment'] ?? '';
-		$impex->is_import = $data['is_import'] ?? true;
+		$impex->comment = $data['Comment'] ?? '';
+		$impex->is_import = $data['IsImport'] ?? true;
 
 		$impex->type = $data['Type'];
 		$impex->currency = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
+
 		if ($data['CurrencyRate'] ==  '' | $data['CurrencyRate'] == 0) {
-		    $impex->rate = $this->checkCurrencyRate($impex->currency, $taxPayer, $data['Date']) ?? 1;
+			$impex->rate = $this->checkCurrencyRate($impex->currency, $taxPayer, $data['Date']) ?? 1;
 		} else {
-		    $impex->rate = $data['CurrencyRate'];
+			$impex->rate = $data['CurrencyRate'];
 		}
 
 		$impex->save();
@@ -90,9 +90,10 @@ class ImpexController extends Controller
 		$i = 0;
 		$invoices = collect($data['Invoices']);
 		foreach ($invoices as $invoice) {
-			$invoice = $this->processInvoice($invoice, $impex, $taxPayer, $cycle);
-			$data['Invoices'][$i] = $invoice;
-			$i = $i + 1;
+			$controller = new TransactionController();
+			$invoice = $controller->processTransaction($invoice, $taxPayer, $cycle, $impex);
+			$invoice = $data['Invoices'][$i] = $data;
+			$i += 1;
 		}
 
 		//Assign expenses . . .
@@ -110,105 +111,15 @@ class ImpexController extends Controller
 				$impexExpense->value += $expense['Value'];
 				$impexExpense->currency = $expense['CurrencyCode'];
 				$impexExpense->rate = $expense['CurrencyRate'];
+
 				try {
 					$impexExpense->save();
 				} catch (\Exception $e) {
-					dd($e);
+					Log::error($e);
 				}
 			}
 		}
 
 		return $data;
-	}
-
-	public function processInvoice($data, Impex $impex, Taxpayer $taxPayer, Cycle $cycle)
-	{
-		$transactionType = $data['Type'];
-		$transactionSubType = $data['SubType'];
-
-		$transaction = Transaction::where('number', $data['Number'])
-			->where('type', $transactionType)
-			->where('sub_type', $transactionSubType)
-			->where('impex_id', $impex->id)
-			->where('taxpayer_id', $taxPayer->id)
-			->first() ?? new Transaction();
-
-		$transaction->type = $transactionType;
-		$transaction->sub_type = $transactionSubType;
-		$transaction->taxpayer_id = $taxPayer->id;
-		$transaction->impex_id = $impex->id;
-		$transaction->partner_name = ($transactionType == 1) ? $data['SupplierName'] : $data['CustomerName'];
-		$transaction->partner_taxid = ($transactionType == 1) ? $data['SupplierTaxID'] : $data['CustomerTaxID'];
-
-		//TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
-		$transaction->currency = $data['CurrencyCode'] ?? $taxPayer->currency;
-
-		if ($data['CurrencyRate'] ==  '' || $data['CurrencyRate'] == 0) {
-			$transaction->rate = $this->checkCurrencyRate($data['CurrencyCode'], $taxPayer, $data['Date']) ?? 1;
-		} else {
-			$transaction->rate = $data['CurrencyRate'];
-		}
-
-		$transaction->payment_condition = $data['PaymentCondition'];
-		$transaction->date = $this->convert_date($data['Date']);
-		$transaction->number = $data['Number'];
-		$transaction->code = $data['Code'] != '' ? $data['Code'] : null;
-		$transaction->code_expiry = $data['CodeExpiry'] != '' ? $this->convert_date($data['CodeExpiry'])  : null;
-		$transaction->comment = $data['Comment'];
-		$transaction->save();
-
-		//Process details of the invoice.
-		$this->processDetail(
-			collect($data['Details']),
-			$transaction,
-			$taxPayer,
-			$cycle
-		);
-
-		$data['cloud_id'] = $transaction->id;
-		return $data;
-	}
-
-	public function processDetail($details, Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle)
-	{
-		//???
-		$totalDiscount = $details->where('Value', '<', 0)->sum('Value');
-		$totalValue = $details->where('Value', '>', 0)->sum('Value') != 0 ?
-			$details->where('Value', '>', 0)->sum('Value') : 1;
-
-		//TODO to reduce data stored, group by VAT and Chart Type.
-		//If 5 rows can be converted into 1 row it is better for our system's health and reduce server load.
-		foreach ($details->groupBy('VATPercentage') as $groupedRowsByVat) {
-			foreach ($groupedRowsByVat->groupBy('Type') as $groupedRowsByType) {
-
-				if ($groupedRowsByType[0]['Value'] > 0) {
-					//Code for Row Level Discounts in certain transactions
-					$discountOnRow = 0;
-					if ($totalDiscount > 0) {
-						$percentage = $details->sum('value') / $totalValue;
-						$discountOnRow = $percentage * $totalDiscount;
-					}
-
-					$chart_id = $this->checkChart($groupedRowsByType[0]['Type'], $groupedRowsByType[0]['Name'], $taxPayer, $cycle, $transaction->type);
-
-					$detail = TransactionDetail::where('chart_id', $chart_id)->where('transaction_id', $transaction->id)->first() ?? new TransactionDetail();
-
-					$detail->transaction_id = $transaction->id;
-					$detail->chart_id = $chart_id;
-
-					if (isset($groupedRowsByType[0]['VATPercentage'])) {
-						if (($transaction->type == 1 && $transaction->sub_type == 1) || ($transaction->type == 2 && $transaction->sub_type == 2)) {
-							$detail->chart_vat_id = $this->checkCreditVAT($groupedRowsByType[0]['VATPercentage'], $taxPayer, $cycle);
-						} elseif (($transaction->type == 2 && $transaction->sub_type == 1) || ($transaction->type == 1 && $transaction->sub_type == 2)) {
-							$detail->chart_vat_id = $this->checkDebitVAT($groupedRowsByType[0]['VATPercentage'], $taxPayer, $cycle);
-						}
-					}
-
-					$detail->value = $groupedRowsByType->sum('Value') - $discountOnRow;
-
-					$detail->save();
-				}
-			}
-		}
 	}
 }
