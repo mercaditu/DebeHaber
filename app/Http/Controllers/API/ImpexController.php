@@ -74,9 +74,9 @@ class ImpexController extends Controller
 		$impex->taxpayer_id = $taxPayer->id;
 		$impex->code = $data['Number'] ?? '';
 		$impex->comment = $data['comment'] ?? '';
-		$impex->is_import = $data['IsImpex'] ?? true;
+		$impex->is_import = $data['is_import'] ?? true;
 
-		$impex->type = substr($data['Incoterm'], 0, 4);
+		$impex->type = $data['Type'];
 		$impex->currency = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
 		if ($data['CurrencyRate'] ==  '' | $data['CurrencyRate'] == 0) {
 		    $impex->rate = $this->checkCurrencyRate($impex->currency, $taxPayer, $data['Date']) ?? 1;

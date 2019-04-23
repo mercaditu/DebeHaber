@@ -111,7 +111,7 @@ class Controller extends BaseController
             return $currency->code;
         }
 
-        return null;
+        return $taxPayer->currency;
     }
 
     public function checkCurrencyRate($currencyCode, Taxpayer $taxPayer, $date)
@@ -123,11 +123,11 @@ class Controller extends BaseController
             $q->where('code', $currencyCode)
             ->where('country', $taxPayer->country);
         })
-        ->where(function ($q) use ($taxPayer) {
-            $q->whereNull('taxpayer_id')
-            ->orWhere('taxpayer_id', $taxPayer->id);
-        })
-        ->orderBy('taxpayer_id', 'ASC')
+        // ->where(function ($q) use ($taxPayer) {
+        //     $q->whereNull('taxpayer_id')
+        //     ->orWhere('taxpayer_id', $taxPayer->id);
+        // })
+        //->orderBy('taxpayer_id', 'ASC')
         ->first();
 
         if (isset($currencyRate)) {
