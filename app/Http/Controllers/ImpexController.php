@@ -83,7 +83,7 @@ class ImpexController extends Controller
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
-       
+
         $journal = \App\Journal::where('cycle_id', $cycle->id)
             ->where('date', $endDate->format('Y-m-d'))
             ->where('is_automatic', 1)
@@ -98,7 +98,7 @@ class ImpexController extends Controller
         }
 
         //search impex
-        $impexQuery = Impex::where('taxpayer_id',$taxPayer->id)->pluck('id');
+        $impexQuery = Impex::where('taxpayer_id', $taxPayer->id)->pluck('id');
 
         $comment = __('accounting.ImpexComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions
@@ -121,25 +121,25 @@ class ImpexController extends Controller
             ->select(
                 DB::raw('sum(transaction_details.value * transactions.rate) as value'),
                 DB::raw('max(charts.name) as name')
-                )
+            )
             ->get();
 
-        $items = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
-        ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
-        ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
-        ->groupBy('transaction_details.chart_id')
-        ->whereIn('transactions.impex_id', $impexQuery)
-        ->where('transactions.type', 1)
-        ->where('transactions.sub_type', 8)
-        ->select(
-            DB::raw('sum(transaction_details.value * transactions.rate) as total'),
-            DB::raw('max(transaction_details.chart_id) as chart_id'),
-            DB::raw('max(charts.name) as name'),
-            DB::raw('max(transactions.rate) as rate')
-        );
-        
+        // $items = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+        //     ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+        //     ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
+        //     ->groupBy('transaction_details.chart_id')
+        //     ->whereIn('transactions.impex_id', $impexQuery)
+        //     ->where('transactions.type', 1)
+        //     ->where('transactions.sub_type', 8)
+        //     ->select(
+        //         DB::raw('sum(transaction_details.value * transactions.rate) as total'),
+        //         DB::raw('max(transaction_details.chart_id) as chart_id'),
+        //         DB::raw('max(charts.name) as name'),
+        //         DB::raw('max(transactions.rate) as rate')
+        //     );
 
-            $expense = ImpexExpense::whereIn('impex_expenses.impex_id', $impexQuery)
+
+        $expense = ImpexExpense::whereIn('impex_expenses.impex_id', $impexQuery)
             ->join('transaction_details', 'impex_expenses.transaction_detail_id', '=', 'transaction_details.id')
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->join('charts', 'charts.id', '=', 'impex_expenses.chart_id')
@@ -151,13 +151,14 @@ class ImpexController extends Controller
                 DB::raw('max(charts.name) as name'),
                 DB::raw('max(impex_expenses.rate) as rate')
             );
-            $expenseQuery= $items->union($expense)->get();
+
+        $expenseQuery = $items->union($expense)->get();
 
         //run code for cash sales (insert detail into journal)
         $totalTransaction = $itemsQuery->sum(value * rate);
 
         foreach ($itemsQuery as $itemsRow) {
-            $percentageTransaction = $itemsRow/($totalTransaction ?? 1);
+            $percentageTransaction = $itemsRow / ($totalTransaction ?? 1);
             foreach ($expenseQuery as $expenseRow) {
                 //1st detail = increase item value
                 $detail = $journal->details()->firstOrNew(['chart_id' => $itemsRow->chart_id]);
@@ -181,6 +182,6 @@ class ImpexController extends Controller
 
         $journal->save();
 
-        $salesQuery->update(['journal_id' => $journal->id]);
+        //$salesQuery->update(['journal_id' => $journal->id]);
     }
 }
