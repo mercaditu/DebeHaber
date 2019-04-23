@@ -113,8 +113,6 @@ class ImpexImportController extends Controller
         $journal->module_id = 5;
         $journal->save();
 
-        $chartController = new ChartController();
-
         //Sales Transactionsd done in cash. Must affect direct cash account.
         $itemsQuery = Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
@@ -159,7 +157,7 @@ class ImpexImportController extends Controller
         $expenseQuery = $expenseFromPurchaseQuery->union($expense)->get();
 
         //run code for cash sales (insert detail into journal)
-        $totalTransaction = $itemsQuery->sum(value * rate);
+        $totalTransaction = $itemsQuery->sum('total');
 
         foreach ($itemsQuery as $itemsRow) {
             //get percentage of item of total item purchase. This will divide the expenses for each item purchased.
