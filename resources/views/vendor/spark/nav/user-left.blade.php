@@ -1,30 +1,13 @@
 <li class="nav-item">
-    <b-dropdown id="dropdown-1" variant="outline-dark" size="sm" split split-variant="outline-dark">
-        <template slot="button-content">
+    <b-button size="sm" variant="dark" href="/home" class="m-md-2">
             <i class="material-icons md-18 mr-5">supervised_user_circle</i>
             @{{ currentTeam.name }}
-        </template>
-        <b-nav-item class="sub-menu" href="/home" style="width:220px">
-            <i class="material-icons md-18 ml-10 mr-10">dashboard</i>
-            @{{ $t('general.teamDashBoard') }}
-        </b-nav-item>
-
-        <b-dropdown-divider></b-dropdown-divider>
-
-        <h3 class="nav-heading sub">
-            @{{ $t('general.configuration') }}
-        </h3>
-        <b-nav-item href="/settings/{{ Spark::teamsPrefix() }}/{{ \Auth::user()->currentTeam->id }}" class="sub-menu" v-b-tooltip.hover title="Team Settings">
-            <i class="material-icons md-18 ml-10 mr-10">settings</i>
-            @{{ $t('general.teamSettings') }}
-        </b-nav-item>
-    </b-dropdown>
+    </b-button>
 </li>
 
 @isset($taxPayerData)
-    <!-- Left Side Of Navbar -->
     <li class="nav-item">
-        <b-dropdown id="dropdown-1" variant="outline-success" size="sm" split split-variant="outline-success">
+        <b-dropdown variant="outline-success" size="sm">
             <template slot="button-content">
                 <i class="material-icons md-18 mr-5">business_center</i>
                 @{{ spark.taxPayerData.alias }}
@@ -65,8 +48,7 @@
         @php
             $variant = ($currentCycle->year == \Carbon\Carbon::now()->year) ? 'outline-primary' : 'outline-danger';
         @endphp
-
-        <b-dropdown id="dropdown-1" text="{{ $currentCycle->year }}" class="m-md-2" variant="{{ $variant }}"  size="sm">
+        <b-dropdown text="{{ $currentCycle->year }}" class="m-md-2" variant="{{ $variant }}"  size="sm">
             @foreach ($cycleData as $cycle)
                 <b-dropdown-item href="/{{ $taxPayerData->id }}/{{ $cycle->id }}/">
                     <i class="material-icons md-18 ml-10 mr-10">calendar_today</i>

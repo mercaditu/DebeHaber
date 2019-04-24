@@ -1,6 +1,6 @@
 {
     "pageurl": "/accounting/budgets",
-    "title": "accounting.budget",
+    "title": "accounting.cycleBudget",
     "img": "/img/apps/budget.svg",
     "module": 1,
     "tables": [

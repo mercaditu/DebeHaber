@@ -9,7 +9,6 @@
       </b-col>
       <b-col>
         <b-button-toolbar class="float-right">
-
           <b-dropdown :text="$t('general.actions')" variant="primary" right>
             <b-dropdown-item
               @shortkey="onSaveNew()"
@@ -30,7 +29,7 @@
               <small class="text-secondary float-right">esc</small>
             </b-dropdown-item>
           </b-dropdown>
-          <b-btn v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
+          <b-btn variant="dark" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
             <i class="material-icons">cancel</i>
           </b-btn>
         </b-button-toolbar>
@@ -49,7 +48,6 @@
                   ></search-taxpayer>
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
-                
                   <select-data
                     v-bind:Id.sync="data[property.data]"
                     :api="property.api"
@@ -103,36 +101,24 @@
       </b-card>
     </div>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
-      <!-- v-show="table.data==='details'" -->
-      <b-btn
-        class="mb-5"
-        size="sm"
-        v-shortkey="['ctrl', 'd']"
-        @shortkey="addRow(table.data)"
-        @click="addRow(table.data)"
-      >
-        <i class="material-icons mi-18">playlist_add</i>
-        {{ $t('general.addRowDetail') }}
-      </b-btn>
-
       <b-card>
         <!-- Labels -->
         <b-row>
-          <b-col v-for="col in table.fields" v-bind:key="col.index">
-            <b>{{ $t(col.label) }}</b>
+          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
+            <small>{{ $t(col.label) }}</small>
           </b-col>
         </b-row>
         <!-- Rows -->
         <b-row v-for="detail in data[table.data]" v-bind:key="detail.index">
-          <b-col v-for="col in table.fields" v-bind:key="col.index">
+          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
             <span v-for="property in col.properties" v-bind:key="property.index">
-              <b-input-group v-if="property.type === 'select'">
+              <span v-if="property.type === 'select'">
                 <select-data
                   v-bind:Id.sync="detail[property.data]"
                   :api="property.api"
                   :options="property.options"
                 ></select-data>
-              </b-input-group>
+              </span>
               <b-input-group v-else-if="property.type === 'transaction'">
                 <search-transaction
                   v-bind:number.sync="detail[property.data[0]['transactionnumber']]"
@@ -140,11 +126,19 @@
                 ></search-transaction>
               </b-input-group>
               <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
-              <b-input-group v-else-if="property.type === 'actions'">
-                <b-button variant="link" @click="deleteRow(detail,table.data,property.api)">
-                  <i class="material-icons text-danger">delete_outline</i>
+              <b-button-group v-else-if="property.type === 'actions'" size="sm">
+                <b-button
+                  v-shortkey="['ctrl', 'd']"
+                  @shortkey="addRow(table.data)"
+                  @click="addRow(table.data)"
+                >
+                  <i class="material-icons">playlist_add</i>
                 </b-button>
-              </b-input-group>
+                <b-button @click="deleteRow(detail,table.data,property.api)">
+                  <i class="material-icons">delete_outline</i>
+                </b-button>
+              </b-button-group>
+
               <b-input-group v-else>
                 <b-input
                   :type="property.type"
@@ -163,9 +157,9 @@
 
 <script>
 import crud from "../components/crud.vue";
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 export default {
-  components: { crud: crud , Multiselect },
+  components: { crud: crud, Multiselect },
   data() {
     return {
       data: {
