@@ -1,5 +1,5 @@
-<li class="nav-item dropdown">
-    <b-dropdown id="dropdown-1" variant="outline-muted" size="sm">
+<li class="nav-item">
+    <b-dropdown id="dropdown-1" variant="outline-dark" size="sm" split split-variant="outline-dark">
         <template slot="button-content">
             <i class="material-icons md-18 mr-5">supervised_user_circle</i>
             @{{ currentTeam.name }}
@@ -24,7 +24,7 @@
 @isset($taxPayerData)
     <!-- Left Side Of Navbar -->
     <li class="nav-item">
-        <b-dropdown id="dropdown-1" variant="outline-success" size="sm">
+        <b-dropdown id="dropdown-1" variant="outline-success" size="sm" split split-variant="outline-success">
             <template slot="button-content">
                 <i class="material-icons md-18 mr-5">business_center</i>
                 @{{ spark.taxPayerData.alias }}

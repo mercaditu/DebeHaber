@@ -7,17 +7,14 @@ use Illuminate\Database\Migrations\Migration;
 class CreateJournalsTable extends Migration
 {
     /**
-    * Run the migrations.
-    *
-    * @return void
-    */
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->unsignedInteger('cycle_id');
-            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
 
             $table->unsignedInteger('cycle_id');
             $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
@@ -38,10 +35,10 @@ class CreateJournalsTable extends Migration
     }
 
     /**
-    * Reverse the migrations.
-    *
-    * @return void
-    */
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('journals');
