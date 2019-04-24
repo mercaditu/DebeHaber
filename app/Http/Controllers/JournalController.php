@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Inventory;
-use App\AccountMovement;
-use App\Transaction;
 use App\Taxpayer;
 use App\Cycle;
 use App\Journal;
 use App\JournalDetail;
 use App\Http\Resources\GeneralResource;
 use App\Jobs\GenerateJournal;
-use DB;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Resources\JournalCollection;
-use Illuminate\Support\Facades\Log;
-
-use Laravel\Spark\Contracts\Repositories\NotificationRepository;
 
 class JournalController extends Controller
 {
@@ -31,7 +22,7 @@ class JournalController extends Controller
         return GeneralResource::collection(
             Journal::with([
                 'details:journal_id,chart_id,debit,credit',
-                'details.chart:id,name,code,type'
+                'details.chart:id,name,code,type,sub_type'
             ])
                 ->orderBy('date', 'desc')
                 ->paginate(50)
@@ -58,13 +49,13 @@ class JournalController extends Controller
         $journal->save();
 
         foreach ($request->details as $detail) {
-                $journalDetail = JournalDetail::firstOrNew(['id' => $detail['id']]);;
-                $journalDetail->journal_id = $journal->id;
-                $journalDetail->chart_id = $detail['chart_id'];
-                $journalDetail->debit = $detail['debit'] ?? 0;
-                $journalDetail->credit = $detail['credit'] ?? 0;
-                $journalDetail->save();
-            }
+            $journalDetail = JournalDetail::firstOrNew(['id' => $detail['id']]);;
+            $journalDetail->journal_id = $journal->id;
+            $journalDetail->chart_id = $detail['chart_id'];
+            $journalDetail->debit = $detail['debit'] ?? 0;
+            $journalDetail->credit = $detail['credit'] ?? 0;
+            $journalDetail->save();
+        }
 
         return response()->json('Ok', 200);
     }

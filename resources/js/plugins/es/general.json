@@ -34,5 +34,6 @@
 
     "debit": "Haber",
     "credit": "Debe",
-    "total": "Total"
+    "total": "Total",
+    "comment": "Comentario"
 }

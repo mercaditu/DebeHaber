@@ -7,5 +7,6 @@
     "closingBalance": "Closing Balance",
     "cycleBudget": "Cycle Budget",
     "chartOfAccounts": "Chart of Accounts",
-    "template": "Journal Template"
+    "template": "Journal Template",
+    "generateJournal": "Generate Journals"
 }

@@ -14,9 +14,7 @@ class UpdateImpexJournal extends Migration
     public function up()
     {
         Schema::table('impexes', function (Blueprint $table) {
-            // change() tells the Schema builder that we are altering a table
-            $table->unsignedInteger('journal_id')->default(null)->nullable();
-            $table->foreign('journal_id')->references('id')->on('journals');
+            $table->unsignedInteger('journal_id')->nullable()->after('taxpayer_id');
         });
     }
 
@@ -28,7 +26,6 @@ class UpdateImpexJournal extends Migration
     public function down()
     {
         Schema::table('impexes', function (Blueprint $table) {
-            // change() tells the Schema builder that we are altering a table
             $table->dropColumn('journal_id');
         });
     }

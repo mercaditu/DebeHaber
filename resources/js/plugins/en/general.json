@@ -35,5 +35,6 @@
 
     "debit": "Debit",
     "credit": "Credit",
-    "total": "Total"
+    "total": "Total",
+    "comment": "Comment"
 }

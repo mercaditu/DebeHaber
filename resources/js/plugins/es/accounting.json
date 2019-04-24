@@ -7,5 +7,6 @@
     "closingBalance": "Balance de Cierre",
     "cycleBudget": "Presupuesto Anual",
     "chartOfAccounts": "Plan de Cuentas",
-    "template": "Plantilla de Asientos"
+    "template": "Plantilla de Asientos",
+    "generateJournal": "Generar Asientos"
 }
