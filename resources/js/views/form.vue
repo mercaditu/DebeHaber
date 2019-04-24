@@ -9,6 +9,7 @@
       </b-col>
       <b-col>
         <b-button-toolbar class="float-right">
+
           <b-dropdown :text="$t('general.actions')" variant="primary" right>
             <b-dropdown-item
               @shortkey="onSaveNew()"
@@ -162,8 +163,9 @@
 
 <script>
 import crud from "../components/crud.vue";
+import Multiselect from 'vue-multiselect'
 export default {
-  components: { crud: crud },
+  components: { crud: crud , Multiselect },
   data() {
     return {
       data: {

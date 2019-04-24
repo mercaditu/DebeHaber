@@ -166,7 +166,9 @@ class GenerateJournal implements ShouldQueue
         /*
         Accounts Payable
         */
+       
         if (Impex::where('taxpayer_id', $this->taxPayer->id)->count() > 0) {
+           
             $controller = new ImpexImportController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }

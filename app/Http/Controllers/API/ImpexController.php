@@ -50,7 +50,7 @@ class ImpexController extends Controller
 					} catch (\Exception $e) {
 						$data["Message"] = "Error loading Impex: " . $e;
 						$impexData[$i] = $data;
-						Log::error($e);
+						//Log::error($e);
 					}
 				}
 			}
@@ -84,13 +84,14 @@ class ImpexController extends Controller
 
 		$impex->save();
 
+
 		//Assign invoices . . .
 		$i = 0;
 		$invoices = collect($data['Invoices']);
 		foreach ($invoices as $invoice) {
 
 			$controller = new TransactionController();
-			$invoice = $controller->processTransaction($invoice, $taxPayer, $cycle, $impex);
+			$invoice = $controller->processTransaction($invoice, $taxPayer, $cycle, $impex->id);
 			$invoice = $data['Invoices'][$i] = $data;
 			$i += 1;
 		}

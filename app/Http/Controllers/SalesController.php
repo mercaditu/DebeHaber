@@ -21,7 +21,12 @@ class SalesController extends Controller
     {
         return GeneralResource::collection(
             Transaction::MySales()
-                ->with('details')
+            ->with([
+                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                'details.chart:id,name,code,type,sub_type',
+                'details.vat:id,name'
+            ])
+                
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('date', 'desc')
                 ->paginate(50)
@@ -63,7 +68,11 @@ class SalesController extends Controller
         return new GeneralResource(
             Transaction::MySales()
                 ->where('id', $transactionId)
-                ->with('details')
+             ->with([
+                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                'details.chart:id,name,code,type,sub_type',
+                'details.vat:id,name'
+            ])
                 ->first()
         );
     }

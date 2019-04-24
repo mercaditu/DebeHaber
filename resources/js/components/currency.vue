@@ -1,6 +1,14 @@
 <template>
   <b-input-group>
     <b-input-group-prepend>
+      <!-- <div>
+        <label class="typo__label">Select with search</label>
+        <multiselect v-model="sale_currency" :options="currencies" 
+        :custom-label="nameWithLang" placeholder="Select one" 
+        label="name" @change="updateRate()"
+         track-by="name"></multiselect>
+        <pre class="language-json"><code>{{ sale_currency  }}</code></pre>
+      </div> -->
       <b-form-select v-model="sale_currency" @change="updateRate()">
         <option
           v-for="currency in currencies"

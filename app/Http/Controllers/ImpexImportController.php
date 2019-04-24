@@ -121,12 +121,12 @@ class ImpexImportController extends Controller
             ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
             ->groupBy('transaction_details.chart_id')
             ->whereIn('transactions.impex_id', $impexQuery)
-            ->where('transactions.type', 1)
-            ->where('transactions.sub_type', 8)
+            ->where('charts.type', 1)
+            ->where('charts.sub_type', 8)
             ->select(
-                DB::raw('sum(transaction_details.value * transactions.rate) as value'),
+                DB::raw('sum(transaction_details.value * transactions.rate) as total'),
                 DB::raw('max(transaction_details.chart_id) as chart_id'),
-                DB::raw('max(charts1.name) as name')
+                DB::raw('max(charts.name) as name')
             )
             ->get();
             
@@ -135,14 +135,14 @@ class ImpexImportController extends Controller
             ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
             ->groupBy('transaction_details.chart_id')
             ->whereIn('transactions.impex_id', $impexQuery)
-            ->where('transactions.type', '!=' , 1)
-            ->where('transactions.sub_type', '!=' , 8)
+            ->where('charts.type', '!=' , 1)
+            ->where('charts.sub_type', '!=' , 8)
             ->select(
                 DB::raw('sum(transaction_details.value * transactions.rate) as total'),
                 DB::raw('max(transaction_details.chart_id) as chart_id'),
                 DB::raw('max(charts.name) as name')
             );
-
+           
 
         $expense = ImpexExpense::whereIn('impex_id', $impexQuery)
             ->join('charts', 'charts.id', '=', 'chart_id')
@@ -152,28 +152,32 @@ class ImpexImportController extends Controller
                 DB::raw('max(chart_id) as chart_id'),
                 DB::raw('max(charts.name) as name')
             );
-
+            
         $expenseQuery = $expenseFromPurchaseQuery->union($expense)->get();
-
+            
                 //run code for cash sales (insert detail into journal)
         $totalTransaction = $itemsQuery->sum('total');
 
         foreach ($itemsQuery as $itemsRow) {
             //get percentage of item of total item purchase. This will divide the expenses for each item purchased.
-            $percentageTransaction = $itemsRow / ($totalTransaction ?? 1);
+            $percentageTransaction =  $itemsRow->count() / ($totalTransaction !=0 ? $totalTransaction : 1) ;
 
             foreach ($expenseQuery as $expenseRow) {
                 //1st detail = increase item value
+               
                 $detail = $journal->details()->firstOrNew(['chart_id' => $itemsRow->chart_id]);
                 $detail->credit += ($expenseRow->total * $percentageTransaction);
                 $detail->chart_id = $itemsRow->chart_id;
                 $journal->details()->save($detail);
 
+               
                 //2nd detail = decrease expense value
                 $detail = $journal->details()->firstOrNew(['chart_id' => $expenseRow->chart_id]);
                 $detail->debit += ($expenseRow->total * $percentageTransaction);
                 $detail->chart_id = $expenseRow->chart_id;
+               
                 $journal->details()->save($detail);
+                
             }
         }
 
