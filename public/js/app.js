@@ -4572,23 +4572,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -92014,49 +91997,19 @@ var render = function() {
       _c(
         "b-row",
         [
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-btn",
-                {
-                  directives: [
-                    {
-                      name: "shortkey",
-                      rawName: "v-shortkey",
-                      value: ["esc"],
-                      expression: "['esc']"
-                    }
-                  ],
-                  staticClass: "d-none d-md-block float-left",
-                  on: {
-                    shortkey: function($event) {
-                      return _vm.onCancel()
-                    },
-                    click: function($event) {
-                      return _vm.onCancel()
-                    }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "material-icons" }, [
-                    _vm._v("keyboard_backspace")
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("h3", { staticClass: "upper-case" }, [
-                _c("img", {
-                  staticClass: "mr-10",
-                  attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
-                }),
-                _vm._v(
-                  "\n        " + _vm._s(_vm.$route.meta.title) + "\n      "
-                )
-              ])
-            ],
-            1
-          ),
+          _c("b-col", [
+            _c("h3", { staticClass: "upper-case" }, [
+              _c("img", {
+                staticClass: "mr-10",
+                attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
+              }),
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.$t(_vm.$route.meta.title)) +
+                  "\n      "
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "b-col",
@@ -92251,38 +92204,6 @@ var render = function() {
           { key: table.index },
           [
             _c(
-              "b-btn",
-              {
-                directives: [
-                  {
-                    name: "shortkey",
-                    rawName: "v-shortkey",
-                    value: ["ctrl", "d"],
-                    expression: "['ctrl', 'd']"
-                  }
-                ],
-                staticClass: "mb-5",
-                attrs: { size: "sm" },
-                on: {
-                  shortkey: function($event) {
-                    return _vm.addRow(table.data)
-                  },
-                  click: function($event) {
-                    return _vm.addRow(table.data)
-                  }
-                }
-              },
-              [
-                _c("i", { staticClass: "material-icons mi-18" }, [
-                  _vm._v("playlist_add")
-                ]),
-                _vm._v(
-                  "\n      " + _vm._s(_vm.$t("general.addRowDetail")) + "\n    "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
               "b-card",
               [
                 _c(
@@ -92314,38 +92235,39 @@ var render = function() {
                                   property.type === "label"
                                     ? _c("b-input-group", [
                                         detail["is_accountable"]
-                                          ? _c("span", [
-                                              _vm._v(
-                                                _vm._s(detail[property.data])
-                                              )
-                                            ])
+                                          ? _c(
+                                              "span",
+                                              [
+                                                _vm._v(
+                                                  "\n                  " +
+                                                    _vm._s(
+                                                      detail[property.data]
+                                                    ) +
+                                                    "\n                  "
+                                                ),
+                                                _c("chart-types", {
+                                                  attrs: {
+                                                    type:
+                                                      detail[
+                                                        property.data[0]["type"]
+                                                      ],
+                                                    sub_type:
+                                                      detail[
+                                                        property.data[0][
+                                                          "subtype"
+                                                        ]
+                                                      ]
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
                                           : _c("b", [
                                               _vm._v(
                                                 _vm._s(detail[property.data])
                                               )
                                             ])
                                       ])
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  property.type === "type"
-                                    ? _c(
-                                        "b-input-group",
-                                        [
-                                          _c("chart-types", {
-                                            attrs: {
-                                              type:
-                                                detail[
-                                                  property.data[0]["type"]
-                                                ],
-                                              sub_type:
-                                                detail[
-                                                  property.data[0]["subtype"]
-                                                ]
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
                                     : _vm._e(),
                                   _vm._v(" "),
                                   property.type === "select"
@@ -114951,7 +114873,7 @@ module.exports = {"pageurl":"/accounting/closing-balance","title":"commercial.cl
 /*! exports provided: pageurl, title, img, module, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/accounting/opening-balance","title":"accounting.openingbalance","img":"/img/apps/opening-balance.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"accounting.chartOfAccounts","properties":[{"type":"label","data":"name"}]},{"label":"accounting.type","properties":[{"type":"type","data":[{"type":"type","subtype":"sub_type"}]}]},{"label":"general.debit","properties":[{"type":"text","data":"debit","placeholder":"general.debit","required":false,"location":"is_accountable"}]},{"label":"general.credit","properties":[{"type":"text","data":"credit","placeholder":"general.credit","required":false,"location":"is_accountable"}]}]}]};
+module.exports = {"pageurl":"/accounting/opening-balance","title":"accounting.openingBalance","img":"/img/apps/opening.svg","module":1,"tables":[{"data":"data","actions":false,"fields":[{"label":"commercial.code","properties":[{"type":"label","data":"code"}]},{"label":"accounting.chartOfAccounts","properties":[{"type":"label","data":"name"}]},{"label":"general.credit","properties":[{"type":"text","data":"credit","placeholder":"general.credit","required":false,"location":"is_accountable"}]},{"label":"general.debit","properties":[{"type":"text","data":"debit","placeholder":"general.debit","required":false,"location":"is_accountable"}]}]}]};
 
 /***/ }),
 

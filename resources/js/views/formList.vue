@@ -2,17 +2,9 @@
   <div>
     <b-row>
       <b-col>
-        <b-btn
-          class="d-none d-md-block float-left"
-          v-shortkey="['esc']"
-          @shortkey="onCancel()"
-          @click="onCancel()"
-        >
-          <i class="material-icons">keyboard_backspace</i>
-        </b-btn>
         <h3 class="upper-case">
           <img :src="$route.meta.img" alt class="mr-10" width="32">
-          {{ $route.meta.title }}
+          {{ $t($route.meta.title) }}
         </h3>
       </b-col>
       <b-col>
@@ -59,16 +51,6 @@
       </b-col>
     </b-row>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
-      <b-btn
-        class="mb-5"
-        size="sm"
-        v-shortkey="['ctrl', 'd']"
-        @shortkey="addRow(table.data)"
-        @click="addRow(table.data)"
-      >
-        <i class="material-icons mi-18">playlist_add</i>
-        {{ $t('general.addRowDetail') }}
-      </b-btn>
       <b-card>
         <!-- Labels -->
         <b-row>
@@ -82,15 +64,16 @@
             <b-col v-for="col in table.fields" v-bind:key="col.index">
               <span v-for="property in col.properties" v-bind:key="property.index">
                 <b-input-group v-if="property.type === 'label'">
-                  <span v-if="detail['is_accountable']">{{ detail[property.data] }}</span>
+                  <span v-if="detail['is_accountable']">
+                    {{ detail[property.data] }}
+                    <chart-types
+                      :type="detail[property.data[0]['type']]"
+                      :sub_type="detail[property.data[0]['subtype']]"
+                    />
+                  </span>
                   <b v-else>{{ detail[property.data] }}</b>
                 </b-input-group>
-                <b-input-group v-if="property.type === 'type'">
-                  <chart-types
-                    :type="detail[property.data[0]['type']]"
-                    :sub_type="detail[property.data[0]['subtype']]"
-                  />
-                </b-input-group>
+
                 <b-input-group v-if="property.type === 'select'">
                   <select-data
                     v-bind:Id.sync="detail[property.data]"
