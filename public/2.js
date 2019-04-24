@@ -158,6 +158,149 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -169,12 +312,12 @@ __webpack_require__.r(__webpack_exports__);
       newChart: {
         id: 0
       },
-      pageUrl: '/accounting/charts'
+      pageUrl: "/accounting/charts"
     };
   },
   computed: {
     baseUrl: function baseUrl() {
-      return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
+      return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
     },
     formURL: function formURL() {
       return this.$route.name.replace("List", "Form");
@@ -204,12 +347,12 @@ __webpack_require__.r(__webpack_exports__);
       if (app.newChart.code != null && app.newChart.name != null) {
         _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.newChart).then(function (response) {
           app.$snack.success({
-            text: app.$i18n.t('chart.saved', app.newChart.code)
+            text: app.$i18n.t("chart.saved", app.newChart.code)
           });
           app.$refs.accountModel.hide();
         })["catch"](function (error) {
           app.$snack.danger({
-            text: this.$i18n.t('general.errorMessage')
+            text: this.$i18n.t("general.errorMessage")
           });
         });
       }
@@ -219,7 +362,7 @@ __webpack_require__.r(__webpack_exports__);
       app.parentChart = data;
       app.newChart.id = 0;
       app.newChart.parent_id = data.id;
-      app.newChart.code = app.parentChart.code + '.0';
+      app.newChart.code = app.parentChart.code + ".0";
       app.newChart.type = app.parentChart.type;
       app.newChart.sub_type = app.parentChart.sub_type;
     },
@@ -289,29 +432,22 @@ var render = function() {
                               }
                             }),
                             _vm._v(
-                              "\n                        " +
+                              "\n            " +
                                 _vm._s(_vm.$t(_vm.$route.meta.title)) +
-                                "\n                    "
+                                "\n          "
                             )
                           ]),
                           _vm._v(" "),
                           _vm.$route.name.includes("List")
                             ? _c("p", { staticClass: "lead" }, [
                                 _vm._v(
-                                  "\n                        " +
-                                    _vm._s(
-                                      _vm.$t(_vm.$route.meta.description)
-                                    ) +
-                                    ",\n                    "
+                                  _vm._s(_vm.$t(_vm.$route.meta.description)) +
+                                    ","
                                 )
                               ])
                             : _vm._e()
                         ]
                       ),
-                      _vm._v(" "),
-                      _c("invoices-this-month-kpi", {
-                        staticClass: "d-none d-xl-block"
-                      }),
                       _vm._v(" "),
                       _c("invoices-this-month-kpi", {
                         staticClass: "d-none d-xl-block"
@@ -333,9 +469,9 @@ var render = function() {
                                     _vm._v("help")
                                   ]),
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(_vm.$t("general.manual")) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -348,11 +484,11 @@ var render = function() {
                                     _vm._v("cloud_upload")
                                   ]),
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(
                                         _vm.$t("general.uploadFromExcel")
                                       ) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               ),
@@ -371,11 +507,11 @@ var render = function() {
                                     [_vm._v("add_box")]
                                   ),
                                   _vm._v(
-                                    "\n                            " +
+                                    "\n              " +
                                       _vm._s(
                                         _vm.$t("general.createNewRecord")
                                       ) +
-                                      "\n                        "
+                                      "\n            "
                                   )
                                 ]
                               )
@@ -536,9 +672,54 @@ var render = function() {
                                                 : _vm._e(),
                                               _vm._v(" "),
                                               data.item.taxpayer_id != null
-                                                ? _c("table-actions", {
-                                                    attrs: { row: data.item }
-                                                  })
+                                                ? _c(
+                                                    "div",
+                                                    [
+                                                      _c("table-actions", {
+                                                        attrs: {
+                                                          row: data.item
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "b-button",
+                                                        {
+                                                          directives: [
+                                                            {
+                                                              name: "b-modal",
+                                                              rawName:
+                                                                "v-b-modal.chartOfAccounts",
+                                                              modifiers: {
+                                                                chartOfAccounts: true
+                                                              }
+                                                            }
+                                                          ],
+                                                          ref: "btnShow",
+                                                          attrs: { size: "sm" },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.$parent.mergeChart(
+                                                                data.item
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "i",
+                                                            {
+                                                              staticClass:
+                                                                "material-icons"
+                                                            },
+                                                            [_vm._v("delete")]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
                                                 : _vm._e()
                                             ]
                                           }
@@ -546,7 +727,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      3054582151
+                                      4204687409
                                     )
                                   },
                                   [
@@ -715,11 +896,7 @@ var render = function() {
                         [
                           _c("b-button", [
                             _vm._v(
-                              " \n                        " +
-                                _vm._s(
-                                  _vm.spark.enumChartType[_vm.newChart.type]
-                                ) +
-                                "\n                    "
+                              _vm._s(_vm.spark.enumChartType[_vm.newChart.type])
                             )
                           ])
                         ],
@@ -755,11 +932,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                            " +
-                                      _vm._s(
-                                        _vm.$t("accounting.isAccountable")
-                                      ) +
-                                      "\n                        "
+                                    _vm._s(_vm.$t("accounting.isAccountable"))
                                   )
                                 ]
                               )
@@ -937,9 +1110,367 @@ var render = function() {
                                 _vm._v("save")
                               ]),
                               _vm._v(
-                                "\n                        " +
+                                "\n            " +
                                   _vm._s(_vm.$t("general.save")) +
-                                  "\n                    "
+                                  "\n          "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "accountModel",
+          attrs: {
+            id: "mergeChartOfAccounts",
+            "hide-footer": "",
+            centered: "",
+            title: "Merge Chart"
+          }
+        },
+        [
+          _vm.parentChart != null
+            ? _c(
+                "b-container",
+                [
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: _vm.$t("accounting.parentChart") } },
+                    [
+                      _c(
+                        "b-input-group",
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              readonly: "",
+                              type: "text",
+                              placeholder: _vm.$t("commercial.parent")
+                            },
+                            model: {
+                              value: _vm.parentChart.code,
+                              callback: function($$v) {
+                                _vm.$set(_vm.parentChart, "code", $$v)
+                              },
+                              expression: "parentChart.code"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group-append",
+                            [
+                              _c("b-input", {
+                                attrs: { readonly: "", type: "text" },
+                                model: {
+                                  value: _vm.parentChart.name,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.parentChart, "name", $$v)
+                                  },
+                                  expression: "parentChart.name"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: _vm.$t("accounting.chart") } },
+                    [
+                      _c(
+                        "b-input-group",
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              required: "",
+                              placeholder: _vm.$t("commercial.code")
+                            },
+                            model: {
+                              value: _vm.newChart.code,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.newChart,
+                                  "code",
+                                  typeof $$v === "string" ? $$v.trim() : $$v
+                                )
+                              },
+                              expression: "newChart.code"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group-append",
+                            [
+                              _c("b-input", {
+                                attrs: {
+                                  required: "",
+                                  placeholder: _vm.$t("commercial.name")
+                                },
+                                model: {
+                                  value: _vm.newChart.name,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.newChart,
+                                      "name",
+                                      typeof $$v === "string" ? $$v.trim() : $$v
+                                    )
+                                  },
+                                  expression: "newChart.name"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-button", [
+                            _vm._v(
+                              _vm._s(_vm.spark.enumChartType[_vm.newChart.type])
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Is Accountable" } },
+                            [
+                              _c(
+                                "b-form-checkbox",
+                                {
+                                  attrs: {
+                                    switch: "",
+                                    size: "lg",
+                                    name: "check-button"
+                                  },
+                                  model: {
+                                    value: _vm.newChart.is_accountable,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.newChart,
+                                        "is_accountable",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "newChart.is_accountable"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.$t("accounting.isAccountable"))
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.newChart.type == 1
+                    ? _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            label: "Asset Types",
+                            description:
+                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                          }
+                        },
+                        [
+                          _c("b-form-radio-group", {
+                            attrs: { options: _vm.spark.enumAsset },
+                            model: {
+                              value: _vm.newChart.sub_type,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
+                              },
+                              expression: "newChart.sub_type"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.newChart.type == 2
+                    ? _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            label: "Liability Types",
+                            description:
+                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                          }
+                        },
+                        [
+                          _c("b-form-radio-group", {
+                            attrs: { options: _vm.spark.enumLiability },
+                            model: {
+                              value: _vm.newChart.sub_type,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
+                              },
+                              expression: "newChart.sub_type"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.newChart.type == 3
+                    ? _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            label: "Equity Types",
+                            description:
+                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                          }
+                        },
+                        [
+                          _c("b-form-radio-group", {
+                            attrs: { options: _vm.spark.enumEquity },
+                            model: {
+                              value: _vm.newChart.sub_type,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
+                              },
+                              expression: "newChart.sub_type"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.newChart.type == 4
+                    ? _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            label: "Revenue Types",
+                            description:
+                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                          }
+                        },
+                        [
+                          _c("b-form-radio-group", {
+                            attrs: { options: _vm.spark.enumRevenue },
+                            model: {
+                              value: _vm.newChart.sub_type,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
+                              },
+                              expression: "newChart.sub_type"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.newChart.type == 5
+                    ? _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            label: "Expense Types",
+                            description:
+                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                          }
+                        },
+                        [
+                          _c("b-form-radio-group", {
+                            attrs: { options: _vm.spark.enumExpense },
+                            model: {
+                              value: _vm.newChart.sub_type,
+                              callback: function($$v) {
+                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
+                              },
+                              expression: "newChart.sub_type"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-button-toolbar",
+                    { staticClass: "float-right d-none d-md-block" },
+                    [
+                      _c(
+                        "b-button-group",
+                        { staticClass: "ml-15" },
+                        [
+                          _c(
+                            "b-btn",
+                            {
+                              directives: [
+                                {
+                                  name: "shortkey",
+                                  rawName: "v-shortkey",
+                                  value: ["ctrl", "n"],
+                                  expression: "['ctrl', 'n']"
+                                }
+                              ],
+                              attrs: { variant: "primary" },
+                              on: {
+                                shortkey: function($event) {
+                                  return _vm.onSaveNew()
+                                },
+                                click: function($event) {
+                                  return _vm.onSaveNew()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "material-icons" }, [
+                                _vm._v("save")
+                              ]),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(_vm.$t("general.save")) +
+                                  "\n          "
                               )
                             ]
                           )

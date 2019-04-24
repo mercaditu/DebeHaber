@@ -10,6 +10,7 @@
             "fields": [
                 {
                     "label": "commercial.code",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "label",
@@ -28,6 +29,7 @@
                 },
                 {
                     "label": "general.credit",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "text",
@@ -40,6 +42,7 @@
                 },
                 {
                     "label": "general.debit",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "text",

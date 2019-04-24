@@ -1,7 +1,7 @@
 {
     "pageurl": "/accounting/closing-balance",
-    "title": "commercial.closingbalance",
-    "img": "/img/apps/closing-balance.svg",
+    "title": "accounting.closingBalance",
+    "img": "/img/apps/closing.svg",
     "module": 1,
     "tables": [
         {
@@ -10,6 +10,7 @@
             "fields": [
                 {
                     "label": "commercial.code",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "label",
@@ -27,21 +28,8 @@
                     ]
                 },
                 {
-                    "label": "general.types",
-                    "properties": [
-                        {
-                            "type": "type",
-                            "data": [
-                                {
-                                    "type": "type",
-                                    "subtype": "sub_type"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
                     "label": "general.credit",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "text",
@@ -54,6 +42,7 @@
                 },
                 {
                     "label": "general.debit",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "text",

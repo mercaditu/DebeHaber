@@ -54,14 +54,14 @@
       <b-card>
         <!-- Labels -->
         <b-row>
-          <b-col v-for="col in table.fields" v-bind:key="col.index">
+          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
             <b>{{ $t(col.label) }}</b>
           </b-col>
         </b-row>
         <!-- Rows -->
         <div v-for="detail in data" v-bind:key="detail.index">
           <b-row>
-            <b-col v-for="col in table.fields" v-bind:key="col.index">
+            <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
               <span v-for="property in col.properties" v-bind:key="property.index">
                 <b-input-group v-if="property.type === 'label'">
                   <span v-if="detail['is_accountable']">
