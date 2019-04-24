@@ -185,7 +185,7 @@ export default [
                             visible: true
                         }
                     ],
-                    title: "general.creditBook",
+                    title: "commercial.creditBook",
                     description: "Some description",
                     img: "/img/apps/credit-note.svg",
                     columns: [
@@ -328,7 +328,7 @@ export default [
                             visible: true
                         }
                     ],
-                    title: "general.debitBook",
+                    title: "commercial.debitBook",
                     description: "Some description",
                     img: "/img/apps/credit-note.svg",
                     columns: [

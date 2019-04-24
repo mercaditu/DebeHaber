@@ -102,12 +102,12 @@
             "actions": true,
             "fields": [
                 {
-                    "label": "commercial.item",
+                    "label": "accounting.chartOfAccounts",
+                    "cols": 4,
                     "properties": [
                         {
                             "type": "select",
                             "data": "chart_id",
-                            "placeholder": "commercial.products",
                             "api": "/accounting/charts/for/income/",
                             "required": true,
                             "location": "",
@@ -126,7 +126,6 @@
                         {
                             "type": "select",
                             "data": "chart_vat_id",
-                            "placeholder": "commercial.vat",
                             "api": "/accounting/charts/for/vats-debit/ ",
                             "required": false,
                             "location": "",
@@ -141,6 +140,7 @@
                 },
                 {
                     "label": "commercial.value",
+                    "cols": 3,
                     "properties": [
                         {
                             "type": "text",
@@ -153,6 +153,7 @@
                 },
                 {
                     "label": "",
+                    "cols": 2,
                     "properties": [
                         {
                             "type": "actions",

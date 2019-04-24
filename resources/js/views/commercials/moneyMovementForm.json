@@ -1,7 +1,7 @@
 {
     "type": 2,
     "pageurl": "/commercial/money-movements",
-    "title": "commercial.MoneyMovement",
+    "title": "commercial.moneyMovements",
     "img": "/img/apps/money-movement.svg",
     "cards": [
         {
@@ -9,7 +9,7 @@
                 {
                     "fields": [
                         {
-                            "label": "commercial.startdate",
+                            "label": "commercial.startDate",
                             "properties": [
                                 {
                                     "type": "date",
@@ -26,7 +26,27 @@
                 {
                     "fields": [
                         {
-                            "label": "commercial.Fromcurrency ",
+                            "label": "general.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "general.comment ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rows": [
+                {
+                    "fields": [
+                        {
+                            "label": "commercial.fromCurrency",
                             "properties": [
                                 {
                                     "type": "currency",
@@ -43,7 +63,7 @@
                             ]
                         },
                         {
-                            "label": "commercial.Tocurrency ",
+                            "label": "commercial.toCurrency",
                             "properties": [
                                 {
                                     "type": "currency",
@@ -64,7 +84,7 @@
                 {
                     "fields": [
                         {
-                            "label": "commercial.Fromchart",
+                            "label": "commercial.fromChart",
                             "properties": [
                                 {
                                     "type": "select",
@@ -83,7 +103,7 @@
                             ]
                         },
                         {
-                            "label": "commercial.Tochart",
+                            "label": "commercial.toChart",
                             "properties": [
                                 {
                                     "type": "select",
@@ -124,22 +144,6 @@
                                     "type": "text",
                                     "data": "credit",
                                     "placeholder": "commercial.credit",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {
-                            "label": "general.comment",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "comment",
-                                    "placeholder": "general.comment ",
                                     "required": false,
                                     "location": ""
                                 }
