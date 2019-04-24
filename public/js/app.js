@@ -4838,6 +4838,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4853,7 +4856,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$route.name.replace("List", "Form");
     },
     uploadURL: function uploadURL() {
-      return '';
+      return "";
     }
   },
   mounted: function mounted() {

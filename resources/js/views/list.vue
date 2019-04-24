@@ -21,7 +21,10 @@
                 <i class="material-icons">cloud_upload</i>
                 {{ $t('general.uploadFromExcel') }}
               </b-list-group-item>
-              <b-list-group-item :to="{ name: formURL, params: { id: 0}}" v-show="$route.meta.buttons[2].visible">
+              <b-list-group-item
+                :to="{ name: formURL, params: { id: 0}}"
+                v-show="$route.meta.buttons[2].visible"
+              >
                 <i class="material-icons md-light">add_box</i>
                 {{ $t('general.createNewRecord') }}
               </b-list-group-item>
@@ -87,18 +90,16 @@ export default {
       return this.$route.name.replace("List", "Form");
     },
     uploadURL: function() {
-      return '';
+      return "";
     }
   },
-   
+
   mounted() {
-    if (this.$route.meta.columns != null)
-    {
-        this.$route.meta.columns.forEach(element => {
-          element.label = this.$t(element.label);
-        });
+    if (this.$route.meta.columns != null) {
+      this.$route.meta.columns.forEach(element => {
+        element.label = this.$t(element.label);
+      });
     }
-    
   }
 };
 </script>

@@ -143,24 +143,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'crud': _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
       data: {
-        date: '',
+        date: "",
         details: [],
         id: 0,
-        number: '',
-        comment: '',
-        template_id: '',
-        template: '',
-        value: ''
+        number: "",
+        comment: "",
+        template_id: "",
+        template: "",
+        value: ""
       },
-      pageUrl: '/accounting/journals',
+      pageUrl: "/accounting/journals",
       accountCharts: [],
       templates: [],
       lastDeletedRow: []
@@ -169,20 +183,20 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     columns: function columns() {
       return [{
-        key: 'chart_id',
-        label: this.$i18n.t('commercial.account'),
+        key: "chart_id",
+        label: this.$i18n.t("commercial.account"),
         sortable: true
       }, {
-        key: 'debit',
-        label: this.$i18n.t('commercial.debit'),
+        key: "credit",
+        label: this.$i18n.t("general.credit"),
         sortable: true
       }, {
-        key: 'credit',
-        label: this.$i18n.t('commercial.credit'),
+        key: "debit",
+        label: this.$i18n.t("general.debit"),
         sortable: true
       }, {
-        key: 'actions',
-        label: '',
+        key: "actions",
+        label: "",
         sortable: false
       }];
     },
@@ -197,7 +211,7 @@ __webpack_require__.r(__webpack_exports__);
       return debit - credit;
     },
     baseUrl: function baseUrl() {
-      return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
+      return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
     }
   },
   methods: {
@@ -207,12 +221,12 @@ __webpack_require__.r(__webpack_exports__);
       if (app.Balance < 0) {
         _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
           app.$snack.success({
-            text: app.$i18n.t('commercial.JournalSaved')
+            text: app.$i18n.t("commercial.JournalSaved")
           });
           app.$router.go(-1);
         })["catch"](function (error) {
           app.$snack.danger({
-            text: 'Error OMG!'
+            text: "Error OMG!: " + error
           });
         });
       }
@@ -223,9 +237,9 @@ __webpack_require__.r(__webpack_exports__);
       if (app.Balance === 0) {
         _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
           app.$snack.success({
-            text: app.$i18n.t('commercial.JournalSaved')
+            text: app.$i18n.t("commercial.JournalSaved")
           });
-          app.data.date = '', app.data.details = [], app.data.id = 0, app.data.number = '', app.data.comment = '', app.data.template_id = '', app.data.template = '', app.data.value = '';
+          app.data.date = "", app.data.details = [], app.data.id = 0, app.data.number = "", app.data.comment = "", app.data.template_id = "", app.data.template = "", app.data.value = "";
           app.$router.push({
             name: app.$route.name,
             params: {
@@ -234,7 +248,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         })["catch"](function (error) {
           app.$snack.danger({
-            text: this.$i18n.t('general.errorMessage')
+            text: this.$i18n.t("general.errorMessage")
           });
         });
       }
@@ -243,12 +257,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$swal.fire({
-        title: this.$i18n.t('general.cancel'),
-        text: this.$i18n.t('general.cancelVerification'),
-        type: 'warning',
+        title: this.$i18n.t("general.cancel"),
+        text: this.$i18n.t("general.cancelVerification"),
+        type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$i18n.t('general.cancelConfirmation'),
-        cancelButtonText: this.$i18n.t('general.cancelRejection')
+        confirmButtonText: this.$i18n.t("general.cancelConfirmation"),
+        cancelButtonText: this.$i18n.t("general.cancelRejection")
       }).then(function (result) {
         if (result.value) {
           _this.$router.go(-1);
@@ -260,27 +274,27 @@ __webpack_require__.r(__webpack_exports__);
         // index: this.data.details.length + 1,
         id: 0,
         chart_id: this.accountCharts[0].id,
-        debit: '0',
-        credit: '0'
+        debit: "0",
+        credit: "0"
       });
     },
     deleteRow: function deleteRow(item) {
       if (item.id > 0) {
         var app = this;
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + '/details', item.id).then(function (response) {});
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + "/details", item.id).then(function (response) {});
       }
 
       this.lastDeletedRow = item;
       this.$snack.success({
-        text: this.$i18n.t('general.rowDeleted'),
-        button: this.$i18n.t('general.undo'),
+        text: this.$i18n.t("general.rowDeleted"),
+        button: this.$i18n.t("general.undo"),
         action: this.undoDeletedRow
       });
       this.data.details.splice(this.data.details.indexOf(item), 1);
     },
     undoDeletedRow: function undoDeletedRow() {
       if (this.lastDeletedRow.id > 0) {
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + '/details', this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + "/details", this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
       }
 
       this.data.details.push(this.lastDeletedRow);
@@ -302,7 +316,7 @@ __webpack_require__.r(__webpack_exports__);
     var app = this;
 
     if (app.$route.params.id > 0) {
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + '/' + app.$route.params.id).then(function (response) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + "/" + app.$route.params.id).then(function (response) {
         app.data = response.data.data;
       });
     } else {
@@ -348,11 +362,7 @@ var render = function() {
                 staticClass: "mr-10",
                 attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
               }),
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.$route.meta.title) +
-                  "\n            "
-              )
+              _vm._v("\n        " + _vm._s(_vm.$route.meta.title) + "\n      ")
             ])
           ]),
           _vm._v(" "),
@@ -393,9 +403,9 @@ var render = function() {
                             _vm._v("save")
                           ]),
                           _vm._v(
-                            "\n                        " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.save")) +
-                              "\n                    "
+                              "\n          "
                           )
                         ]
                       ),
@@ -426,9 +436,9 @@ var render = function() {
                             _vm._v("cancel")
                           ]),
                           _vm._v(
-                            "\n                        " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.cancel")) +
-                              "\n                    "
+                              "\n          "
                           )
                         ]
                       )
@@ -563,14 +573,12 @@ var render = function() {
                             [
                               _c(
                                 "b-form-group",
-                                {
-                                  attrs: { label: _vm.$t("commercial.comment") }
-                                },
+                                { attrs: { label: _vm.$t("general.comment") } },
                                 [
                                   _c("b-input", {
                                     attrs: {
                                       type: "text",
-                                      placeholder: "Comment"
+                                      placeholder: _vm.$t("general.comment")
                                     },
                                     model: {
                                       value: _vm.data.comment,
@@ -618,7 +626,7 @@ var render = function() {
                                 "b-form-group",
                                 {
                                   attrs: {
-                                    label: _vm.$t("commercial.template")
+                                    label: _vm.$t("accounting.template")
                                   }
                                 },
                                 [
@@ -690,11 +698,7 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                            " +
-                                              _vm._s(
-                                                _vm.$t("general.generate")
-                                              ) +
-                                              "\n                                    "
+                                            _vm._s(_vm.$t("general.generate"))
                                           )
                                         ]
                                       )
@@ -756,9 +760,9 @@ var render = function() {
                     _vm._v("playlist_add")
                   ]),
                   _vm._v(
-                    "\n                " +
+                    "\n        " +
                       _vm._s(_vm.$t("general.addRowDetail")) +
-                      "\n            "
+                      "\n      "
                   )
                 ]
               ),
