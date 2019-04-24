@@ -148,15 +148,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -456,87 +447,70 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "b-row",
+        "b-card",
         [
           _c(
-            "b-col",
+            "b-container",
             [
               _c(
-                "b-card",
+                "b-row",
                 [
                   _c(
-                    "b-container",
+                    "b-col",
                     [
                       _c(
-                        "b-row",
+                        "b-form-group",
+                        { attrs: { label: _vm.$t("commercial.date") } },
                         [
-                          _c(
-                            "b-col",
-                            [
-                              _c(
-                                "b-form-group",
-                                { attrs: { label: _vm.$t("commercial.date") } },
-                                [
-                                  _c("b-input", {
-                                    attrs: {
-                                      type: "date",
-                                      required: "",
-                                      placeholder: "Missing Information"
-                                    },
-                                    model: {
-                                      value: _vm.data.date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.data, "date", $$v)
-                                      },
-                                      expression: "data.date"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
+                          _c("b-input", {
+                            attrs: {
+                              type: "date",
+                              required: "",
+                              placeholder: "Missing Information"
+                            },
+                            model: {
+                              value: _vm.data.date,
+                              callback: function($$v) {
+                                _vm.$set(_vm.data, "date", $$v)
+                              },
+                              expression: "data.date"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-form-group",
+                        { attrs: { label: _vm.$t("commercial.number") } },
+                        [
+                          _c("b-input", {
+                            directives: [
+                              {
+                                name: "mask",
+                                rawName: "v-mask",
+                                value: _vm.spark.taxPayerConfig.document_mask,
+                                expression: "spark.taxPayerConfig.document_mask"
+                              }
                             ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            [
-                              _c(
-                                "b-form-group",
-                                {
-                                  attrs: { label: _vm.$t("commercial.number") }
-                                },
-                                [
-                                  _c("b-input", {
-                                    directives: [
-                                      {
-                                        name: "mask",
-                                        rawName: "v-mask",
-                                        value:
-                                          _vm.spark.taxPayerConfig
-                                            .document_mask,
-                                        expression:
-                                          "spark.taxPayerConfig.document_mask"
-                                      }
-                                    ],
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Invoice Number"
-                                    },
-                                    model: {
-                                      value: _vm.data.number,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.data, "number", $$v)
-                                      },
-                                      expression: "data.number"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
+                            attrs: {
+                              type: "text",
+                              placeholder: "Invoice Number"
+                            },
+                            model: {
+                              value: _vm.data.number,
+                              callback: function($$v) {
+                                _vm.$set(_vm.data, "number", $$v)
+                              },
+                              expression: "data.number"
+                            }
+                          })
                         ],
                         1
                       )

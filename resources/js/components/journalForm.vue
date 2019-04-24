@@ -28,36 +28,27 @@
       </b-col>
     </b-row>
 
-    <b-row>
-      <b-col>
-        <b-card>
-          <b-container>
-            <b-row>
-              <b-col>
-                <b-form-group :label="$t('commercial.date')">
-                  <b-input
-                    type="date"
-                    required
-                    placeholder="Missing Information"
-                    v-model="data.date"
-                  />
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group :label="$t('commercial.number')">
-                  <b-input
-                    type="text"
-                    placeholder="Invoice Number"
-                    v-mask="spark.taxPayerConfig.document_mask"
-                    v-model="data.number"
-                  />
-                </b-form-group>
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-card>
-      </b-col>
-    </b-row>
+    <b-card>
+      <b-container>
+        <b-row>
+          <b-col>
+            <b-form-group :label="$t('commercial.date')">
+              <b-input type="date" required placeholder="Missing Information" v-model="data.date"/>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group :label="$t('commercial.number')">
+              <b-input
+                type="text"
+                placeholder="Invoice Number"
+                v-mask="spark.taxPayerConfig.document_mask"
+                v-model="data.number"
+              />
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-card>
 
     <b-row>
       <b-col>
