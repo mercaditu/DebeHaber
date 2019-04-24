@@ -1,85 +1,97 @@
-{ 
+{
     "pageurl": "/commercial/accounts-payable",
-    "title":  "commercial.accountspayable",
-    "img":  "/img/apps/accounts-payable.svg",
+    "title": "commercial.accountspayable",
+    "img": "/img/apps/accounts-payable.svg",
     "module": 2,
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label":  "commercial.date",
-                    "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
+                    "fields": [
+                        {
+                            "label": "commercial.date",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.chart",
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "chart_account_id",
+                                    "placeholder": "commercial.chart",
+                                    "api": "/accounting/charts/for/money/",
+                                    "required": false,
+                                    "location": "",
+                                    "select": [
+                                        {
+                                            "value": "id",
+                                            "label": "name"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "label": "commercial.chart",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "select",
-                            "data": "chart_account_id",
-                            "placeholder": "commercial.chart",
-                            "api": "/accounting/charts/for/money/",
-                            "required": false,
-                            "location": "",
-                            "select": [
+                            "label": "commercial.value",
+                            "properties": [
                                 {
-                                    "value": "id",
-                                    "label": "name"
+                                    "type": "text",
+                                    "data": "payment_value",
+                                    "placeholder": "commercial.value ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.currency",
+                            "properties": [
+                                {
+                                    "type": "currency",
+                                    "data": [
+                                        {
+                                            "salecurrency": "currency",
+                                            "currencyrate": "rate"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.currency ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {},
+                        {
+                            "label": "general.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "general.comment ",
+                                    "required": false,
+                                    "location": ""
                                 }
                             ]
                         }
                     ]
                 }
-
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label":  "commercial.value",
-                    "properties": [{ "type":  "text", "data":  "payment_value", "placeholder":  "commercial.value ", "required": false, "location":  "" }]
-                },
-                {
-                    "label": "commercial.currency",
-                    "properties": [
-                        {
-                            "type": "currency",
-                            "data": [
-                                {
-                                    "salecurrency": "currency",
-                                    "currencyrate": "rate"
-                                }
-                            ],
-                            "placeholder": "commercial.currency ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-
-
-            ]
-        },
-        {
-            "fields": [
-                { 
-                    
-                },
-                {
-                    "label": "commercial.comment",
-                    "properties": [
-                        {
-                            "type": "text",
-                            "data": "comment",
-                            "placeholder": "commercial.comment ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
             ]
         }
-       
     ]
-    
-    }]
 }

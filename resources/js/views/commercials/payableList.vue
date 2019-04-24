@@ -115,7 +115,7 @@ export default {
         },
         {
           key: "comment",
-          label: this.$i18n.t("commercial.comment"),
+          label: this.$i18n.t("general.comment"),
           sortable: true
         },
         {

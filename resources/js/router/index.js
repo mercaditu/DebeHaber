@@ -583,7 +583,7 @@ export default [
                         },
                         {
                             key: "comments",
-                            label: "commercial.comment",
+                            label: "general.comment",
                             sortable: true
                         },
                         {

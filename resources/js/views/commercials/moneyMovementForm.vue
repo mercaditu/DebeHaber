@@ -107,7 +107,7 @@
                   <b-form-group :label="$t('commercial.credit')">
                     <b-input type="number" placeholder="Value" v-model.number="data.credit"/>
                   </b-form-group>
-                  <b-form-group :label="$t('commercial.comment')">
+                  <b-form-group :label="$t('general.comment')">
                     <b-input
                       type="text"
                       required

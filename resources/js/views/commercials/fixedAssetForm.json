@@ -1,143 +1,151 @@
 {
     "pageurl": "/commercial/fixed-assets",
-    "title":  "commercial.fixedAssets",
-    "img":  "/img/apps/fixed-assets.svg",
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "title": "commercial.fixedAssets",
+    "img": "/img/apps/fixed-assets.svg",
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label":  "commercial.date",
-                    "properties": [{ "type":  "date", "data":  "purchase_date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
-                },
-                {
-                    "label": "commercial.chart",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "select",
-                            "data": "chart_id",
-                            "placeholder": "commercial.chart",
-                            "api": "/accounting/charts/for/fixed-assets/",
-                            "required": false,
-                            "location": "append ",
-                            "select": [
+                            "label": "commercial.date",
+                            "properties": [
                                 {
-                                    "value": "id",
-                                    "label": "name"
+                                    "type": "date",
+                                    "data": "purchase_date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.chart",
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "chart_id",
+                                    "placeholder": "commercial.chart",
+                                    "api": "/accounting/charts/for/fixed-assets/",
+                                    "required": false,
+                                    "location": "append ",
+                                    "select": [
+                                        {
+                                            "value": "id",
+                                            "label": "name"
+                                        }
+                                    ]
                                 }
                             ]
                         }
                     ]
-                }
-
-            ]
-        },
-        {
-            "fields": [
-               {
-                    "label": "commercial.purchaseValue",
-                    "properties": [
-                        {
-                            "type": "text",
-                            "data": "purchase_value",
-                            "placeholder": "commercial.purchaseValue",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
                 },
                 {
-                    "label": "commercial.currency",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "currency",
-                            "data": [
+                            "label": "commercial.purchaseValue",
+                            "properties": [
                                 {
-                                    "salecurrency": "currency",
-                                    "currencyrate": "rate"
+                                    "type": "text",
+                                    "data": "purchase_value",
+                                    "placeholder": "commercial.purchaseValue",
+                                    "required": false,
+                                    "location": ""
                                 }
-                            ],
-                            "placeholder": "commercial.currency ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label": "commercial.currentvalue",
-                    "properties": [
+                            ]
+                        },
                         {
-                            "type": "text",
-                            "data": "current_value",
-                            "placeholder": "commercial.currentValue",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.currency",
+                            "properties": [
+                                {
+                                    "type": "currency",
+                                    "data": [
+                                        {
+                                            "salecurrency": "currency",
+                                            "currencyrate": "rate"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.currency ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "label": "commercial.name",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "name",
-                            "placeholder": "commercial.name ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label": "commercial.quantity",
-                    "properties": [
+                            "label": "commercial.currentvalue",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "current_value",
+                                    "placeholder": "commercial.currentValue",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
                         {
-                            "type": "text",
-                            "data": "quantity",
-                            "placeholder": "commercial.quantity",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.name",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "name",
+                                    "placeholder": "commercial.name ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "label": "commercial.serial",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "serial",
-                            "placeholder": "commercial.serial",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.quantity",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "quantity",
+                                    "placeholder": "commercial.quantity",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.serial",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "serial",
+                                    "placeholder": "commercial.serial",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "fields": [
+                },
                 {
-                    "label": "commercial.comment",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "comment",
-                            "placeholder": "commercial.comment",
-                            "required": false,
-                            "location": ""
+                            "label": "general.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "general.comment",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 }
             ]
         }
     ]
-    }]
-   
 }

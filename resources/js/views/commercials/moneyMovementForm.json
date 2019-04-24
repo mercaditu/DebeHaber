@@ -1,151 +1,153 @@
 {
     "type": 2,
     "pageurl": "/commercial/money-movements",
-    "title":  "commercial.MoneyMovement",
-    "img":  "/img/apps/money-movement.svg",
-    "cards": [{
-        "rows": [
-            {
-                "fields": [
-                {
-                    "label":  "commercial.startdate",
-                    "properties": [{ "type":  "date", "data":  "date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
-                },
-                {
-
-                }
-                
-
-            ]
-        },
+    "title": "commercial.MoneyMovement",
+    "img": "/img/apps/money-movement.svg",
+    "cards": [
         {
-            "fields": [
+            "rows": [
                 {
-                    "label": "commercial.Fromcurrency ",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "currency",
-                            "data": [
+                            "label": "commercial.startdate",
+                            "properties": [
                                 {
-                                    "salecurrency": "from_currency",
-                                    "currencyrate": "from_rate"
+                                    "type": "date",
+                                    "data": "date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
                                 }
-                            ],
-                            "placeholder": "commercial.currency ",
-                            "required": false,
-                            "location": ""
-                        }
+                            ]
+                        },
+                        {}
                     ]
                 },
                 {
-                    "label": "commercial.Tocurrency ",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "currency",
-                            "data": [
+                            "label": "commercial.Fromcurrency ",
+                            "properties": [
                                 {
-                                    "salecurrency": "to_currency",
-                                    "currencyrate": "to_rate"
+                                    "type": "currency",
+                                    "data": [
+                                        {
+                                            "salecurrency": "from_currency",
+                                            "currencyrate": "from_rate"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.currency ",
+                                    "required": false,
+                                    "location": ""
                                 }
-                            ],
-                            "placeholder": "commercial.currency ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-               
-            ]
-        },
-        {
-            "fields": [
-               {
-                "label": "commercial.Fromchart",
-                "properties": [
-                    {
-                        "type": "select",
-                        "data": "from_chart_id",
-                        "placeholder": "commercial.chart",
-                        "api": "/accounting/charts/for/money/",
-                        "required": false,
-                        "location": "",
-                        "select": [
-                            {
-                                "value": "id",
-                                "label": "name"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "label": "commercial.Tochart",
-                "properties": [
-                    {
-                        "type": "select",
-                        "data": "to_chart_id",
-                        "placeholder": "commercial.chart",
-                        "api": "/accounting/charts/for/money/",
-                        "required": false,
-                        "location": "",
-                        "select": [
-                            {
-                                "value": "id",
-                                "label": "name"
-                            }
-                        ]
-                    }
-                ]
-            }
-               
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label": "commercial.debit",
-                    "properties": [
+                            ]
+                        },
                         {
-                            "type": "text",
-                            "data": "debit",
-                            "placeholder": "commercial.debit ",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.Tocurrency ",
+                            "properties": [
+                                {
+                                    "type": "currency",
+                                    "data": [
+                                        {
+                                            "salecurrency": "to_currency",
+                                            "currencyrate": "to_rate"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.currency ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "label": "commercial.credit",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "credit",
-                            "placeholder": "commercial.credit",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.Fromchart",
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "from_chart_id",
+                                    "placeholder": "commercial.chart",
+                                    "api": "/accounting/charts/for/money/",
+                                    "required": false,
+                                    "location": "",
+                                    "select": [
+                                        {
+                                            "value": "id",
+                                            "label": "name"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.Tochart",
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "to_chart_id",
+                                    "placeholder": "commercial.chart",
+                                    "api": "/accounting/charts/for/money/",
+                                    "required": false,
+                                    "location": "",
+                                    "select": [
+                                        {
+                                            "value": "id",
+                                            "label": "name"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "fields": [
+                },
                 {
-                    "label": "commercial.comment",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "comment",
-                            "placeholder": "commercial.comment ",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.debit",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "debit",
+                                    "placeholder": "commercial.debit ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.credit",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "credit",
+                                    "placeholder": "commercial.credit",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "general.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "general.comment ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 }
             ]
         }
-      
     ]
-    }]
-   
 }

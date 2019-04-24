@@ -118,7 +118,7 @@
                     v-model="data.serial"
                   />
                 </b-form-group>
-                <b-form-group :label="$t('commercial.comment')">
+                <b-form-group :label="$t('general.comment')">
                   <b-input
                     type="text"
                     required

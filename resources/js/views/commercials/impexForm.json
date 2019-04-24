@@ -53,12 +53,12 @@
                             ]
                         },
                         {
-                            "label": "commercial.comment",
+                            "label": "general.comment",
                             "properties": [
                                 {
                                     "type": "text",
                                     "data": "comment",
-                                    "placeholder": "commercial.comment ",
+                                    "placeholder": "general.comment ",
                                     "required": false,
                                     "location": ""
                                 }
@@ -121,7 +121,6 @@
                         }
                     ]
                 }
-                
             ]
         }
     ]

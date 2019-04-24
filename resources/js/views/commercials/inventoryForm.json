@@ -1,114 +1,130 @@
 {
     "pageurl": "/commercial/inventories",
-    "title":  "commercial.Inventory",
-    "img":  "/img/apps/inventory.svg",
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "title": "commercial.Inventory",
+    "img": "/img/apps/inventory.svg",
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label":  "commercial.startdate",
-                    "properties": [{ "type":  "date", "data":  "start_date", "placeholder":  "commercial.date", "required": false, "location":  "" }]
-                },
-                {
-                    "label": "commercial.chart",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "select",
-                            "data": "chart_id",
-                            "placeholder": "commercial.chart",
-                            "api": "/commercial/inventories/get_InventoryChartType/",
-                            "required": false,
-                            "location": "append ",
-                            "select": [
+                            "label": "commercial.startdate",
+                            "properties": [
                                 {
-                                    "value": "id",
-                                    "label": "name"
+                                    "type": "date",
+                                    "data": "start_date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.chart",
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "chart_id",
+                                    "placeholder": "commercial.chart",
+                                    "api": "/commercial/inventories/get_InventoryChartType/",
+                                    "required": false,
+                                    "location": "append ",
+                                    "select": [
+                                        {
+                                            "value": "id",
+                                            "label": "name"
+                                        }
+                                    ]
                                 }
                             ]
                         }
                     ]
-                }
-
-            ]
-        },
-        {
-            "fields": [
-               {
-                    "label": "commercial.enddate",
-                    "properties": [
+                },
+                {
+                    "fields": [
                         {
-                            "type": "date",
-                            "data": "end_date",
-                            "placeholder": "commercial.date",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.enddate",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "end_date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.value",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "current_value",
+                                    "placeholder": "commercial.currentValue ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "label":  "commercial.value",
-                    "properties": [{ "type":  "text", "data":  "current_value", "placeholder":  "commercial.currentValue ", "required": false, "location":  "" }]
-                }
-
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label": "commercial.salesvalue",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "sales_value",
-                            "placeholder": "commercial.salesValue",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.salesvalue",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "sales_value",
+                                    "placeholder": "commercial.salesValue",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "general.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "general.comment ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "label": "commercial.comment",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "comment",
-                            "placeholder": "commercial.comment ",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "fields": [
-                {
-                    "label": "commercial.costValue",
-                    "properties": [
+                            "label": "commercial.costValue",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "cost_value",
+                                    "placeholder": "commercial.costValue",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
                         {
-                            "type": "text",
-                            "data": "cost_value",
-                            "placeholder": "commercial.costValue",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                },
-                {
-                    "label": "commercial.inventoryValue",
-                    "properties": [
-                        {
-                            "type": "text",
-                            "data": "inventory_value",
-                            "placeholder": "commercial.inventoryValue",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.inventoryValue",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "inventory_value",
+                                    "placeholder": "commercial.inventoryValue",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
                         }
                     ]
                 }
             ]
         }
     ]
-    }]
-   
 }
