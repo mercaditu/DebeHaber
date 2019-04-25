@@ -248,59 +248,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -308,11 +255,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      fromChart: "",
+      toChart: "",
       parentChart: "",
       newChart: {
         id: 0
       },
-      pageUrl: "/accounting/charts"
+      pageUrl: "/accounting/charts",
+      apiUrl: "/accounting/charts/for/non-accountables"
     };
   },
   computed: {
@@ -357,6 +307,23 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
+    onMerge: function onMerge() {
+      var app = this;
+
+      if (app.toChart.id != null && app.toChart.name != null) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + "/accounting/charts/merge/" + app.fromChart.id + "/" + app.toChart.id).then(function (response) {
+          console.log(response);
+          app.$snack.success({
+            text: app.$i18n.t("chart.saved")
+          });
+          app.$refs.mergeModel.hide();
+        })["catch"](function (error) {
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage")
+          });
+        });
+      }
+    },
     createChild: function createChild(data) {
       var app = this;
       app.parentChart = data;
@@ -365,6 +332,10 @@ __webpack_require__.r(__webpack_exports__);
       app.newChart.code = app.parentChart.code + ".0";
       app.newChart.type = app.parentChart.type;
       app.newChart.sub_type = app.parentChart.sub_type;
+    },
+    mergeChart: function mergeChart(data) {
+      var app = this;
+      app.fromChart = data;
     },
     typeVariant: function typeVariant(chartType) {
       if (chartType == 1) {
@@ -688,9 +659,9 @@ var render = function() {
                                                             {
                                                               name: "b-modal",
                                                               rawName:
-                                                                "v-b-modal.chartOfAccounts",
+                                                                "v-b-modal.mergeChartOfAccounts",
                                                               modifiers: {
-                                                                chartOfAccounts: true
+                                                                mergeChartOfAccounts: true
                                                               }
                                                             }
                                                           ],
@@ -727,7 +698,7 @@ var render = function() {
                                       ],
                                       null,
                                       false,
-                                      4204687409
+                                      3594808817
                                     )
                                   },
                                   [
@@ -1133,7 +1104,7 @@ var render = function() {
       _c(
         "b-modal",
         {
-          ref: "accountModel",
+          ref: "mergeModel",
           attrs: {
             id: "mergeChartOfAccounts",
             "hide-footer": "",
@@ -1142,338 +1113,44 @@ var render = function() {
           }
         },
         [
-          _vm.parentChart != null
-            ? _c(
-                "b-container",
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-form-group",
+                { attrs: { label: _vm.$t("accounting.fromChart") } },
                 [
                   _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("accounting.parentChart") } },
+                    "b-input-group",
                     [
-                      _c(
-                        "b-input-group",
-                        [
-                          _c("b-input", {
-                            attrs: {
-                              readonly: "",
-                              type: "text",
-                              placeholder: _vm.$t("commercial.parent")
-                            },
-                            model: {
-                              value: _vm.parentChart.code,
-                              callback: function($$v) {
-                                _vm.$set(_vm.parentChart, "code", $$v)
-                              },
-                              expression: "parentChart.code"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c("b-input", {
-                                attrs: { readonly: "", type: "text" },
-                                model: {
-                                  value: _vm.parentChart.name,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.parentChart, "name", $$v)
-                                  },
-                                  expression: "parentChart.name"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("accounting.chart") } },
-                    [
-                      _c(
-                        "b-input-group",
-                        [
-                          _c("b-input", {
-                            attrs: {
-                              required: "",
-                              placeholder: _vm.$t("commercial.code")
-                            },
-                            model: {
-                              value: _vm.newChart.code,
-                              callback: function($$v) {
-                                _vm.$set(
-                                  _vm.newChart,
-                                  "code",
-                                  typeof $$v === "string" ? $$v.trim() : $$v
-                                )
-                              },
-                              expression: "newChart.code"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c("b-input", {
-                                attrs: {
-                                  required: "",
-                                  placeholder: _vm.$t("commercial.name")
-                                },
-                                model: {
-                                  value: _vm.newChart.name,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.newChart,
-                                      "name",
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                    )
-                                  },
-                                  expression: "newChart.name"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-row",
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _c("b-button", [
-                            _vm._v(
-                              _vm._s(_vm.spark.enumChartType[_vm.newChart.type])
-                            )
-                          ])
-                        ],
-                        1
-                      ),
+                      _c("b-input", {
+                        attrs: {
+                          readonly: "",
+                          type: "text",
+                          placeholder: _vm.$t("commercial.parent")
+                        },
+                        model: {
+                          value: _vm.fromChart.code,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fromChart, "code", $$v)
+                          },
+                          expression: "fromChart.code"
+                        }
+                      }),
                       _vm._v(" "),
                       _c(
-                        "b-col",
+                        "b-input-group-append",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "Is Accountable" } },
-                            [
-                              _c(
-                                "b-form-checkbox",
-                                {
-                                  attrs: {
-                                    switch: "",
-                                    size: "lg",
-                                    name: "check-button"
-                                  },
-                                  model: {
-                                    value: _vm.newChart.is_accountable,
-                                    callback: function($$v) {
-                                      _vm.$set(
-                                        _vm.newChart,
-                                        "is_accountable",
-                                        $$v
-                                      )
-                                    },
-                                    expression: "newChart.is_accountable"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(_vm.$t("accounting.isAccountable"))
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.newChart.type == 1
-                    ? _c(
-                        "b-form-group",
-                        {
-                          attrs: {
-                            label: "Asset Types",
-                            description:
-                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                          }
-                        },
-                        [
-                          _c("b-form-radio-group", {
-                            attrs: { options: _vm.spark.enumAsset },
+                          _c("b-input", {
+                            attrs: { readonly: "", type: "text" },
                             model: {
-                              value: _vm.newChart.sub_type,
+                              value: _vm.fromChart.name,
                               callback: function($$v) {
-                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
+                                _vm.$set(_vm.fromChart, "name", $$v)
                               },
-                              expression: "newChart.sub_type"
+                              expression: "fromChart.name"
                             }
                           })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.newChart.type == 2
-                    ? _c(
-                        "b-form-group",
-                        {
-                          attrs: {
-                            label: "Liability Types",
-                            description:
-                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                          }
-                        },
-                        [
-                          _c("b-form-radio-group", {
-                            attrs: { options: _vm.spark.enumLiability },
-                            model: {
-                              value: _vm.newChart.sub_type,
-                              callback: function($$v) {
-                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
-                              },
-                              expression: "newChart.sub_type"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.newChart.type == 3
-                    ? _c(
-                        "b-form-group",
-                        {
-                          attrs: {
-                            label: "Equity Types",
-                            description:
-                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                          }
-                        },
-                        [
-                          _c("b-form-radio-group", {
-                            attrs: { options: _vm.spark.enumEquity },
-                            model: {
-                              value: _vm.newChart.sub_type,
-                              callback: function($$v) {
-                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
-                              },
-                              expression: "newChart.sub_type"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.newChart.type == 4
-                    ? _c(
-                        "b-form-group",
-                        {
-                          attrs: {
-                            label: "Revenue Types",
-                            description:
-                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                          }
-                        },
-                        [
-                          _c("b-form-radio-group", {
-                            attrs: { options: _vm.spark.enumRevenue },
-                            model: {
-                              value: _vm.newChart.sub_type,
-                              callback: function($$v) {
-                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
-                              },
-                              expression: "newChart.sub_type"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.newChart.type == 5
-                    ? _c(
-                        "b-form-group",
-                        {
-                          attrs: {
-                            label: "Expense Types",
-                            description:
-                              "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                          }
-                        },
-                        [
-                          _c("b-form-radio-group", {
-                            attrs: { options: _vm.spark.enumExpense },
-                            model: {
-                              value: _vm.newChart.sub_type,
-                              callback: function($$v) {
-                                _vm.$set(_vm.newChart, "sub_type", _vm._n($$v))
-                              },
-                              expression: "newChart.sub_type"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "b-button-toolbar",
-                    { staticClass: "float-right d-none d-md-block" },
-                    [
-                      _c(
-                        "b-button-group",
-                        { staticClass: "ml-15" },
-                        [
-                          _c(
-                            "b-btn",
-                            {
-                              directives: [
-                                {
-                                  name: "shortkey",
-                                  rawName: "v-shortkey",
-                                  value: ["ctrl", "n"],
-                                  expression: "['ctrl', 'n']"
-                                }
-                              ],
-                              attrs: { variant: "primary" },
-                              on: {
-                                shortkey: function($event) {
-                                  return _vm.onSaveNew()
-                                },
-                                click: function($event) {
-                                  return _vm.onSaveNew()
-                                }
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: "material-icons" }, [
-                                _vm._v("save")
-                              ]),
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(_vm.$t("general.save")) +
-                                  "\n          "
-                              )
-                            ]
-                          )
                         ],
                         1
                       )
@@ -1482,8 +1159,82 @@ var render = function() {
                   )
                 ],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { label: _vm.$t("accounting.toChart") } },
+                [
+                  _c(
+                    "b-input-group",
+                    [
+                      _c("select-data", {
+                        attrs: { Id: _vm.toChart, api: _vm.apiUrl },
+                        on: {
+                          "update:Id": function($event) {
+                            _vm.toChart = $event
+                          },
+                          "update:id": function($event) {
+                            _vm.toChart = $event
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button-toolbar",
+                { staticClass: "float-right d-none d-md-block" },
+                [
+                  _c(
+                    "b-button-group",
+                    { staticClass: "ml-15" },
+                    [
+                      _c(
+                        "b-btn",
+                        {
+                          directives: [
+                            {
+                              name: "shortkey",
+                              rawName: "v-shortkey",
+                              value: ["ctrl", "m"],
+                              expression: "['ctrl', 'm']"
+                            }
+                          ],
+                          attrs: { variant: "primary" },
+                          on: {
+                            shortkey: function($event) {
+                              return _vm.onMerge()
+                            },
+                            click: function($event) {
+                              return _vm.onMerge()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("Merge")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.$t("general.merge")) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
               )
-            : _vm._e()
+            ],
+            1
+          )
         ],
         1
       )

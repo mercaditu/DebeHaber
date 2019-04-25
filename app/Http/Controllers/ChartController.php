@@ -120,6 +120,15 @@ class ChartController extends Controller
         );
     }
 
+    public function getNonAccountableCharts(Taxpayer $taxPayer, Cycle $cycle)
+    {
+        return GeneralResource::collection(
+            Chart::where('is_accountable', false)
+                ->orderBy('code')
+                ->get()
+        );
+    }
+
     public function getSalesAccounts(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
@@ -650,9 +659,11 @@ class ChartController extends Controller
 
     public function mergeCharts(Taxpayer $taxPayer, Cycle $cycle, $fromChartId, $toChartId)
     {
+        
         //run validation on chart types and make sure a transfer can take place.
         $fromChart = Chart::My($taxPayer, $cycle)->where('id', $fromChartId);
         $toChart = Chart::My($taxPayer, $cycle)->where('id', $toChartId);
+
 
         if (isset($fromChart) && isset($toChart)) {
             CycleBudget::where('chart_id', $fromChartId)->update(['chart_id' => $toChartId]);

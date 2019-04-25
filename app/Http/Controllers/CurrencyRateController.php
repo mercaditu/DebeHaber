@@ -57,6 +57,7 @@ class CurrencyRateController extends Controller
         else
         {
             //swap fx
+          
             $currency=Currency::where('code', $currencycode)->first();
             $currCode = $currency->code;
             $currCompanyCode = Taxpayer::where('id', $taxPayer->id)->select('currency')->first()->currency;

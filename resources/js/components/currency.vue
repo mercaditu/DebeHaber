@@ -1,21 +1,12 @@
 <template>
   <b-input-group>
     <b-input-group-prepend>
-      <!-- <div>
-        <label class="typo__label">Select with search</label>
-        <multiselect v-model="sale_currency" :options="currencies" 
-        :custom-label="nameWithLang" placeholder="Select one" 
-        label="name" @change="updateRate()"
+     
+       <multiselect v-model="sale_currency" :options="currencies" 
+        placeholder="Select one"  
+        label="name" @select="updateRate()"
          track-by="name"></multiselect>
-        <pre class="language-json"><code>{{ sale_currency  }}</code></pre>
-      </div> -->
-      <b-form-select v-model="sale_currency" @change="updateRate()">
-        <option
-          v-for="currency in currencies"
-          :key="currency.key"
-          :value="currency.code"
-        >{{ currency.name }}</option>
-      </b-form-select>
+     
     </b-input-group-prepend>
     <b-input
       type="text"
@@ -26,9 +17,10 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
 import crud from "../components/crud.vue";
 export default {
-  components: { crud: crud },
+  components: { crud: crud ,Multiselect},
   props: ["currency", "rate", "date", "type"],
   data: () => ({
     collections: [],
@@ -74,7 +66,7 @@ export default {
           "/api/" +
             this.$route.params.taxPayer +
             "/get-rates/by/" +
-            app.sale_currency +
+            app.sale_currency.code +
             "/" +
             date
         )

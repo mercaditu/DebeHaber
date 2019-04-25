@@ -22,7 +22,11 @@ class PurchaseController extends Controller
         //TODO improve query using sum of deatils instead of inner join.
         return GeneralResource::collection(
             Transaction::MyPurchases()
-                ->with('details')
+            ->with([
+                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                'details.chart:id,name,code,type,sub_type',
+                'details.vat:id,name'
+            ])
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('date', 'desc')
                 ->paginate(50)
@@ -63,7 +67,11 @@ class PurchaseController extends Controller
         return new GeneralResource(
             Transaction::MyPurchases()
                 ->where('id', $transactionId)
-                ->with('details')
+                ->with([
+                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                    'details.chart:id,name,code,type,sub_type',
+                    'details.vat:id,name'
+                ])
                 ->first()
         );
     }

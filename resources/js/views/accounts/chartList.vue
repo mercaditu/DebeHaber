@@ -78,7 +78,7 @@
 
                     <b-button
                       size="sm"
-                      v-b-modal.chartOfAccounts
+                      v-b-modal.mergeChartOfAccounts
                       @click="$parent.mergeChart(data.item)"
                       ref="btnShow"
                     >
@@ -194,93 +194,40 @@
         </b-button-toolbar>
       </b-container>
     </b-modal>
-    <b-modal id="mergeChartOfAccounts" hide-footer centered title="Merge Chart" ref="accountModel">
-      <b-container v-if="parentChart != null">
-        <b-form-group :label="$t('accounting.parentChart')">
+    <b-modal id="mergeChartOfAccounts" hide-footer centered title="Merge Chart" ref="mergeModel">
+      <b-container>
+        <b-form-group :label="$t('accounting.fromChart')">
           <b-input-group>
             <b-input
               readonly
               type="text"
               :placeholder="$t('commercial.parent')"
-              v-model="parentChart.code"
+              v-model="fromChart.code"
             />
             <b-input-group-append>
-              <b-input readonly type="text" v-model="parentChart.name"/>
+              <b-input readonly type="text" v-model="fromChart.name"/>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
-
-        <b-form-group :label="$t('accounting.chart')">
+        <b-form-group :label="$t('accounting.toChart')">
           <b-input-group>
-            <b-input required :placeholder="$t('commercial.code')" v-model.trim="newChart.code"/>
-            <b-input-group-append>
-              <b-input required :placeholder="$t('commercial.name')" v-model.trim="newChart.name"/>
-            </b-input-group-append>
-          </b-input-group>
+                <select-data
+                  v-bind:Id.sync="toChart"
+                  :api="apiUrl"
+                ></select-data>
+              </b-input-group>
         </b-form-group>
-
-        <b-row>
-          <b-col>
-            <b-button>{{ spark.enumChartType[newChart.type] }}</b-button>
-          </b-col>
-          <b-col>
-            <b-form-group label="Is Accountable">
-              <b-form-checkbox
-                switch
-                v-model="newChart.is_accountable"
-                size="lg"
-                name="check-button"
-              >{{ $t('accounting.isAccountable') }}</b-form-checkbox>
-            </b-form-group>
-          </b-col>
-        </b-row>
-
-        <b-form-group
-          label="Asset Types"
-          v-if="newChart.type == 1"
-          description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-        >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumAsset"/>
-        </b-form-group>
-        <b-form-group
-          label="Liability Types"
-          v-if="newChart.type == 2"
-          description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-        >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumLiability"/>
-        </b-form-group>
-        <b-form-group
-          label="Equity Types"
-          v-if="newChart.type == 3"
-          description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-        >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumEquity"/>
-        </b-form-group>
-        <b-form-group
-          label="Revenue Types"
-          v-if="newChart.type == 4"
-          description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-        >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumRevenue"/>
-        </b-form-group>
-        <b-form-group
-          label="Expense Types"
-          v-if="newChart.type == 5"
-          description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-        >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumExpense"/>
-        </b-form-group>
-
+      
         <b-button-toolbar class="float-right d-none d-md-block">
           <b-button-group class="ml-15">
             <b-btn
               variant="primary"
-              v-shortkey="['ctrl', 'n']"
-              @shortkey="onSaveNew()"
-              @click="onSaveNew()"
+              v-shortkey="['ctrl', 'm']"
+              @shortkey="onMerge()"
+              @click="onMerge()"
             >
-              <i class="material-icons">save</i>
-              {{ $t('general.save') }}
+              <i class="material-icons">Merge</i>
+              {{ $t('general.merge') }}
             </b-btn>
           </b-button-group>
         </b-button-toolbar>
@@ -294,9 +241,12 @@ import crud from "../../components/crud.vue";
 export default {
   components: { crud },
   data: () => ({
+    fromChart: "",
+    toChart: "",
     parentChart: "",
     newChart: { id: 0 },
-    pageUrl: "/accounting/charts"
+    pageUrl: "/accounting/charts",
+    apiUrl: "/accounting/charts/for/non-accountables"
   }),
   computed: {
     baseUrl() {
@@ -350,6 +300,27 @@ export default {
           });
       }
     },
+    onMerge() {
+      var app = this;
+      
+      if (app.toChart.id != null && app.toChart.name != null) {
+        
+        crud.methods
+          .onUpdate(app.baseUrl + "/accounting/charts/merge/" + app.fromChart.id + "/" + app.toChart.id )
+          .then(function(response) {
+            console.log(response);
+            app.$snack.success({
+              text: app.$i18n.t("chart.saved")
+            });
+            app.$refs.mergeModel.hide();
+          })
+          .catch(function(error) {
+            app.$snack.danger({
+              text: this.$i18n.t("general.errorMessage")
+            });
+          });
+      }
+    },
 
     createChild(data) {
       var app = this;
@@ -359,6 +330,12 @@ export default {
       app.newChart.code = app.parentChart.code + ".0";
       app.newChart.type = app.parentChart.type;
       app.newChart.sub_type = app.parentChart.sub_type;
+    },
+
+    mergeChart(data) {
+      var app = this;
+      app.fromChart = data;
+     
     },
 
     typeVariant(chartType) {

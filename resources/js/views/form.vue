@@ -101,6 +101,16 @@
       </b-card>
     </div>
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
+      <b-btn
+        class="mb-5"
+        size="sm"
+        v-shortkey="['ctrl', 'd']"
+        @shortkey="addRow(table.data)"
+        @click="addRow(table.data)"
+      >
+        <i class="material-icons mi-18">playlist_add</i>
+        {{ $t('general.addRowDetail') }}
+      </b-btn>
       <b-card>
         <!-- Labels -->
         <b-row>
