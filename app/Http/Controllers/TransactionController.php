@@ -35,7 +35,7 @@ class TransactionController extends Controller
 
         $transaction->document_id = $request->document_id > 0 ? $request->document_id : null;
 
-        $transaction->currency = $request->currency;
+        $transaction->currency = $request->currency.code;
         $transaction->rate = $request->rate;
         $transaction->payment_condition = $request->payment_condition;
 

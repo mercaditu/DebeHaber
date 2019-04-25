@@ -26,7 +26,6 @@ class SalesController extends Controller
                 'details.chart:id,name,code,type,sub_type',
                 'details.vat:id,name'
             ])
-                
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('date', 'desc')
                 ->paginate(50)

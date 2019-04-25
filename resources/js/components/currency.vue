@@ -1,11 +1,17 @@
 <template>
   <b-input-group>
     <b-input-group-prepend>
-     
-       <multiselect v-model="sale_currency" :options="currencies" 
+      <b-form-select v-model="sale_currency" @change="updateRate()">
+        <option
+          v-for="currency in currencies"
+          :key="currency.key"
+          :value="currency.code"
+        >{{ currency.name }}</option>
+      </b-form-select>
+       <!-- <multiselect v-model="sale_currency" :options="currencies" 
         placeholder="Select one"  
         label="name" @select="updateRate()"
-         track-by="name"></multiselect>
+         track-by="name"></multiselect> -->
      
     </b-input-group-prepend>
     <b-input
@@ -66,7 +72,7 @@ export default {
           "/api/" +
             this.$route.params.taxPayer +
             "/get-rates/by/" +
-            app.sale_currency.code +
+            app.sale_currency +
             "/" +
             date
         )
