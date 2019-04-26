@@ -9,6 +9,7 @@
                         <em slot="header">
                             Taxpayers for the Team
                             <div class="float-right">
+                                <create-company></create-company>
                                 {{-- <b-form-input v-model="text" type="text" placeholder="Enter your name">
                                 </b-form-input> --}}
                             </div>
