@@ -36,5 +36,9 @@
     "debit": "Debit",
     "credit": "Credit",
     "total": "Total",
-    "comment": "Comment"
+    "comment": "Comment",
+
+    "search": "Search",
+    "searchByName": "Search by Name",
+    "searchByTaxId": "Search by Tax Number"
 }

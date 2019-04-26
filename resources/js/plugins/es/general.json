@@ -35,5 +35,9 @@
     "debit": "Haber",
     "credit": "Debe",
     "total": "Total",
-    "comment": "Comentario"
+    "comment": "Comentario",
+
+    "search": "Buscar",
+    "searchByName": "Buscar por Nombre",
+    "searchByTaxId": "Buscar por Identificador"
 }

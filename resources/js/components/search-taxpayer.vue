@@ -4,13 +4,14 @@
       <b-input
         type="text"
         v-model="partnerName"
-        placeholder="Search for Taxpayer Name"
+        :placeholder="$t('general.searchByName')"
         @keyup="searchPartnername()"
       />
       <b-input
+        prepend
         type="text"
         v-model="partnerTaxid"
-        placeholder="Search for Taxpayer TaxID"
+        :placeholder="$t('general.searchByTaxId')"
         @keyup="searchPartnertaxid()"
       />
     </b-input-group>

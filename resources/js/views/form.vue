@@ -2,10 +2,10 @@
   <div>
     <b-row>
       <b-col>
-        <h3 class="upper-case">
+        <h2 text-variant="dark">
           <img :src="$route.meta.img" alt class="mr-10" width="32">
           {{ $t($route.meta.title) }}
-        </h3>
+        </h2>
       </b-col>
       <b-col>
         <b-button-toolbar class="float-right">
@@ -104,6 +104,7 @@
       <b-btn
         class="mb-5"
         size="sm"
+        variant="dark"
         v-shortkey="['ctrl', 'd']"
         @shortkey="addRow(table.data)"
         @click="addRow(table.data)"

@@ -1,6 +1,6 @@
 {
     "pageurl": "/commercial/accounts-receivable",
-    "title": "commercial.accountsreceivable",
+    "title": "commercial.accountReceivables",
     "img": "/img/apps/accounts-receivable.svg",
     "module": 2,
     "cards": [
@@ -21,7 +21,7 @@
                             ]
                         },
                         {
-                            "label": "commercial.chart",
+                            "label": "commercial.account",
                             "properties": [
                                 {
                                     "type": "select",
