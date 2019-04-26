@@ -28,9 +28,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import VueMask from "v-mask";
 import VueSnackbar from "vue-snack";
 import "vue-snack/dist/vue-snack.min.css";
-// import VueCsvImport from "vue-csv-import";
 
-// Vue.use(VueCsvImport);
 Vue.use(VueSnackbar);
 Vue.use(VueMask);
 Vue.use(VueSweetalert2);
@@ -41,7 +39,6 @@ Vue.use(require("vue-shortkey"));
 
 Vue.config.productionTip = false;
 
-//Saves new fields into registration form.
 Spark.forms.register = {
     language: "en"
 };
