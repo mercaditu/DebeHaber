@@ -83,7 +83,7 @@
                                     "data": [
                                         {
                                             "paymentcondition": "payment_condition",
-                                            "chartaccount": "chart_account_id"
+                                            "chartaccount": "account_chart"
                                         }
                                     ],
                                     "placeholder": "commercial.customer ",

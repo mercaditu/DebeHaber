@@ -21,6 +21,7 @@ class SalesController extends Controller
     {
         return GeneralResource::collection(
             Transaction::MySales()
+            ->with('accountChart')
             ->with([
                 'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
                 'details.chart:id,name,code,type,sub_type',
@@ -52,7 +53,7 @@ class SalesController extends Controller
     {
         $request->type = 2;
         $request->sub_type = 1; 
-        (new TransactionController())->store($request, $taxPayer);
+       (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
@@ -66,6 +67,7 @@ class SalesController extends Controller
     {
         return new GeneralResource(
             Transaction::MySales()
+            ->with('accountChart')
                 ->where('id', $transactionId)
              ->with([
                 'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
