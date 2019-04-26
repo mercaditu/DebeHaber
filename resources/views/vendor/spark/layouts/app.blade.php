@@ -7,8 +7,10 @@
         $taxPayerData = App\Taxpayer::where('id', request()->route('taxPayer'))
         ->select('id', 'name', 'alias', 'taxid', 'country', 'currency')
         ->first();
-     
-        $taxPayerConfig = Config::get('countries.' . $taxPayerData->country);
+        
+        if (isset($taxPayerData)) {
+            $taxPayerConfig = Config::get('countries.' . $taxPayerData->country);
+        }
 
         $cycleData = App\Cycle::where('taxpayer_id', request()->route('taxPayer'))
         ->select('id', 'year')
@@ -46,6 +48,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>
         @if (isset($taxPayerData) && isset($currentCycle))
             DH | {{ $taxPayerData->alias }} @ {{ $currentCycle->year }}
@@ -58,12 +61,10 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway:300,400,600' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
-<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
-    {{-- Remove This --}}
-    {{-- <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'> --}}
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
     <!-- CSS -->
     <link href="{{ mix(Spark::usesRightToLeftTheme() ? 'css/app-rtl.css' : 'css/app.css') }}" rel="stylesheet">
-
+    
     <!-- Scripts -->
     @stack('scripts')
 
@@ -125,6 +126,5 @@
 
     <!-- JavaScript -->
     <script src="{{ mix('js/app.js') }}"></script>
-    {{-- <script src="/js/sweetalert.min.js"></script> --}}
 </body>
 </html>

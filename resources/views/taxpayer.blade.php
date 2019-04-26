@@ -1,7 +1,7 @@
 @extends('spark::layouts.app')
 
 @section('content')
-    <form  action="{{ route('postTaxPayer') }}" method="POST">
+    <form action="{{ route('postTaxPayer') }}" method="POST">
         {{ csrf_field() }}
         <input type="hidden" name="id" value="{{ $taxPayerIntegration->id }}" />
         <b-container>

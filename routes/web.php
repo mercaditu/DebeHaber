@@ -22,10 +22,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::PUT('taxpayer/{taxPayer}', 'TaxpayerController@update')->name('updateTaxPayer');
     Route::delete('taxpayer', 'TaxpayerController@destroy')->name('deleteTaxPayer');
 
+    Route::get('taxpayer/integration/{id}', 'TaxpayerIntegrationController@show')->name('editTaxPayer');
+
     Route::prefix('{taxPayer}/{cycle}')->group(function () {
-    //Taxpayer Setting Routes
-    Route::get('taxpayer-integration/{id}', 'TaxpayerIntegrationController@show')->name('editTaxPayer');
-    
+        //Taxpayer Setting Routes
+
         Route::prefix('commercial')->group(function () {
             Route::prefix('reports')->group(function () {
                 Route::get('PRY/hechauka/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');

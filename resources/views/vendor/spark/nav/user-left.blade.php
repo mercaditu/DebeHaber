@@ -9,7 +9,11 @@
     <li class="nav-item">
         <b-dropdown variant="outline-success" size="sm">
             <template slot="button-content">
-                <i class="material-icons md-18 mr-5">business_center</i>
+                @if ($taxPayerData->is_company == 1)
+                <i class="material-icons md-18 mr-5">work_outline</i>
+                @else
+                <i class="material-icons md-18 mr-5">person_outline</i>
+                @endif
                 @{{ spark.taxPayerData.alias }}
             </template>
             <b-nav-item class="sub-menu" :to="{ name: 'taxPayer', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
@@ -22,7 +26,7 @@
             <h3 class="nav-heading sub">
                 @{{ $t('general.configuration') }}
             </h3>
-            <b-nav-item class="sub-menu" href="/{{ $taxPayerData->id }}/{{ $currentCycle->id }}/taxpayer-integration/{{ $integrationType->id }}">
+            <b-nav-item class="sub-menu" href="/taxpayer/integration/{{ $integrationType->id }}">
                 <i class="material-icons md-18 ml-10 mr-10">settings</i>
                 @{{ $t('general.taxPayer') }}
             </b-nav-item>

@@ -1,1 +1,823 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{MusO:function(t,e,a){"use strict";a.r(e);var r=a("gku4"),n={components:{crud:r.a},data:function(){return{fromChart:"",toChart:"",parentChart:"",newChart:{id:0},pageUrl:"/accounting/charts",apiUrl:"/accounting/charts/for/non-accountables"}},computed:{baseUrl:function(){return"/api/"+this.$route.params.taxPayer+"/"+this.$route.params.cycle},formURL:function(){return this.$route.name.replace("List","Form")},columns:function(){return[{key:"code",label:this.$i18n.t("commercial.code"),sortable:!0},{key:"name",label:this.$i18n.t("commercial.account"),sortable:!0},{key:"type",label:""},{key:"actions",label:""}]}},methods:{onSaveNew:function(){var t=this;null!=t.newChart.code&&null!=t.newChart.name&&r.a.methods.onUpdate(t.baseUrl+t.pageUrl,t.newChart).then(function(e){t.$snack.success({text:t.$i18n.t("chart.saved",t.newChart.code)}),t.$refs.accountModel.hide()}).catch(function(e){t.$snack.danger({text:this.$i18n.t("general.errorMessage")})})},onMerge:function(){var t=this;null!=t.toChart.id&&null!=t.toChart.name&&r.a.methods.onUpdate(t.baseUrl+"/accounting/charts/merge/"+t.fromChart.id+"/"+t.toChart.id).then(function(e){console.log(e),t.$snack.success({text:t.$i18n.t("chart.saved")}),t.$refs.mergeModel.hide()}).catch(function(e){t.$snack.danger({text:this.$i18n.t("general.errorMessage")})})},createChild:function(t){this.parentChart=t,this.newChart.id=0,this.newChart.parent_id=t.id,this.newChart.code=this.parentChart.code+".0",this.newChart.type=this.parentChart.type,this.newChart.sub_type=this.parentChart.sub_type},mergeChart:function(t){this.fromChart=t},typeVariant:function(t){return 1==t?"light":2==t?"dark":3==t?"warning":4==t?"success":5==t?"danger":void 0}}},s=a("KHd+"),o=Object(s.a)(n,function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[t.$route.name.includes("List")?a("b-row",[a("b-col",[a("b-card-group",{attrs:{deck:""}},[a("b-card",{attrs:{"bg-variant":"dark","text-variant":"white"}},[a("h4",{staticClass:"upper-case"},[a("img",{staticClass:"ml-5 mr-5",attrs:{src:t.$route.meta.img,alt:"",width:"26"}}),t._v("\n            "+t._s(t.$t(t.$route.meta.title))+"\n          ")]),t._v(" "),t.$route.name.includes("List")?a("p",{staticClass:"lead"},[t._v(t._s(t.$t(t.$route.meta.description))+",")]):t._e()]),t._v(" "),a("invoices-this-month-kpi",{staticClass:"d-none d-xl-block"}),t._v(" "),a("b-card",{attrs:{"no-body":""}},[a("b-list-group",{attrs:{flush:""}},[a("b-list-group-item",{attrs:{href:"#"}},[a("i",{staticClass:"material-icons"},[t._v("help")]),t._v("\n              "+t._s(t.$t("general.manual"))+"\n            ")]),t._v(" "),a("b-list-group-item",{attrs:{to:{name:t.uploadURL}}},[a("i",{staticClass:"material-icons"},[t._v("cloud_upload")]),t._v("\n              "+t._s(t.$t("general.uploadFromExcel"))+"\n            ")]),t._v(" "),a("b-list-group-item",{attrs:{to:{name:t.formURL,params:{id:0}}}},[a("i",{staticClass:"material-icons md-light"},[t._v("add_box")]),t._v("\n              "+t._s(t.$t("general.createNewRecord"))+"\n            ")])],1)],1)],1)],1)],1):t._e(),t._v(" "),a("b-row",[a("b-col",[t.$route.name.includes("List")?a("div",[a("crud",{attrs:{columns:t.columns},inlineTemplate:{render:function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("b-card",{attrs:{"no-body":""}},[a("b-table",{attrs:{hover:"",responsive:"",items:t.items,fields:t.columns,"current-page":t.current_page},scopedSlots:t._u([{key:"type",fn:function(t){return[a("chart-types",{attrs:{type:t.item.type,sub_type:t.item.sub_type}})]}},{key:"code",fn:function(e){return[e.item.is_accountable?a("span",[t._v(t._s(e.item.code))]):a("b",[t._v(t._s(e.item.code))])]}},{key:"name",fn:function(e){return[e.item.is_accountable?a("span",[t._v(t._s(e.item.name))]):a("b",[t._v(t._s(e.item.name))])]}},{key:"actions",fn:function(e){return[0==e.item.is_accountable?a("b-button-group",{staticClass:"show-when-hovered",attrs:{size:"sm"}},[a("b-button",{directives:[{name:"b-modal",rawName:"v-b-modal.chartOfAccounts",modifiers:{chartOfAccounts:!0}}],ref:"btnShow",on:{click:function(a){return t.$parent.createChild(e.item)}}},[a("i",{staticClass:"material-icons"},[t._v("playlist_add")])])],1):t._e(),t._v(" "),null!=e.item.taxpayer_id?a("div",[a("table-actions",{attrs:{row:e.item}}),t._v(" "),a("b-button",{directives:[{name:"b-modal",rawName:"v-b-modal.mergeChartOfAccounts",modifiers:{mergeChartOfAccounts:!0}}],ref:"btnShow",attrs:{size:"sm"},on:{click:function(a){return t.$parent.mergeChart(e.item)}}},[a("i",{staticClass:"material-icons"},[t._v("delete")])])],1):t._e()]}}],null,!1,3594808817)},[t._v(" "),t._v(" "),t._v(" "),t._v(" "),a("div",{attrs:{slot:"table-busy"},slot:"table-busy"},[a("table-loading")],1),t._v(" "),a("template",{slot:"empty"},[a("table-empty")],1)],2)],1)},staticRenderFns:[]}})],1):a("router-view")],1)],1),t._v(" "),a("b-modal",{ref:"accountModel",attrs:{id:"chartOfAccounts","hide-footer":"",centered:"",title:"Create Chart"}},[null!=t.parentChart?a("b-container",[a("b-form-group",{attrs:{label:t.$t("accounting.parentChart")}},[a("b-input-group",[a("b-input",{attrs:{readonly:"",type:"text",placeholder:t.$t("commercial.parent")},model:{value:t.parentChart.code,callback:function(e){t.$set(t.parentChart,"code",e)},expression:"parentChart.code"}}),t._v(" "),a("b-input-group-append",[a("b-input",{attrs:{readonly:"",type:"text"},model:{value:t.parentChart.name,callback:function(e){t.$set(t.parentChart,"name",e)},expression:"parentChart.name"}})],1)],1)],1),t._v(" "),a("b-form-group",{attrs:{label:t.$t("accounting.chart")}},[a("b-input-group",[a("b-input",{attrs:{required:"",placeholder:t.$t("commercial.code")},model:{value:t.newChart.code,callback:function(e){t.$set(t.newChart,"code","string"==typeof e?e.trim():e)},expression:"newChart.code"}}),t._v(" "),a("b-input-group-append",[a("b-input",{attrs:{required:"",placeholder:t.$t("commercial.name")},model:{value:t.newChart.name,callback:function(e){t.$set(t.newChart,"name","string"==typeof e?e.trim():e)},expression:"newChart.name"}})],1)],1)],1),t._v(" "),a("b-row",[a("b-col",[a("b-button",[t._v(t._s(t.spark.enumChartType[t.newChart.type]))])],1),t._v(" "),a("b-col",[a("b-form-group",{attrs:{label:"Is Accountable"}},[a("b-form-checkbox",{attrs:{switch:"",size:"lg",name:"check-button"},model:{value:t.newChart.is_accountable,callback:function(e){t.$set(t.newChart,"is_accountable",e)},expression:"newChart.is_accountable"}},[t._v(t._s(t.$t("accounting.isAccountable")))])],1)],1)],1),t._v(" "),1==t.newChart.type?a("b-form-group",{attrs:{label:"Asset Types",description:"Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."}},[a("b-form-radio-group",{attrs:{options:t.spark.enumAsset},model:{value:t.newChart.sub_type,callback:function(e){t.$set(t.newChart,"sub_type",t._n(e))},expression:"newChart.sub_type"}})],1):t._e(),t._v(" "),2==t.newChart.type?a("b-form-group",{attrs:{label:"Liability Types",description:"Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."}},[a("b-form-radio-group",{attrs:{options:t.spark.enumLiability},model:{value:t.newChart.sub_type,callback:function(e){t.$set(t.newChart,"sub_type",t._n(e))},expression:"newChart.sub_type"}})],1):t._e(),t._v(" "),3==t.newChart.type?a("b-form-group",{attrs:{label:"Equity Types",description:"Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."}},[a("b-form-radio-group",{attrs:{options:t.spark.enumEquity},model:{value:t.newChart.sub_type,callback:function(e){t.$set(t.newChart,"sub_type",t._n(e))},expression:"newChart.sub_type"}})],1):t._e(),t._v(" "),4==t.newChart.type?a("b-form-group",{attrs:{label:"Revenue Types",description:"Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."}},[a("b-form-radio-group",{attrs:{options:t.spark.enumRevenue},model:{value:t.newChart.sub_type,callback:function(e){t.$set(t.newChart,"sub_type",t._n(e))},expression:"newChart.sub_type"}})],1):t._e(),t._v(" "),5==t.newChart.type?a("b-form-group",{attrs:{label:"Expense Types",description:"Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."}},[a("b-form-radio-group",{attrs:{options:t.spark.enumExpense},model:{value:t.newChart.sub_type,callback:function(e){t.$set(t.newChart,"sub_type",t._n(e))},expression:"newChart.sub_type"}})],1):t._e(),t._v(" "),a("b-button-toolbar",{staticClass:"float-right d-none d-md-block"},[a("b-button-group",{staticClass:"ml-15"},[a("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["ctrl","n"],expression:"['ctrl', 'n']"}],attrs:{variant:"primary"},on:{shortkey:function(e){return t.onSaveNew()},click:function(e){return t.onSaveNew()}}},[a("i",{staticClass:"material-icons"},[t._v("save")]),t._v("\n            "+t._s(t.$t("general.save"))+"\n          ")])],1)],1)],1):t._e()],1),t._v(" "),a("b-modal",{ref:"mergeModel",attrs:{id:"mergeChartOfAccounts","hide-footer":"",centered:"",title:"Merge Chart"}},[a("b-container",[a("b-form-group",{attrs:{label:t.$t("accounting.fromChart")}},[a("b-input-group",[a("b-input",{attrs:{readonly:"",type:"text",placeholder:t.$t("commercial.parent")},model:{value:t.fromChart.code,callback:function(e){t.$set(t.fromChart,"code",e)},expression:"fromChart.code"}}),t._v(" "),a("b-input-group-append",[a("b-input",{attrs:{readonly:"",type:"text"},model:{value:t.fromChart.name,callback:function(e){t.$set(t.fromChart,"name",e)},expression:"fromChart.name"}})],1)],1)],1),t._v(" "),a("b-form-group",{attrs:{label:t.$t("accounting.toChart")}},[a("b-input-group",[a("select-data",{attrs:{Id:t.toChart,api:t.apiUrl},on:{"update:Id":function(e){t.toChart=e},"update:id":function(e){t.toChart=e}}})],1)],1),t._v(" "),a("b-button-toolbar",{staticClass:"float-right d-none d-md-block"},[a("b-button-group",{staticClass:"ml-15"},[a("b-btn",{directives:[{name:"shortkey",rawName:"v-shortkey",value:["ctrl","m"],expression:"['ctrl', 'm']"}],attrs:{variant:"primary"},on:{shortkey:function(e){return t.onMerge()},click:function(e){return t.onMerge()}}},[a("i",{staticClass:"material-icons"},[t._v("Merge")]),t._v("\n            "+t._s(t.$t("general.merge"))+"\n          ")])],1)],1)],1)],1)],1)},[],!1,null,null,null);e.default=o.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/journalList.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/journalList.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      cycle: []
+    };
+  },
+  computed: {
+    formURL: function formURL() {
+      return this.$route.name.replace("List", "Form");
+    },
+    columns: function columns() {
+      return [{
+        key: "date",
+        sortable: true
+      }, {
+        key: "comment",
+        label: this.$i18n.t("general.comment"),
+        sortable: true
+      }, {
+        key: "debit",
+        formatter: function formatter(value, key, item) {
+          return new Number(item.details.reduce(function (sum, row) {
+            return sum + new Number(row["debit"]);
+          }, 0)).toLocaleString();
+        },
+        label: this.$i18n.t("commercial.value"),
+        sortable: true
+      }, {
+        key: "hasDetails",
+        label: "",
+        sortable: false
+      }, {
+        key: "actions",
+        label: "",
+        sortable: false
+      }];
+    },
+    baseUrl: function baseUrl() {
+      return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
+    }
+  },
+  methods: {
+    GenerateJournal: function GenerateJournal() {
+      var app = this;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/generate-journals/" + app.cycle.start_date + "/" + app.cycle.end_date).then(function (response) {
+        app.$snack.success({
+          text: app.$i18n.t("accounting.generateJournal")
+        });
+      });
+    }
+  },
+  mounted: function mounted() {
+    var app = this;
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/config/cycles/" + this.$route.params.cycle).then(function (response) {
+      app.cycle = response.data.data;
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/journalList.vue?vue&type=template&id=2e26d74b&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/accounts/journalList.vue?vue&type=template&id=2e26d74b& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.$route.name.includes("List")
+        ? _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                [
+                  _c(
+                    "b-card-group",
+                    { attrs: { deck: "" } },
+                    [
+                      _c(
+                        "b-card",
+                        {
+                          attrs: {
+                            "bg-variant": "dark",
+                            "text-variant": "white"
+                          }
+                        },
+                        [
+                          _c("h4", { staticClass: "upper-case" }, [
+                            _c("img", {
+                              staticClass: "ml-5 mr-5",
+                              attrs: {
+                                src: _vm.$route.meta.img,
+                                alt: "",
+                                width: "26"
+                              }
+                            }),
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(_vm.$t(_vm.$route.meta.title)) +
+                                "\n          "
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("invoices-this-month-kpi", {
+                        staticClass: "d-none d-xl-block"
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-card",
+                        { attrs: { "no-body": "" } },
+                        [
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("i", { staticClass: "material-icons" }, [
+                              _vm._v("help")
+                            ]),
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(_vm.$t("general.manual")) +
+                                "\n          "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.GenerateJournal()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "material-icons" }, [
+                                _vm._v("autorenew")
+                              ]),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(_vm.$t("accounting.generateJournal")) +
+                                  "\n          "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: {
+                                to: { name: _vm.formURL, params: { id: 0 } }
+                              }
+                            },
+                            [
+                              _c(
+                                "i",
+                                { staticClass: "material-icons md-light" },
+                                [_vm._v("add_box")]
+                              ),
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(_vm.$t("general.createNewRecord")) +
+                                  "\n          "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _vm.$route.name.includes("List")
+                ? _c(
+                    "div",
+                    [
+                      _c("crud", {
+                        attrs: { columns: _vm.columns },
+                        inlineTemplate: {
+                          render: function() {
+                            var _vm = this
+                            var _h = _vm.$createElement
+                            var _c = _vm._self._c || _h
+                            return _c(
+                              "div",
+                              [
+                                _c(
+                                  "b-card",
+                                  { attrs: { "no-body": "" } },
+                                  [
+                                    _c(
+                                      "b-table",
+                                      {
+                                        attrs: {
+                                          hover: "",
+                                          responsive: "",
+                                          items: _vm.items,
+                                          fields: _vm.columns,
+                                          "current-page": _vm.current_page
+                                        },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "date",
+                                              fn: function(data) {
+                                                return [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      new Date(
+                                                        data.item.date
+                                                      ).toLocaleDateString()
+                                                    )
+                                                  )
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              key: "total",
+                                              fn: function(data) {
+                                                return [
+                                                  _c(
+                                                    "span",
+                                                    {
+                                                      staticClass: "float-right"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                    " +
+                                                          _vm._s(
+                                                            new Number(
+                                                              _vm.sum(
+                                                                data.item
+                                                                  .details,
+                                                                "debit"
+                                                              )
+                                                            ).toLocaleString()
+                                                          ) +
+                                                          "\n                    "
+                                                      ),
+                                                      data.item.currency != null
+                                                        ? _c(
+                                                            "small",
+                                                            {
+                                                              staticClass:
+                                                                "text-success text-uppercase"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  data.item
+                                                                    .currency
+                                                                    .code
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        : _vm._e()
+                                                    ]
+                                                  )
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              key: "row-details",
+                                              fn: function(row) {
+                                                return [
+                                                  _c(
+                                                    "b-row",
+                                                    [
+                                                      _c(
+                                                        "b-col",
+                                                        {
+                                                          attrs: {
+                                                            cols: "8",
+                                                            colspan: "2"
+                                                          }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "span",
+                                                            {
+                                                              staticClass:
+                                                                "text-muted"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm.$t(
+                                                                    "accounting.chartOfAccounts"
+                                                                  )
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "b-col",
+                                                        {
+                                                          staticClass:
+                                                            "text-sm-right",
+                                                          attrs: { cols: "2" }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "span",
+                                                            {
+                                                              staticClass:
+                                                                "text-muted"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm.$t(
+                                                                    "general.credit"
+                                                                  )
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "b-col",
+                                                        {
+                                                          staticClass:
+                                                            "text-sm-right",
+                                                          attrs: { cols: "2" }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "span",
+                                                            {
+                                                              staticClass:
+                                                                "text-muted"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm.$t(
+                                                                    "general.debit"
+                                                                  )
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _vm._l(
+                                                    row.item.details,
+                                                    function(detail) {
+                                                      return _c(
+                                                        "b-row",
+                                                        { key: detail.key },
+                                                        [
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              attrs: {
+                                                                cols: "2"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("b", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    detail.chart
+                                                                      .code
+                                                                  )
+                                                                )
+                                                              ])
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              attrs: {
+                                                                cols: "6"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "chart-types",
+                                                                {
+                                                                  attrs: {
+                                                                    chart:
+                                                                      detail
+                                                                        .chart
+                                                                        .name,
+                                                                    type:
+                                                                      detail
+                                                                        .chart
+                                                                        .type,
+                                                                    sub_type:
+                                                                      detail
+                                                                        .chart
+                                                                        .sub_type
+                                                                  }
+                                                                }
+                                                              )
+                                                            ],
+                                                            1
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              staticClass:
+                                                                "text-sm-right",
+                                                              attrs: {
+                                                                cols: "2"
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  new Number(
+                                                                    detail.credit
+                                                                  ).toLocaleString()
+                                                                )
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              staticClass:
+                                                                "text-sm-right",
+                                                              attrs: {
+                                                                cols: "2"
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  new Number(
+                                                                    detail.debit
+                                                                  ).toLocaleString()
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    }
+                                                  )
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              key: "hasDetails",
+                                              fn: function(row) {
+                                                return [
+                                                  _c(
+                                                    "b-button-group",
+                                                    {
+                                                      staticClass:
+                                                        "show-when-hovered",
+                                                      attrs: { size: "sm" }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "b-button",
+                                                        {
+                                                          on: {
+                                                            click:
+                                                              row.toggleDetails
+                                                          }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "i",
+                                                            {
+                                                              staticClass:
+                                                                "material-icons md-19"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "remove_red_eye"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              key: "actions",
+                                              fn: function(data) {
+                                                return [
+                                                  _c("table-actions", {
+                                                    attrs: { row: data.item }
+                                                  })
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              key: "empty",
+                                              fn: function(scope) {
+                                                return [_c("table-empty")]
+                                              }
+                                            }
+                                          ],
+                                          null,
+                                          false,
+                                          2441271036
+                                        )
+                                      },
+                                      [
+                                        _vm._v(" "),
+                                        _vm._v(" "),
+                                        _vm._v(" "),
+                                        _vm._v(" "),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            attrs: { slot: "table-busy" },
+                                            slot: "table-busy"
+                                          },
+                                          [_c("table-loading")],
+                                          1
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("b-pagination", {
+                                  attrs: {
+                                    align: "center",
+                                    "total-rows": _vm.meta.total,
+                                    "per-page": _vm.meta.per_page
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.onList()
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          },
+                          staticRenderFns: []
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _c("router-view")
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/accounts/journalList.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/views/accounts/journalList.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _journalList_vue_vue_type_template_id_2e26d74b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./journalList.vue?vue&type=template&id=2e26d74b& */ "./resources/js/views/accounts/journalList.vue?vue&type=template&id=2e26d74b&");
+/* harmony import */ var _journalList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./journalList.vue?vue&type=script&lang=js& */ "./resources/js/views/accounts/journalList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _journalList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _journalList_vue_vue_type_template_id_2e26d74b___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _journalList_vue_vue_type_template_id_2e26d74b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/accounts/journalList.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/accounts/journalList.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/views/accounts/journalList.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_journalList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./journalList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/journalList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_journalList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/accounts/journalList.vue?vue&type=template&id=2e26d74b&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/views/accounts/journalList.vue?vue&type=template&id=2e26d74b& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_journalList_vue_vue_type_template_id_2e26d74b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./journalList.vue?vue&type=template&id=2e26d74b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/accounts/journalList.vue?vue&type=template&id=2e26d74b&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_journalList_vue_vue_type_template_id_2e26d74b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_journalList_vue_vue_type_template_id_2e26d74b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

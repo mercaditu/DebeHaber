@@ -10,8 +10,6 @@
                             Taxpayers for the Team
                             <div class="float-right">
                                 <create-taxpayer></create-taxpayer>
-                                {{-- <b-form-input v-model="text" type="text" placeholder="Enter your name">
-                                </b-form-input> --}}
                             </div>
                         </em>
                         <b-list-group flush>
@@ -23,6 +21,9 @@
                                         <i class="material-icons">person_outline</i>
                                     @endif
                                     {{ $integration->taxPayer->name }} <span class="text-muted"> | {{ $integration->taxPayer->taxid }}</span>
+                                    <b-link href="taxpayer/integration/{{ $integration->id }}">
+                                            <i class="material-icons float-right">settings_applications</i>
+                                    </b-link>
                                 </b-list-group-item>
                             @endforeach
                         </b-list-group>

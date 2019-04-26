@@ -1,6 +1,11 @@
 <template>
   <div>
-    <b-button v-b-modal.modal>{{ $t('Create Taxpayer') }}</b-button>
+    <b-button
+      variant="link"
+      v-if="$parent.currentTeam.current_billing_plan == null"
+      :href="'https://debehaber.test/settings/teams/' + $parent.currentTeam.id + '#/subscription'"
+    >Subscribe</b-button>
+    <b-button v-else v-b-modal.modal>{{ $t('Create Taxpayer') }}</b-button>
     <b-modal id="modal" :title="$t('Create Taxpayer')">
       <b-form></b-form>
     </b-modal>
