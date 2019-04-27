@@ -314,6 +314,7 @@ export default {
             app.$snack.success({
               text: app.$i18n.t("chart.saved")
             });
+            
             app.$refs.mergeModel.hide();
           })
           .catch(function(error) {
