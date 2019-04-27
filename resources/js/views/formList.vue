@@ -76,7 +76,7 @@
 
                 <b-input-group v-if="property.type === 'select'">
                   <select-data
-                    v-bind:Id.sync="detail[property.data]"
+                    v-bind:Item.sync="detail[property.data]"
                     :api="property.api"
                     :options="property.options"
                   ></select-data>

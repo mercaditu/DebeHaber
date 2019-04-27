@@ -49,7 +49,7 @@
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
                   <select-data
-                    v-bind:Id.sync="data[property.data]"
+                    v-bind:Item.sync="data[property.data]"
                     :api="property.api"
                     :options="property.options"
                   ></select-data>

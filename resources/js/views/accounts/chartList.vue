@@ -211,7 +211,7 @@
         </b-form-group>
         <b-form-group :label="$t('accounting.toChart')">
           <b-input-group>
-            <select-data v-bind:Id.sync="toChart" :api="apiUrl"></select-data>
+            <select-data v-bind:Item.sync="toChart" :api="apiUrl"></select-data>
           </b-input-group>
         </b-form-group>
 

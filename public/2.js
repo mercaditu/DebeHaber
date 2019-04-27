@@ -1166,12 +1166,12 @@ var render = function() {
                     "b-input-group",
                     [
                       _c("select-data", {
-                        attrs: { Id: _vm.toChart, api: _vm.apiUrl },
+                        attrs: { Item: _vm.toChart, api: _vm.apiUrl },
                         on: {
-                          "update:Id": function($event) {
+                          "update:Item": function($event) {
                             _vm.toChart = $event
                           },
-                          "update:id": function($event) {
+                          "update:item": function($event) {
                             _vm.toChart = $event
                           }
                         }
