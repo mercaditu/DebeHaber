@@ -486,7 +486,7 @@ export default [
                         },
                         {
                             key: "chart.name",
-                            label: "commercial.account",
+                            label: "commercial.chart",
                             sortable: true
                         },
                         {
@@ -495,8 +495,8 @@ export default [
                             sortable: true
                         },
                         {
-                            key: "currency.code",
-                            label: "general.currency",
+                            key: "currency",
+                            label: "commercial.currency",
                             sortable: true
                         },
                         {
@@ -638,9 +638,7 @@ export default [
                             key: "partner",
                             label: "commercial.customer",
                             formatter: (value, key, item) => {
-                                return (
-                                    item.partner.substring(0, 15) + "..."
-                                );
+                                return item.partner.substring(0, 15) + "...";
                             },
                             sortable: true
                         },
@@ -720,9 +718,7 @@ export default [
                             key: "partner",
                             label: "commercial.supplier",
                             formatter: (value, key, item) => {
-                                return (
-                                    item.partner.substring(0, 15) + "..."
-                                );
+                                return item.partner.substring(0, 15) + "...";
                             },
                             sortable: true
                         },

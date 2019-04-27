@@ -56,6 +56,11 @@
                   <template slot="empty" slot-scope="data">
                     <table-empty></table-empty>
                   </template>
+
+                  <div slot="table-busy" class="text-center text-danger my-2">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+                  </div>
                 </b-table>
               </b-card>
               <b-pagination
@@ -83,6 +88,7 @@ export default {
   data: () => ({
     currentPage: 1
   }),
+
   computed: {
     formURL: function() {
       return this.$route.name.replace("List", "Form");

@@ -71,10 +71,10 @@
     ],
     "tables": [
         {
-            "data": "details",
+            "data": "transactions",
             "fields": [
                 {
-                    "label": "commercial.Purchase || Commercial.Value ",
+                    "label": "commercial.purchaseInvoice",
                     "properties": [
                         {
                             "type": "transaction",
@@ -94,6 +94,12 @@
         },
         {
             "data": "expenses",
+            "actions": [
+                {
+                    "label": "Find Invoice",
+                    "action": ""
+                }
+            ],
             "fields": [
                 {
                     "label": "commercial.item",
@@ -110,6 +116,22 @@
                     ]
                 },
                 {
+                    "label": "commercial.currency",
+                    "properties": [
+                        {
+                            "type": "currency",
+                            "data": [
+                                {
+                                    "salecurrency": "currency",
+                                    "currencyrate": "rate"
+                                }
+                            ],
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
                     "label": "commercial.value",
                     "properties": [
                         {
@@ -120,7 +142,8 @@
                             "location": ""
                         }
                     ]
-                }
+                },
+                {}
             ]
         }
     ]

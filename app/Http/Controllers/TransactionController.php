@@ -27,7 +27,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request, Taxpayer $taxPayer)
     {
-        
+
         $transaction = Transaction::firstOrNew(['id' => $request->id]);
 
         $transaction->taxpayer_id = $taxPayer->id;
@@ -35,17 +35,15 @@ class TransactionController extends Controller
         $transaction->partner_taxid = $request->partner_taxid;
 
         $transaction->document_id = $request->document_id > 0 ? $request->document_id : null;
-        
+
         $transaction->currency = $request->currency;
         $transaction->rate = $request->rate;
         $transaction->payment_condition = $request->payment_condition;
 
-        if (isset($request->account_chart) )
-        {   
-            
-            if ($request->account_chart > 0)
-            {
-                
+        if (isset($request->account_chart)) {
+
+            if ($request->account_chart > 0) {
+
                 $transaction->chart_account_id = $request->account_chart['id'];
             }
         }
@@ -55,19 +53,17 @@ class TransactionController extends Controller
         $transaction->code = $request->code;
         $transaction->code_expiry = $request->code_expiry;
         $transaction->comment = $request->comment;
-        $transaction->type = $request->type ;
-        $transaction->sub_type = $request->sub_type ;
+        $transaction->type = $request->type;
+        $transaction->sub_type = $request->sub_type;
 
         $transaction->save();
 
-        
-        foreach ($request->details as $detail)
-        {
+        foreach ($request->details as $detail) {
             if (isset($detail['chart']) && $detail['chart']['id'] > 0) {
                 $transactionDetail = TransactionDetail::firstOrNew(['id' => $detail['id']]);
                 $transactionDetail->transaction_id = $transaction->id;
                 $transactionDetail->chart_id = $detail['chart']['id'];
-                $transactionDetail->chart_vat_id = isset($detail['vat'])?$detail['vat']['id']>0?$detail['vat']['id']:null:null;
+                $transactionDetail->chart_vat_id = isset($detail['vat']) ? $detail['vat']['id'] > 0 ? $detail['vat']['id'] : null : null;
                 $transactionDetail->value = $detail['value'];
                 $transactionDetail->save();
             }
@@ -95,6 +91,4 @@ class TransactionController extends Controller
     {
         //
     }
-
-   
 }

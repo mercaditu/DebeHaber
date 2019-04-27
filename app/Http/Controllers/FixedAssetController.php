@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 class FixedAssetController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
@@ -26,15 +26,15 @@ class FixedAssetController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $fixedAsset = FixedAsset::firstOrNew(['id' => $request->id]);
-        $fixedAsset->chart_id = $request->chart_id;
+        $fixedAsset->chart_id = $request->chart_id['id'];
         $fixedAsset->taxpayer_id = $taxPayer->id;
         $fixedAsset->currency = $request->currency ?? $taxPayer->currency;
         $fixedAsset->rate = $request->rate;
@@ -50,11 +50,11 @@ class FixedAssetController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\FixedAsset  $transaction
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\FixedAsset  $transaction
+     * @return \Illuminate\Http\Response
+     */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $fixedAssetId)
     {
         return new GeneralResource(
@@ -66,11 +66,11 @@ class FixedAssetController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\FixedAsset  $fixedAsset
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\FixedAsset  $fixedAsset
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Taxpayer $taxPayer, Cycle $cycle, $ID)
     {
         FixedAsset::where('id', $ID)->delete();

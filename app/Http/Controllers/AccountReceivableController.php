@@ -52,7 +52,7 @@ class AccountReceivableController extends Controller
 
             $accountMovement = AccountMovement::where('transaction_id', $request->id)->first() ?? new AccountMovement();
             $accountMovement->taxpayer_id = $taxPayer->id;
-            $accountMovement->chart_id = $request->chart_account_id;
+            $accountMovement->chart_id = $request->chart_account_id['id'];
             $accountMovement->date = $request->date;
 
             $accountMovement->transaction_id = $request->id > 0 ? $request->id : null;

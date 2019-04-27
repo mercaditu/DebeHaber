@@ -38,10 +38,10 @@ class CycleController extends Controller
      */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        $cycle = Cycle::where('id' , $request->id)->first()?? new Cycle();
-        
+        $cycle = Cycle::where('id', $request->id)->first() ?? new Cycle();
+
         $cycle->taxpayer_id = $taxPayer->id;
-        $cycle->chart_version_id = $request->chart_version_id;
+        $cycle->chart_version_id = $request->chart_version['id'];
         $cycle->year = $request->year;
         $cycle->start_date = $request->start_date;
         $cycle->end_date = $request->end_date;

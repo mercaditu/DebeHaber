@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: white">
     <b-img fluid center src="/img/no-data.gif"/>
-    <h4>You're running on empty!</h4>
+    <h4>No Transactions</h4>
   </div>
 </template>
 <script>

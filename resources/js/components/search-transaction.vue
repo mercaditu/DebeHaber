@@ -16,8 +16,8 @@
         @click="select(transaction)"
         :key="transaction.id"
       >
-        <b>{{ transaction.number }}</b>
-        | {{ transaction.total }}
+        <b>{{ transaction.partner }}</b>
+        {{ transaction.number }} | {{ new Number(transaction.total).toLocaleString() }}
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -31,6 +31,7 @@ export default {
   data: () => ({
     searchnumber: "",
     searchvalue: "",
+    partner: "",
     selected: [],
     transactions: []
   }),
@@ -46,6 +47,7 @@ export default {
         this.$emit("update:number", newValue);
       }
     },
+
     transactionValue: {
       // getter
       get: function() {
@@ -83,9 +85,7 @@ export default {
         app.transactions = [];
       } else {
         crud.methods
-          .onRead(
-            app.baseUrl + "/search/Purchasetransactions/" + app.searchnumber
-          )
+          .onRead(app.baseUrl + "/search/purchases/" + app.searchnumber)
           .then(function(response) {
             app.transactions = response.data.data;
           });
@@ -93,7 +93,6 @@ export default {
     }
   },
   mounted() {
-    //do something after mounting vue instance
     var app = this;
   }
 };
