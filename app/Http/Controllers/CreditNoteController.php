@@ -21,11 +21,11 @@ class CreditNoteController extends Controller
     {
         return GeneralResource::collection(
             Transaction::MyCreditNotes()
-            ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                'details.chart:id,name,code,type,sub_type',
-                'details.vat:id,name'
-            ])
+                ->with([
+                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                    'details.chart:id,name,code,type,sub_type',
+                    'details.vat:id,name'
+                ])
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('transactions.date', 'desc')
                 ->paginate(50)
@@ -41,7 +41,8 @@ class CreditNoteController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, $cycle)
     {
         $request->type = 2;
-        $request->sub_type = 2; (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 2;
+        (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
@@ -90,11 +91,11 @@ class CreditNoteController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-        $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 4)
-            ->with('details')->first()?? new \App\Journal();   
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 4)
+            ->with('details')->first() ?? new \App\Journal();
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
@@ -124,6 +125,7 @@ class CreditNoteController extends Controller
             ->select(
                 DB::raw('max(rate) as rate'),
                 DB::raw('max(partner_taxid) as partner_taxid'),
+                DB::raw('max(partner_name) as partner_name'),
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();
@@ -181,6 +183,5 @@ class CreditNoteController extends Controller
         $journal->save();
 
         $creditnoteQuery->update(['journal_id' => $journal->id]);
-      
     }
 }

@@ -21,11 +21,11 @@ class DebitNoteController extends Controller
     {
         return GeneralResource::collection(
             Transaction::MyDebitNotes()
-            ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                'details.chart:id,name,code,type,sub_type',
-                'details.vat:id,name'
-            ])
+                ->with([
+                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                    'details.chart:id,name,code,type,sub_type',
+                    'details.vat:id,name'
+                ])
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('date', 'desc')
                 ->paginate(50)
@@ -41,7 +41,8 @@ class DebitNoteController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $request->type = 1;
-        $request->sub_type = 2; (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 2;
+        (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
@@ -89,11 +90,11 @@ class DebitNoteController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-      $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 2)
-            ->with('details')->first()?? new \App\Journal();   
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 2)
+            ->with('details')->first() ?? new \App\Journal();
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
@@ -101,7 +102,7 @@ class DebitNoteController extends Controller
             $detail->debit = 0;
             $detail->save();
         }
-            $debitnoteQuery =Transaction::MyDebitNotesForJournals($startDate, $endDate, $taxPayer->id)
+        $debitnoteQuery = Transaction::MyDebitNotesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->groupBy('rate');
 
@@ -123,7 +124,7 @@ class DebitNoteController extends Controller
             ->select(
                 DB::raw('max(rate) as rate'),
                 DB::raw('max(partner_taxid) as partner_taxid'),
-                DB::raw('max(partner_taxid) as partner_name'),
+                DB::raw('max(partner_name) as partner_name'),
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();

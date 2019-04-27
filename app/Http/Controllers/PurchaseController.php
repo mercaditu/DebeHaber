@@ -22,11 +22,11 @@ class PurchaseController extends Controller
         //TODO improve query using sum of deatils instead of inner join.
         return GeneralResource::collection(
             Transaction::MyPurchases()
-            ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                'details.chart:id,name,code,type,sub_type',
-                'details.vat:id,name'
-            ])
+                ->with([
+                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                    'details.chart:id,name,code,type,sub_type',
+                    'details.vat:id,name'
+                ])
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('date', 'desc')
                 ->paginate(50)
@@ -52,7 +52,8 @@ class PurchaseController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, $cycle)
     {
         $request->type = 1;
-        $request->sub_type = 1; (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 1;
+        (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
@@ -123,11 +124,11 @@ class PurchaseController extends Controller
     {
         \DB::connection()->disableQueryLog();
 
-       $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 1)
-            ->with('details')->first()?? new \App\Journal();   
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 1)
+            ->with('details')->first() ?? new \App\Journal();
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
@@ -135,7 +136,7 @@ class PurchaseController extends Controller
             $detail->debit = 0;
             $detail->save();
         }
-            $purchaseQuery=Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
+        $purchaseQuery = Transaction::MyPurchasesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->groupBy('rate');
 
@@ -182,6 +183,7 @@ class PurchaseController extends Controller
             ->select(
                 DB::raw('max(rate) as rate'),
                 DB::raw('max(partner_taxid) as partner_taxid'),
+                DB::raw('max(partner_name) as partner_name'),
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();

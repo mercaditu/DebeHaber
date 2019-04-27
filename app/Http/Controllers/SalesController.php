@@ -21,12 +21,12 @@ class SalesController extends Controller
     {
         return GeneralResource::collection(
             Transaction::MySales()
-            ->with('accountChart')
-            ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                'details.chart:id,name,code,type,sub_type',
-                'details.vat:id,name'
-            ])
+                ->with('accountChart')
+                ->with([
+                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                    'details.chart:id,name,code,type,sub_type',
+                    'details.vat:id,name'
+                ])
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
                 ->orderBy('date', 'desc')
                 ->paginate(50)
@@ -52,8 +52,8 @@ class SalesController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $request->type = 2;
-        $request->sub_type = 1; 
-       (new TransactionController())->store($request, $taxPayer);
+        $request->sub_type = 1;
+        (new TransactionController())->store($request, $taxPayer);
         return response()->json('Ok', 200);
     }
 
@@ -67,13 +67,13 @@ class SalesController extends Controller
     {
         return new GeneralResource(
             Transaction::MySales()
-            ->with('accountChart')
+                ->with('accountChart')
                 ->where('id', $transactionId)
-             ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                'details.chart:id,name,code,type,sub_type',
-                'details.vat:id,name'
-            ])
+                ->with([
+                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                    'details.chart:id,name,code,type,sub_type',
+                    'details.vat:id,name'
+                ])
                 ->first()
         );
     }
@@ -123,7 +123,7 @@ class SalesController extends Controller
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
-       
+
         $journal = \App\Journal::Where('cycle_id', $cycle->id)
             ->Where('date', $endDate->format('Y-m-d'))
             ->Where('is_automatic', 1)
@@ -177,7 +177,7 @@ class SalesController extends Controller
         }
 
         //2nd Query: Sales Transactions done in Credit. Must affect customer credit account.
-        $creditSales =Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
+        $creditSales = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->groupBy('rate')
             ->groupBy('partner_taxid')
@@ -185,6 +185,7 @@ class SalesController extends Controller
             ->select(
                 DB::raw('max(rate) as rate'),
                 DB::raw('max(partner_taxid) as partner_taxid'),
+                DB::raw('max(partner_name) as partner_name'),
                 DB::raw('sum(transaction_details.value) as total')
             )
             ->get();
