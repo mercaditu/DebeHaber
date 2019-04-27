@@ -58,7 +58,7 @@ class SearchController extends Controller
 
         return GeneralResource::collection(
             Transaction::where('type', 1)
-                ->where('taxpayer_id', $taxPayer->id)
+                ->where('taxpayer_id', $taxPayerID)
                 ->where('number', 'like', '%' . $q . '%')
                 ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
                 ->select(
@@ -67,8 +67,36 @@ class SearchController extends Controller
                     DB::raw('sum(transaction_details.value) as total')
                 )
                 ->paginate(50)
+        );
+    }
 
+    public function searchExpenses(TaxPayer $taxPayer, $cycle, $query)
+    {
+        $taxPayerID = $taxPayer->id ?? $taxPayer;
 
+        return GeneralResource::collection(
+            Transaction::join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
+                ->join('charts', 'charts.id', '=', 'transaction_details.chart_id')
+                ->where(function ($q) use ($query) {
+                    $q->where('transactions.number', 'like', '%' . $query . '%')
+                        ->orWhere('transactions.partner_name', 'like', '%' . $query . '%')
+                        ->orWhere('charts.name', 'like', '%' . $query . '%');
+                })
+                ->where('transactions.taxpayer_id', $taxPayerID)
+                ->where('transactions.type', 1)
+                ->where('transactions.sub_type', 1)
+                ->select(
+                    'transactions.date',
+                    'transactions.partner_name',
+                    'transactions.currency',
+                    'transactions.rate',
+                    'transactions.number',
+                    'transaction_details.id',
+                    'transaction_details.chart_id',
+                    'charts.name as chart',
+                    'transaction_details.value as value',
+                )
+                ->paginate(50)
         );
     }
 

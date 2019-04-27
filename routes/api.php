@@ -41,6 +41,7 @@ Route::prefix('{taxPayer}')->group(function () {
         Route::get('generate-journals/{startDate}/{endDate}', 'JournalController@generateJournalsByRange');
 
         Route::prefix('search')->group(function () {
+            Route::get('expenses/{q}', 'SearchController@searchExpenses');
             Route::get('purchases/{q}', 'SearchController@searchPurchaseTransactions');
             Route::get('taxpayers/{q}', 'SearchController@searchTaxPayers');
             Route::get('chartsName/{q}', 'SearchController@searchChartsName');

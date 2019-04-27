@@ -6,10 +6,8 @@ use App\Taxpayer;
 use App\Cycle;
 use App\Impex;
 use App\ImpexExpense;
-use App\Transaction;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
-use DB;
 
 class ImpexController extends Controller
 {
@@ -43,15 +41,15 @@ class ImpexController extends Controller
         $impex->date =  $request->date;
         $impex->save();
 
-        //Store Transactions through foreach.
+        //Store Transactions through foreach. Save ImpexId into transactions for Reference
         foreach ($request->transactions as $transaction) {
             $transaction->impex_id = $impex->id;
             $transaction->save();
         }
 
-        //Store Expenses through foreach
+        //Store Expenses through foreach.
         foreach ($request->expenses as $expense) {
-            $expense = exExpense::firstOrNew(['id', $expense->id]);
+            $expense = ImpexExpense::firstOrNew(['id', $expense->id]);
             $expense->chart_id = $expense->chart_id['id'];
             $expense->transaction_detail_id = $expense->transaction_detail_id['id'];
             $expense->currency = $expense->currency;

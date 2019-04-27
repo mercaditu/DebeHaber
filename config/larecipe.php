@@ -32,9 +32,10 @@ return [
     */
 
     'versions'      => [
-        'default'   => '1.0',
+        'default'   => 'en',
         'published' => [
-            '1.0'
+            'en',
+            'es'
         ]
     ],
 
@@ -134,9 +135,9 @@ return [
     */
 
     'seo'                 => [
-        'author'          => '',
-        'description'     => '',
-        'keywords'        => '',
+        'author'          => 'DebeHaber - Accounting Software',
+        'description'     => 'Documentation for DebeHaber. Simplify your account process by automating transactions, journal entries, and more. Use this documentation to help you get the most out of our accounting tools',
+        'keywords'        => 'Accounting, Accountants, Accounting Software, Core Accounting, Contabilidad, Software de Contabilidad, Contadores',
         'og'              => [
             'title'       => '',
             'type'        => 'article',
@@ -146,7 +147,7 @@ return [
         ]
     ],
 
-   /*
+    /*
    |--------------------------------------------------------------------------
    | Forum
    |--------------------------------------------------------------------------
@@ -159,7 +160,7 @@ return [
    |
    */
 
-  'forum'                   => [
+    'forum'                   => [
         'enabled'           => false,
         'default'           => 'disqus',
         'services'          => [

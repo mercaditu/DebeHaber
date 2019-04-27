@@ -6,9 +6,9 @@
             <a href="{{ url('/') }}" class="flex items-center flex-no-shrink text-black mx-4">
                 @include("larecipe::partials.logo")
 
-                <p class="inline-block font-semibold ml-1 text-grey-dark">
+                {{-- <p class="inline-block font-semibold ml-1 text-grey-dark">
                     {{ config('app.name') }}
-                </p>
+                </p> --}}
             </a>
             
             <div class="switch">
@@ -26,10 +26,6 @@
                     <i class="fa fa-search"></i>
                 </larecipe-button>
             @endif
-
-            <larecipe-button tag="a" href="https://github.com/saleem-hadad/larecipe" target="__blank" type="black" class="mx-2 px-4">
-                <i class="fa fa-github"></i>
-            </larecipe-button>
 
             {{-- versions dropdown --}}
             <larecipe-dropdown>

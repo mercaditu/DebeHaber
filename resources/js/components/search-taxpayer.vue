@@ -35,6 +35,7 @@ export default {
     selected: [],
     taxPayers: []
   }),
+
   computed: {
     partnerName: {
       // getter
@@ -47,6 +48,7 @@ export default {
         this.$emit("update:partner_name", newValue);
       }
     },
+
     partnerTaxid: {
       // getter
       get: function() {
@@ -64,12 +66,14 @@ export default {
       );
     }
   },
+
   methods: {
     updateValue: function(value) {
       this.$emit("update:partner_name", value.name);
       this.$emit("update:partner_taxid", value.taxid);
       this.selected = value;
     },
+
     select(taxPayer) {
       var app = this;
       app.updateValue(taxPayer);
@@ -77,6 +81,7 @@ export default {
       app.searchname = taxPayer.name;
       app.searchtaxid = taxPayer.taxid;
     },
+
     searchPartnername() {
       var app = this;
       if (app.searchname.length < 3) {
@@ -89,6 +94,7 @@ export default {
           });
       }
     },
+
     searchPartnertaxid() {
       var app = this;
       if (app.searchtaxid.length < 3) {
@@ -102,8 +108,8 @@ export default {
       }
     }
   },
+
   mounted() {
-    //do something after mounting vue instance
     var app = this;
   }
 };

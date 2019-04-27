@@ -1,4 +1,4 @@
-<svg height="30px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+{{-- <svg height="30px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Jelly-icons" transform="translate(-647.000000, -437.000000)" fill-rule="nonzero">
@@ -10,4 +10,5 @@
             </g>
         </g>
     </g>
-</svg>
+</svg> --}}
+<img src="/img/logos/debehaber.jpg" alt="DebeHaber" width="128px">

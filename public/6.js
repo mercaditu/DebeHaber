@@ -1,1 +1,481 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{kzAp:function(t,e,a){"use strict";a.r(e);var s=a("gku4"),n={components:{crud:s.a},data:function(){return{cycle:[]}},computed:{formURL:function(){return this.$route.name.replace("List","Form")},columns:function(){return[{key:"date",sortable:!0},{key:"comment",label:this.$i18n.t("general.comment"),sortable:!0},{key:"debit",formatter:function(t,e,a){return new Number(a.details.reduce(function(t,e){return t+new Number(e.debit)},0)).toLocaleString()},label:this.$i18n.t("commercial.value"),sortable:!0},{key:"hasDetails",label:"",sortable:!1},{key:"actions",label:"",sortable:!1}]},baseUrl:function(){return"/api/"+this.$route.params.taxPayer+"/"+this.$route.params.cycle}},methods:{GenerateJournal:function(){var t=this;s.a.methods.onRead(t.baseUrl+"/generate-journals/"+t.cycle.start_date+"/"+t.cycle.end_date).then(function(e){t.$snack.success({text:t.$i18n.t("accounting.generateJournal")})})}},mounted:function(){var t=this;s.a.methods.onRead(t.baseUrl+"/config/cycles/"+this.$route.params.cycle).then(function(e){t.cycle=e.data.data})}},r=a("KHd+"),c=Object(r.a)(n,function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[t.$route.name.includes("List")?a("b-row",[a("b-col",[a("b-card-group",{attrs:{deck:""}},[a("b-card",{attrs:{"bg-variant":"dark","text-variant":"white"}},[a("h4",{staticClass:"upper-case"},[a("img",{staticClass:"ml-5 mr-5",attrs:{src:t.$route.meta.img,alt:"",width:"26"}}),t._v("\n            "+t._s(t.$t(t.$route.meta.title))+"\n          ")])]),t._v(" "),a("invoices-this-month-kpi",{staticClass:"d-none d-xl-block"}),t._v(" "),a("b-card",{attrs:{"no-body":""}},[a("b-list-group-item",{attrs:{href:"#"}},[a("i",{staticClass:"material-icons"},[t._v("help")]),t._v("\n            "+t._s(t.$t("general.manual"))+"\n          ")]),t._v(" "),a("b-list-group-item",{attrs:{href:"#"},on:{click:function(e){return t.GenerateJournal()}}},[a("i",{staticClass:"material-icons"},[t._v("autorenew")]),t._v("\n            "+t._s(t.$t("accounting.generateJournal"))+"\n          ")]),t._v(" "),a("b-list-group-item",{attrs:{to:{name:t.formURL,params:{id:0}}}},[a("i",{staticClass:"material-icons md-light"},[t._v("add_box")]),t._v("\n            "+t._s(t.$t("general.createNewRecord"))+"\n          ")])],1)],1)],1)],1):t._e(),t._v(" "),a("b-row",[a("b-col",[t.$route.name.includes("List")?a("div",[a("crud",{attrs:{columns:t.columns},inlineTemplate:{render:function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[a("b-card",{attrs:{"no-body":""}},[a("b-table",{attrs:{hover:"",responsive:"",items:t.items,fields:t.columns,"current-page":t.current_page},scopedSlots:t._u([{key:"date",fn:function(e){return[t._v(t._s(new Date(e.item.date).toLocaleDateString()))]}},{key:"total",fn:function(e){return[a("span",{staticClass:"float-right"},[t._v("\n                    "+t._s(new Number(t.sum(e.item.details,"debit")).toLocaleString())+"\n                    "),null!=e.item.currency?a("small",{staticClass:"text-success text-uppercase"},[t._v(t._s(e.item.currency.code))]):t._e()])]}},{key:"row-details",fn:function(e){return[a("b-row",[a("b-col",{attrs:{cols:"8",colspan:"2"}},[a("span",{staticClass:"text-muted"},[t._v(t._s(t.$t("accounting.chartOfAccounts")))])]),t._v(" "),a("b-col",{staticClass:"text-sm-right",attrs:{cols:"2"}},[a("span",{staticClass:"text-muted"},[t._v(t._s(t.$t("general.credit")))])]),t._v(" "),a("b-col",{staticClass:"text-sm-right",attrs:{cols:"2"}},[a("span",{staticClass:"text-muted"},[t._v(t._s(t.$t("general.debit")))])])],1),t._v(" "),t._l(e.item.details,function(e){return a("b-row",{key:e.key},[a("b-col",{attrs:{cols:"2"}},[a("b",[t._v(t._s(e.chart.code))])]),t._v(" "),a("b-col",{attrs:{cols:"6"}},[a("chart-types",{attrs:{chart:e.chart.name,type:e.chart.type,sub_type:e.chart.sub_type}})],1),t._v(" "),a("b-col",{staticClass:"text-sm-right",attrs:{cols:"2"}},[t._v(t._s(new Number(e.credit).toLocaleString()))]),t._v(" "),a("b-col",{staticClass:"text-sm-right",attrs:{cols:"2"}},[t._v(t._s(new Number(e.debit).toLocaleString()))])],1)})]}},{key:"hasDetails",fn:function(e){return[a("b-button-group",{staticClass:"show-when-hovered",attrs:{size:"sm"}},[a("b-button",{on:{click:e.toggleDetails}},[a("i",{staticClass:"material-icons md-19"},[t._v("remove_red_eye")])])],1)]}},{key:"actions",fn:function(t){return[a("table-actions",{attrs:{row:t.item}})]}},{key:"empty",fn:function(t){return[a("table-empty")]}}],null,!1,2441271036)},[t._v(" "),t._v(" "),t._v(" "),t._v(" "),t._v(" "),a("div",{attrs:{slot:"table-busy"},slot:"table-busy"},[a("table-loading")],1)])],1),t._v(" "),a("b-pagination",{attrs:{align:"center","total-rows":t.meta.total,"per-page":t.meta.per_page},on:{change:function(e){return t.onList()}}})],1)},staticRenderFns:[]}})],1):a("router-view")],1)],1)],1)},[],!1,null,null,null);e.default=c.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/index.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/index.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "",
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/index.vue?vue&type=template&id=3bfe8cbd&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/commercials/index.vue?vue&type=template&id=3bfe8cbd& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.$route.name == "commercialMenu"
+    ? _c(
+        "b-container",
+        [
+          _c("vue-topprogress", { ref: "topProgress" }),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "no-body": "",
+                        header: "Expenses",
+                        "header-tag": "header"
+                      }
+                    },
+                    [
+                      _c(
+                        "b-list-group",
+                        { attrs: { flush: "" } },
+                        [
+                          _c(
+                            "b-list-group-item",
+                            { attrs: { href: "#" } },
+                            [
+                              _c(
+                                "b-row",
+                                [
+                                  _c("b-col", [
+                                    _c("img", {
+                                      attrs: {
+                                        src: "/img/icons/purchase.svg",
+                                        width: "32",
+                                        alt: ""
+                                      }
+                                    }),
+                                    _vm._v(
+                                      "\n                Purchase Book\n              "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col")
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("div")
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("div", {}, [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/icons/credit-note.svg",
+                                  width: "32",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v(
+                                "\n              Debit Notes\n            "
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("div", [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/icons/account-payable.svg",
+                                  width: "32",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v(
+                                "\n              Accounts Payables\n            "
+                              )
+                            ])
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "no-body": "",
+                        header: "Revenue",
+                        "header-tag": "header"
+                      }
+                    },
+                    [
+                      _c(
+                        "b-list-group",
+                        { attrs: { flush: "" } },
+                        [
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("div", [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/icons/sales.svg",
+                                  width: "32",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v("\n              Sales Book\n            ")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            { attrs: { href: "#" } },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "creditList",
+                                      params: {
+                                        taxPayer: _vm.$route.params.taxPayer,
+                                        cycle: _vm.$route.params.cycle
+                                      }
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: "/img/icons/credit-note.svg",
+                                      width: "32",
+                                      alt: ""
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "\n              Credit Notes\n            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("div", [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/icons/account-receivable.svg",
+                                  width: "32",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v(
+                                "\n              Accounts Receivables\n            "
+                              )
+                            ])
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        title: "Configuration",
+                        "sub-title": "Configuration"
+                      }
+                    },
+                    [
+                      _c(
+                        "b-list-group",
+                        [
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("div", [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/icons/sales.svg",
+                                  width: "32",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v("\n              Sales Book\n            ")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group-item",
+                            { attrs: { href: "#" } },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "creditList",
+                                      params: {
+                                        taxPayer: _vm.$route.params.taxPayer,
+                                        cycle: _vm.$route.params.cycle
+                                      }
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: "/img/icons/credit-note.svg",
+                                      width: "32",
+                                      alt: ""
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "\n              Credit Notes\n            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("b-list-group-item", { attrs: { href: "#" } }, [
+                            _c("div", [
+                              _c("img", {
+                                attrs: {
+                                  src: "/img/icons/account-receivable.svg",
+                                  width: "32",
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v(
+                                "\n              Accounts Receivables\n            "
+                              )
+                            ])
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    : _c("router-view")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/commercials/index.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/views/commercials/index.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_3bfe8cbd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=3bfe8cbd& */ "./resources/js/views/commercials/index.vue?vue&type=template&id=3bfe8cbd&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/views/commercials/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_3bfe8cbd___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_3bfe8cbd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/commercials/index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/commercials/index.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/views/commercials/index.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/commercials/index.vue?vue&type=template&id=3bfe8cbd&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/commercials/index.vue?vue&type=template&id=3bfe8cbd& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_3bfe8cbd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=3bfe8cbd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/commercials/index.vue?vue&type=template&id=3bfe8cbd&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_3bfe8cbd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_3bfe8cbd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

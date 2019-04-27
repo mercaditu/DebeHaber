@@ -1,6 +1,6 @@
 {
     "pageurl": "/commercial/impexes",
-    "title": "commercial.Impex",
+    "title": "commercial.impex",
     "img": "/img/apps/impex.svg",
     "cards": [
         {
@@ -20,7 +20,7 @@
                             ]
                         },
                         {
-                            "label": "commercial.currency ",
+                            "label": "commercial.currency",
                             "properties": [
                                 {
                                     "type": "currency",
@@ -94,12 +94,7 @@
         },
         {
             "data": "expenses",
-            "actions": [
-                {
-                    "label": "Find Invoice",
-                    "action": ""
-                }
-            ],
+            "actions": [{ "component": "search-expenses" }],
             "fields": [
                 {
                     "label": "commercial.item",

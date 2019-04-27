@@ -112,6 +112,11 @@
         <i class="material-icons mi-18">playlist_add</i>
         {{ $t('general.addRowDetail') }}
       </b-btn>
+
+      <div v-for="action in table.actions" v-bind:key="action.index">
+        <component :is="action.component"></component>
+      </div>
+
       <b-card>
         <!-- Labels -->
         <b-row>
