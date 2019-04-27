@@ -26,6 +26,7 @@ class AccountReceivableController extends Controller
             ->where('transactions.taxpayer_id', $taxPayer->id)
             ->where('transactions.type', 2)
             ->where('transactions.sub_type', 1)
+            ->where('transactions.payment_condition', '>', 0)
             ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.credit * am.rate),0)')
             ->select(
                 DB::raw('max(transactions.id) as id'),

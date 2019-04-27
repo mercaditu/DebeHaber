@@ -20,10 +20,10 @@ use Illuminate\Http\Request;
 class ChartController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
@@ -32,25 +32,25 @@ class ChartController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $chart = Chart::firstOrNew(['id' => $request->id]);
         $chart->chart_version_id = $cycle->chart_version_id;
         $chart->country = $taxPayer->country;
         $chart->taxpayer_id = $taxPayer->id;
-        
+
         if ($request->parent_id > 0) {
             $chart->parent_id = $request->parent_id;
         }
 
-     //   if ($request->is_accountable == true) {
-            $chart->is_accountable = $request->is_accountable;
-            $chart->sub_type = $request->sub_type;
+        //   if ($request->is_accountable == true) {
+        $chart->is_accountable = $request->is_accountable;
+        $chart->sub_type = $request->sub_type;
         // } else {
         //     $chart->is_accountable = 0;
         //     $chart->sub_type = null;
@@ -81,11 +81,11 @@ class ChartController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\Chart  $chart
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Chart  $chart
+     * @return \Illuminate\Http\Response
+     */
     public function show(Taxpayer $taxPayer, Cycle $cycle, Chart $chart)
     {
         return new GeneralResource(
@@ -95,11 +95,11 @@ class ChartController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\Chart  $chart
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Chart  $chart
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Chart $chart)
     {
         // Do not simply destroy charts. FK everywhere, better merge and delete.
@@ -268,7 +268,7 @@ class ChartController extends Controller
             $chart->is_accountable = true;
             $chart->name = $assetGroup ?? __('enum.FixedAssets');
             $chart->asset_years = $lifeSpan;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->save();
         }
 
@@ -302,7 +302,7 @@ class ChartController extends Controller
             $chart->sub_type = 8;
             $chart->is_accountable = true;
             $chart->name = $chartName != '' ? $chartName : __('enum.Inventory');
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->save();
         }
 
@@ -338,7 +338,7 @@ class ChartController extends Controller
             $chart->type = 1;
             $chart->sub_type = 1;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = $chartName != '' ? $chartName : __('enum.PettyCash');
             $chart->save();
         }
@@ -374,7 +374,7 @@ class ChartController extends Controller
                 $chart->type = 1;
                 $chart->sub_type = 5;
                 $chart->is_accountable = true;
-                $chart->code = 'N/A';
+                $chart->code = '##';
                 $chart->name = __('commercial.AccountsReceivable') . ' ' . $partnerName;
                 $chart->save();
             }
@@ -409,7 +409,7 @@ class ChartController extends Controller
                 $chart->type = 2;
                 $chart->sub_type = 1;
                 $chart->is_accountable = true;
-                $chart->code = 'N/A';
+                $chart->code = '##';
                 $chart->name = __('commercial.AccountsPayable') . ' ' . $partnerName;
                 $chart->save();
             }
@@ -445,7 +445,7 @@ class ChartController extends Controller
             $chart->type = 4;
             $chart->sub_type = 1;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = $chartName != '' ? $chartName : __('enum.Revenue');
             $chart->save();
         }
@@ -486,7 +486,7 @@ class ChartController extends Controller
             $chart->type = 4;
             $chart->sub_type = 4;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = $chartName != '' ? $chartName : __('enum.RevenueFromInventory');
             $chart->save();
         }
@@ -511,7 +511,7 @@ class ChartController extends Controller
             $chart->type = 4;
             $chart->sub_type = 3;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = __('enum.DiffInExchangeRate');
             $chart->save();
         }
@@ -546,7 +546,7 @@ class ChartController extends Controller
             $chart->type = 5;
             $chart->sub_type = 10;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = $chartName != '' ? $chartName : __('enum.OtherExpenses');
             $chart->save();
         }
@@ -571,7 +571,7 @@ class ChartController extends Controller
             $chart->type = 5;
             $chart->sub_type = 11;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = __('enum.DiffInExchangeRate');
             $chart->save();
         }
@@ -595,7 +595,7 @@ class ChartController extends Controller
             $chart->type = 1;
             $chart->sub_type = 13;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = __('enum.VATWithHolding');
             $chart->save();
         }
@@ -619,7 +619,7 @@ class ChartController extends Controller
             $chart->type = 2;
             $chart->sub_type = 7;
             $chart->is_accountable = true;
-            $chart->code = 'N/A';
+            $chart->code = '##';
             $chart->name = __('enum.VATWithHolding');
             $chart->save();
         }
@@ -659,7 +659,7 @@ class ChartController extends Controller
 
     public function mergeCharts(Taxpayer $taxPayer, Cycle $cycle, $fromChartId, $toChartId)
     {
-        
+
         //run validation on chart types and make sure a transfer can take place.
         $fromChart = Chart::My($taxPayer, $cycle)->where('id', $fromChartId);
         $toChart = Chart::My($taxPayer, $cycle)->where('id', $toChartId);
