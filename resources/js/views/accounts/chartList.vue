@@ -211,13 +211,10 @@
         </b-form-group>
         <b-form-group :label="$t('accounting.toChart')">
           <b-input-group>
-                <select-data
-                  v-bind:Id.sync="toChart"
-                  :api="apiUrl"
-                ></select-data>
-              </b-input-group>
+            <select-data v-bind:Id.sync="toChart" :api="apiUrl"></select-data>
+          </b-input-group>
         </b-form-group>
-      
+
         <b-button-toolbar class="float-right d-none d-md-block">
           <b-button-group class="ml-15">
             <b-btn
@@ -246,7 +243,7 @@ export default {
     parentChart: "",
     newChart: { id: 0 },
     pageUrl: "/accounting/charts",
-    apiUrl: "/accounting/charts/for/non-accountables"
+    apiUrl: "/accounting/charts/for/accountables"
   }),
   computed: {
     baseUrl() {
@@ -302,11 +299,16 @@ export default {
     },
     onMerge() {
       var app = this;
-      
+
       if (app.toChart.id != null && app.toChart.name != null) {
-        
         crud.methods
-          .onUpdate(app.baseUrl + "/accounting/charts/merge/" + app.fromChart.id + "/" + app.toChart.id )
+          .onUpdate(
+            app.baseUrl +
+              "/accounting/charts/merge/" +
+              app.fromChart.id +
+              "/" +
+              app.toChart.id
+          )
           .then(function(response) {
             console.log(response);
             app.$snack.success({
@@ -335,7 +337,6 @@ export default {
     mergeChart(data) {
       var app = this;
       app.fromChart = data;
-     
     },
 
     typeVariant(chartType) {

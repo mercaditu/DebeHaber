@@ -245,9 +245,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -262,7 +259,7 @@ __webpack_require__.r(__webpack_exports__);
         id: 0
       },
       pageUrl: "/accounting/charts",
-      apiUrl: "/accounting/charts/for/non-accountables"
+      apiUrl: "/accounting/charts/for/accountables"
     };
   },
   computed: {
