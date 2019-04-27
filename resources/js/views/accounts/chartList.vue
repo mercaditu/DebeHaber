@@ -314,7 +314,7 @@ export default {
             app.$snack.success({
               text: app.$i18n.t("chart.saved")
             });
-            
+            app.$parent.items.splice(app.$parent.items.indexOf(app.fromChart), 1);
             app.$refs.mergeModel.hide();
           })
           .catch(function(error) {

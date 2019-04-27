@@ -56,7 +56,7 @@ class JournalTemplateController extends Controller
 
         foreach ($request->details as $detail)
         {
-            if (isset($detail['chart_id']) && $detail['chart_id'] > 0) {
+            if (isset($detail['chart']['id']) && $detail['chart']['id']> 0) {
                 $journalTemplateDetail = JournalTemplateDetail::firstOrNew(['id' => $detail['id']]);
                 $journalTemplateDetail->journal_template_id = $journalTemplate->id;
                 $journalTemplateDetail->chart_id = $detail['chart']['id'];
