@@ -1,7 +1,7 @@
 <template>
   <div>
-     <multiselect v-model="document_id" :options="collections" 
-        placeholder="Select one"  
+     <multiselect v-model="Item" :options="collections" 
+        placeholder="Select one"  @input="itemSelect"
         label="name" 
          track-by="name"></multiselect>
     <!-- <b-form-select v-model="document_id" :options="collections"></b-form-select> -->
@@ -13,9 +13,10 @@ import Multiselect from 'vue-multiselect'
 import crud from "../components/crud.vue";
 export default {
   components: { crud: crud ,Multiselect},
-  props: ["Id", "api", "options"],
+  props: ["Item", "api", "options"],
   data: () => ({
     collections: []
+   
   }),
   computed: {
     document_id: {
@@ -25,13 +26,21 @@ export default {
       },
       // setter
       set: function(newValue) {
-        this.$emit("update:Id", newValue);
+        console.log(newValue);
+        this.$emit("update:Item", newValue);
       }
     },
     baseUrl() {
       return (
         "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
+    }
+  },
+  methods: {
+    itemSelect() {
+        //do something after mounting vue instance
+        var app = this;
+        app.document_id = app.Item;
     }
   },
   mounted() {

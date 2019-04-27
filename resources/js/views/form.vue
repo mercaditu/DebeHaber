@@ -125,7 +125,7 @@
             <span v-for="property in col.properties" v-bind:key="property.index">
               <span v-if="property.type === 'select'">
                 <select-data
-                  v-bind:Id.sync="detail[property.data]"
+                  v-bind:Item.sync="detail[property.data]"
                   :api="property.api"
                   :options="property.options"
                 ></select-data>

@@ -22,7 +22,7 @@
                 "label":  "accounting.chart",
                 "properties": [
                     {
-                        "type":  "select", "data":  "chart_id", "placeholder":  "commercial.chart", "api":  "/accounting/charts/for/accountables/",
+                        "type":  "select", "data":  "chart", "placeholder":  "commercial.chart", "api":  "/accounting/charts/for/accountables/",
                         "required": false, "location":  "", "select": [{ "value":  "id", "label":  "name" }]
                     }
                 ]
@@ -31,7 +31,7 @@
                 "label":  "accounting.debitCoef",
                 "properties": [
                     {
-                        "type":  "text", "data":  "debit_coef", "placeholder":  "commercial.vat",
+                        "type":  "text", "data":  "debit_coef", "placeholder":  "commercial.debit",
                         "required": false, "location":  ""
                     }
                 ]
@@ -42,7 +42,7 @@
                     {
                         "type": "text",
                         "data": "credit_coef",
-                        "placeholder": "commercial.vat",
+                        "placeholder": "commercial.credit",
                         "required": false,
                         "location": ""
                     }

@@ -29,4 +29,5 @@ class JournalTemplate extends Model
     {
         return $this->hasMany(JournalTemplateDetail::class);
     }
+  
 }

@@ -20,7 +20,10 @@ class JournalTemplateController extends Controller
     {
          return GeneralResource::collection(
                 JournalTemplate::
-                 with('details')
+                with([
+                    'details:id,journal_template_id,chart_id,debit_coef,credit_coef',
+                    'details.chart:id,name,code,type,sub_type'
+                ])
                 ->paginate(50)
         );
     }
@@ -56,7 +59,7 @@ class JournalTemplateController extends Controller
             if (isset($detail['chart_id']) && $detail['chart_id'] > 0) {
                 $journalTemplateDetail = JournalTemplateDetail::firstOrNew(['id' => $detail['id']]);
                 $journalTemplateDetail->journal_template_id = $journalTemplate->id;
-                $journalTemplateDetail->chart_id = $detail['chart_id'];
+                $journalTemplateDetail->chart_id = $detail['chart']['id'];
                 $journalTemplateDetail->debit_coef = $detail['debit_coef']??0;
                 $journalTemplateDetail->credit_coef = $detail['credit_coef']??0;
                 $journalTemplateDetail->save();
@@ -74,7 +77,10 @@ class JournalTemplateController extends Controller
     {
          return new GeneralResource(
             JournalTemplate::
-                 with('details')
+            with([
+                'details:id,journal_template_id,chart_id,debit_coef,credit_coef',
+                'details.chart:id,name,code,type,sub_type'
+            ])
                 ->where('id', $templateId)
                 ->first()
         );

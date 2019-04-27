@@ -639,7 +639,7 @@ export default [
                             label: "commercial.customer",
                             formatter: (value, key, item) => {
                                 return (
-                                    item.partner_name.substring(0, 15) + "..."
+                                    item.partner.substring(0, 15) + "..."
                                 );
                             },
                             sortable: true
@@ -721,7 +721,7 @@ export default [
                             label: "commercial.supplier",
                             formatter: (value, key, item) => {
                                 return (
-                                    item.partner_name.substring(0, 15) + "..."
+                                    item.partner.substring(0, 15) + "..."
                                 );
                             },
                             sortable: true

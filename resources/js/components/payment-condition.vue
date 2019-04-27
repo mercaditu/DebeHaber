@@ -49,7 +49,7 @@ export default {
     chartAccount: {
       // getter
       get: function() {
-        return this.partner_taxid;
+        return this.chart_account_id;
       },
       // setter
       set: function(newValue) {
