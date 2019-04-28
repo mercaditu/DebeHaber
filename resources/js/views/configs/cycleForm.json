@@ -1,77 +1,74 @@
 {
     "pageurl": "/config/cycles/store",
-    "title":  "commercial.Cycle",
-    "img":  "/img/apps/cycle.svg",
-    "cards": [{
-        "rows": [{
-            "fields": [
+    "title": "accounting.accountingCycle",
+    "img": "/img/apps/cycle.svg",
+    "cards": [
+        {
+            "rows": [
                 {
-                    "label": "commercial.Year",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "text",
-                            "data": "year",
-                            "placeholder": "commercial.year",
-                            "required": false,
-                            "location": ""
+                            "label": "commercial.Year",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "year",
+                                    "placeholder": "commercial.year",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.version",
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "chart_version_id",
+                                    "placeholder": "commercial.chartVersion",
+                                    "api": "/config/chart-versions/ ",
+                                    "required": false,
+                                    "location": "append ",
+                                    "select": [
+                                        {
+                                            "value": "id",
+                                            "label": "name"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
-                       
                     ]
                 },
                 {
-                    "label": "commercial.version",
-                    "properties": [
+                    "fields": [
                         {
-                            "type": "select",
-                            "data": "chart_version_id",
-                            "placeholder": "commercial.chartVersion",
-                            "api": "/config/chart-versions/ ",
-                            "required": false,
-                            "location": "append ",
-                            "select": [
+                            "label": "commercial.startdate",
+                            "properties": [
                                 {
-                                    "value": "id",
-                                    "label": "name"
+                                    "type": "date",
+                                    "data": "start_date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.endate",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "end_date",
+                                    "placeholder": "commercial.date",
+                                    "required": false,
+                                    "location": ""
                                 }
                             ]
                         }
                     ]
                 }
-                
-
-            ]
-        },
-        {
-            "fields": [
-               {
-                "label": "commercial.startdate",
-                    "properties": [
-                        {
-                            "type": "date",
-                            "data": "start_date",
-                            "placeholder": "commercial.date",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                 },
-                {
-                    "label": "commercial.endate",
-                    "properties": [
-                        {
-                            "type": "date",
-                            "data": "end_date",
-                            "placeholder": "commercial.date",
-                            "required": false,
-                            "location": ""
-                        }
-                    ]
-                }
-
-
             ]
         }
-        ]
-    }]
-    
+    ]
 }

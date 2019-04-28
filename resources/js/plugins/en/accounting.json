@@ -1,6 +1,6 @@
 {
     "ledger": "Ledger",
-    "cycle": "Cycle | Cycles",
+    "cycle": "Cycle",
     "journal": "Journal",
     "accountingCycle": "Accounting Cycle",
     "openingBalance": "Opening Balance",

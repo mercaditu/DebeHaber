@@ -1,6 +1,6 @@
 {
     "ledger": "Diario",
-    "cycle": "Fiscal",
+    "cycle": "Periodo",
     "journal": "Asiento",
     "accountingCycle": "Periodo Fiscal",
     "openingBalance": "Balance de Apertura",

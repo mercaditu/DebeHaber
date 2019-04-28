@@ -57,17 +57,9 @@
                 <i class="material-icons md-18 ml-10 mr-10">unarchive</i>
                 @{{ $t('commercial.inventories') }}
             </b-nav-item>
-            <b-nav-item class="sub-menu" disabled>
-                <i class="material-icons md-18 ml-10 mr-10">settings_applications</i>
-                @{{ $t('commercial.productions') }}
-            </b-nav-item>
             <b-nav-item class="sub-menu":to="{ name: 'moneyMovementList', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
                 <i class="material-icons md-18 ml-10 mr-10">attach_money</i>
                 @{{ $t('commercial.moneyMovements') }}
-            </b-nav-item>
-            <b-nav-item class="sub-menu":to="{ name: 'moneyTransferForm', params: { taxPayer: {{$taxPayerData->id }},cycle:{{$currentCycle->id }}}}">
-                <i class="material-icons md-18 ml-10 mr-10">attach_money</i>
-                @{{ $t('commercial.moneyTransfers') }}
             </b-nav-item>
         </b-nav>
     </b-collapse>

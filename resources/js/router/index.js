@@ -117,11 +117,11 @@ export default [
                         {
                             key: "partner_name",
                             label: "commercial.customer",
-                            formatter: (value, key, item) => {
-                                return (
-                                    item.partner_name.substring(0, 15) + "..."
-                                );
-                            },
+                            // formatter: (value, key, item) => {
+                            //     return (
+                            //         item.partner_name.substring(0, 32) + "..."
+                            //     );
+                            // },
                             sortable: true
                         },
                         {
@@ -448,33 +448,37 @@ export default [
                 ]
             },
             {
-                path: "money-transfers",
-                component: Form,
-                name: "moneyTransferForm",
-                meta: MoneyMovementForm
-            },
-            {
-                path: "money-movements",
+                path: "money",
                 component: List,
                 name: "moneyMovementList",
                 meta: {
-                    buttons: [
+                    kpi: [
                         {
-                            name: "manual",
-                            visible: true
+                            component: "",
+                            url: "",
+                            min_role: ""
+                        }
+                    ],
+                    actions: [
+                        {
+                            name: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/##/commercial/money"
                         },
                         {
-                            name: "uploadFromExcel",
-                            visible: false
+                            name: "commercial.moneyTransfers",
+                            icon: "monetization_on",
+                            url: "transfer"
                         },
                         {
-                            name: "createNewRecord",
-                            visible: true
+                            name: "general.createNewRecord",
+                            icon: "add",
+                            url: "0"
                         }
                     ],
                     title: "commercial.moneyMovements",
                     description: "Some description",
-                    img: "/img/apps/account-payable.svg",
+                    img: "/img/apps/money-flow.svg",
                     columns: [
                         {
                             key: "date",
@@ -486,7 +490,7 @@ export default [
                         },
                         {
                             key: "chart.name",
-                            label: "commercial.chart",
+                            label: "accounting.chartOfAccounts",
                             sortable: true
                         },
                         {
@@ -496,17 +500,23 @@ export default [
                         },
                         {
                             key: "currency",
-                            label: "commercial.currency",
-                            sortable: true
-                        },
-                        {
-                            key: "debit",
-                            label: "general.debit",
+                            label: "",
                             sortable: true
                         },
                         {
                             key: "credit",
                             label: "general.credit",
+                            formatter: (value, key, item) => {
+                                return new Number(item.credit).toLocaleString();
+                            },
+                            sortable: true
+                        },
+                        {
+                            key: "debit",
+                            label: "general.debit",
+                            formatter: (value, key, item) => {
+                                return new Number(item.debit).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -522,6 +532,13 @@ export default [
                         component: Form,
                         name: "moneyMovementForm",
                         meta: MoneyMovementDebitForm
+                    },
+                    {
+                        path: "transfers",
+                        component: Form,
+                        name: "moneyTransferForm",
+                        img: "/img/apps/money-transfer.svg",
+                        meta: MoneyMovementForm
                     }
                 ]
             },
@@ -856,9 +873,9 @@ export default [
                             visible: true
                         }
                     ],
-                    title: "accounting.journalTemplate",
+                    title: "accounting.template",
                     description: "Some description",
-                    img: "/img/apps/journals.svg",
+                    img: "/img/apps/journal-template.svg",
                     columns: [
                         {
                             key: "name",
@@ -978,7 +995,7 @@ export default [
         meta: {
             title: "Dashboard",
             description: "Some description",
-            img: "/img/apps/sales.svg"
+            img: "/img/apps/cycle.svg"
         },
         children: [
             {
@@ -1034,9 +1051,9 @@ export default [
                             visible: true
                         }
                     ],
-                    title: "accounting.fiscalYear",
+                    title: "accounting.accountingCycle",
                     description: "Some description",
-                    img: "/img/apps/sales.svg",
+                    img: "/img/apps/cycle.svg",
                     columns: [
                         {
                             key: "chart_version.name",

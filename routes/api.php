@@ -75,7 +75,7 @@ Route::prefix('{taxPayer}')->group(function () {
                 'accounts-payable' => 'AccountPayableController',
 
                 'impexes' => 'ImpexController',
-                'money-movements' => 'AccountMovementController',
+                'money' => 'AccountMovementController',
                 'inventories' => 'InventoryController',
                 'fixed-assets' => 'FixedAssetController',
                 'details' => 'DetailController',

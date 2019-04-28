@@ -11,20 +11,13 @@
           </b-card>
           <b-card no-body>
             <b-list-group flush>
-              <b-list-group-item href="#" v-show="$route.meta.buttons[0].visible">
-                <i class="material-icons">help</i>
-                {{ $t('general.manual') }}
-              </b-list-group-item>
-              <b-list-group-item :to="{ name: uploadURL }" v-show="$route.meta.buttons[1].visible">
-                <i class="material-icons">cloud_upload</i>
-                {{ $t('general.uploadFromExcel') }}
-              </b-list-group-item>
               <b-list-group-item
-                :to="{ name: formURL, params: { id: 0}}"
-                v-show="$route.meta.buttons[2].visible"
+                v-for="action in $route.meta.actions"
+                v-bind:key="action.key"
+                :href="action.url"
               >
-                <i class="material-icons md-light">add_box</i>
-                {{ $t('general.createNewRecord') }}
+                <i class="material-icons">{{ action.icon }}</i>
+                {{ $t(action.name) }}
               </b-list-group-item>
             </b-list-group>
           </b-card>
@@ -36,6 +29,7 @@
         <div v-if="$route.name.includes('List')">
           <crud inline-template>
             <div>
+              <b-pagination-nav pages="['?page=1', '?page=2', '?page=3']" use-router></b-pagination-nav>
               <b-card no-body>
                 <b-table
                   hover

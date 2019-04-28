@@ -23,6 +23,7 @@
     "inventories": "Inventories",
     "productions": "Productions",
     "moneyMovements": "Money Movements",
+    "moneyTransfers": "Transfer Funds",
 
     "date": "Date",
     "expiryDate": "Expiry Date",
