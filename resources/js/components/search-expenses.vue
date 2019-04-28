@@ -8,7 +8,7 @@
       <b-input type="text" :placeholder="$t('general.search')" @keyup="search()" v-model="query"></b-input>
       <b-table hover :items="results['data']" :fields="columns">
         <template slot="actions" slot-scope="data">
-          <b-button>Add</b-button>
+          <b-button @click="addExpense(data)">Add</b-button>
         </template>
 
         <div slot="table-busy">
@@ -31,10 +31,11 @@ export default {
   data: () => ({
     query: "",
     skip: 1,
+    expense: [],
     results: [],
     columns: [
       {
-        key: "general.date",
+        key: "date",
         label: "commercial.date",
         formatter: (value, key, item) => {
           return new Date(item.date).toLocaleDateString();
@@ -42,8 +43,11 @@ export default {
         sortable: true
       },
       {
-        key: "general.partner",
+        key: "partner_name",
         label: "commercial.supplier",
+        formatter: (value, key, item) => {
+          return item.partner_name.substring(0, 24) + "...";
+        },
         sortable: true
       },
       {
@@ -86,6 +90,14 @@ export default {
             app.skip += app.pageSize;
           });
       }
+    },
+
+    addExpense(item) {
+      var app = this;
+      app.expense.transaction_detail_id = item.id;
+      app.expense.chart_id = item.chart_id;
+      app.expense.value = item.value;
+      app.parent.expenses.push($expense);
     }
   },
   mounted() {

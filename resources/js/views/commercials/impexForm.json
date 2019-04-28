@@ -72,6 +72,7 @@
     "tables": [
         {
             "data": "transactions",
+            "actions": [{ "component": "search-expenses" }],
             "fields": [
                 {
                     "label": "commercial.purchaseInvoice",
