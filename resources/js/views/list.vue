@@ -40,12 +40,14 @@
             </b-list-group>
               <!-- <b-pagination-nav pages="['?page=1', '?page=2', '?page=3']" use-router></b-pagination-nav> -->
               <b-card no-body>
-                <b-table
+                <b-table id="my-table" 
                   hover
                   responsive
                   :items="items.data"
+                  :per-page="10"
                   :fields="$route.meta.columns"
-                  :current-page="currentPage"
+                  :current-page="$parent.currentPage"
+
                   show-empty
                 >
                   <template slot="actions" slot-scope="data">
@@ -68,10 +70,11 @@
               </b-card>
           
               <b-pagination
-                align="center"
+                align="center" v-model="$parent.currentPage"
                 :total-rows="items.meta.total"
-                :per-page="items.meta.per_page"
-              
+                :per-page="10"
+                aria-controls="my-table"
+                
               ></b-pagination>
             </div>
           </crud>
