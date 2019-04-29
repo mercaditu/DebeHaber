@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AccountMovement;
-use Spatie\QueryBuilder\Filter;
-use QueryBuilder;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Taxpayer;
 use App\Cycle;
 use App\Transaction;
@@ -21,18 +20,28 @@ class SalesController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query = Transaction::MySales()
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->orderBy('date', 'desc');
+
         return GeneralResource::collection(
-            Transaction::MySales()
-                ->with('accountChart')
-                ->with([
-                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                    'details.chart:id,name,code,type,sub_type',
-                    'details.vat:id,name'
-                ])
-                ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
-                ->orderBy('date', 'desc')
+            QueryBuilder::for($query)
+                ->allowedIncludes('details')
+                ->allowedFilters('partner_name', 'partner_tax_id', 'number')
                 ->paginate(50)
         );
+
+
+        // Transaction::MySales()
+        // ->with('accountChart')
+        // ->with([
+        //     'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+        //     'details.chart:id,name,code,type,sub_type',
+        //     'details.vat:id,name'
+        // ])
+        // ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+        // ->orderBy('date', 'desc')
+        // ->paginate(50)
     }
 
     public function getLastSale($partnerId)
@@ -121,12 +130,12 @@ class SalesController extends Controller
     public function filter(Taxpayer $taxPayer, Cycle $cycle)
     {
         try {
-            
-         $transaction = QueryBuilder::for(Transaction::class)
-            ->allowedFilters('number')
-            ->get();
 
-           // dd($transaction);
+            $transaction = QueryBuilder::for(Transaction::class)
+                ->allowedFilters('number')
+                ->get();
+
+            // dd($transaction);
 
             return response()->json($transaction, 200);
         } catch (\Exception $e) {
