@@ -5,7 +5,6 @@ export default {
   data: () => ({
     skip: 1,
     items: [],
-    meta: [],
     loading: false,
     lastDeletedItem: [],
     name:''
@@ -31,9 +30,9 @@ export default {
       axios
         .get("/api" + this.$route.path + "?page=" + page)
         .then(({ data }) => {
-          app.items = data.data;
-          app.meta = data.meta;
-          app.skip += app.pageSize;
+          app.items = data;
+
+          //app.skip += app.pageSize;
 
           //finishes the top progress bar
         })

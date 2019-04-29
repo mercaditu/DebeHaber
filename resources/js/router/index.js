@@ -102,6 +102,18 @@ export default [
                             visible: true
                         }
                     ],
+                    actions: [
+                        {
+                            name: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/##/commercial/sale"
+                        },
+                       
+                        {
+                            name: "general.createNewRecord",
+                            icon: "add",
+                            url: "sales/0"
+                        }],
                     title: "commercial.salesBook",
                     description: "Some description",
                     img: "/img/apps/sales.svg",
@@ -840,6 +852,7 @@ export default [
                         component: Form,
                         name: "impexForm",
                         meta: ImpexForm
+
                     }
                 ]
             }

@@ -29,12 +29,21 @@
         <div v-if="$route.name.includes('List')">
           <crud inline-template>
             <div>
-              <b-pagination-nav pages="['?page=1', '?page=2', '?page=3']" use-router></b-pagination-nav>
+               <b-list-group horizontal>
+              <b-list-group-item
+                v-for="action in $route.meta.actions"
+                v-bind:key="action.key"
+                :href="action.url">
+                <i class="material-icons">{{ action.icon }}</i>
+                {{ $t(action.name) }}
+              </b-list-group-item>
+            </b-list-group>
+              <!-- <b-pagination-nav pages="['?page=1', '?page=2', '?page=3']" use-router></b-pagination-nav> -->
               <b-card no-body>
                 <b-table
                   hover
                   responsive
-                  :items="items"
+                  :items="items.data"
                   :fields="$route.meta.columns"
                   :current-page="currentPage"
                   show-empty
@@ -57,11 +66,12 @@
                   </div>
                 </b-table>
               </b-card>
+          
               <b-pagination
                 align="center"
-                :total-rows="meta.total"
-                :per-page="meta.per_page"
-                @change="onList()"
+                :total-rows="items.meta.total"
+                :per-page="items.meta.per_page"
+              
               ></b-pagination>
             </div>
           </crud>
