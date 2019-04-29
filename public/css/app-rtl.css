@@ -12271,8 +12271,6 @@ body {
 
 td {
   white-space: nowrap;
-  overflow: hidden;
-  /* "overflow" value must be different from  visible"*/
   /* Opera < 11*/
   text-overflow: ellipsis;
   /* IE, Safari (WebKit), Opera >= 11, FF > 6 */
