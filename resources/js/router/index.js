@@ -105,7 +105,7 @@ export default [
                     actions: [
                         {
                             link: '?page=1', 
-                            text: 'general.createNewRecord', 
+                            label: 'general.createNewRecord', 
                             url: "sales/0"
                         }
                        ],
@@ -116,9 +116,9 @@ export default [
                         {
                             key: "date",
                             label: "commercial.date",
-                            formatter: (value, key, item) => {
-                                return new Date(item.date).toLocaleDateString();
-                            },
+                            // formatter: (value, key, item) => {
+                            //     return new Date(item.date).toLocaleDateString();
+                            // },
                             sortable: true
                         },
                         {
@@ -139,13 +139,13 @@ export default [
                         {
                             key: "total",
                             label: "general.total",
-                            formatter: (value, key, item) => {
-                                return new Number(
-                                    item.details.reduce(function(sum, row) {
-                                        return sum + new Number(row["value"]);
-                                    }, 0)
-                                ).toLocaleString();
-                            },
+                            // formatter: (value, key, item) => {
+                            //     return new Number(
+                            //         item.details.reduce(function(sum, row) {
+                            //             return sum + new Number(row["value"]);
+                            //         }, 0)
+                            //     ).toLocaleString();
+                            // },
                             sortable: true
                         },
                         {

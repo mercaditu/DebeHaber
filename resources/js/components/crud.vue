@@ -18,17 +18,18 @@ export default {
     }
   },
   methods: {
-    onList() {
+    refresh(url) {
+      console.log(url);
       var app = this;
 
       //Loading indicators
       // this.$refs.topProgress.start();
       app.loading = true;
 
-      var page = app.$children[1] != null ? app.$children[1].currentPage : 1;
+     
 
       axios
-        .get("/api" + this.$route.path + "?page=" + page)
+        .get(url)
         .then(({ data }) => {
           app.items = data;
 
@@ -146,14 +147,15 @@ export default {
     {
       this.$children[1].currentPage = 1;
       this.name = this.viewURL;
-      this.onList(); 
+      app.refresh("/api" + this.$route.path); 
     }
   },
   mounted()
   {
     var app = this;
      this.name = this.viewURL;
-      app.onList(); 
+    
+      app.refresh("/api" + this.$route.path); 
     
   }
 

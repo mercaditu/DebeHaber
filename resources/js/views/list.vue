@@ -30,13 +30,14 @@
           <crud inline-template>
             <div>
               <b-button-group class="mx-1">
+                
                 <b-button @click="refresh(items.links.first)">&laquo;</b-button>
                 <b-button @click="refresh(items.links.prev)">&lsaquo;</b-button>
 
                 <b-button
                   v-for="action in $route.meta.actions"
                   v-bind:key="action.index"
-                >{{ action.lable }}</b-button>
+                >{{ action.label }}</b-button>
 
                 <b-button @click="refresh(items.links.next)">&rsaquo;</b-button>
                 <b-button @click="refresh(items.links.last)">&raquo;</b-button>

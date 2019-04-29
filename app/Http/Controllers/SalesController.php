@@ -28,7 +28,7 @@ class SalesController extends Controller
             QueryBuilder::for($query)
                 ->allowedIncludes('details')
                 ->allowedFilters('partner_name', 'partner_tax_id', 'number')
-                ->paginate(50)
+                ->paginate(2)
         );
 
 
