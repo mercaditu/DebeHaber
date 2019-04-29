@@ -104,16 +104,11 @@ export default [
                     ],
                     actions: [
                         {
-                            name: "general.manual",
-                            icon: "help_outline",
-                            url: "/docs/##/commercial/sale"
-                        },
-                       
-                        {
-                            name: "general.createNewRecord",
-                            icon: "add",
+                            link: '?page=1', 
+                            text: 'general.createNewRecord', 
                             url: "sales/0"
-                        }],
+                        }
+                       ],
                     title: "commercial.salesBook",
                     description: "Some description",
                     img: "/img/apps/sales.svg",

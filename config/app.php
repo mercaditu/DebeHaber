@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Spatie\QueryBuilder\QueryBuilderServiceProvider::class,
         
       
 
@@ -182,7 +183,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         RyanWeber\Mutators\TimezonedServiceProvider::class,
         Nasyrov\Laravel\Enums\EnumServiceProvider::class,
-        Swap\Laravel\SwapServiceProvider::class
+        Swap\Laravel\SwapServiceProvider::class,
     ],
 
     /*
@@ -233,7 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Swap' => Swap\Laravel\Facades\Swap::class
+        'Swap' => Swap\Laravel\Facades\Swap::class,
+        'QueryBuilder' => Spatie\QueryBuilder\QueryBuilderFacade::class,
     ],
 
 ];

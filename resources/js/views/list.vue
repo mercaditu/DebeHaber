@@ -29,16 +29,14 @@
         <div v-if="$route.name.includes('List')">
           <crud inline-template>
             <div>
-               <b-list-group horizontal>
-              <b-list-group-item
-                v-for="action in $route.meta.actions"
-                v-bind:key="action.key"
-                :href="action.url">
-                <i class="material-icons">{{ action.icon }}</i>
-                {{ $t(action.name) }}
-              </b-list-group-item>
-            </b-list-group>
-              <!-- <b-pagination-nav pages="['?page=1', '?page=2', '?page=3']" use-router></b-pagination-nav> -->
+               <b-pagination-nav hide-goto-end-buttons="false" :link-gen="$parent.linkGen" :pages="$route.meta.actions" use-router></b-pagination-nav>
+                       
+            <b-input-group>
+            <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
+            <b-input-group-append>
+              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+            </b-input-group-append>
+            </b-input-group>
               <b-card no-body>
                 <b-table id="my-table" 
                   hover
@@ -47,9 +45,10 @@
                   :per-page="10"
                   :fields="$route.meta.columns"
                   :current-page="$parent.currentPage"
-
+                  :filter="$parent.filter"
                   show-empty
                 >
+                
                   <template slot="actions" slot-scope="data">
                     <table-actions :row="data.item"></table-actions>
                   </template>
@@ -93,7 +92,12 @@ import crud from "../components/crud.vue";
 export default {
   components: { crud },
   data: () => ({
-    currentPage: 1
+    currentPage: 1,
+     filter: null,
+     pages2: [
+        { link: '?page=1', text: 'New' }
+  
+      ],
   }),
 
   computed: {
@@ -104,11 +108,22 @@ export default {
       return "";
     }
   },
+  methods: {
+    // Returning a router-link `to` object
+    linkGen(pageNum) {
+      return { path: `sales/0` }
+    }
 
+  },
   mounted() {
     if (this.$route.meta.columns != null) {
       this.$route.meta.columns.forEach(element => {
         element.label = this.$t(element.label);
+      });
+    }
+    if (this.$route.meta.actions != null) {
+      this.$route.meta.actions.forEach(element => {
+        element.text = this.$t(element.text);
       });
     }
   }

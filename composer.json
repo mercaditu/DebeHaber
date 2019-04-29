@@ -27,7 +27,7 @@
         "rweber7912/timezoned": "dev-master",
         "sandervanhooft/laravel-blade-readable-numbers": "^1.0",
         "spatie/laravel-cookie-consent": "^2.6",
-        "spatie/laravel-query-builder": "^1.13",
+        "spatie/laravel-query-builder": "^1.17",
         "wildbit/swiftmailer-postmark": "^3.0"
     },
     "require-dev": {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\AccountMovement;
+use Spatie\QueryBuilder\Filter;
+use QueryBuilder;
 use App\Taxpayer;
 use App\Cycle;
 use App\Transaction;
@@ -112,6 +114,21 @@ class SalesController extends Controller
             Transaction::where('id', $transactionId)->forceDelete();
 
             return response()->json('Ok', 200);
+        } catch (\Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+    public function filter(Taxpayer $taxPayer, Cycle $cycle)
+    {
+        try {
+            
+         $transaction = QueryBuilder::for(Transaction::class)
+            ->allowedFilters('number')
+            ->get();
+
+           // dd($transaction);
+
+            return response()->json($transaction, 200);
         } catch (\Exception $e) {
             return response()->json($e, 500);
         }

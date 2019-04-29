@@ -81,7 +81,9 @@ Route::prefix('{taxPayer}')->group(function () {
                 'details' => 'DetailController',
                 'template-details' => 'JournalTemplateDetailController',
             ]);
-
+            Route::prefix('filter')->group(function () {
+                Route::get('sales', 'SalesController@filter');
+            });
 
             // Route::get('sales/by-id/{id}', 'SalesController@get_salesByID');
             Route::get('sales/default/{partnerID}', 'SalesController@getLastSale');
