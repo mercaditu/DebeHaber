@@ -7,6 +7,7 @@ use App\Cycle;
 use App\Transaction;
 use App\AccountMovement;
 use App\Http\Resources\GeneralResource;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use DB;
 
@@ -19,17 +20,34 @@ class CreditNoteController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query = Transaction::MyCreditNotes()
+        ->with('accountChart')
+        ->with([
+            'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+            'details.chart:id,name,code,type,sub_type',
+            'details.vat:id,name'
+        ])
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->orderBy('date', 'desc');
+
         return GeneralResource::collection(
-            Transaction::MyCreditNotes()
-                ->with([
-                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                    'details.chart:id,name,code,type,sub_type',
-                    'details.vat:id,name'
-                ])
-                ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
-                ->orderBy('transactions.date', 'desc')
+            QueryBuilder::for($query)
+                ->allowedIncludes('details')
+                ->allowedFilters('partner_name', 'partner_taxid', 'number')
                 ->paginate(50)
-        );
+            );
+
+        // return GeneralResource::collection(
+        //     Transaction::MyCreditNotes()
+        //         ->with([
+        //             'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+        //             'details.chart:id,name,code,type,sub_type',
+        //             'details.vat:id,name'
+        //         ])
+        //         ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+        //         ->orderBy('transactions.date', 'desc')
+        //         ->paginate(50)
+        // );
     }
 
     /**

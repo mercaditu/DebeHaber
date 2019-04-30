@@ -7,6 +7,7 @@ use App\Cycle;
 use App\Transaction;
 use App\AccountMovement;
 use App\Http\Resources\GeneralResource;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use DB;
 
@@ -19,17 +20,34 @@ class DebitNoteController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query = Transaction::MyDebitNotes()
+        ->with('accountChart')
+        ->with([
+            'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+            'details.chart:id,name,code,type,sub_type',
+            'details.vat:id,name'
+        ])
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->orderBy('date', 'desc');
+
         return GeneralResource::collection(
-            Transaction::MyDebitNotes()
-                ->with([
-                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                    'details.chart:id,name,code,type,sub_type',
-                    'details.vat:id,name'
-                ])
-                ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
-                ->orderBy('date', 'desc')
+            QueryBuilder::for($query)
+                ->allowedIncludes('details')
+                ->allowedFilters('partner_name', 'partner_taxid', 'number')
                 ->paginate(50)
-        );
+            );
+
+        // return GeneralResource::collection(
+        //     Transaction::MyDebitNotes()
+        //         ->with([
+        //             'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+        //             'details.chart:id,name,code,type,sub_type',
+        //             'details.vat:id,name'
+        //         ])
+        //         ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+        //         ->orderBy('date', 'desc')
+        //         ->paginate(50)
+        // );
     }
 
     /**
@@ -54,16 +72,27 @@ class DebitNoteController extends Controller
      */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
-        return new GeneralResource(
-            Transaction::MyDebitNotes()
-                ->where('id', $transactionId)
-                ->with([
-                    'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                    'details.chart:id,name,code,type,sub_type',
-                    'details.vat:id,name'
-                ])
-                ->first()
-        );
+        $query = Transaction::MyDebitNotes()
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->orderBy('date', 'desc');
+
+        return GeneralResource::collection(
+            QueryBuilder::for($query)
+                ->allowedIncludes('details')
+                ->allowedFilters('partner_name', 'partner_taxid', 'number')
+                ->paginate(50)
+            );
+
+        // return new GeneralResource(
+        //     Transaction::MyDebitNotes()
+        //         ->where('id', $transactionId)
+        //         ->with([
+        //             'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+        //             'details.chart:id,name,code,type,sub_type',
+        //             'details.vat:id,name'
+        //         ])
+        //         ->first()
+        // );
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Taxpayer;
 use App\Cycle;
 use App\Chart;
 use App\FixedAsset;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
 
@@ -18,11 +19,21 @@ class FixedAssetController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query = FixedAsset::where('taxpayer_id', $taxPayer->id)
+                ->with('chart');
+
         return GeneralResource::collection(
-            FixedAsset::where('taxpayer_id', $taxPayer->id)
-                ->with('chart')
+            QueryBuilder::for($query)
+                ->allowedIncludes('chart')
+                ->allowedFilters('name', 'serial')
                 ->paginate(50)
         );
+
+        // return GeneralResource::collection(
+        //     FixedAsset::where('taxpayer_id', $taxPayer->id)
+        //         ->with('chart')
+        //         ->paginate(50)
+        // );
     }
 
     /**

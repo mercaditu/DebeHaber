@@ -8,6 +8,7 @@ use App\TransactionDetail;
 use App\Taxpayer;
 use App\Cycle;
 use App\Http\Resources\GeneralResource;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 use DB;
 
@@ -20,25 +21,49 @@ class AccountPayableController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query = TransactionDetail::leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
+        ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
+        ->where('transactions.taxpayer_id', $taxPayer->id)
+        ->where('transactions.type', 1)
+        ->where('transactions.sub_type', 1)
+        ->where('transactions.payment_condition', '>', 0)
+        ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.debit * am.rate),0)')
+        ->select(
+            DB::raw('max(transactions.id) as id'),
+            DB::raw('max(transactions.date) as date'),
+            DB::raw('max(transactions.partner_name) as partner_name'),
+            DB::raw('max(transactions.number) as number'),
+            DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as purchase'),
+            DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
+            DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.debit * am.rate),0) as balance')
+        )
+        ->groupBy('transactions.id');
+
         return GeneralResource::collection(
-            TransactionDetail::leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
-                ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
-                ->where('transactions.taxpayer_id', $taxPayer->id)
-                ->where('transactions.type', 1)
-                ->where('transactions.sub_type', 1)
-                ->where('transactions.payment_condition', '>', 0)
-                ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.debit * am.rate),0)')
-                ->select(
-                    DB::raw('max(transactions.id) as id'),
-                    DB::raw('max(transactions.date) as date'),
-                    DB::raw('max(transactions.partner_name) as partner'),
-                    DB::raw('max(transactions.number) as number'),
-                    DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as purchase'),
-                    DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
-                    DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.debit * am.rate),0) as balance')
-                )
-                ->groupBy('transactions.id')->paginate(50)
-        );
+            QueryBuilder::for($query)
+                ->allowedFilters('partner_name', 'partner_taxid', 'number')
+                ->paginate(50)
+            );
+        
+        // return GeneralResource::collection(
+        //     TransactionDetail::leftJoin('account_movements as am', 'am.transaction_id', 'transaction_details.transaction_id')
+        //         ->join('transactions', 'transactions.id', 'transaction_details.transaction_id')
+        //         ->where('transactions.taxpayer_id', $taxPayer->id)
+        //         ->where('transactions.type', 1)
+        //         ->where('transactions.sub_type', 1)
+        //         ->where('transactions.payment_condition', '>', 0)
+        //         ->having(DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)'), '!=', 'COALESCE(sum(am.debit * am.rate),0)')
+        //         ->select(
+        //             DB::raw('max(transactions.id) as id'),
+        //             DB::raw('max(transactions.date) as date'),
+        //             DB::raw('max(transactions.partner_name) as partner'),
+        //             DB::raw('max(transactions.number) as number'),
+        //             DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0) as purchase'),
+        //             DB::raw('COALESCE(sum(am.debit * am.rate),0) as payment'),
+        //             DB::raw('COALESCE(sum(transaction_details.value * transactions.rate),0)-COALESCE(sum(am.debit * am.rate),0) as balance')
+        //         )
+        //         ->groupBy('transactions.id')->paginate(50)
+        // );
     }
 
     /**

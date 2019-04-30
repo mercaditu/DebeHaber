@@ -7,18 +7,29 @@ use App\Taxpayer;
 use App\Cycle;
 use Illuminate\Http\Request;
 use App\Http\Resources\GeneralResource;
+use Spatie\QueryBuilder\QueryBuilder;
 use Carbon\Carbon;
 
 class AccountMovementController extends Controller
 {
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query = AccountMovement::orderBy('date', 'desc')
+                 ->with('chart:name,code')
+                 ->with('transaction:id,number,comment');
+
         return GeneralResource::collection(
-            AccountMovement::orderBy('date', 'desc')
-                ->with('chart:name,code')
-                ->with('transaction:id,number,comment')
+            QueryBuilder::for($query)
+                ->allowedIncludes('chart')
+                ->allowedFilters('chart.name')
                 ->paginate(50)
         );
+        // return GeneralResource::collection(
+        //     AccountMovement::orderBy('date', 'desc')
+        //         ->with('chart:name,code')
+        //         ->with('transaction:id,number,comment')
+        //         ->paginate(50)
+        // );
     }
 
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)

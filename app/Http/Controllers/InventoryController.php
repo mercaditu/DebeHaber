@@ -8,6 +8,7 @@ use App\Chart;
 use App\Inventory;
 use App\Transaction;
 use App\Journal;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
 use DB;
@@ -21,12 +22,22 @@ class InventoryController extends Controller
     */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        return GeneralResource::collection(
-            Inventory::whereDate('start_date', $cycle->start_date)
-            ->whereDate('end_date', $cycle->end_date)
-            ->orderBy('date', 'desc')
-            ->paginate(50)
-        );
+        $query =Inventory::whereDate('start_date', $cycle->start_date)
+             ->whereDate('end_date', $cycle->end_date)
+             ->orderBy('date', 'desc');
+
+            return GeneralResource::collection(
+                QueryBuilder::for($query)
+                    ->allowedIncludes('chart')
+                    ->allowedFilters('chart.name')
+                    ->paginate(50)
+            );
+        // return GeneralResource::collection(
+        //     Inventory::whereDate('start_date', $cycle->start_date)
+        //     ->whereDate('end_date', $cycle->end_date)
+        //     ->orderBy('date', 'desc')
+        //     ->paginate(50)
+        // );
     }
 
     //TODO pass start and end date to calculate sales.

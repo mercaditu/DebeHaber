@@ -7,6 +7,7 @@ use App\Cycle;
 use App\Impex;
 use App\ImpexExpense;
 use App\Http\Resources\GeneralResource;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
 
 class ImpexController extends Controller
@@ -18,13 +19,27 @@ class ImpexController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        return GeneralResource::collection(
-            Impex::with('transactions')
+        $query = Impex::with('transactions')
                 ->with('expenses')
                 ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
-                ->orderBy('date', 'desc')
+                ->orderBy('date', 'desc');
+
+        return GeneralResource::collection(
+            QueryBuilder::for($query)
+                ->allowedIncludes('transactions')
+                ->allowedIncludes('expenses')
+                ->allowedFilters('partner_name', 'partner_taxid', 'code')
                 ->paginate(50)
         );
+
+
+        // return GeneralResource::collection(
+        //     Impex::with('transactions')
+        //         ->with('expenses')
+        //         ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+        //         ->orderBy('date', 'desc')
+        //         ->paginate(50)
+        // );
     }
 
     /**

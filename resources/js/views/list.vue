@@ -33,27 +33,22 @@
                 <b-button @click="refresh(items.links.first)">&laquo;</b-button>
                 <b-button @click="refresh(items.links.prev)">&lsaquo;</b-button>
 
-                <b-button
+                <b-button 
                   v-for="action in $route.meta.actions"
-                  v-bind:key="action.index"
-                >{{ action.label }}</b-button>
+                  v-bind:key="action.index" :href="action.url"
+                >{{$t(action.label)}}</b-button>
+                
+              <b-input-group>
+                <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
+                <b-input-group-append>
+                  <b-button  @click="refresh(items.meta.path + '?page=' + items.meta.current_page + ' & filter[partner_name]=' + $parent.filter + ' & filter[partner_taxid]=' + $parent.filter + ' & filter[number]=' + $parent.filter)">Filter</b-button>
+                </b-input-group-append>
+              </b-input-group>
 
                 <b-button @click="refresh(items.links.next)">&rsaquo;</b-button>
                 <b-button @click="refresh(items.links.last)">&raquo;</b-button>
               </b-button-group>
-              <!-- <b-pagination-nav
-                hide-goto-end-buttons="false"
-                :link-gen="$parent.linkGen"
-                :pages="$route.meta.actions"
-                use-router
-              ></b-pagination-nav>-->
-
-              <!-- <b-input-group>
-                <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
-                <b-input-group-append>
-                  <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-                </b-input-group-append>
-              </b-input-group>-->
+            
               <b-card no-body>
                 <b-table
                   id="my-table"
@@ -63,7 +58,6 @@
                   :per-page="10"
                   :fields="$route.meta.columns"
                   :current-page="$parent.currentPage"
-                  :filter="$parent.filter"
                   show-empty
                 >
                   <template slot="actions" slot-scope="data">
@@ -93,13 +87,7 @@
                 </b-table>
               </b-card>
 
-              <b-pagination
-                align="center"
-                v-model="$parent.currentPage"
-                :total-rows="items.meta.total"
-                :per-page="10"
-                aria-controls="my-table"
-              ></b-pagination>
+              
             </div>
           </crud>
         </div>
@@ -118,7 +106,7 @@ export default {
   components: { crud },
   data: () => ({
     // currentPage: 1,
-    //  filter: null,
+      filter: null,
   }),
 
   computed: {
@@ -130,10 +118,7 @@ export default {
     }
   },
   methods: {
-    // Returning a router-link `to` object
-    linkGen(pageNum) {
-      return { path: `sales/0` };
-    }
+   
   },
   mounted() {
     if (this.$route.meta.columns != null) {

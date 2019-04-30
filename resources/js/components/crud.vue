@@ -19,31 +19,34 @@ export default {
   },
   methods: {
     refresh(url) {
-      console.log(url);
+     
       var app = this;
 
-      //Loading indicators
-      // this.$refs.topProgress.start();
-      app.loading = true;
+      if(url != null)
+      {
+            //Loading indicators
+            // this.$refs.topProgress.start();
+            app.loading = true;
 
-     
+          
 
-      axios
-        .get(url)
-        .then(({ data }) => {
-          app.items = data;
+            axios
+              .get(url)
+              .then(({ data }) => {
+                app.items = data;
 
-          //app.skip += app.pageSize;
+                //app.skip += app.pageSize;
 
-          //finishes the top progress bar
-        })
-        .catch(function(error) {
-          // this.$refs.topProgress.fail();
-          app.$snack.danger({ text: error.message });
-        });
+                //finishes the top progress bar
+              })
+              .catch(function(error) {
+                // this.$refs.topProgress.fail();
+                app.$snack.danger({ text: error.message });
+              });
 
-      app.loading = false;
-      // this.$refs.topProgress.done()
+            app.loading = false;
+            // this.$refs.topProgress.done()
+      }
     },
 
     onCreate() {
@@ -147,7 +150,7 @@ export default {
     {
       this.$children[1].currentPage = 1;
       this.name = this.viewURL;
-      app.refresh("/api" + this.$route.path); 
+      this.refresh("/api" + this.$route.path); 
     }
   },
   mounted()

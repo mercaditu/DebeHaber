@@ -116,19 +116,19 @@ export default [
                         {
                             key: "date",
                             label: "commercial.date",
-                            // formatter: (value, key, item) => {
-                            //     return new Date(item.date).toLocaleDateString();
-                            // },
+                            formatter: (value, key, item) => {
+                                return new Date(item.date).toLocaleDateString();
+                            },
                             sortable: true
                         },
                         {
                             key: "partner_name",
                             label: "commercial.customer",
-                            // formatter: (value, key, item) => {
-                            //     return (
-                            //         item.partner_name.substring(0, 32) + "..."
-                            //     );
-                            // },
+                            formatter: (value, key, item) => {
+                                return (
+                                    item.partner_name.substring(0, 32) + "..."
+                                );
+                            },
                             sortable: true
                         },
                         {
@@ -139,13 +139,13 @@ export default [
                         {
                             key: "total",
                             label: "general.total",
-                            // formatter: (value, key, item) => {
-                            //     return new Number(
-                            //         item.details.reduce(function(sum, row) {
-                            //             return sum + new Number(row["value"]);
-                            //         }, 0)
-                            //     ).toLocaleString();
-                            // },
+                            formatter: (value, key, item) => {
+                                return new Number(
+                                    item.details.reduce(function(sum, row) {
+                                        return sum + new Number(row["value"]);
+                                    }, 0)
+                                ).toLocaleString();
+                            },
                             sortable: true
                         },
                         {
@@ -190,6 +190,13 @@ export default [
                         {
                             name: "createNewRecord",
                             visible: true
+                        }
+                    ],
+                    actions: [
+                        {
+                            link: '?page=1', 
+                            label: 'general.createNewRecord', 
+                            url: "credit-notes/0"
                         }
                     ],
                     title: "commercial.creditBook",
@@ -266,6 +273,13 @@ export default [
                             visible: true
                         }
                     ],
+                    actions: [
+                        {
+                            link: '?page=1', 
+                            label: 'general.createNewRecord', 
+                            url: "purchases/0"
+                        }
+                    ],
                     title: "commercial.purchaseBook",
                     description: "Some description",
                     img: "/img/apps/purchase-v1.svg",
@@ -333,6 +347,13 @@ export default [
                         {
                             name: "createNewRecord",
                             visible: true
+                        }
+                    ],
+                    actions: [
+                        {
+                            link: '?page=1', 
+                            label: 'general.createNewRecord', 
+                            url: "debit-notes/0"
                         }
                     ],
                     title: "commercial.debitBook",
@@ -662,7 +683,7 @@ export default [
                             key: "partner",
                             label: "commercial.customer",
                             formatter: (value, key, item) => {
-                                return item.partner.substring(0, 15) + "...";
+                                return item.partner_name.substring(0, 15) + "...";
                             },
                             sortable: true
                         },
@@ -742,7 +763,7 @@ export default [
                             key: "partner",
                             label: "commercial.supplier",
                             formatter: (value, key, item) => {
-                                return item.partner.substring(0, 15) + "...";
+                                return item.partner_name.substring(0, 15) + "...";
                             },
                             sortable: true
                         },
