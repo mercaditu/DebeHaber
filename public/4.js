@@ -139,6 +139,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -356,6 +370,134 @@ var render = function() {
                               "div",
                               [
                                 _c(
+                                  "b-button-group",
+                                  { staticClass: "mx-1" },
+                                  [
+                                    _c(
+                                      "b-button",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.refresh(
+                                              _vm.items.links.first
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("«")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-button",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.refresh(
+                                              _vm.items.links.prev
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("‹")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.$route.meta.actions, function(
+                                      action
+                                    ) {
+                                      return _c(
+                                        "b-button",
+                                        {
+                                          key: action.index,
+                                          attrs: { href: action.url }
+                                        },
+                                        [_vm._v(_vm._s(_vm.$t(action.label)))]
+                                      )
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-input-group",
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            placeholder: "Type to Search"
+                                          },
+                                          model: {
+                                            value: _vm.$parent.filter,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.$parent,
+                                                "filter",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "$parent.filter"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-input-group-append",
+                                          [
+                                            _c(
+                                              "b-button",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.refresh(
+                                                      _vm.items.meta.path +
+                                                        "?page=" +
+                                                        _vm.items.meta
+                                                          .current_page +
+                                                        " & filter[partner_name]=" +
+                                                        _vm.$parent.filter +
+                                                        " & filter[partner_taxid]=" +
+                                                        _vm.$parent.filter +
+                                                        " & filter[number]=" +
+                                                        _vm.$parent.filter
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Filter")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-button",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.refresh(
+                                              _vm.items.links.next
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("›")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-button",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.refresh(
+                                              _vm.items.links.last
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("»")]
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
                                   "b-card",
                                   { attrs: { "no-body": "" } },
                                   [
@@ -365,7 +507,7 @@ var render = function() {
                                         attrs: {
                                           hover: "",
                                           responsive: "",
-                                          items: _vm.items,
+                                          items: _vm.items.data,
                                           fields: _vm.columns,
                                           "current-page": _vm.current_page
                                         },
@@ -709,20 +851,7 @@ var render = function() {
                                     )
                                   ],
                                   1
-                                ),
-                                _vm._v(" "),
-                                _c("b-pagination", {
-                                  attrs: {
-                                    align: "center",
-                                    "total-rows": _vm.meta.total,
-                                    "per-page": _vm.meta.per_page
-                                  },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.onList()
-                                    }
-                                  }
-                                })
+                                )
                               ],
                               1
                             )

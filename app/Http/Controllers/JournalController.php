@@ -7,6 +7,7 @@ use App\Cycle;
 use App\Journal;
 use App\JournalDetail;
 use App\Http\Resources\GeneralResource;
+use Spatie\QueryBuilder\QueryBuilder;
 use App\Jobs\GenerateJournal;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,26 @@ class JournalController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
+        $query =  Journal::with([
+                     'details:journal_id,chart_id,debit,credit',
+                     'details.chart:id,name,code,type,sub_type'
+                ])
+                    ->orderBy('date', 'desc');
+
         return GeneralResource::collection(
-            Journal::with([
-                'details:journal_id,chart_id,debit,credit',
-                'details.chart:id,name,code,type,sub_type'
-            ])
-                ->orderBy('date', 'desc')
+            QueryBuilder::for($query)
+                ->allowedFilters('detail.chart.name')
                 ->paginate(50)
         );
+
+        // return GeneralResource::collection(
+        //     Journal::with([
+        //         'details:journal_id,chart_id,debit,credit',
+        //         'details.chart:id,name,code,type,sub_type'
+        //     ])
+        //         ->orderBy('date', 'desc')
+        //         ->paginate(50)
+        // );
     }
 
     /**

@@ -37,11 +37,13 @@
                   v-for="action in $route.meta.actions"
                   v-bind:key="action.index" :href="action.url"
                 >{{$t(action.label)}}</b-button>
-                
+                 <b-form-select class="m-2" v-model="$parent.column">
+                  <option  v-for="column in $route.meta.columns"  :value="column.key"  v-bind:key="column.index" href="#">{{$t(column.label)}}</option >
+                </b-form-select>
               <b-input-group>
                 <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
                 <b-input-group-append>
-                  <b-button  @click="refresh(items.meta.path + '?page=' + items.meta.current_page + ' & filter[partner_name]=' + $parent.filter + ' & filter[partner_taxid]=' + $parent.filter + ' & filter[number]=' + $parent.filter)">Filter</b-button>
+                  <b-button  @click="refresh(items.meta.path + '?page=' + items.meta.current_page + '&filter[' + $parent.column + ']=' + $parent.filter)">Filter</b-button>
                 </b-input-group-append>
               </b-input-group>
 
@@ -105,7 +107,7 @@ import crud from "../components/crud.vue";
 export default {
   components: { crud },
   data: () => ({
-    // currentPage: 1,
+     column: '',
       filter: null,
   }),
 

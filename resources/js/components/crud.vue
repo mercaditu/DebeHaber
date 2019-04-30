@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     refresh(url) {
-     
+     console.log(url);
       var app = this;
 
       if(url != null)

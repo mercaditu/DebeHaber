@@ -34,11 +34,30 @@
         <div v-if="$route.name.includes('List')">
           <crud :columns="columns" inline-template>
             <div>
+              <b-button-group class="mx-1">
+                <b-button @click="refresh(items.links.first)">&laquo;</b-button>
+                <b-button @click="refresh(items.links.prev)">&lsaquo;</b-button>
+
+                <b-button 
+                  v-for="action in $route.meta.actions"
+                  v-bind:key="action.index" :href="action.url"
+                >{{$t(action.label)}}</b-button>
+                
+              <b-input-group>
+                <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
+                <b-input-group-append>
+                  <b-button  @click="refresh(items.meta.path + '?page=' + items.meta.current_page + ' & filter[partner_name]=' + $parent.filter + ' & filter[partner_taxid]=' + $parent.filter + ' & filter[number]=' + $parent.filter)">Filter</b-button>
+                </b-input-group-append>
+              </b-input-group>
+
+                <b-button @click="refresh(items.links.next)">&rsaquo;</b-button>
+                <b-button @click="refresh(items.links.last)">&raquo;</b-button>
+              </b-button-group>
               <b-card no-body>
                 <b-table
                   hover
                   responsive
-                  :items="items"
+                  :items="items.data"
                   :fields="columns"
                   :current-page="current_page"
                 >
@@ -112,12 +131,7 @@
                   </template>
                 </b-table>
               </b-card>
-              <b-pagination
-                align="center"
-                :total-rows="meta.total"
-                :per-page="meta.per_page"
-                @change="onList()"
-              ></b-pagination>
+              
             </div>
           </crud>
         </div>
