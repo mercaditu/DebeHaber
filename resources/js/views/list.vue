@@ -38,7 +38,7 @@
                   v-bind:key="action.index" :href="action.url"
                 >{{$t(action.label)}}</b-button>
                  <b-form-select class="m-2" v-model="$parent.column">
-                  <option  v-for="column in $route.meta.columns"  :value="column.key"  v-bind:key="column.index" href="#">{{$t(column.label)}}</option >
+                  <option  v-for="column in $route.meta.columns.filter(c => c.searchable)"  :value="column.key"  v-bind:key="column.index" href="#">{{$t(column.label)}}</option >
                 </b-form-select>
               <b-input-group>
                 <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
