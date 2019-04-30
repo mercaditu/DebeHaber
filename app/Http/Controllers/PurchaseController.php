@@ -21,11 +21,8 @@ class PurchaseController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query = Transaction::MyPurchases()
-            ->with('accountChart')
             ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-                'details.chart:id,name,code,type,sub_type',
-                'details.vat:id,name'
+                'details:value',
             ])
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc');
@@ -36,19 +33,6 @@ class PurchaseController extends Controller
                 ->allowedFilters('partner_name', 'partner_taxid', 'number')
                 ->paginate(50)
         );
-
-        // //TODO improve query using sum of deatils instead of inner join.
-        // return GeneralResource::collection(
-        //     Transaction::MyPurchases()
-        //         ->with([
-        //             'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-        //             'details.chart:id,name,code,type,sub_type',
-        //             'details.vat:id,name'
-        //         ])
-        //         ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
-        //         ->orderBy('date', 'desc')
-        //         ->paginate(50)
-        // );
     }
 
     public function getLastPurchase($partner_taxid)
@@ -83,7 +67,7 @@ class PurchaseController extends Controller
      */
     public function show(Taxpayer $taxPayer, Cycle $cycle, $transactionId)
     {
-        
+
         return new GeneralResource(
             Transaction::MyPurchases()
                 ->where('id', $transactionId)
@@ -134,6 +118,24 @@ class PurchaseController extends Controller
         } catch (\Exception $e) {
             return response()->json($e, 500);
         }
+    }
+
+    public function kpi(Taxpayer $taxPayer, Cycle $cycle)
+    {
+        $count = Transaction::MyPurchases()
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->count();
+
+        return Transaction::MyPurchases()
+            ->join('transaction_details', 'transaction_details.transaction_id', '=', 'transactions.id')
+            ->join('charts', 'transaction_details.chart_vat_id', '=', 'charts.id')
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->select(
+                DB::raw($count . ' as total'),
+                DB::raw('sum(transaction_details.value * transactions.rate) as value'),
+                DB::raw('sum((transaction_details.value - (transaction_details.value / (1 + charts.coefficient))) * transactions.rate) as vat')
+            )
+            ->get();
     }
 
     /*

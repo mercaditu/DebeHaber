@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\AccountMovement;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\AccountMovement;
 use App\Taxpayer;
 use App\Cycle;
 use App\Transaction;
@@ -22,7 +22,7 @@ class SalesController extends Controller
     {
         $query = Transaction::MySales()
             ->with([
-                'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
+                'details:value',
             ])
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc');
@@ -125,7 +125,6 @@ class SalesController extends Controller
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->count();
 
-        //$today = Carbon::now();
         return Transaction::MySales()
             ->join('transaction_details', 'transaction_details.transaction_id', '=', 'transactions.id')
             ->join('charts', 'transaction_details.chart_vat_id', '=', 'charts.id')
@@ -136,9 +135,6 @@ class SalesController extends Controller
                 DB::raw('sum((transaction_details.value - (transaction_details.value / (1 + charts.coefficient))) * transactions.rate) as vat')
             )
             ->get();
-
-        // $vatValue = $row->total - ($row->total / (1 + $coefficient));
-
     }
 
     /**

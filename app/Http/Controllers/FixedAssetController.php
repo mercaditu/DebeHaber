@@ -20,20 +20,13 @@ class FixedAssetController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query = FixedAsset::where('taxpayer_id', $taxPayer->id)
-                ->with('chart');
+            ->with('chart');
 
         return GeneralResource::collection(
             QueryBuilder::for($query)
-                ->allowedIncludes('chart')
                 ->allowedFilters('name', 'serial')
                 ->paginate(50)
         );
-
-        // return GeneralResource::collection(
-        //     FixedAsset::where('taxpayer_id', $taxPayer->id)
-        //         ->with('chart')
-        //         ->paginate(50)
-        // );
     }
 
     /**

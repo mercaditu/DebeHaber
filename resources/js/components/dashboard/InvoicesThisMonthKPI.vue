@@ -30,7 +30,7 @@ export default {
         app.total = new Number(data[0].total).toLocaleString();
         app.value = new Number(data[0].value).toLocaleString();
         app.vat = new Number(data[0].vat).toLocaleString(undefined, {
-          minimumFractionDigits: 2
+          maximumFractionDigits: 0
         });
       });
     }

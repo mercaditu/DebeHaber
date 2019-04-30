@@ -21,12 +21,9 @@ class CreditNoteController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query = Transaction::MyCreditNotes()
-        ->with('accountChart')
-        ->with([
-            'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-            'details.chart:id,name,code,type,sub_type',
-            'details.vat:id,name'
-        ])
+            ->with([
+                'details:value',
+            ])
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc');
 
@@ -35,19 +32,7 @@ class CreditNoteController extends Controller
                 ->allowedIncludes('details')
                 ->allowedFilters('partner_name', 'partner_taxid', 'number')
                 ->paginate(50)
-            );
-
-        // return GeneralResource::collection(
-        //     Transaction::MyCreditNotes()
-        //         ->with([
-        //             'details:id,cost,value,transaction_id,chart_id,chart_vat_id',
-        //             'details.chart:id,name,code,type,sub_type',
-        //             'details.vat:id,name'
-        //         ])
-        //         ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
-        //         ->orderBy('transactions.date', 'desc')
-        //         ->paginate(50)
-        // );
+        );
     }
 
     /**
@@ -84,7 +69,6 @@ class CreditNoteController extends Controller
         );
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -103,6 +87,24 @@ class CreditNoteController extends Controller
         } catch (\Exception $e) {
             return response()->json($e, 500);
         }
+    }
+
+    public function kpi(Taxpayer $taxPayer, Cycle $cycle)
+    {
+        $count = Transaction::MyCreditNotes()
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->count();
+
+        return Transaction::MyCreditNotes()
+            ->join('transaction_details', 'transaction_details.transaction_id', '=', 'transactions.id')
+            ->join('charts', 'transaction_details.chart_vat_id', '=', 'charts.id')
+            ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
+            ->select(
+                DB::raw($count . ' as total'),
+                DB::raw('sum(transaction_details.value * transactions.rate) as value'),
+                DB::raw('sum((transaction_details.value - (transaction_details.value / (1 + charts.coefficient))) * transactions.rate) as vat')
+            )
+            ->get();
     }
 
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)

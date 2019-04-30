@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "f498d616070e1d3a8e799a57f7bc6e3c",
@@ -1942,16 +1942,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.13",
+            "version": "v5.8.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "837e3823e2274d22b8e281d093391b5d9c23029a"
+                "reference": "8a34004aed6ff0aa4072360e3e5bd875edebc223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/837e3823e2274d22b8e281d093391b5d9c23029a",
-                "reference": "837e3823e2274d22b8e281d093391b5d9c23029a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/8a34004aed6ff0aa4072360e3e5bd875edebc223",
+                "reference": "8a34004aed6ff0aa4072360e3e5bd875edebc223",
                 "shasum": ""
             },
             "require": {
@@ -2085,7 +2085,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-04-18T15:28:45+00:00"
+            "time": "2019-04-30T14:05:03+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2163,8 +2163,7 @@
             "dist": {
                 "type": "path",
                 "url": "./spark",
-                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6",
-                "shasum": null
+                "reference": "e8ca36ab2280851f041e0479cd9cc17f48319d97"
             },
             "require": {
                 "erusev/parsedown": "~1.0",
@@ -2544,16 +2543,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.11",
+            "version": "3.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "8576af60a456bcead31a2d2d9cf03dea0598860e"
+                "reference": "e1816f793c6abd33e3858ecb3b056da9a7dd5d73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/8576af60a456bcead31a2d2d9cf03dea0598860e",
-                "reference": "8576af60a456bcead31a2d2d9cf03dea0598860e",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/e1816f793c6abd33e3858ecb3b056da9a7dd5d73",
+                "reference": "e1816f793c6abd33e3858ecb3b056da9a7dd5d73",
                 "shasum": ""
             },
             "require": {
@@ -2608,7 +2607,7 @@
                 "php",
                 "phpspreadsheet"
             ],
-            "time": "2019-03-19T10:54:38+00:00"
+            "time": "2019-04-17T17:22:54+00:00"
         },
         {
             "name": "markbaker/complex",
@@ -4007,16 +4006,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.0",
+            "version": "4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
+                "reference": "bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
-                "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c",
+                "reference": "bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c",
                 "shasum": ""
             },
             "require": {
@@ -4054,7 +4053,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-11-30T07:14:17+00:00"
+            "time": "2019-04-30T17:48:53+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -4934,16 +4933,16 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c"
+                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
-                "reference": "378bfe27931ecc54ff824a20d6f6bfc303bbd04c",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
                 "shasum": ""
             },
             "require": {
@@ -4982,7 +4981,7 @@
                 "request",
                 "response"
             ],
-            "time": "2018-07-30T21:54:04+00:00"
+            "time": "2019-04-30T12:38:16+00:00"
         },
         {
             "name": "psr/http-message",
@@ -5647,16 +5646,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "4.1.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656"
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6fda8ce1974b62b14935adc02a9ed38252eca656",
-                "reference": "6fda8ce1974b62b14935adc02a9ed38252eca656",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
+                "reference": "3095910f0f0fb155ac4021fc51a4a7a39ac04e8a",
                 "shasum": ""
             },
             "require": {
@@ -5671,7 +5670,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -5696,7 +5695,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2019-02-01T05:27:49+00:00"
+            "time": "2019-04-25T07:55:20+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -6048,28 +6047,28 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.6.3",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f"
+                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/6a920a441783a50d7c95d08b3ae9189b149b259f",
-                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/d50a81aea91bb188651e1e81e77c73ba95d8370e",
+                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e",
                 "shasum": ""
             },
             "require": {
                 "illuminate/cookie": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/view": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": "^7.1"
+                "php": "^7.2"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
                 "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
-                "phpunit/phpunit": "^6.3|^7.0|^8.0"
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
@@ -6112,7 +6111,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2019-02-27T08:10:09+00:00"
+            "time": "2019-03-28T23:13:20+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
@@ -6174,16 +6173,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.33.0",
+            "version": "v6.34.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "042acd0d1c956a51f447419075d1f23969b0f262"
+                "reference": "60335d5dad000fb4b08aa7176b832a59d13d0420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/042acd0d1c956a51f447419075d1f23969b0f262",
-                "reference": "042acd0d1c956a51f447419075d1f23969b0f262",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/60335d5dad000fb4b08aa7176b832a59d13d0420",
+                "reference": "60335d5dad000fb4b08aa7176b832a59d13d0420",
                 "shasum": ""
             },
             "require": {
@@ -6226,7 +6225,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-04-22T23:29:54+00:00"
+            "time": "2019-04-26T18:30:55+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7772,16 +7771,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "c3c330192bc9cc51b7e9ce968ff721dc32ffa986"
+                "reference": "37bf68b428850ee26ed7c3be6c26236dd95a95f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/c3c330192bc9cc51b7e9ce968ff721dc32ffa986",
-                "reference": "c3c330192bc9cc51b7e9ce968ff721dc32ffa986",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/37bf68b428850ee26ed7c3be6c26236dd95a95f1",
+                "reference": "37bf68b428850ee26ed7c3be6c26236dd95a95f1",
                 "shasum": ""
             },
             "require": {
@@ -7834,7 +7833,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2019-01-05T20:13:32+00:00"
+            "time": "2019-04-29T21:11:00+00:00"
         }
     ],
     "packages-dev": [
