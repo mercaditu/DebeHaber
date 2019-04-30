@@ -559,28 +559,36 @@ export default [
                 component: List,
                 name: "moneyMovementList",
                 meta: {
-                    kpi: [
+                    components: [
                         {
-                            component: "",
-                            url: "",
-                            min_role: ""
+                            type: "links",
+                            links: [
+                                {
+                                    label: "general.manual",
+                                    icon: "help_outline",
+                                    url: "/docs/en/transactions/sales"
+                                },
+                                {
+                                    label: "general.report",
+                                    icon: "insert_chart_outlined",
+                                    url:
+                                        "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
+                                }
+                            ]
                         }
                     ],
                     actions: [
                         {
-                            name: "general.manual",
-                            icon: "help_outline",
-                            url: "/docs/##/commercial/money"
-                        },
-                        {
-                            name: "commercial.moneyTransfers",
-                            icon: "monetization_on",
-                            url: "transfer"
-                        },
-                        {
-                            name: "general.createNewRecord",
+                            label: "general.create",
                             icon: "add",
-                            url: "0"
+                            variant: "outline-dark",
+                            url: "sales/0"
+                        },
+                        {
+                            label: "general.upload",
+                            icon: "cloud_upload",
+                            variant: "outline-dark",
+                            url: ""
                         }
                     ],
                     title: "commercial.moneyMovements",
