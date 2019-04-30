@@ -1,5 +1,4 @@
 <script>
-
 export default {
   props: ["columns"],
   data: () => ({
@@ -7,7 +6,7 @@ export default {
     items: [],
     loading: false,
     lastDeletedItem: [],
-    name:''
+    name: ""
   }),
   computed: {
     formURL: function() {
@@ -19,33 +18,23 @@ export default {
   },
   methods: {
     refresh(url) {
-     console.log(url);
       var app = this;
+      if (url != null) {
+        //Loading indicators
+        app.loading = true;
+        axios
+          .get(url)
+          .then(({ data }) => {
+            app.items = data;
+            //finishes the top progress bar
+          })
+          .catch(function(error) {
+            // this.$refs.topProgress.fail();
+            app.$snack.danger({ text: error.message });
+          });
 
-      if(url != null)
-      {
-            //Loading indicators
-            // this.$refs.topProgress.start();
-            app.loading = true;
-
-          
-
-            axios
-              .get(url)
-              .then(({ data }) => {
-                app.items = data;
-
-                //app.skip += app.pageSize;
-
-                //finishes the top progress bar
-              })
-              .catch(function(error) {
-                // this.$refs.topProgress.fail();
-                app.$snack.danger({ text: error.message });
-              });
-
-            app.loading = false;
-            // this.$refs.topProgress.done()
+        app.loading = false;
+        // this.$refs.topProgress.done()
       }
     },
 
@@ -143,24 +132,20 @@ export default {
       return 0;
     }
   },
-   beforeUpdate() {
+  beforeUpdate() {
     //var app = this;
-    
-    if (this.name != this.viewURL)
-    {
+
+    if (this.name != this.viewURL) {
       this.$children[1].currentPage = 1;
       this.name = this.viewURL;
-      this.refresh("/api" + this.$route.path); 
+      this.refresh("/api" + this.$route.path);
     }
   },
-  mounted()
-  {
+  mounted() {
     var app = this;
-     this.name = this.viewURL;
-    
-      app.refresh("/api" + this.$route.path); 
-    
-  }
+    this.name = this.viewURL;
 
+    app.refresh("/api" + this.$route.path);
+  }
 };
 </script>

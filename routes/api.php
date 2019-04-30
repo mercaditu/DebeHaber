@@ -65,6 +65,12 @@ Route::prefix('{taxPayer}')->group(function () {
         });
 
         Route::prefix('commercial')->group(function () {
+
+            Route::get('sales/kpi', 'SalesController@kpi');
+            Route::get('credit-notes/kpi', 'CreditNoteController@kpi');
+            Route::get('purchases/kpi', 'PurchaseController@kpi');
+            Route::get('debit-notes/kpi', 'DebitNoteController@kpi');
+
             Route::resources([
                 'sales' => 'SalesController',
                 'credit-notes' => 'CreditNoteController',
@@ -81,9 +87,6 @@ Route::prefix('{taxPayer}')->group(function () {
                 'details' => 'DetailController',
                 'template-details' => 'JournalTemplateDetailController',
             ]);
-            Route::prefix('filter')->group(function () {
-                Route::get('sales', 'SalesController@filter');
-            });
 
             // Route::get('sales/by-id/{id}', 'SalesController@get_salesByID');
             Route::get('sales/default/{partnerID}', 'SalesController@getLastSale');

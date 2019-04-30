@@ -9,15 +9,17 @@
               {{ $t($route.meta.title) }}
             </h1>
           </b-card>
-          <b-card no-body>
-            <b-list-group flush>
+          <b-card v-for="component in $route.meta.components" v-bind:key="component.key" no-body>
+            <component v-if="component.type != 'links'" :is="component.type"></component>
+
+            <b-list-group v-else flush>
               <b-list-group-item
-                v-for="action in $route.meta.actions"
-                v-bind:key="action.key"
-                :href="action.url"
+                v-for="link in component.links"
+                v-bind:key="link.key"
+                :href="link.url"
               >
-                <i class="material-icons">{{ action.icon }}</i>
-                {{ $t(action.name) }}
+                <i class="material-icons">{{ link.icon }}</i>
+                {{ $t(link.label) }}
               </b-list-group-item>
             </b-list-group>
           </b-card>
@@ -29,28 +31,61 @@
         <div v-if="$route.name.includes('List')">
           <crud inline-template>
             <div>
-              <b-button-group class="mx-1">
-                <b-button @click="refresh(items.links.first)">&laquo;</b-button>
-                <b-button @click="refresh(items.links.prev)">&lsaquo;</b-button>
+              <b-row>
+                <b-col>
+                  <b-button>Add Filter</b-button>
+                </b-col>
+                <b-col>
+                  <b-button-toolbar
+                    class="float-right"
+                    key-nav
+                    aria-label="Toolbar with button groups"
+                  >
+                    <b-button-group class="mx-1">
+                      <b-button @click="refresh(items.links.first)" variant="primary">&laquo;</b-button>
+                      <b-button @click="refresh(items.links.prev)" variant="primary">&lsaquo;</b-button>
+                    </b-button-group>
+                    <b-button-group class="mx-1">
+                      <b-button
+                        v-for="action in $route.meta.actions"
+                        v-bind:key="action.index"
+                        :to="action.url"
+                        :variant="action.variant"
+                      >
+                        <i class="material-icons md-18">{{ action.icon }}</i>
+                        {{ $t(action.label) }}
+                      </b-button>
+                    </b-button-group>
+                    <b-button-group class="mx-1">
+                      <b-button @click="refresh(items.links.next)" variant="primary">&rsaquo;</b-button>
+                      <b-button @click="refresh(items.links.last)" variant="primary">&raquo;</b-button>
+                    </b-button-group>
+                  </b-button-toolbar>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-input-group>
+                    <b-input-group-prepend>
+                      <b-form-select v-model="$parent.column">
+                        <option
+                          v-for="column in $route.meta.columns.filter(c => c.searchable)"
+                          :value="column.key"
+                          v-bind:key="column.index"
+                          href="#"
+                        >{{$t(column.label)}}</option>
+                      </b-form-select>
+                    </b-input-group-prepend>
 
-                <b-button 
-                  v-for="action in $route.meta.actions"
-                  v-bind:key="action.index" :href="action.url"
-                >{{$t(action.label)}}</b-button>
-                 <b-form-select class="m-2" v-model="$parent.column">
-                  <option  v-for="column in $route.meta.columns.filter(c => c.searchable)"  :value="column.key"  v-bind:key="column.index" href="#">{{$t(column.label)}}</option >
-                </b-form-select>
-              <b-input-group>
-                <b-form-input v-model="$parent.filter" placeholder="Type to Search"></b-form-input>
-                <b-input-group-append>
-                  <b-button  @click="refresh(items.meta.path + '?page=' + items.meta.current_page + '&filter[' + $parent.column + ']=' + $parent.filter)">Filter</b-button>
-                </b-input-group-append>
-              </b-input-group>
+                    <b-form-input v-model="$parent.query" placeholder="Type to Search"></b-form-input>
 
-                <b-button @click="refresh(items.links.next)">&rsaquo;</b-button>
-                <b-button @click="refresh(items.links.last)">&raquo;</b-button>
-              </b-button-group>
-            
+                    <b-input-group-append>
+                      <b-button @click="$parent.addFilter()">Add Filter</b-button>
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-col>
+              </b-row>
+
               <b-card no-body>
                 <b-table
                   id="my-table"
@@ -88,8 +123,6 @@
                   </div>
                 </b-table>
               </b-card>
-
-              
             </div>
           </crud>
         </div>
@@ -107,8 +140,9 @@ import crud from "../components/crud.vue";
 export default {
   components: { crud },
   data: () => ({
-     column: '',
-      filter: null,
+    column: "",
+    filters: [],
+    query: null
   }),
 
   computed: {
@@ -120,7 +154,22 @@ export default {
     }
   },
   methods: {
-   
+    addFilter() {
+      var filter = [];
+      filter.column = this.column;
+      filter.query = this.query;
+      this.filters.push(filter);
+      //for loop on filters, and make string.
+      crud.refresh(
+        items.meta.path +
+          "?page=" +
+          items.meta.current_page +
+          "&filter[" +
+          $parent.column +
+          "]=" +
+          $parent.filter
+      );
+    }
   },
   mounted() {
     if (this.$route.meta.columns != null) {

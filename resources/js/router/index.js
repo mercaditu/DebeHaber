@@ -37,8 +37,6 @@ const ChartList = () => import("../views/accounts/chartList");
 const ChartForm = () => import("../views/accounts/chartForm");
 
 const Config = () => import("../views/configs/index");
-// const DocumentList = () => import("../views/configs/documentList");
-// const RateList = () => import("../views/configs/rateList");
 const VersionList = () => import("../views/configs/versionList");
 const VersionForm = () => import("../views/configs/versionForm");
 
@@ -79,8 +77,7 @@ export default [
         name: "commercialMenu",
         meta: {
             title: "Dashboard",
-            description: "Some description",
-            img: "/img/apps/sales.svg"
+            description: "Some description"
         },
         children: [
             {
@@ -88,27 +85,41 @@ export default [
                 component: List,
                 name: "salesList",
                 meta: {
-                    buttons: [
+                    components: [
                         {
-                            name: "manual",
-                            visible: true
+                            type: "invoices-this-month-kpi"
                         },
                         {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
+                            type: "links",
+                            links: [
+                                {
+                                    label: "general.manual",
+                                    icon: "help_outline",
+                                    url: "/docs/en/transactions/sales"
+                                },
+                                {
+                                    label: "general.report",
+                                    icon: "insert_chart_outlined",
+                                    url:
+                                        "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
+                                }
+                            ]
                         }
                     ],
                     actions: [
                         {
-                            link: '?page=1', 
-                            label: 'general.createNewRecord', 
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
                             url: "sales/0"
+                        },
+                        {
+                            label: "general.upload",
+                            icon: "cloud_upload",
+                            variant: "outline-dark",
+                            url: ""
                         }
-                       ],
+                    ],
                     title: "commercial.salesBook",
                     description: "Some description",
                     img: "/img/apps/sales.svg",
@@ -183,25 +194,39 @@ export default [
                 component: List,
                 name: "creditList",
                 meta: {
-                    buttons: [
+                    components: [
                         {
-                            name: "manual",
-                            visible: true
+                            type: "invoices-this-month-kpi"
                         },
                         {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
+                            type: "links",
+                            links: [
+                                {
+                                    label: "general.manual",
+                                    icon: "help_outline",
+                                    url: "/docs/en/transactions/credit-notes"
+                                },
+                                {
+                                    label: "general.report",
+                                    icon: "insert_chart_outlined",
+                                    url:
+                                        "/:taxPayer/:cycle/commercial/reports/credit-notes/2019-03-01/2019-03-31"
+                                }
+                            ]
                         }
                     ],
                     actions: [
                         {
-                            link: '?page=1', 
-                            label: 'general.createNewRecord', 
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
                             url: "credit-notes/0"
+                        },
+                        {
+                            label: "general.upload",
+                            icon: "cloud_upload",
+                            variant: "outline-dark",
+                            url: ""
                         }
                     ],
                     title: "commercial.creditBook",
@@ -264,25 +289,39 @@ export default [
                 component: List,
                 name: "purchaseList",
                 meta: {
-                    buttons: [
+                    components: [
                         {
-                            name: "manual",
-                            visible: true
+                            type: "invoices-this-month-kpi"
                         },
                         {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
+                            type: "links",
+                            links: [
+                                {
+                                    label: "general.manual",
+                                    icon: "help_outline",
+                                    url: "/docs/en/transactions/purchases"
+                                },
+                                {
+                                    label: "general.report",
+                                    icon: "insert_chart_outlined",
+                                    url:
+                                        "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
+                                }
+                            ]
                         }
                     ],
                     actions: [
                         {
-                            link: '?page=1', 
-                            label: 'general.createNewRecord', 
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
                             url: "purchases/0"
+                        },
+                        {
+                            label: "general.upload",
+                            icon: "cloud_upload",
+                            variant: "outline-dark",
+                            url: ""
                         }
                     ],
                     title: "commercial.purchaseBook",
@@ -340,25 +379,39 @@ export default [
                 component: List,
                 name: "debitList",
                 meta: {
-                    buttons: [
+                    components: [
                         {
-                            name: "manual",
-                            visible: true
+                            type: "invoices-this-month-kpi"
                         },
                         {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
+                            type: "links",
+                            links: [
+                                {
+                                    label: "general.manual",
+                                    icon: "help_outline",
+                                    url: "/docs/en/transactions/debit-notes"
+                                },
+                                {
+                                    label: "general.report",
+                                    icon: "insert_chart_outlined",
+                                    url:
+                                        "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
+                                }
+                            ]
                         }
                     ],
                     actions: [
                         {
-                            link: '?page=1', 
-                            label: 'general.createNewRecord', 
-                            url: "debit-notes/0"
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
+                            url: "sales/0"
+                        },
+                        {
+                            label: "general.upload",
+                            icon: "cloud_upload",
+                            variant: "outline-dark",
+                            url: ""
                         }
                     ],
                     title: "commercial.debitBook",
@@ -416,18 +469,39 @@ export default [
                 component: List,
                 name: "fixedAssetList",
                 meta: {
-                    buttons: [
+                    components: [
                         {
-                            name: "manual",
-                            visible: true
+                            type: "invoices-this-month-kpi"
                         },
                         {
-                            name: "uploadFromExcel",
-                            visible: false
+                            type: "links",
+                            links: [
+                                {
+                                    label: "general.manual",
+                                    icon: "help_outline",
+                                    url: "/docs/en/transactions/fixed-assets"
+                                },
+                                {
+                                    label: "general.report",
+                                    icon: "insert_chart_outlined",
+                                    url:
+                                        "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
+                                }
+                            ]
+                        }
+                    ],
+                    actions: [
+                        {
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
+                            url: "sales/0"
                         },
                         {
-                            name: "createNewRecord",
-                            visible: true
+                            label: "general.upload",
+                            icon: "cloud_upload",
+                            variant: "outline-dark",
+                            url: ""
                         }
                     ],
                     title: "commercial.fixedAssets",
@@ -688,7 +762,9 @@ export default [
                             key: "partner",
                             label: "commercial.customer",
                             formatter: (value, key, item) => {
-                                return item.partner_name.substring(0, 15) + "...";
+                                return (
+                                    item.partner_name.substring(0, 15) + "..."
+                                );
                             },
                             sortable: true
                         },
@@ -768,7 +844,9 @@ export default [
                             key: "partner",
                             label: "commercial.supplier",
                             formatter: (value, key, item) => {
-                                return item.partner_name.substring(0, 15) + "...";
+                                return (
+                                    item.partner_name.substring(0, 15) + "..."
+                                );
                             },
                             sortable: true
                         },
@@ -873,7 +951,6 @@ export default [
                         component: Form,
                         name: "impexForm",
                         meta: ImpexForm
-
                     }
                 ]
             }
