@@ -30,7 +30,6 @@
           <crud inline-template>
             <div>
               <b-button-group class="mx-1">
-                
                 <b-button @click="refresh(items.links.first)">&laquo;</b-button>
                 <b-button @click="refresh(items.links.prev)">&lsaquo;</b-button>
 
@@ -76,7 +75,15 @@
                   </div>
 
                   <template slot="empty" slot-scope="data">
-                    <table-empty></table-empty>
+                    <b-row>
+                      <b-col>
+                        <b-img right fluid center :src="$route.meta.img"/>
+                      </b-col>
+                      <b-col>
+                        <h4>Nothing here</h4>
+                        <p class="lead">But you can change that</p>
+                      </b-col>
+                    </b-row>
                   </template>
 
                   <div slot="table-busy" class="text-center text-danger my-2">
