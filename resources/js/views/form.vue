@@ -178,6 +178,7 @@ export default {
   components: { crud: crud, Multiselect },
   data() {
     return {
+      changed : false,
       data: {
         date: new Date(Date.now()).toISOString().split("T")[0]
       }
@@ -214,7 +215,8 @@ export default {
     },
 
     onCancel() {
-      this.$swal
+      if (this.changed) {
+        this.$swal
         .fire({
           title: this.$i18n.t("general.cancel"),
           text: this.$i18n.t("general.cancelVerification"),
@@ -228,6 +230,12 @@ export default {
             this.$router.go(-1);
           }
         });
+      }
+      else{
+        console.log(this.changed);
+         this.$router.go(-1);
+      }
+      
     },
 
     addRow(table) {
@@ -275,6 +283,12 @@ export default {
       }
       this.data[table].push(this.lastDeletedRow);
     }
+  },
+   watch: {
+      data: function(val) {
+         this.changed = true;
+         
+      }
   },
   mounted() {
     var app = this;

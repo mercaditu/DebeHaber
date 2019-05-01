@@ -99,6 +99,7 @@
               </b-row>
 
               <b-card no-body>
+
                 <b-table
                   id="my-table"
                   hover
@@ -106,7 +107,7 @@
                   :items="items.data"
                   :per-page="10"
                   :fields="$route.meta.columns"
-                  :current-page="items.meta.current_page"
+                  :current-page="items.meta.current_page!=null?items.meta.current_page:1"
                   show-empty
                 >
                   <template slot="actions" slot-scope="data">
