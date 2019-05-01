@@ -33,7 +33,18 @@
             <div>
               <b-row>
                 <b-col>
-                  <b-button>Add Filter</b-button>
+                 
+                  <b-button @click="$parent.addComponent()">Add Filter</b-button>
+                  <b-list-group  flush>
+                    <b-list-group-item
+                      v-for="filter in $parent.filters"
+                      v-bind:key="filter.key"
+                    >
+
+                   {{ filter }}
+                    <b-button @click="$parent.removeFilter(filter)" variant="primary">X</b-button>
+                </b-list-group-item>
+            </b-list-group>
                 </b-col>
                 <b-col>
                   <b-button-toolbar
@@ -66,22 +77,23 @@
               <b-row>
                 <b-col>
                   <b-input-group>
-                    <b-input-group-prepend>
-                      <b-form-select v-model="$parent.column">
+                    <b-input-group-prepend v-for="component in $parent.components"  v-bind:key="component.index">
+                      <filter-data></filter-data>
+                      <!-- <b-form-select v-model="$parent.column">
                         <option
                           v-for="column in $route.meta.columns.filter(c => c.searchable)"
                           :value="column.key"
                           v-bind:key="column.index"
                           href="#"
                         >{{$t(column.label)}}</option>
-                      </b-form-select>
+                      </b-form-select> -->
                     </b-input-group-prepend>
 
-                    <b-form-input v-model="$parent.query" placeholder="Type to Search"></b-form-input>
+                    <!-- <b-form-input v-model="$parent.query" placeholder="Type to Search"></b-form-input> -->
 
-                    <b-input-group-append>
-                      <b-button @click="$parent.addFilter()">Add Filter</b-button>
-                    </b-input-group-append>
+                    <!-- <b-input-group-append>
+                      <b-button @click="$parent.addFilter(items.meta.path, items.meta.current_page)">Add Filter</b-button>
+                    </b-input-group-append> -->
                   </b-input-group>
                 </b-col>
               </b-row>
@@ -94,7 +106,7 @@
                   :items="items.data"
                   :per-page="10"
                   :fields="$route.meta.columns"
-                  :current-page="$parent.currentPage"
+                  :current-page="items.meta.current_page"
                   show-empty
                 >
                   <template slot="actions" slot-scope="data">
@@ -136,13 +148,11 @@
 
 <script>
 import crud from "../components/crud.vue";
-
 export default {
   components: { crud },
   data: () => ({
-    column: "",
-    filters: [],
-    query: null
+    components:[],
+    filters:[]
   }),
 
   computed: {
@@ -154,21 +164,43 @@ export default {
     }
   },
   methods: {
-    addFilter() {
-      var filter = [];
-      filter.column = this.column;
-      filter.query = this.query;
-      this.filters.push(filter);
-      //for loop on filters, and make string.
-      crud.refresh(
-        items.meta.path +
-          "?page=" +
-          items.meta.current_page +
-          "&filter[" +
-          $parent.column +
-          "]=" +
-          $parent.filter
+    addComponent() {
+      var app=this;
+      app.components.push('filter');
+      // var filter = [];
+      // filter.column = this.column;
+      // filter.query = this.query;
+      // app.filters.push(filter);
+      // var str='';
+      // app.filters.forEach(element => {
+      //   app.querystring += '&filter[' + element.column + ']=' + element.query
+      //  });
+      //   console.log(crud);
+      
+      // crud.refresh(
+      //   path +
+      //     "?page=" +
+      //     currentPage +
+      //     "&filter[" +
+      //     this.column +
+      //     "]=" +
+      //    this.filter
+      // );
+    },
+    removeComponent(compo) {
+      var app=this;
+      app.components.splice(this.components.indexOf(compo));
+    },
+    addFilter(compo,column,condition,query) {
+      var app=this;
+      app.filters.push(
+         '&filter[' + column + ']' + condition + query
       );
+      app.components.splice(this.components.indexOf(compo));
+    },
+    removeFilter(compo) {
+      var app=this;
+      app.filters.splice(this.components.indexOf(compo));
     }
   },
   mounted() {

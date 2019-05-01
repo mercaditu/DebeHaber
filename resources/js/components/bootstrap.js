@@ -27,6 +27,7 @@ Vue.component(
     require("./search-transaction.vue").default
 );
 Vue.component("search-taxpayer", require("./search-taxpayer.vue").default);
+Vue.component("filter-data", require("./filter.vue").default);
 Vue.component("multiselect", require("./multiselect.vue").default);
 Vue.component("payment-condition", require("./payment-condition.vue").default);
 Vue.component("document", require("./document.vue").default);
