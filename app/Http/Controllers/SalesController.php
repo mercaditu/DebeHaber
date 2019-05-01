@@ -29,7 +29,6 @@ class SalesController extends Controller
 
         return GeneralResource::collection(
             QueryBuilder::for($query)
-                ->allowedIncludes('details')
                 ->allowedFilters('partner_name', 'partner_taxid', 'number')
                 ->paginate(50)
         );

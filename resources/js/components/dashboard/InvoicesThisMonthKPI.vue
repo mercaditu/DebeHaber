@@ -35,7 +35,7 @@ export default {
       });
     }
   },
-  mounted() {
+  created() {
     var app = this;
     app.get_data();
   }
