@@ -50,12 +50,19 @@ export default {
   methods: {
     add()
     {
+      
       var app=this;
+      var filter='';
+      
       app.$parent.$parent.addFilter(app,app.column,app.condition,app.query);
+      app.$parent.$parent.filters.forEach(element => {
+        filter += element 
+      });
+      console.log(filter);
        app.$parent.refresh( "/api" + 
         app.$route.path +
           "?" +
-          app.$parent.$parent.filters
+         filter
       );
     },
     remove()

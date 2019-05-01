@@ -21,14 +21,12 @@ class SalesController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query = Transaction::MySales()
-            ->with([
-                'details:value',
-            ])
+            ->with(['details:transaction_id,value'])
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc');
-
         return GeneralResource::collection(
             QueryBuilder::for($query)
+                ->allowedIncludes('details')
                 ->allowedFilters('partner_name', 'partner_taxid', 'number')
                 ->paginate(50)
         );

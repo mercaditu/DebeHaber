@@ -42,6 +42,7 @@
                     >
 
                    {{ filter }}
+                   
                     <b-button @click="$parent.removeFilter(filter)" variant="primary">X</b-button>
                 </b-list-group-item>
             </b-list-group>
@@ -79,21 +80,8 @@
                   <b-input-group>
                     <b-input-group-prepend v-for="component in $parent.components"  v-bind:key="component.index">
                       <filter-data></filter-data>
-                      <!-- <b-form-select v-model="$parent.column">
-                        <option
-                          v-for="column in $route.meta.columns.filter(c => c.searchable)"
-                          :value="column.key"
-                          v-bind:key="column.index"
-                          href="#"
-                        >{{$t(column.label)}}</option>
-                      </b-form-select> -->
                     </b-input-group-prepend>
 
-                    <!-- <b-form-input v-model="$parent.query" placeholder="Type to Search"></b-form-input> -->
-
-                    <!-- <b-input-group-append>
-                      <b-button @click="$parent.addFilter(items.meta.path, items.meta.current_page)">Add Filter</b-button>
-                    </b-input-group-append> -->
                   </b-input-group>
                 </b-col>
               </b-row>
@@ -105,9 +93,9 @@
                   hover
                   responsive
                   :items="items.data"
-                  :per-page="10"
+                  :per-page="items.meta!=null?items.meta.per-page:10"
                   :fields="$route.meta.columns"
-                  :current-page="items.meta.current_page!=null?items.meta.current_page:1"
+                  :current-page="items.meta!=null?items.meta.current_page:1"
                   show-empty
                 >
                   <template slot="actions" slot-scope="data">

@@ -21,9 +21,7 @@ class CreditNoteController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query = Transaction::MyCreditNotes()
-            ->with([
-                'details:value',
-            ])
+            ->with(['details:transaction_id,value'])
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc');
 
