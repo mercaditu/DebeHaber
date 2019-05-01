@@ -1,35 +1,30 @@
 <template>
   <div>
-     <b-col>
-                  <b-input-group>
-                    <b-input-group-prepend>
-                      <b-form-select v-model="column">
-                        <option
-                          v-for="column in $route.meta.columns.filter(c => c.searchable)"
-                          :value="column.key"
-                          v-bind:key="column.index"
-                          href="#"
-                        >{{$t(column.label)}}</option>
-                      </b-form-select>
-                    </b-input-group-prepend>
-                    
-                    <b-form-select v-model="condition">
-                        <option
-                          v-for="condition in conditions"
-                          :value="condition.value"
-                          v-bind:key="condition.index"
-                          href="#"
-                        >{{$t(condition.label)}}</option>
-                    </b-form-select>
+    <b-input-group v-for="form in forms" v-bind:key="form.key">
+      <b-input-group-prepend>
+        <b-form-select size="sm" v-model="form.column">
+          <option
+            v-for="column in $route.meta.columns.filter(c => c.searchable)"
+            v-bind:key="column.index"
+            :value="column.key"
+          >{{$t(column.label)}}</option>
+        </b-form-select>
+      </b-input-group-prepend>
 
-                    <b-form-input v-model="query" placeholder="Type to Search"></b-form-input>
+      <b-form-input size="sm" v-model="form.query" :placeholder="$t('general.search')"></b-form-input>
 
-                    <b-input-group-append>
-                      <b-button @click="add()">Apply</b-button>
-                      <b-button @click="remove()">Remove</b-button>
-                    </b-input-group-append>
-                  </b-input-group>
-                </b-col>
+      <b-input-group-append v-if="form.query != ''">
+        <b-button size="sm" variant="success" @click="apply(form)">
+          <i class="material-icons md-18">check_circle_outline</i>
+        </b-button>
+        <b-button size="sm" variant="dark" @click="add()">
+          <i class="material-icons md-18">add</i>
+        </b-button>
+        <b-button size="sm" variant="light" @click="remove(form)">
+          <i class="material-icons md-18">cancel</i>
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
   </div>
 </template>
 
@@ -37,44 +32,43 @@
 import crud from "../components/crud.vue";
 export default {
   components: { crud: crud },
-  //props: ["parentCode", "parentName", "parent_id"],
   data: () => ({
-    column: "",
-    condition: "",
-    query: "",
-    conditions: [{ label : 'Equals' , value : '='}]
+    filters: [],
+    forms: [{ column: "", query: "" }]
   }),
-  computed: {
-   
-  },
+
   methods: {
-    add()
-    {
-      
-      var app=this;
-      var filter='';
-      
-      app.$parent.$parent.addFilter(app,app.column,app.condition,app.query);
-      app.$parent.$parent.filters.forEach(element => {
-        filter += element 
+    apply(form) {
+      var app = this;
+      app.filters.push({ column: form.column, query: form.query });
+    },
+    add() {
+      this.forms.push({
+        column: "",
+        query: ""
       });
-      console.log(filter);
-       app.$parent.refresh( "/api" + 
-        app.$route.path +
-          "?" +
-         filter
-      );
     },
-    remove()
-    {
-      var app=this;
-      app.$parent.$parent.removeComponent(app);
-    },
-  
+    remove(form) {
+      var app = this;
+      app.filters.splice(this.filters.indexOf(form));
+      app.forms.splice(this.forms.indexOf(form));
+    }
   },
-  mounted() {
-    //do something after mounting vue instance
-    var app = this;
+  watch: {
+    filters: function(val) {
+      var app = this;
+      var query = "";
+
+      app.filters.forEach(element => {
+        if (query == "") {
+          query += "filter[" + element.column + "]=" + element.query;
+        } else {
+          query += "&filter[" + element.column + "]=" + element.query;
+        }
+      });
+
+      app.$parent.refresh("/api" + app.$route.path + "?" + query);
+    }
   }
 };
 </script>

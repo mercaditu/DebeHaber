@@ -339,12 +339,14 @@ export default [
                         {
                             key: "partner_name",
                             label: "commercial.supplier",
-                            sortable: true
+                            sortable: true,
+                            searchable: true
                         },
                         {
                             key: "number",
                             label: "commercial.number",
-                            sortable: true
+                            sortable: true,
+                            searchable: true
                         },
                         {
                             key: "total",

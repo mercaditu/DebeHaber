@@ -33,19 +33,7 @@
             <div>
               <b-row>
                 <b-col>
-                 
-                  <b-button @click="$parent.addComponent()">Add Filter</b-button>
-                  <b-list-group  flush>
-                    <b-list-group-item
-                      v-for="filter in $parent.filters"
-                      v-bind:key="filter.key"
-                    >
-
-                   {{ filter }}
-                   
-                    <b-button @click="$parent.removeFilter(filter)" variant="primary">X</b-button>
-                </b-list-group-item>
-            </b-list-group>
+                  <filter-data></filter-data>
                 </b-col>
                 <b-col>
                   <b-button-toolbar
@@ -75,19 +63,8 @@
                   </b-button-toolbar>
                 </b-col>
               </b-row>
-              <b-row>
-                <b-col>
-                  <b-input-group>
-                    <b-input-group-prepend v-for="component in $parent.components"  v-bind:key="component.index">
-                      <filter-data></filter-data>
-                    </b-input-group-prepend>
-
-                  </b-input-group>
-                </b-col>
-              </b-row>
 
               <b-card no-body>
-
                 <b-table
                   id="my-table"
                   hover
@@ -139,9 +116,9 @@
 import crud from "../components/crud.vue";
 export default {
   components: { crud },
+
   data: () => ({
-    components:[],
-    filters:[]
+    components: []
   }),
 
   computed: {
@@ -152,46 +129,7 @@ export default {
       return "";
     }
   },
-  methods: {
-    addComponent() {
-      var app=this;
-      app.components.push('filter');
-      // var filter = [];
-      // filter.column = this.column;
-      // filter.query = this.query;
-      // app.filters.push(filter);
-      // var str='';
-      // app.filters.forEach(element => {
-      //   app.querystring += '&filter[' + element.column + ']=' + element.query
-      //  });
-      //   console.log(crud);
-      
-      // crud.refresh(
-      //   path +
-      //     "?page=" +
-      //     currentPage +
-      //     "&filter[" +
-      //     this.column +
-      //     "]=" +
-      //    this.filter
-      // );
-    },
-    removeComponent(compo) {
-      var app=this;
-      app.components.splice(this.components.indexOf(compo));
-    },
-    addFilter(compo,column,condition,query) {
-      var app=this;
-      app.filters.push(
-         '&filter[' + column + ']' + condition + query
-      );
-      app.components.splice(this.components.indexOf(compo));
-    },
-    removeFilter(compo) {
-      var app=this;
-      app.filters.splice(this.components.indexOf(compo));
-    }
-  },
+
   mounted() {
     if (this.$route.meta.columns != null) {
       this.$route.meta.columns.forEach(element => {

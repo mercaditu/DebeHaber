@@ -1,36 +1,37 @@
 <template>
   <div>
     <b-row>
-      <b-col>
+      <b-col cols="9">
         <h2 text-variant="dark">
           <img :src="$route.meta.img" alt class="mr-10" width="32">
           {{ $t($route.meta.title) }}
         </h2>
       </b-col>
-      <b-col>
-        <b-button-toolbar class="float-right">
-          <b-dropdown :text="$t('general.actions')" variant="primary" right>
-            <b-dropdown-item
-              @shortkey="onSaveNew()"
-              @click="onSaveNew()"
-              v-shortkey="['ctrl', 's']"
-              style="width: 220px"
-            >
-              <i class="material-icons md-18">save</i>
-              {{ $t('general.save') }}
-              <small
-                class="text-secondary float-right"
-              >cntrl-s</small>
-            </b-dropdown-item>
-
-            <b-dropdown-item @shortkey="onCancel()" @click="onCancel()" v-shortkey="['esc']">
-              <i class="material-icons md-18">cancel</i>
-              {{ $t('general.cancel') }}
-              <small class="text-secondary float-right">esc</small>
-            </b-dropdown-item>
-          </b-dropdown>
+      <b-col cols="3">
+        <b-dropdown :text="$t('general.actions')" variant="primary" right>
+          <b-dropdown-item
+            @shortkey="onSaveNew()"
+            @click="onSaveNew()"
+            v-shortkey="['ctrl', 's']"
+            style="width: 220px"
+          >
+            <i class="material-icons md-18">save</i>
+            {{ $t('general.save') }}
+            <small class="text-secondary float-right">cntrl-s</small>
+          </b-dropdown-item>
+          <b-dropdown-item @shortkey="onCancel()" @click="onCancel()" v-shortkey="['esc']">
+            <i class="material-icons md-18">cancel</i>
+            {{ $t('general.cancel') }}
+            <small class="text-secondary float-right">esc</small>
+          </b-dropdown-item>
+        </b-dropdown>
+        <b-button-toolbar>
+          <b-btn variant="success" @click="onSaveNew()" v-if="changed">
+            <i class="material-icons">save</i>
+          </b-btn>
           <b-btn variant="dark" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
-            <i class="material-icons">cancel</i>
+            <i class="material-icons" v-if="changed">cancel</i>
+            <i class="material-icons" v-else>arrow_back_ios</i>
           </b-btn>
         </b-button-toolbar>
       </b-col>
