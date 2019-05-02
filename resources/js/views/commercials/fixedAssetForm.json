@@ -1,7 +1,7 @@
 {
     "pageurl": "/commercial/fixed-assets",
     "title": "commercial.fixedAssets",
-    "img": "/img/apps/fixed-assets.svg",
+    "img": "/img/apps/fixed-asset.svg",
     "cards": [
         {
             "rows": [
@@ -20,19 +20,17 @@
                             ]
                         },
                         {
-                            "label": "commercial.chart",
+                            "label": "accounting.chartOfAccounts",
                             "properties": [
                                 {
                                     "type": "select",
-                                    "data": "chart_id",
-                                    "placeholder": "commercial.chart",
+                                    "data": "chart",
                                     "api": "/accounting/charts/for/fixed-assets/",
                                     "required": false,
-                                    "location": "append ",
                                     "select": [
                                         {
-                                            "value": "id",
-                                            "label": "name"
+                                            "value": "chart.id",
+                                            "label": "chart.name"
                                         }
                                     ]
                                 }
@@ -76,7 +74,7 @@
                 {
                     "fields": [
                         {
-                            "label": "commercial.currentvalue",
+                            "label": "commercial.currentValue",
                             "properties": [
                                 {
                                     "type": "text",
@@ -104,7 +102,7 @@
                 {
                     "fields": [
                         {
-                            "label": "commercial.quantity",
+                            "label": "general.quantity",
                             "properties": [
                                 {
                                     "type": "text",

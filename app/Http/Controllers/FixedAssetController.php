@@ -38,7 +38,7 @@ class FixedAssetController extends Controller
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $fixedAsset = FixedAsset::firstOrNew(['id' => $request->id]);
-        $fixedAsset->chart_id = $request->chart_id['id'];
+        $fixedAsset->chart_id = $request->chart['id'];
         $fixedAsset->taxpayer_id = $taxPayer->id;
         $fixedAsset->currency = $request->currency ?? $taxPayer->currency;
         $fixedAsset->rate = $request->rate;
@@ -75,9 +75,9 @@ class FixedAssetController extends Controller
      * @param  \App\FixedAsset  $fixedAsset
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Taxpayer $taxPayer, Cycle $cycle, $ID)
+    public function destroy(Taxpayer $taxPayer, Cycle $cycle, $id)
     {
-        FixedAsset::where('id', $ID)->delete();
+        FixedAsset::where('id', $id)->delete();
         return response()->json('Ok', 200);
     }
 
@@ -92,6 +92,7 @@ class FixedAssetController extends Controller
             $dailyDepreciation = $fixedAsset->purchase_value / ($fixedAssetGroup->asset_years * 365);
             // use the difference in time to calculate percentage reduction from purchase value.
             $fixedAsset->currentValue = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
+
             $fixedAsset->save();
         }
     }

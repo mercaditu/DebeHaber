@@ -20,6 +20,9 @@
     "accountPayables": "Cuentas por Pagar",
 
     "fixedAssets": "Activos Fijos",
+    "purchaseValue": "Valor de Compra",
+    "currentValue": "Valor Actual",
+
     "inventories": "Inventario",
     "productions": "Producción",
     "moneyMovements": "Movimiento de Dinero",

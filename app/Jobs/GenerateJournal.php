@@ -14,6 +14,7 @@ use App\Http\Controllers\AccountPayableController;
 use App\Http\Controllers\AccountReceivableController;
 use App\Http\Controllers\AccountMovementController;
 use App\Taxpayer;
+use App\FixedAsset;
 use App\Cycle;
 use Carbon\Carbon;
 
@@ -53,7 +54,7 @@ class GenerateJournal implements ShouldQueue
      */
     public function handle()
     {
-       
+
         $this->generateByMonth();
         //Auth::user()->notify(new JournalCompleted);
     }
@@ -75,7 +76,7 @@ class GenerateJournal implements ShouldQueue
             $dayStartDate = Carbon::parse($currentDate->startOfDay());
             $dayEndDate = Carbon::parse($currentDate->endOfDay());
 
-            $this->generateJournals($startDate, $endDate);
+            $this->generateJournals($dayStartDate, $dayEndDate);
 
             //Finally add a month to go into next cycle
             $currentDate = $currentDate->addDays(1);
@@ -164,11 +165,24 @@ class GenerateJournal implements ShouldQueue
         }
 
         /*
-        Accounts Payable
+        Fixed Assets Depreciation
         */
-       
-        if (Impex::where('taxpayer_id', $this->taxPayer->id)->count() > 0) {
-           
+        if (FixedAsset::where('taxpayer_id', $this->taxPayer->id)->count() > 0) {
+            $assets = App\FixedAsset::where('taxpayer_id', $this->taxPayer->id)->get();
+            foreach ($assets as $asset) {
+                $controller = new FixedAssetController();
+                $controller->depreciate($asset);
+            }
+        }
+
+        /*
+        Impex
+        */
+        if (
+            Impex::where('taxpayer_id', $this->taxPayer->id)
+            ->whereBetween('date', [$startingDate, $endingDate])
+            ->count() > 0
+        ) {
             $controller = new ImpexImportController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }

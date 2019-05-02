@@ -20,6 +20,9 @@
     "accountPayables": "Account Payables",
 
     "fixedAssets": "Fixed Assets",
+    "purchaseValue": "Purchase Value",
+    "currentValue": "CurrentValue",
+
     "inventories": "Inventories",
     "productions": "Productions",
     "moneyMovements": "Money Movements",
