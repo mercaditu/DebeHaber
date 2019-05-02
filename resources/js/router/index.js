@@ -239,7 +239,8 @@ export default [
                             formatter: (value, key, item) => {
                                 return new Date(item.date).toLocaleDateString();
                             },
-                            sortable: true
+                            sortable: true,
+                            searchable: false
                         },
                         {
                             key: "partner_name",
@@ -249,7 +250,8 @@ export default [
                                     item.partner_name.substring(0, 18) + "..."
                                 );
                             },
-                            sortable: true
+                            sortable: true,
+                            searchable: true
                         },
                         {
                             key: "number",
@@ -266,12 +268,14 @@ export default [
                                     }, 0)
                                 ).toLocaleString();
                             },
-                            sortable: true
+                            sortable: true,
+                            searchable: true
                         },
                         {
                             key: "actions",
                             label: "",
-                            sortable: false
+                            sortable: false,
+                            searchable: false
                         }
                     ]
                 },

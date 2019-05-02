@@ -21,8 +21,17 @@ export default {
   data: () => ({
     total: "",
     value: "",
-    vat: ""
+    vat: "",
+    name: ""
   }),
+   computed: {
+    formURL: function() {
+      return this.$route.name.replace("List", "Form");
+    },
+    viewURL: function() {
+      return this.$route.name.replace("List", "View");
+    }
+  },
   methods: {
     get_data() {
       var app = this;
@@ -35,8 +44,17 @@ export default {
       });
     }
   },
-  created() {
+  watch: {
+    viewURL: function() {
+      var app = this;
+     app.get_data();
+
+     
+    }
+  },
+  mounted() {
     var app = this;
+    app.name = this.viewURL;
     app.get_data();
   }
 };

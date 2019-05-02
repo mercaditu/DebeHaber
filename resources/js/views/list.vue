@@ -10,8 +10,9 @@
             </h1>
           </b-card>
           <b-card v-for="component in $route.meta.components" v-bind:key="component.key" no-body>
-            <component v-if="component.type != 'links'" :is="component.type"></component>
-
+           
+              <component v-if="component.type != 'links'"   v-bind:is="component.type"></component>
+          
             <b-list-group v-else flush>
               <b-list-group-item
                 v-for="link in component.links"

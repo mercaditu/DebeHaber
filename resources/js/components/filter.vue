@@ -52,6 +52,10 @@ export default {
       var app = this;
       app.filters.splice(this.filters.indexOf(form));
       app.forms.splice(this.forms.indexOf(form));
+      this.forms.push({
+        column: "",
+        query: ""
+      });
     }
   },
   watch: {
