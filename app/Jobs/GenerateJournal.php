@@ -13,6 +13,7 @@ use App\Http\Controllers\DebitNoteController;
 use App\Http\Controllers\AccountPayableController;
 use App\Http\Controllers\AccountReceivableController;
 use App\Http\Controllers\AccountMovementController;
+use App\Http\Controllers\FixedAssetController;
 use App\Taxpayer;
 use App\FixedAsset;
 use App\Cycle;
@@ -168,7 +169,7 @@ class GenerateJournal implements ShouldQueue
         Fixed Assets Depreciation
         */
         if (FixedAsset::where('taxpayer_id', $this->taxPayer->id)->count() > 0) {
-            $assets = App\FixedAsset::where('taxpayer_id', $this->taxPayer->id)->get();
+            $assets = FixedAsset::where('taxpayer_id', $this->taxPayer->id)->get();
             foreach ($assets as $asset) {
                 $controller = new FixedAssetController();
                 $controller->depreciate($asset);

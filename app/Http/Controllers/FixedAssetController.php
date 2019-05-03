@@ -6,6 +6,7 @@ use App\Taxpayer;
 use App\Cycle;
 use App\Chart;
 use App\FixedAsset;
+use Carbon\Carbon;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
@@ -92,7 +93,6 @@ class FixedAssetController extends Controller
             $dailyDepreciation = $fixedAsset->purchase_value / ($fixedAssetGroup->asset_years * 365);
             // use the difference in time to calculate percentage reduction from purchase value.
             $fixedAsset->currentValue = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
-
             $fixedAsset->save();
         }
     }
