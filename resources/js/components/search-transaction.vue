@@ -1,25 +1,26 @@
 <template>
   <div>
-    <b-input-group>
-      <b-input
-        type="text"
-        v-model="transactionNumber"
-        placeholder="Search for Transaction Number"
-        @keyup="searchTransactionNumber()"
-      />
-      <b-input type="text" v-model="searchvalue" readonly="true"/>
-    </b-input-group>
+    <b-button v-b-modal.transactions>
+      <i class="material-icon">add</i>
+      {{ $t('general.searchForTransactions') }}
+    </b-button>
+    <b-modal id="transactions" size="xl" :title="$t('general.searchForTransaction')">
+      <b-input type="text" :placeholder="$t('general.search')" @keyup="search()" v-model="query"></b-input>
+      <b-table hover :items="results['data']" :fields="columns">
+        <template slot="actions" slot-scope="data">
+          <b-button @click="addTransaction(data.item)">Add</b-button>
+        </template>
 
-    <b-list-group>
-      <b-list-group-item
-        v-for="transaction in transactions"
-        @click="select(transaction)"
-        :key="transaction.id"
-      >
-        <b>{{ transaction.partner }}</b>
-        {{ transaction.number }} | {{ new Number(transaction.total).toLocaleString() }}
-      </b-list-group-item>
-    </b-list-group>
+        <div slot="table-busy">
+          <table-loading></table-loading>
+        </div>
+
+        <template slot="empty" slot-scope="data">
+          <table-empty></table-empty>
+        </template>
+      </b-table>
+      <div slot="modal-footer" class="w-100"></div>
+    </b-modal>
   </div>
 </template>
 
@@ -27,39 +28,41 @@
 import crud from "../components/crud.vue";
 export default {
   components: { crud: crud },
-  props: ["number", "value"],
+  props: ['impexType'],
   data: () => ({
-    searchnumber: "",
-    searchvalue: "",
-    partner: "",
-    selected: [],
-    transactions: []
+    query: "",
+    skip: 1,
+    results: [],
+    columns: [
+      {
+        key: "c",
+        label: "commercial.supplier",
+        formatter: (value, key, item) => {
+          return item.partner_name.substring(0, 24) + "...";
+        },
+        sortable: true
+      },
+      {
+        key: "number",
+        label: "commercial.number",
+        sortable: true
+      },
+      {
+        key: "current_value",
+        label: "commercial.value",
+        formatter: (value, key, item) => {
+          return new Number(item.value).toLocaleString();
+        },
+        sortable: true
+      },
+      {
+        key: "actions",
+        label: "",
+        sortable: false
+      }
+    ]
   }),
   computed: {
-    transactionNumber: {
-      // getter
-      get: function() {
-        return this.number;
-      },
-      // setter
-      set: function(newValue) {
-        this.searchnumber = newValue;
-        this.$emit("update:number", newValue);
-      }
-    },
-
-    transactionValue: {
-      // getter
-      get: function() {
-        return this.value;
-      },
-      // setter
-      set: function(newValue) {
-        this.searchvalue = newValue;
-        this.$emit("update:value", newValue);
-      }
-    },
-
     baseUrl() {
       return (
         "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
@@ -67,33 +70,34 @@ export default {
     }
   },
   methods: {
-    updateValue: function(value) {
-      this.$emit("update:number", value.number);
-      this.$emit("update:value", value.total);
-      this.selected = value;
-    },
-    select(transaction) {
+    search() {
+     
       var app = this;
-      app.updateValue(transaction);
-      app.transactions = [];
-      app.transactionNumber = transaction.number;
-      app.transactionValue = transaction.total;
-    },
-    searchTransactionNumber() {
-      var app = this;
-      if (app.searchnumber.length < 3) {
-        app.transactions = [];
+      if (app.query.length < 3) {
+        app.results = [];
       } else {
+         
         crud.methods
-          .onRead(app.baseUrl + "/search/purchases/" + app.searchnumber)
-          .then(function(response) {
-            app.transactions = response.data.data;
+          .onRead(app.baseUrl + "/search/purchases/products/"  + app.query)
+          .then(function(data) {
+            console.log(data);
+            app.results = data.data;
+            app.skip += app.pageSize;
           });
       }
+    },
+
+    addTransaction(item) {
+      var app = this;
+      app.$parent.data.transactions.push({id: item.id,number :item.number, value : item.value });
     }
   },
   mounted() {
-    var app = this;
+    if (this.columns != null) {
+      this.columns.forEach(element => {
+        element.label = this.$t(element.label);
+      });
+    }
   }
 };
 </script>

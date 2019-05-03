@@ -52,19 +52,31 @@ class SearchController extends Controller
         return ModelResource::collection($results->load('customer'));
     }
 
-    public function searchPurchaseTransactions(TaxPayer $taxPayer, $cycle, $q)
+    public function searchPurchaseTransactions(TaxPayer $taxPayer,Cycle $cycle, $query)
     {
         $taxPayerID = $taxPayer->id ?? $taxPayer;
 
         return GeneralResource::collection(
             Transaction::where('type', 1)
                 ->where('taxpayer_id', $taxPayerID)
-                ->where('number', 'like', '%' . $q . '%')
+                ->whereHas('details.chart', function($q) {
+                    $q->where('type', 1)->where('sub_type', 8);
+                })
+                ->where(function($q) use($query) {
+                        $q->where('number', 'like', '%' . $query . '%')
+                        ->orWhere('partner_name', 'like', '%' . $query . '%')
+                        ->orWhere('partner_taxid', 'like', '%' . $query . '%');
+                })
                 ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
                 ->select(
-                    DB::raw('max(partner_name) as partner'),
-                    DB::raw('max(number) as number'),
-                    DB::raw('sum(transaction_details.value) as total')
+                    'transactions.date',
+                    'transactions.partner_name',
+                    'transactions.currency',
+                    'transactions.rate',
+                    'transactions.number',
+                    'transactions.id',
+                    'transaction_details.chart_id',
+                    'transaction_details.value'
                 )
                 ->paginate(50)
         );
@@ -94,7 +106,7 @@ class SearchController extends Controller
                     'transaction_details.id',
                     'transaction_details.chart_id',
                     'charts.name as chart',
-                    'transaction_details.value as value',
+                    'transaction_details.value as value'
                 )
                 ->paginate(50)
         );

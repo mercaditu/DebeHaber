@@ -8,6 +8,9 @@ class ImpexExpense extends Model
 {
     protected $table = 'impex_expenses';
 
+    protected $fillable = [
+        'id'
+    ];
     //
     /**
      * Get the impex that owns the model.

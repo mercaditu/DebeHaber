@@ -27,7 +27,7 @@ import FormList from "../views/formList";
 import List from "../views/list";
 
 const Commercial = () => import("../views/commercials/index");
-const SalesUpload = () => import("../views/commercials/salesUpload");
+const SalesImport = () => import("../views/commercials/salesUpload");
 
 const Accounting = () => import("../views/accounts/index");
 const JournalList = () => import("../views/accounts/journalList");
@@ -174,8 +174,8 @@ export default [
                 children: [
                     {
                         path: "upload",
-                        component: SalesUpload,
-                        name: "salesUpload",
+                        component: SalesImport,
+                        name: "SalesImport",
                         meta: {
                             title: "commercial.salesInvoice",
                             img: "/img/apps/sales.svg"
@@ -682,6 +682,14 @@ export default [
                             visible: true
                         }
                     ],
+                    actions: [
+                        {
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
+                            url: "inventories/0"
+                        }
+                    ],
                     title: "commercial.inventories",
                     description: "Some description",
                     img: "/img/apps/inventory.svg",
@@ -914,7 +922,7 @@ export default [
                         {
                             name: "manual",
                             visible: true
-                        },
+                    },
                         {
                             name: "uploadFromExcel",
                             visible: false
@@ -922,6 +930,14 @@ export default [
                         {
                             name: "createNewRecord",
                             visible: true
+                        }
+                    ],
+                    actions: [
+                        {
+                            label: "general.create",
+                            icon: "add",
+                            variant: "outline-dark",
+                            url: "impexes/0"
                         }
                     ],
                     title: "commercial.impex",

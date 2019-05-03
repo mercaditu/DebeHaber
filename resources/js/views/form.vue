@@ -130,6 +130,7 @@
           <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
             <span v-for="property in col.properties" v-bind:key="property.index">
               <span v-if="property.type === 'select'">
+                {{detail[property.data]}}
                 <select-data
                   v-bind:Item.sync="detail[property.data]"
                   :api="property.api"
@@ -181,7 +182,9 @@ export default {
     return {
       changed: false,
       data: {
-        date: new Date(Date.now()).toISOString().split("T")[0]
+        date: new Date(Date.now()).toISOString().split("T")[0],
+        expenses : [],
+        transactions:[]
       }
     };
   },

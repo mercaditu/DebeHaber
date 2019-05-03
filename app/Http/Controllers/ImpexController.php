@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Transaction;
 use App\Taxpayer;
 use App\Cycle;
 use App\Impex;
@@ -48,27 +49,33 @@ class ImpexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Taxpayer $taxPayer)
     {
-        $impex = Impex::firstOrNew(['id', $request->id]);
+        $impex = Impex::firstOrNew(['id' => $request->id]);
+        $impex->taxpayer_id =  $taxPayer->id;
         $impex->comment =  $request->comment;
         $impex->code =  $request->code;
         $impex->date =  $request->date;
         $impex->save();
 
         //Store Transactions through foreach. Save ImpexId into transactions for Reference
-        foreach ($request->transactions as $transaction) {
-            $transaction->impex_id = $impex->id;
-            $transaction->save();
+        foreach ($request->transactions as $trans) {
+            $transaction = Transaction::where('id', $trans['id'])->first();
+            if(isset($transaction))
+            {
+                $transaction->impex_id = $impex->id;
+                $transaction->save();
+            }
         }
 
         //Store Expenses through foreach.
-        foreach ($request->expenses as $expense) {
-            $expense = ImpexExpense::firstOrNew(['id', $expense->id]);
-            $expense->chart_id = $expense->chart_id['id'];
-            $expense->transaction_detail_id = $expense->transaction_detail_id['id'];
-            $expense->currency = $expense->currency;
-            $expense->rate = $expense->rate;
+        foreach ($request->expenses as $data) {
+            $expense = ImpexExpense::firstOrNew(['id' => $data['chart_id']]);
+            $expense->impex_id =  $impex->id;
+            $expense->chart_id = $data['chart_id'];
+            $expense->transaction_detail_id = $data['transaction_detail_id'];
+            $expense->currency = $data['currency'];
+            $expense->rate = $data['rate'];
             $expense->save();
         }
     }

@@ -72,20 +72,25 @@
     "tables": [
         {
             "data": "transactions",
-            "actions": [{ "component": "search-expenses" }],
+            "actions": [{ "component": "search-transaction" }],
             "fields": [
                 {
-                    "label": "commercial.purchaseInvoice",
+                    "label": "commercial.number",
                     "properties": [
                         {
-                            "type": "transaction",
-                            "data": [
-                                {
-                                    "transactionnumber": "number",
-                                    "transactionvalue": "value"
-                                }
-                            ],
-                            "placeholder": "commercial.number",
+                            "type": "label",
+                            "data": "number",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.value",
+                    "properties": [
+                        {
+                            "type": "label",
+                            "data": "value",
                             "required": false,
                             "location": ""
                         }
@@ -101,13 +106,10 @@
                     "label": "commercial.item",
                     "properties": [
                         {
-                            "type": "select",
-                            "data": "chart_id",
-                            "placeholder": "commercial.chart",
-                            "api": "/accounting/charts/for/expense/",
+                            "type": "label",
+                            "data": "chart",
                             "required": false,
-                            "location": "",
-                            "select": [{ "value": "id", "label": "name" }]
+                            "location": ""
                         }
                     ]
                 },
@@ -115,13 +117,19 @@
                     "label": "commercial.currency",
                     "properties": [
                         {
-                            "type": "currency",
-                            "data": [
-                                {
-                                    "salecurrency": "currency",
-                                    "currencyrate": "rate"
-                                }
-                            ],
+                            "type": "label",
+                            "data": "currency",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "commercial.rate",
+                    "properties": [
+                        {
+                            "type": "label",
+                            "data": "rate",
                             "required": false,
                             "location": ""
                         }
@@ -131,15 +139,13 @@
                     "label": "commercial.value",
                     "properties": [
                         {
-                            "type": "text",
+                            "type": "label",
                             "data": "value",
-                            "placeholder": "commercial.value",
                             "required": false,
                             "location": ""
                         }
                     ]
-                },
-                {}
+                }
             ]
         }
     ]

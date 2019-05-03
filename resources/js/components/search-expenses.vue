@@ -8,7 +8,7 @@
       <b-input type="text" :placeholder="$t('general.search')" @keyup="search()" v-model="query"></b-input>
       <b-table hover :items="results['data']" :fields="columns">
         <template slot="actions" slot-scope="data">
-          <b-button @click="addExpense(data)">Add</b-button>
+          <b-button @click="addExpense(data.item)">Add</b-button>
         </template>
 
         <div slot="table-busy">
@@ -31,7 +31,6 @@ export default {
   data: () => ({
     query: "",
     skip: 1,
-    expense: [],
     results: [],
     columns: [
       {
@@ -79,13 +78,16 @@ export default {
   },
   methods: {
     search() {
+     
       var app = this;
       if (app.query.length < 3) {
         app.results = [];
       } else {
+         
         crud.methods
           .onRead(app.baseUrl + "/search/expenses/" + app.query)
           .then(function(data) {
+            
             app.results = data.data;
             app.skip += app.pageSize;
           });
@@ -94,10 +96,14 @@ export default {
 
     addExpense(item) {
       var app = this;
-      app.expense.transaction_detail_id = item.id;
-      app.expense.chart_id = item.chart_id;
-      app.expense.value = item.value;
-      app.parent.expenses.push($expense);
+      app.$parent.data.expenses.push({
+        transaction_detail_id: item.id,
+      chart : item.chart , 
+      chart_id :item.chart_id, 
+      value : item.value,
+      currency : item.currency,
+      rate: item.rate 
+      });
     }
   },
   mounted() {

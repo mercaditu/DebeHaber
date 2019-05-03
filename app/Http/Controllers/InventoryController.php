@@ -86,13 +86,13 @@ class InventoryController extends Controller
         }
 
         $inventory->taxpayer_id = $taxPayer->id;
-        $inventory->chart_id =$request->chart_id ;
+        $inventory->chart_id =$request->chart_id['id'] ;
         $inventory->start_date = $request->start_date;
         $inventory->end_date = $request->end_date;
         $inventory->sales_value = $request->sales_value;
         $inventory->cost_value = $request->cost_value;
         $inventory->inventory_value = $request->inventory_value;
-        $inventory->chart_of_incomes =implode('', $request->selectcharttype) ;
+       // $inventory->chart_of_incomes =implode('', $request->selectcharttype) ;
         $inventory->comments = $request->comment;
 
         $inventory->save();

@@ -26,7 +26,7 @@
                                     "type": "select",
                                     "data": "chart_id",
                                     "placeholder": "commercial.chart",
-                                    "api": "/commercial/inventories/get_InventoryChartType/",
+                                    "api": "/accounting/charts/for/income/",
                                     "required": false,
                                     "location": "append ",
                                     "select": [

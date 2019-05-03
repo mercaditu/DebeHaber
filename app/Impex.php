@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Impex extends Model
 {
+    protected $fillable = [
+        'id'
+    ];
     //
     /**
      * Get the transactions for the model.
