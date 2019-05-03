@@ -15,7 +15,7 @@
                                     "type": "date",
                                     "data": "date",
                                     "placeholder": "commercial.date",
-                                    "required": false,
+                                    "required": true,
                                     "location": ""
                                 }
                             ]

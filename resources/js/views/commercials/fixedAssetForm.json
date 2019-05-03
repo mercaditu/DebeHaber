@@ -14,7 +14,7 @@
                                     "type": "date",
                                     "data": "purchase_date",
                                     "placeholder": "commercial.date",
-                                    "required": false,
+                                    "required": true,
                                     "location": ""
                                 }
                             ]
@@ -26,7 +26,7 @@
                                     "type": "select",
                                     "data": "chart",
                                     "api": "/accounting/charts/for/fixed-assets/",
-                                    "required": false,
+                                    "required": true,
                                     "select": [
                                         {
                                             "value": "chart.id",

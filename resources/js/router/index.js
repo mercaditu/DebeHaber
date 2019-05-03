@@ -27,7 +27,7 @@ import FormList from "../views/formList";
 import List from "../views/list";
 
 const Commercial = () => import("../views/commercials/index");
-const SalesUpload = () => import("../views/commercials/salesUpload");
+const SalesImport = () => import("../views/commercials/salesUpload");
 
 const Accounting = () => import("../views/accounts/index");
 const JournalList = () => import("../views/accounts/journalList");
@@ -174,8 +174,8 @@ export default [
                 children: [
                     {
                         path: "upload",
-                        component: SalesUpload,
-                        name: "salesUpload",
+                        component: SalesImport,
+                        name: "SalesImport",
                         meta: {
                             title: "commercial.salesInvoice",
                             img: "/img/apps/sales.svg"
