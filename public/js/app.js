@@ -4169,17 +4169,24 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['impexType'],
+  props: ["impexType"],
   data: function data() {
     return {
       query: "",
       skip: 1,
       results: [],
       columns: [{
+        key: "date",
+        label: "general.date",
+        formatter: function formatter(value, key, item) {
+          return new Date(item.date).toLocaleDateString();
+        },
+        sortable: true
+      }, {
         key: "c",
         label: "commercial.supplier",
         formatter: function formatter(value, key, item) {
-          return item.partner_name.substring(0, 24) + "...";
+          return item.partner_name.substring(0, 32) + "...";
         },
         sortable: true
       }, {
@@ -4213,7 +4220,6 @@ __webpack_require__.r(__webpack_exports__);
         app.results = [];
       } else {
         _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/search/purchases/products/" + app.query).then(function (data) {
-          console.log(data);
           app.results = data.data;
           app.skip += app.pageSize;
         });
@@ -4263,14 +4269,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
+    multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: ["Item", "api", "options"],
+  props: ["item", "api", "options"],
   data: function data() {
     return {
       collections: []
@@ -4284,19 +4293,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       // setter
       set: function set(newValue) {
-        console.log(newValue);
-        this.$emit("update:Item", newValue);
+        this.$emit("update:item", newValue);
       }
     },
     baseUrl: function baseUrl() {
       return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
-    }
-  },
-  methods: {
-    itemSelect: function itemSelect() {
-      //do something after mounting vue instance
-      var app = this;
-      app.document_id = app.Item;
     }
   },
   mounted: function mounted() {
@@ -4310,7 +4311,6 @@ __webpack_require__.r(__webpack_exports__);
         if (app.value === "code") {
           response.data.data.forEach(function (element) {
             app.collections.push({
-              // index: this.data.details.length + 1,
               id: element.code,
               name: element.name
             });
@@ -4318,7 +4318,6 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           response.data.data.forEach(function (element) {
             app.collections.push({
-              // index: this.data.details.length + 1,
               id: element.id,
               name: element.name
             });
@@ -4405,8 +4404,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/crud.vue */ "./resources/js/components/crud.vue");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -4581,13 +4578,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -4662,7 +4656,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$forceUpdate();
     },
     deleteRow: function deleteRow(item, table, api) {
-      var app = this; //console.log(item, table);
+      var app = this;
 
       if (item.id > 0) {
         _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + api, item.id).then(function (response) {});
@@ -4673,13 +4667,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$forceUpdate();
       this.$snack.success({
         text: this.$i18n.t("general.rowDeleted"),
-        button: this.$i18n.t("general.undo") //action: app.undoDeletedRow(table)
-
+        button: this.$i18n.t("general.undo")
       });
     },
     undoDeletedRow: function undoDeletedRow(table) {
       if (this.lastDeletedRow.id > 0) {
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.$route.meta.pageurl + "/details", this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.$route.meta.pageurl + "/details", this.lastDeletedRow).then(function (response) {});
       }
 
       this.data[table].push(this.lastDeletedRow);
@@ -4697,7 +4690,6 @@ __webpack_require__.r(__webpack_exports__);
     if (app.$route.params.id > 0) {
       url = app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(url).then(function (response) {
-        //console.log(response);
         app.data = response.data.data;
       });
     }
@@ -95482,17 +95474,17 @@ var render = function() {
       _c("multiselect", {
         attrs: {
           options: _vm.collections,
-          placeholder: "Select one",
+          placeholder: _vm.$t("general.pleaseSelect"),
           label: "name",
           "track-by": "name"
         },
-        on: { input: _vm.itemSelect },
+        on: { input: _vm.item },
         model: {
-          value: _vm.Item,
+          value: _vm.item,
           callback: function($$v) {
-            _vm.Item = $$v
+            _vm.item = $$v
           },
-          expression: "Item"
+          expression: "item"
         }
       })
     ],
@@ -95918,18 +95910,11 @@ var render = function() {
                                       [
                                         _c("select-data", {
                                           attrs: {
-                                            Item: _vm.data[property.data],
+                                            item: _vm.data[property.data],
                                             api: property.api,
                                             options: property.options
                                           },
                                           on: {
-                                            "update:Item": function($event) {
-                                              return _vm.$set(
-                                                _vm.data,
-                                                property.data,
-                                                $event
-                                              )
-                                            },
                                             "update:item": function($event) {
                                               return _vm.$set(
                                                 _vm.data,
@@ -96240,25 +96225,13 @@ var render = function() {
                                 ? _c(
                                     "span",
                                     [
-                                      _vm._v(
-                                        "\n              " +
-                                          _vm._s(detail[property.data]) +
-                                          "\n              "
-                                      ),
                                       _c("select-data", {
                                         attrs: {
-                                          Item: detail[property.data],
+                                          item: detail[property.data],
                                           api: property.api,
                                           options: property.options
                                         },
                                         on: {
-                                          "update:Item": function($event) {
-                                            return _vm.$set(
-                                              detail,
-                                              property.data,
-                                              $event
-                                            )
-                                          },
                                           "update:item": function($event) {
                                             return _vm.$set(
                                               detail,

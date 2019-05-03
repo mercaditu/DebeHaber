@@ -28,17 +28,25 @@
 import crud from "../components/crud.vue";
 export default {
   components: { crud: crud },
-  props: ['impexType'],
+  props: ["impexType"],
   data: () => ({
     query: "",
     skip: 1,
     results: [],
     columns: [
       {
+        key: "date",
+        label: "general.date",
+        formatter: (value, key, item) => {
+          return new Date(item.date).toLocaleDateString();
+        },
+        sortable: true
+      },
+      {
         key: "c",
         label: "commercial.supplier",
         formatter: (value, key, item) => {
-          return item.partner_name.substring(0, 24) + "...";
+          return item.partner_name.substring(0, 32) + "...";
         },
         sortable: true
       },
@@ -71,16 +79,13 @@ export default {
   },
   methods: {
     search() {
-     
       var app = this;
       if (app.query.length < 3) {
         app.results = [];
       } else {
-         
         crud.methods
-          .onRead(app.baseUrl + "/search/purchases/products/"  + app.query)
+          .onRead(app.baseUrl + "/search/purchases/products/" + app.query)
           .then(function(data) {
-            console.log(data);
             app.results = data.data;
             app.skip += app.pageSize;
           });
@@ -89,7 +94,11 @@ export default {
 
     addTransaction(item) {
       var app = this;
-      app.$parent.data.transactions.push({id: item.id,number :item.number, value : item.value });
+      app.$parent.data.transactions.push({
+        id: item.id,
+        number: item.number,
+        value: item.value
+      });
     }
   },
   mounted() {

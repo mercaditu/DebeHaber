@@ -52,18 +52,20 @@ class SearchController extends Controller
         return ModelResource::collection($results->load('customer'));
     }
 
-    public function searchPurchaseTransactions(TaxPayer $taxPayer,Cycle $cycle, $query)
+    public function searchPurchaseTransactions(TaxPayer $taxPayer, Cycle $cycle, $query)
     {
         $taxPayerID = $taxPayer->id ?? $taxPayer;
 
         return GeneralResource::collection(
             Transaction::where('type', 1)
+                ->where('transactions.sub_type', 1)
                 ->where('taxpayer_id', $taxPayerID)
-                ->whereHas('details.chart', function($q) {
-                    $q->where('type', 1)->where('sub_type', 8);
+                ->whereHas('details.chart', function ($q) {
+                    $q->where('type', 1)
+                        ->where('sub_type', 8);
                 })
-                ->where(function($q) use($query) {
-                        $q->where('number', 'like', '%' . $query . '%')
+                ->where(function ($q) use ($query) {
+                    $q->where('number', 'like', '%' . $query . '%')
                         ->orWhere('partner_name', 'like', '%' . $query . '%')
                         ->orWhere('partner_taxid', 'like', '%' . $query . '%');
                 })
@@ -78,7 +80,8 @@ class SearchController extends Controller
                     'transaction_details.chart_id',
                     'transaction_details.value'
                 )
-                ->paginate(50)
+                ->orderBy('transactions.date', 'desc')
+                ->paginate(25)
         );
     }
 
@@ -108,6 +111,7 @@ class SearchController extends Controller
                     'charts.name as chart',
                     'transaction_details.value as value'
                 )
+                ->orderBy('transactions.date', 'desc')
                 ->paginate(50)
         );
     }

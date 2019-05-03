@@ -1,22 +1,24 @@
 <template>
   <div>
-     <multiselect v-model="Item" :options="collections" 
-        placeholder="Select one"  @input="itemSelect"
-        label="name" 
-         track-by="name"></multiselect>
-    <!-- <b-form-select v-model="document_id" :options="collections"></b-form-select> -->
+    <multiselect
+      v-model="item"
+      :options="collections"
+      :placeholder="$t('general.pleaseSelect')"
+      @input="item"
+      label="name"
+      track-by="name"
+    ></multiselect>
   </div>
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import multiselect from "vue-multiselect";
 import crud from "../components/crud.vue";
 export default {
-  components: { crud: crud ,Multiselect},
-  props: ["Item", "api", "options"],
+  components: { crud: crud, multiselect },
+  props: ["item", "api", "options"],
   data: () => ({
     collections: []
-   
   }),
   computed: {
     document_id: {
@@ -26,21 +28,13 @@ export default {
       },
       // setter
       set: function(newValue) {
-        console.log(newValue);
-        this.$emit("update:Item", newValue);
+        this.$emit("update:item", newValue);
       }
     },
     baseUrl() {
       return (
         "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
-    }
-  },
-  methods: {
-    itemSelect() {
-        //do something after mounting vue instance
-        var app = this;
-        app.document_id = app.Item;
     }
   },
   mounted() {
@@ -53,7 +47,6 @@ export default {
         if (app.value === "code") {
           response.data.data.forEach(element => {
             app.collections.push({
-              // index: this.data.details.length + 1,
               id: element.code,
               name: element.name
             });
@@ -61,7 +54,6 @@ export default {
         } else {
           response.data.data.forEach(element => {
             app.collections.push({
-              // index: this.data.details.length + 1,
               id: element.id,
               name: element.name
             });

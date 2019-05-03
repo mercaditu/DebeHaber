@@ -50,7 +50,7 @@
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
                   <select-data
-                    v-bind:Item.sync="data[property.data]"
+                    v-bind:item.sync="data[property.data]"
                     :api="property.api"
                     :options="property.options"
                   ></select-data>
@@ -130,9 +130,8 @@
           <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
             <span v-for="property in col.properties" v-bind:key="property.index">
               <span v-if="property.type === 'select'">
-                {{detail[property.data]}}
                 <select-data
-                  v-bind:Item.sync="detail[property.data]"
+                  v-bind:item.sync="detail[property.data]"
                   :api="property.api"
                   :options="property.options"
                 ></select-data>
@@ -175,16 +174,15 @@
 
 <script>
 import crud from "../components/crud.vue";
-import Multiselect from "vue-multiselect";
 export default {
-  components: { crud: crud, Multiselect },
+  components: { crud: crud },
   data() {
     return {
       changed: false,
       data: {
         date: new Date(Date.now()).toISOString().split("T")[0],
-        expenses : [],
-        transactions:[]
+        expenses: [],
+        transactions: []
       }
     };
   },
@@ -255,7 +253,6 @@ export default {
 
     deleteRow(item, table, api) {
       var app = this;
-      //console.log(item, table);
       if (item.id > 0) {
         crud.methods
           .onDelete(app.baseUrl + api, item.id)
@@ -269,7 +266,6 @@ export default {
       this.$snack.success({
         text: this.$i18n.t("general.rowDeleted"),
         button: this.$i18n.t("general.undo")
-        //action: app.undoDeletedRow(table)
       });
     },
 
@@ -281,7 +277,6 @@ export default {
             this.lastDeletedRow
           )
           .then(function(response) {});
-        //axios code to insert detail again??? or let save do it.
       }
       this.data[table].push(this.lastDeletedRow);
     }
@@ -297,7 +292,6 @@ export default {
     if (app.$route.params.id > 0) {
       url = app.baseUrl + app.$route.meta.pageurl + "/" + app.$route.params.id;
       crud.methods.onRead(url).then(function(response) {
-        //console.log(response);
         app.data = response.data.data;
       });
     }
