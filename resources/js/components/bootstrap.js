@@ -28,14 +28,11 @@ Vue.component(
 );
 Vue.component("search-taxpayer", require("./search-taxpayer.vue").default);
 Vue.component("filter-data", require("./filter.vue").default);
-Vue.component("multiselect", require("./multiselect.vue").default);
 Vue.component("payment-condition", require("./payment-condition.vue").default);
 Vue.component("document", require("./document.vue").default);
 Vue.component("currency", require("./currency.vue").default);
 Vue.component("search-chart", require("./search-chart.vue").default);
 Vue.component("search-expenses", require("./search-expenses.vue").default);
-
-// Vue.component("Erp-next", require("../Integration/ErpNext.vue").default);
 
 Vue.component("table-actions", require("./table/actions.vue").default);
 Vue.component("table-loading", require("./table/loading.vue").default);
