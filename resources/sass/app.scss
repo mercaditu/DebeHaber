@@ -86,10 +86,6 @@ td {
     vertical-align: middle !important;
 }
 
-// .table thead th {
-//     background-color: white !important;
-// }
-
 .list-group-item {
     background-color: inherit !important;
     .list-group-item-action {
@@ -100,10 +96,6 @@ td {
 .list-group-item.disabled {
     background-color: inherit !important;
     color: #a8b6bf !important;
-}
-
-.card-deck .card {
-    margin-bottom: 25px;
 }
 
 .navbar-default .navbar-nav > li {
@@ -123,6 +115,10 @@ td {
     margin-bottom: 5px !important;
     margin-top: 10px !important;
     margin-left: 10px !important;
+}
+
+.navbar-spark i {
+    opacity: 1 !important;
 }
 
 .navbar-spark .nav-link,

@@ -10,9 +10,8 @@
             </h1>
           </b-card>
           <b-card v-for="component in $route.meta.components" v-bind:key="component.key" no-body>
-           
-              <component v-if="component.type != 'links'"   v-bind:is="component.type"></component>
-          
+            <component v-if="component.type != 'links'" v-bind:is="component.type"></component>
+
             <b-list-group v-else flush>
               <b-list-group-item
                 v-for="link in component.links"
@@ -32,7 +31,7 @@
         <div v-if="$route.name.includes('List')">
           <crud inline-template>
             <div>
-              <b-row>
+              <b-row class="mb-10 mt-10">
                 <b-col>
                   <filter-data></filter-data>
                 </b-col>
@@ -43,23 +42,40 @@
                     aria-label="Toolbar with button groups"
                   >
                     <b-button-group class="mx-1">
-                      <b-button @click="refresh(items.links.first)" variant="primary">&laquo;</b-button>
-                      <b-button @click="refresh(items.links.prev)" variant="primary">&lsaquo;</b-button>
+                      <b-button
+                        @click="refresh(items.links.first)"
+                        variant="primary"
+                        size="sm"
+                      >&laquo;</b-button>
+                      <b-button
+                        @click="refresh(items.links.prev)"
+                        variant="primary"
+                        size="sm"
+                      >&lsaquo;</b-button>
                     </b-button-group>
                     <b-button-group class="mx-1">
                       <b-button
-                        v-for="action in $route.meta.actions"
-                        v-bind:key="action.index"
-                        :to="action.url"
-                        :variant="action.variant"
+                        v-for="child in $route.children"
+                        v-bind:key="child.index"
+                        :to="child.url"
+                        :variant="child.variant"
+                        size="sm"
                       >
-                        <i class="material-icons md-18">{{ action.icon }}</i>
-                        {{ $t(action.label) }}
+                        <i class="material-icons md-18">{{ child.icon }}</i>
+                        {{ $t(child.label) }}
                       </b-button>
                     </b-button-group>
                     <b-button-group class="mx-1">
-                      <b-button @click="refresh(items.links.next)" variant="primary">&rsaquo;</b-button>
-                      <b-button @click="refresh(items.links.last)" variant="primary">&raquo;</b-button>
+                      <b-button
+                        @click="refresh(items.links.next)"
+                        variant="primary"
+                        size="sm"
+                      >&rsaquo;</b-button>
+                      <b-button
+                        @click="refresh(items.links.last)"
+                        variant="primary"
+                        size="sm"
+                      >&raquo;</b-button>
                     </b-button-group>
                   </b-button-toolbar>
                 </b-col>
@@ -71,9 +87,9 @@
                   hover
                   responsive
                   :items="items.data"
-                  :per-page="items.meta!=null?items.meta.per-page:10"
+                  :per-page="items.meta != null ? items.meta.per - page : 10"
                   :fields="$route.meta.columns"
-                  :current-page="items.meta!=null?items.meta.current_page:1"
+                  :current-page="items.meta != null ? items.meta.current_page : 1"
                   show-empty
                 >
                   <template slot="actions" slot-scope="data">
@@ -85,15 +101,28 @@
                   </div>
 
                   <template slot="empty" slot-scope="data">
-                    <b-row>
-                      <b-col>
-                        <b-img right fluid center :src="$route.meta.img"/>
-                      </b-col>
-                      <b-col>
-                        <h4>Nothing here</h4>
-                        <p class="lead">But you can change that</p>
-                      </b-col>
-                    </b-row>
+                    <b-container class="m-25">
+                      <b-row align-v="center">
+                        <b-col>
+                          <b-img right fluid center :src="$route.meta.img"/>
+                        </b-col>
+                        <b-col>
+                          <h4>Nothing here</h4>
+                          <p
+                            class="lead"
+                          >But you can change that, start by clicking one of the following options.</p>
+                          <b-button
+                            v-for="action in $route.meta.actions"
+                            v-bind:key="action.index"
+                            :to="action.url"
+                            :variant="action.variant"
+                          >
+                            <i class="material-icons md-18">{{ action.icon }}</i>
+                            {{ $t(action.label) }}
+                          </b-button>
+                        </b-col>
+                      </b-row>
+                    </b-container>
                   </template>
 
                   <div slot="table-busy" class="text-center text-danger my-2">

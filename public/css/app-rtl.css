@@ -12340,10 +12340,6 @@ td {
   color: #a8b6bf !important;
 }
 
-.card-deck .card {
-  margin-bottom: 25px;
-}
-
 .navbar-default .navbar-nav > li {
   display: inline-block;
 }
@@ -12361,6 +12357,10 @@ td {
   margin-bottom: 5px !important;
   margin-top: 10px !important;
   margin-right: 10px !important;
+}
+
+.navbar-spark i {
+  opacity: 1 !important;
 }
 
 .navbar-spark .nav-link,

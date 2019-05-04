@@ -5100,6 +5100,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -97090,6 +97119,7 @@ var render = function() {
                               [
                                 _c(
                                   "b-row",
+                                  { staticClass: "mb-10 mt-10" },
                                   [
                                     _c("b-col", [_c("filter-data")], 1),
                                     _vm._v(" "),
@@ -97115,7 +97145,8 @@ var render = function() {
                                                   "b-button",
                                                   {
                                                     attrs: {
-                                                      variant: "primary"
+                                                      variant: "primary",
+                                                      size: "sm"
                                                     },
                                                     on: {
                                                       click: function($event) {
@@ -97132,7 +97163,8 @@ var render = function() {
                                                   "b-button",
                                                   {
                                                     attrs: {
-                                                      variant: "primary"
+                                                      variant: "primary",
+                                                      size: "sm"
                                                     },
                                                     on: {
                                                       click: function($event) {
@@ -97152,15 +97184,16 @@ var render = function() {
                                               "b-button-group",
                                               { staticClass: "mx-1" },
                                               _vm._l(
-                                                _vm.$route.meta.actions,
-                                                function(action) {
+                                                _vm.$route.children,
+                                                function(child) {
                                                   return _c(
                                                     "b-button",
                                                     {
-                                                      key: action.index,
+                                                      key: child.index,
                                                       attrs: {
-                                                        to: action.url,
-                                                        variant: action.variant
+                                                        to: child.url,
+                                                        variant: child.variant,
+                                                        size: "sm"
                                                       }
                                                     },
                                                     [
@@ -97172,14 +97205,14 @@ var render = function() {
                                                         },
                                                         [
                                                           _vm._v(
-                                                            _vm._s(action.icon)
+                                                            _vm._s(child.icon)
                                                           )
                                                         ]
                                                       ),
                                                       _vm._v(
                                                         "\n                      " +
                                                           _vm._s(
-                                                            _vm.$t(action.label)
+                                                            _vm.$t(child.label)
                                                           ) +
                                                           "\n                    "
                                                       )
@@ -97198,7 +97231,8 @@ var render = function() {
                                                   "b-button",
                                                   {
                                                     attrs: {
-                                                      variant: "primary"
+                                                      variant: "primary",
+                                                      size: "sm"
                                                     },
                                                     on: {
                                                       click: function($event) {
@@ -97215,7 +97249,8 @@ var render = function() {
                                                   "b-button",
                                                   {
                                                     attrs: {
-                                                      variant: "primary"
+                                                      variant: "primary",
+                                                      size: "sm"
                                                     },
                                                     on: {
                                                       click: function($event) {
@@ -97280,42 +97315,108 @@ var render = function() {
                                               fn: function(data) {
                                                 return [
                                                   _c(
-                                                    "b-row",
+                                                    "b-container",
+                                                    { staticClass: "m-25" },
                                                     [
                                                       _c(
-                                                        "b-col",
+                                                        "b-row",
+                                                        {
+                                                          attrs: {
+                                                            "align-v": "center"
+                                                          }
+                                                        },
                                                         [
-                                                          _c("b-img", {
-                                                            attrs: {
-                                                              right: "",
-                                                              fluid: "",
-                                                              center: "",
-                                                              src:
+                                                          _c(
+                                                            "b-col",
+                                                            [
+                                                              _c("b-img", {
+                                                                attrs: {
+                                                                  right: "",
+                                                                  fluid: "",
+                                                                  center: "",
+                                                                  src:
+                                                                    _vm.$route
+                                                                      .meta.img
+                                                                }
+                                                              })
+                                                            ],
+                                                            1
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-col",
+                                                            [
+                                                              _c("h4", [
+                                                                _vm._v(
+                                                                  "Nothing here"
+                                                                )
+                                                              ]),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "p",
+                                                                {
+                                                                  staticClass:
+                                                                    "lead"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "But you can change that, start by clicking one of the following options."
+                                                                  )
+                                                                ]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _vm._l(
                                                                 _vm.$route.meta
-                                                                  .img
-                                                            }
-                                                          })
+                                                                  .actions,
+                                                                function(
+                                                                  action
+                                                                ) {
+                                                                  return _c(
+                                                                    "b-button",
+                                                                    {
+                                                                      key:
+                                                                        action.index,
+                                                                      attrs: {
+                                                                        to:
+                                                                          action.url,
+                                                                        variant:
+                                                                          action.variant
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _c(
+                                                                        "i",
+                                                                        {
+                                                                          staticClass:
+                                                                            "material-icons md-18"
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            _vm._s(
+                                                                              action.icon
+                                                                            )
+                                                                          )
+                                                                        ]
+                                                                      ),
+                                                                      _vm._v(
+                                                                        "\n                          " +
+                                                                          _vm._s(
+                                                                            _vm.$t(
+                                                                              action.label
+                                                                            )
+                                                                          ) +
+                                                                          "\n                        "
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                }
+                                                              )
+                                                            ],
+                                                            2
+                                                          )
                                                         ],
                                                         1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c("b-col", [
-                                                        _c("h4", [
-                                                          _vm._v("Nothing here")
-                                                        ]),
-                                                        _vm._v(" "),
-                                                        _c(
-                                                          "p",
-                                                          {
-                                                            staticClass: "lead"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "But you can change that"
-                                                            )
-                                                          ]
-                                                        )
-                                                      ])
+                                                      )
                                                     ],
                                                     1
                                                   )
@@ -97325,7 +97426,7 @@ var render = function() {
                                           ],
                                           null,
                                           false,
-                                          1131588988
+                                          3215999561
                                         )
                                       },
                                       [
@@ -114199,6 +114300,9 @@ var _views_accounts_budgetForm_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*
 /* harmony import */ var _views_form__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../views/form */ "./resources/js/views/form.vue");
 /* harmony import */ var _views_formList__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../views/formList */ "./resources/js/views/formList.vue");
 /* harmony import */ var _views_list__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../views/list */ "./resources/js/views/list.vue");
+var _ref;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -114224,16 +114328,9 @@ var _views_accounts_budgetForm_json__WEBPACK_IMPORTED_MODULE_17___namespace = /*
 
 
 
-var Commercial = function Commercial() {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/commercials/index */ "./resources/js/views/commercials/index.vue"));
-};
 
 var SalesImport = function SalesImport() {
   return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../views/commercials/salesUpload */ "./resources/js/views/commercials/salesUpload.vue"));
-};
-
-var Accounting = function Accounting() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/accounts/index */ "./resources/js/views/accounts/index.vue"));
 };
 
 var JournalList = function JournalList() {
@@ -114297,823 +114394,812 @@ var AccountingReports = function AccountingReports() {
     img: "/img/apps/search.svg"
   }
 }, {
-  path: "/:taxPayer/:cycle/commercial/",
-  component: Commercial,
-  name: "commercialMenu",
+  path: "/:taxPayer/:cycle/commercial/sales",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "salesList",
   meta: {
-    title: "Dashboard",
-    description: "Some description"
+    components: [{
+      type: "invoices-this-month-kpi"
+    }, {
+      type: "links",
+      links: [{
+        label: "general.manual",
+        icon: "help_outline",
+        url: "/docs/en/transactions/sales"
+      }, {
+        label: "general.report",
+        icon: "insert_chart_outlined",
+        url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
+      }]
+    }],
+    title: "commercial.salesBook",
+    img: "/img/apps/sales.svg",
+    columns: [{
+      key: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true,
+      searchable: false
+    }, {
+      key: "partner_name",
+      label: "commercial.customer",
+      formatter: function formatter(value, key, item) {
+        return item.partner_name.substring(0, 32) + "...";
+      },
+      sortable: true,
+      searchable: true
+    }, {
+      key: "number",
+      label: "commercial.number",
+      sortable: true,
+      searchable: true
+    }, {
+      key: "total",
+      label: "general.total",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.details.reduce(function (sum, row) {
+          return sum + new Number(row["value"]);
+        }, 0)).toLocaleString();
+      },
+      sortable: true,
+      searchable: false
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false,
+      searchable: false
+    }]
   },
   children: [{
-    path: "sales",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "salesList",
+    label: "general.upload",
+    icon: "cloud_upload",
+    variant: "dark",
+    path: "upload",
+    component: SalesImport,
     meta: {
-      components: [{
-        type: "invoices-this-month-kpi"
-      }, {
-        type: "links",
-        links: [{
-          label: "general.manual",
-          icon: "help_outline",
-          url: "/docs/en/transactions/sales"
-        }, {
-          label: "general.report",
-          icon: "insert_chart_outlined",
-          url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
-        }]
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "sales/0"
-      }, {
-        label: "general.upload",
-        icon: "cloud_upload",
-        variant: "outline-dark",
-        url: ""
-      }],
-      title: "commercial.salesBook",
-      description: "Some description",
-      img: "/img/apps/sales.svg",
-      columns: [{
-        key: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true,
-        searchable: false
-      }, {
-        key: "partner_name",
-        label: "commercial.customer",
-        formatter: function formatter(value, key, item) {
-          return item.partner_name.substring(0, 32) + "...";
-        },
-        sortable: true,
-        searchable: true
-      }, {
-        key: "number",
-        label: "commercial.number",
-        sortable: true,
-        searchable: true
-      }, {
-        key: "total",
-        label: "general.total",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.details.reduce(function (sum, row) {
-            return sum + new Number(row["value"]);
-          }, 0)).toLocaleString();
-        },
-        sortable: true,
-        searchable: false
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false,
-        searchable: false
-      }]
-    },
-    children: [{
-      path: "upload",
-      component: SalesImport,
-      name: "SalesImport",
-      meta: {
-        title: "commercial.salesInvoice",
-        img: "/img/apps/sales.svg"
-      }
+      title: "commercial.salesInvoice"
+    }
+  }, (_ref = {
+    label: "general.create",
+    icon: "add",
+    variant: "dark",
+    url: "sales/0",
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"]
+  }, _defineProperty(_ref, "label", "salesForm"), _defineProperty(_ref, "meta", _views_commercials_salesForm_json__WEBPACK_IMPORTED_MODULE_2__), _ref)]
+}, {
+  path: "/:taxPayer/:cycle/commercial/credit-notes",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "creditList",
+  meta: {
+    components: [{
+      type: "invoices-this-month-kpi"
     }, {
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "salesForm",
-      meta: _views_commercials_salesForm_json__WEBPACK_IMPORTED_MODULE_2__
-    }]
-  }, {
-    path: "credit-notes",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "creditList",
-    meta: {
-      components: [{
-        type: "invoices-this-month-kpi"
+      type: "links",
+      links: [{
+        label: "general.manual",
+        icon: "help_outline",
+        url: "/docs/en/transactions/credit-notes"
       }, {
-        type: "links",
-        links: [{
-          label: "general.manual",
-          icon: "help_outline",
-          url: "/docs/en/transactions/credit-notes"
-        }, {
-          label: "general.report",
-          icon: "insert_chart_outlined",
-          url: "/:taxPayer/:cycle/commercial/reports/credit-notes/2019-03-01/2019-03-31"
-        }]
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "credit-notes/0"
-      }, {
-        label: "general.upload",
-        icon: "cloud_upload",
-        variant: "outline-dark",
-        url: ""
-      }],
-      title: "commercial.creditBook",
-      description: "Some description",
-      img: "/img/apps/credit-note.svg",
-      columns: [{
-        key: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true,
-        searchable: false
-      }, {
-        key: "partner_name",
-        label: "commercial.customer",
-        formatter: function formatter(value, key, item) {
-          return item.partner_name.substring(0, 18) + "...";
-        },
-        sortable: true,
-        searchable: true
-      }, {
-        key: "number",
-        label: "commercial.number",
-        sortable: true
-      }, {
-        key: "total",
-        label: "general.total",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.details.reduce(function (sum, row) {
-            return sum + new Number(row["value"]);
-          }, 0)).toLocaleString();
-        },
-        sortable: true,
-        searchable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false,
-        searchable: false
+        label: "general.report",
+        icon: "insert_chart_outlined",
+        url: "/:taxPayer/:cycle/commercial/reports/credit-notes/2019-03-01/2019-03-31"
       }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "creditForm",
-      meta: _views_commercials_creditForm_json__WEBPACK_IMPORTED_MODULE_0__
-    }]
-  }, {
-    path: "purchases",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "purchaseList",
-    meta: {
-      components: [{
-        type: "invoices-this-month-kpi"
-      }, {
-        type: "links",
-        links: [{
-          label: "general.manual",
-          icon: "help_outline",
-          url: "/docs/en/transactions/purchases"
-        }, {
-          label: "general.report",
-          icon: "insert_chart_outlined",
-          url: "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
-        }]
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "purchases/0"
-      }, {
-        label: "general.upload",
-        icon: "cloud_upload",
-        variant: "outline-dark",
-        url: ""
-      }],
-      title: "commercial.purchaseBook",
-      description: "Some description",
-      img: "/img/apps/purchase-v1.svg",
-      columns: [{
-        key: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "partner_name",
-        label: "commercial.supplier",
-        sortable: true,
-        searchable: true
-      }, {
-        key: "number",
-        label: "commercial.number",
-        sortable: true,
-        searchable: true
-      }, {
-        key: "total",
-        label: "general.total",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.details.reduce(function (sum, row) {
-            return sum + new Number(row["value"]);
-          }, 0)).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "purchaseForm",
-      meta: _views_commercials_purchaseForm_json__WEBPACK_IMPORTED_MODULE_5__
-    }]
-  }, {
-    path: "debit-notes",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "debitList",
-    meta: {
-      components: [{
-        type: "invoices-this-month-kpi"
-      }, {
-        type: "links",
-        links: [{
-          label: "general.manual",
-          icon: "help_outline",
-          url: "/docs/en/transactions/debit-notes"
-        }, {
-          label: "general.report",
-          icon: "insert_chart_outlined",
-          url: "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
-        }]
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "sales/0"
-      }, {
-        label: "general.upload",
-        icon: "cloud_upload",
-        variant: "outline-dark",
-        url: ""
-      }],
-      title: "commercial.debitBook",
-      description: "Some description",
-      img: "/img/apps/credit-note.svg",
-      columns: [{
-        key: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "partner_name",
-        label: "commercial.customer",
-        sortable: true
-      }, {
-        key: "number",
-        label: "commercial.number",
-        sortable: true
-      }, {
-        key: "total",
-        label: "general.total",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.details.reduce(function (sum, row) {
-            return sum + new Number(row["value"]);
-          }, 0)).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "debitForm",
-      meta: _views_commercials_debitForm_json__WEBPACK_IMPORTED_MODULE_1__
-    }]
-  }, {
-    path: "fixed-assets",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "fixedAssetList",
-    meta: {
-      components: [{
-        type: "invoices-this-month-kpi"
-      }, {
-        type: "links",
-        links: [{
-          label: "general.manual",
-          icon: "help_outline",
-          url: "/docs/en/transactions/fixed-assets"
-        }, {
-          label: "general.report",
-          icon: "insert_chart_outlined",
-          url: "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
-        }]
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "sales/0"
-      }, {
-        label: "general.upload",
-        icon: "cloud_upload",
-        variant: "outline-dark",
-        url: ""
-      }],
-      title: "commercial.fixedAssets",
-      description: "Some description",
-      img: "/img/apps/fixed-asset.svg",
-      columns: [{
-        key: "purchase_date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.purchase_date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "serial",
-        label: "commercial.serial",
-        sortable: true
-      }, {
-        key: "name",
-        label: "commercial.name",
-        sortable: true
-      }, {
-        key: "current_value",
-        label: "commercial.value",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.current_value).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "fixedAssetForm",
-      meta: _views_commercials_fixedAssetForm_json__WEBPACK_IMPORTED_MODULE_7__
-    }]
-  }, {
-    path: "money",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "moneyMovementList",
-    meta: {
-      components: [{
-        type: "links",
-        links: [{
-          label: "general.manual",
-          icon: "help_outline",
-          url: "/docs/en/transactions/sales"
-        }, {
-          label: "general.report",
-          icon: "insert_chart_outlined",
-          url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
-        }]
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "sales/0"
-      }, {
-        label: "general.upload",
-        icon: "cloud_upload",
-        variant: "outline-dark",
-        url: ""
-      }],
-      title: "commercial.moneyMovements",
-      description: "Some description",
-      img: "/img/apps/money-flow.svg",
-      columns: [{
-        key: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "chart.name",
-        label: "accounting.chartOfAccounts",
-        sortable: true
-      }, {
-        key: "comment",
-        label: "general.comment",
-        sortable: true
-      }, {
-        key: "currency",
-        label: "",
-        sortable: true
-      }, {
-        key: "credit",
-        label: "general.credit",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.credit).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "debit",
-        label: "general.debit",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.debit).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "moneyMovementForm",
-      meta: _views_commercials_moneyMovementDebitForm_json__WEBPACK_IMPORTED_MODULE_12__
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "credit-notes/0"
     }, {
-      path: "transfers",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "moneyTransferForm",
-      img: "/img/apps/money-transfer.svg",
-      meta: _views_commercials_moneyMovementForm_json__WEBPACK_IMPORTED_MODULE_13__
+      label: "general.upload",
+      icon: "cloud_upload",
+      variant: "dark",
+      url: ""
+    }],
+    title: "commercial.creditBook",
+    description: "Some description",
+    img: "/img/apps/credit-note.svg",
+    columns: [{
+      key: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true,
+      searchable: false
+    }, {
+      key: "partner_name",
+      label: "commercial.customer",
+      formatter: function formatter(value, key, item) {
+        return item.partner_name.substring(0, 18) + "...";
+      },
+      sortable: true,
+      searchable: true
+    }, {
+      key: "number",
+      label: "commercial.number",
+      sortable: true
+    }, {
+      key: "total",
+      label: "general.total",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.details.reduce(function (sum, row) {
+          return sum + new Number(row["value"]);
+        }, 0)).toLocaleString();
+      },
+      sortable: true,
+      searchable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false,
+      searchable: false
     }]
-  }, {
-    path: "inventories",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "inventoryList",
-    meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
-      }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "inventories/0"
-      }],
-      title: "commercial.inventories",
-      description: "Some description",
-      img: "/img/apps/inventory.svg",
-      columns: [{
-        key: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "start_date",
-        label: "commercial.startDate",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.start_date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "end_date",
-        label: "commercial.endDate",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.end_date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "inventory_value",
-        label: "commercial.value",
-        sortable: true
-      }, {
-        key: "comments",
-        label: "general.comment",
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "inventoryForm",
-      meta: _views_commercials_inventoryForm_json__WEBPACK_IMPORTED_MODULE_6__
-    }]
-  }, {
-    path: "accounts-receivable",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "receivableList",
-    meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
-      }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
-      title: "commercial.accountReceivables",
-      description: "Some description",
-      img: "/img/apps/account-receivable.svg",
-      columns: [{
-        key: "date",
-        format: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "partner",
-        label: "commercial.customer",
-        formatter: function formatter(value, key, item) {
-          return item.partner_name.substring(0, 15) + "...";
-        },
-        sortable: true
-      }, {
-        key: "number",
-        label: "commercial.number",
-        sortable: true
-      }, {
-        key: "credit",
-        label: "commercial.payment",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.credit).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "balance",
-        format: "numeric",
-        label: "commercial.balance",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.balance).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "receivableForm",
-      meta: _views_commercials_receivableForm_json__WEBPACK_IMPORTED_MODULE_3__
-    }]
-  }, {
-    path: "accounts-payable",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "payableList",
-    meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
-      }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
-      title: "commercial.accountPayables",
-      description: "Some description",
-      img: "/img/apps/account-payable.svg",
-      columns: [{
-        key: "date",
-        format: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "partner",
-        label: "commercial.supplier",
-        formatter: function formatter(value, key, item) {
-          return item.partner_name.substring(0, 15) + "...";
-        },
-        sortable: true
-      }, {
-        key: "number",
-        label: "commercial.number",
-        sortable: true
-      }, {
-        key: "payment",
-        label: "commercial.payment",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.payment).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "balance",
-        label: "commercial.balance",
-        formatter: function formatter(value, key, item) {
-          return new Number(item.balance).toLocaleString();
-        },
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "payableForm",
-      meta: _views_commercials_payableForm_json__WEBPACK_IMPORTED_MODULE_4__
-    }]
-  }, {
-    path: "impexes",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "impexList",
-    meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
-      }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
-      actions: [{
-        label: "general.create",
-        icon: "add",
-        variant: "outline-dark",
-        url: "impexes/0"
-      }],
-      title: "commercial.impex",
-      description: "Some description",
-      img: "/img/apps/impex.svg",
-      columns: [{
-        key: "date",
-        format: "date",
-        label: "commercial.date",
-        formatter: function formatter(value, key, item) {
-          return new Date(item.date).toLocaleDateString();
-        },
-        sortable: true
-      }, {
-        key: "partner",
-        label: "commercial.supplier",
-        formatter: function formatter(value, key, item) {
-          return item.partner_name.substring(0, 15) + "...";
-        },
-        sortable: true
-      }, {
-        key: "code",
-        label: "commercial.code",
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
-      }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "impexForm",
-      meta: _views_commercials_impexForm_json__WEBPACK_IMPORTED_MODULE_8__
-    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "creditForm",
+    meta: _views_commercials_creditForm_json__WEBPACK_IMPORTED_MODULE_0__
   }]
 }, {
-  path: "/:taxPayer/:cycle/accounting/",
-  component: Accounting,
-  name: "accountingMenu",
+  path: "/:taxPayer/:cycle/commercial/purchases",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "purchaseList",
   meta: {
-    title: "Accounting",
-    description: "All your accounting data is here"
+    components: [{
+      type: "invoices-this-month-kpi"
+    }, {
+      type: "links",
+      links: [{
+        label: "general.manual",
+        icon: "help_outline",
+        url: "/docs/en/transactions/purchases"
+      }, {
+        label: "general.report",
+        icon: "insert_chart_outlined",
+        url: "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
+      }]
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "purchases/0"
+    }, {
+      label: "general.upload",
+      icon: "cloud_upload",
+      variant: "dark",
+      url: ""
+    }],
+    title: "commercial.purchaseBook",
+    description: "Some description",
+    img: "/img/apps/purchase-v1.svg",
+    columns: [{
+      key: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "partner_name",
+      label: "commercial.supplier",
+      sortable: true,
+      searchable: true
+    }, {
+      key: "number",
+      label: "commercial.number",
+      sortable: true,
+      searchable: true
+    }, {
+      key: "total",
+      label: "general.total",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.details.reduce(function (sum, row) {
+          return sum + new Number(row["value"]);
+        }, 0)).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
   },
   children: [{
-    path: "journal-templates",
-    component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
-    name: "journalTemplateList",
-    meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "purchaseForm",
+    meta: _views_commercials_purchaseForm_json__WEBPACK_IMPORTED_MODULE_5__
+  }]
+}, {
+  path: "/:taxPayer/:cycle/commercial/debit-notes",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "debitList",
+  meta: {
+    components: [{
+      type: "invoices-this-month-kpi"
+    }, {
+      type: "links",
+      links: [{
+        label: "general.manual",
+        icon: "help_outline",
+        url: "/docs/en/transactions/debit-notes"
       }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
-      title: "accounting.template",
-      description: "Some description",
-      img: "/img/apps/journal-template.svg",
-      columns: [{
-        key: "name",
-        sortable: true
-      }, {
-        key: "actions",
-        label: "",
-        sortable: false
+        label: "general.report",
+        icon: "insert_chart_outlined",
+        url: "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
       }]
-    },
-    children: [{
-      path: ":id",
-      component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-      name: "journalTemplateForm",
-      meta: _views_accounts_templateForm_json__WEBPACK_IMPORTED_MODULE_14__
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "sales/0"
+    }, {
+      label: "general.upload",
+      icon: "cloud_upload",
+      variant: "dark",
+      url: ""
+    }],
+    title: "commercial.debitBook",
+    description: "Some description",
+    img: "/img/apps/credit-note.svg",
+    columns: [{
+      key: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "partner_name",
+      label: "commercial.customer",
+      sortable: true
+    }, {
+      key: "number",
+      label: "commercial.number",
+      sortable: true
+    }, {
+      key: "total",
+      label: "general.total",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.details.reduce(function (sum, row) {
+          return sum + new Number(row["value"]);
+        }, 0)).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
     }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "debitForm",
+    meta: _views_commercials_debitForm_json__WEBPACK_IMPORTED_MODULE_1__
+  }]
+}, {
+  path: "/:taxPayer/:cycle/commercial/fixed-assets",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "fixedAssetList",
+  meta: {
+    components: [{
+      type: "invoices-this-month-kpi"
+    }, {
+      type: "links",
+      links: [{
+        label: "general.manual",
+        icon: "help_outline",
+        url: "/docs/en/transactions/fixed-assets"
+      }, {
+        label: "general.report",
+        icon: "insert_chart_outlined",
+        url: "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
+      }]
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "sales/0"
+    }, {
+      label: "general.upload",
+      icon: "cloud_upload",
+      variant: "dark",
+      url: ""
+    }],
+    title: "commercial.fixedAssets",
+    description: "Some description",
+    img: "/img/apps/fixed-asset.svg",
+    columns: [{
+      key: "purchase_date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.purchase_date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "serial",
+      label: "commercial.serial",
+      sortable: true
+    }, {
+      key: "name",
+      label: "commercial.name",
+      sortable: true
+    }, {
+      key: "current_value",
+      label: "commercial.value",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.current_value).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "fixedAssetForm",
+    meta: _views_commercials_fixedAssetForm_json__WEBPACK_IMPORTED_MODULE_7__
+  }]
+}, {
+  path: "/:taxPayer/:cycle/commercial/money",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "moneyMovementList",
+  meta: {
+    components: [{
+      type: "links",
+      links: [{
+        label: "general.manual",
+        icon: "help_outline",
+        url: "/docs/en/transactions/sales"
+      }, {
+        label: "general.report",
+        icon: "insert_chart_outlined",
+        url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
+      }]
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "money/0"
+    }, {
+      label: "general.transfer",
+      icon: "compare_arrows",
+      variant: "dark",
+      url: "money/0"
+    }, {
+      label: "general.upload",
+      icon: "cloud_upload",
+      variant: "dark",
+      url: ""
+    }],
+    title: "commercial.moneyMovements",
+    description: "Some description",
+    img: "/img/apps/money-flow.svg",
+    columns: [{
+      key: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "chart.name",
+      label: "accounting.chartOfAccounts",
+      searchable: true,
+      sortable: true
+    }, {
+      key: "comment",
+      label: "general.comment",
+      searchable: true,
+      sortable: true
+    }, {
+      key: "currency",
+      label: "",
+      sortable: true
+    }, {
+      key: "credit",
+      label: "general.credit",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.credit).toLocaleString();
+      },
+      searchable: true,
+      sortable: true
+    }, {
+      key: "debit",
+      label: "general.debit",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.debit).toLocaleString();
+      },
+      searchable: true,
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "moneyMovementForm",
+    meta: _views_commercials_moneyMovementDebitForm_json__WEBPACK_IMPORTED_MODULE_12__
   }, {
-    path: "journals",
-    component: JournalList,
-    name: "journalList",
+    path: "transfers",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "moneyTransferForm",
+    img: "/img/apps/money-transfer.svg",
+    meta: _views_commercials_moneyMovementForm_json__WEBPACK_IMPORTED_MODULE_13__
+  }]
+}, {
+  path: "/:taxPayer/:cycle/commercial/inventories",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "inventoryList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "inventories/0"
+    }],
+    title: "commercial.inventories",
+    description: "Some description",
+    img: "/img/apps/inventory.svg",
+    columns: [{
+      key: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "start_date",
+      label: "commercial.startDate",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.start_date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "end_date",
+      label: "commercial.endDate",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.end_date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "inventory_value",
+      label: "commercial.value",
+      sortable: true
+    }, {
+      key: "comments",
+      label: "general.comment",
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "inventoryForm",
+    meta: _views_commercials_inventoryForm_json__WEBPACK_IMPORTED_MODULE_6__
+  }]
+}, {
+  path: "/:taxPayer/:cycle/commercial/accounts-receivable",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "receivableList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    title: "commercial.accountReceivables",
+    description: "Some description",
+    img: "/img/apps/account-receivable.svg",
+    columns: [{
+      key: "date",
+      format: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "partner",
+      label: "commercial.customer",
+      formatter: function formatter(value, key, item) {
+        return item.partner_name.substring(0, 15) + "...";
+      },
+      sortable: true
+    }, {
+      key: "number",
+      label: "commercial.number",
+      sortable: true
+    }, {
+      key: "credit",
+      label: "commercial.payment",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.credit).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "balance",
+      format: "numeric",
+      label: "commercial.balance",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.balance).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "receivableForm",
+    meta: _views_commercials_receivableForm_json__WEBPACK_IMPORTED_MODULE_3__
+  }]
+}, //Accounts Payable
+{
+  path: "/:taxPayer/:cycle/commercial/accounts-payable",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "payableList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    title: "commercial.accountPayables",
+    description: "Some description",
+    img: "/img/apps/account-payable.svg",
+    columns: [{
+      key: "date",
+      format: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "partner",
+      label: "commercial.supplier",
+      formatter: function formatter(value, key, item) {
+        return item.partner_name.substring(0, 15) + "...";
+      },
+      sortable: true
+    }, {
+      key: "number",
+      label: "commercial.number",
+      sortable: true
+    }, {
+      key: "payment",
+      label: "commercial.payment",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.payment).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "balance",
+      label: "commercial.balance",
+      formatter: function formatter(value, key, item) {
+        return new Number(item.balance).toLocaleString();
+      },
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "payableForm",
+    meta: _views_commercials_payableForm_json__WEBPACK_IMPORTED_MODULE_4__
+  }]
+}, //Impexes
+{
+  path: "/:taxPayer/:cycle/commercial/impexes",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "impexList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    actions: [{
+      label: "general.create",
+      icon: "add",
+      variant: "dark",
+      url: "impexes/0"
+    }],
+    title: "commercial.impex",
+    description: "Some description",
+    img: "/img/apps/impex.svg",
+    columns: [{
+      key: "date",
+      format: "date",
+      label: "commercial.date",
+      formatter: function formatter(value, key, item) {
+        return new Date(item.date).toLocaleDateString();
+      },
+      sortable: true
+    }, {
+      key: "partner",
+      label: "commercial.supplier",
+      formatter: function formatter(value, key, item) {
+        return item.partner_name.substring(0, 15) + "...";
+      },
+      sortable: true
+    }, {
+      key: "code",
+      label: "commercial.code",
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "impexForm",
+    meta: _views_commercials_impexForm_json__WEBPACK_IMPORTED_MODULE_8__
+  }]
+}, //Journal Templates
+{
+  path: "/:taxPayer/:cycle/accounting/journal-templates",
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
+  name: "journalTemplateList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    title: "accounting.template",
+    description: "Some description",
+    img: "/img/apps/journal-template.svg",
+    columns: [{
+      key: "name",
+      sortable: true
+    }, {
+      key: "actions",
+      label: "",
+      sortable: false
+    }]
+  },
+  children: [{
+    path: ":id",
+    component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
+    name: "journalTemplateForm",
+    meta: _views_accounts_templateForm_json__WEBPACK_IMPORTED_MODULE_14__
+  }]
+}, //Journals
+{
+  path: "/:taxPayer/:cycle/accounting/journals",
+  component: JournalList,
+  name: "journalList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    title: "accounting.journal",
+    description: "Some description",
+    img: "/img/apps/journals.svg"
+  },
+  children: [{
+    path: ":id",
+    component: JournalForm,
+    name: "journalForm",
     meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
-      }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
       title: "accounting.journal",
-      description: "Some description",
       img: "/img/apps/journals.svg"
-    },
-    children: [{
-      path: ":id",
-      component: JournalForm,
-      name: "journalForm",
-      meta: {
-        title: "accounting.journal",
-        img: "/img/apps/journals.svg"
-      }
-    }]
-  }, {
-    path: "opening-balance",
-    component: _views_formList__WEBPACK_IMPORTED_MODULE_22__["default"],
-    name: "openingBalanceForm",
-    meta: _views_accounts_openingBalanceForm_json__WEBPACK_IMPORTED_MODULE_15__
-  }, {
-    path: "closing-balance",
-    component: _views_formList__WEBPACK_IMPORTED_MODULE_22__["default"],
-    name: "closingBalanceForm",
-    meta: _views_accounts_closingBalanceForm_json__WEBPACK_IMPORTED_MODULE_16__
-  }, {
-    path: "budget",
-    component: _views_formList__WEBPACK_IMPORTED_MODULE_22__["default"],
-    name: "budgetForm",
-    meta: _views_accounts_budgetForm_json__WEBPACK_IMPORTED_MODULE_17__
-  }, {
-    path: "charts",
-    component: ChartList,
-    name: "chartList",
+    }
+  }]
+}, //Opening Balance
+{
+  path: "/:taxPayer/:cycle/accounting/opening-balance",
+  component: _views_formList__WEBPACK_IMPORTED_MODULE_22__["default"],
+  name: "openingBalanceForm",
+  meta: _views_accounts_openingBalanceForm_json__WEBPACK_IMPORTED_MODULE_15__
+}, //Closing Balance
+{
+  path: "/:taxPayer/:cycle/accounting/closing-balance",
+  component: _views_formList__WEBPACK_IMPORTED_MODULE_22__["default"],
+  name: "closingBalanceForm",
+  meta: _views_accounts_closingBalanceForm_json__WEBPACK_IMPORTED_MODULE_16__
+}, //Budget
+{
+  path: "/:taxPayer/:cycle/accounting/budget",
+  component: _views_formList__WEBPACK_IMPORTED_MODULE_22__["default"],
+  name: "budgetForm",
+  meta: _views_accounts_budgetForm_json__WEBPACK_IMPORTED_MODULE_17__
+}, {
+  path: "/:taxPayer/:cycle/accounting/charts",
+  component: ChartList,
+  name: "chartList",
+  meta: {
+    buttons: [{
+      name: "manual",
+      visible: true
+    }, {
+      name: "uploadFromExcel",
+      visible: false
+    }, {
+      name: "createNewRecord",
+      visible: true
+    }],
+    title: "accounting.chartOfAccounts",
+    description: "Some description",
+    img: "/img/apps/chart-of-accounts.svg"
+  },
+  children: [{
+    path: ":id",
+    component: ChartForm,
+    name: "chartForm",
     meta: {
-      buttons: [{
-        name: "manual",
-        visible: true
-      }, {
-        name: "uploadFromExcel",
-        visible: false
-      }, {
-        name: "createNewRecord",
-        visible: true
-      }],
-      title: "accounting.chartOfAccounts",
-      description: "Some description",
+      title: "Chart Form",
       img: "/img/apps/chart-of-accounts.svg"
-    },
-    children: [{
-      path: ":id",
-      component: ChartForm,
-      name: "chartForm",
-      meta: {
-        title: "Chart Form",
-        img: "/img/apps/chart-of-accounts.svg"
-      }
-    }]
+    }
   }]
 }, {
   path: "/:taxPayer/:cycle/config/",
@@ -116276,7 +116362,7 @@ module.exports = {"pageurl":"/commercial/impexes","title":"commercial.impex","im
 /*! exports provided: pageurl, title, img, cards, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/commercial/inventories","title":"commercial.Inventory","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"commercial.startdate","properties":[{"type":"date","data":"start_date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/income/","required":false,"location":"append ","select":[{"value":"id","label":"name"}]}]}]},{"fields":[{"label":"commercial.enddate","properties":[{"type":"date","data":"end_date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.value","properties":[{"type":"text","data":"current_value","placeholder":"commercial.currentValue ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.salesvalue","properties":[{"type":"text","data":"sales_value","placeholder":"commercial.salesValue","required":false,"location":""}]},{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.costValue","properties":[{"type":"text","data":"cost_value","placeholder":"commercial.costValue","required":false,"location":""}]},{"label":"commercial.inventoryValue","properties":[{"type":"text","data":"inventory_value","placeholder":"commercial.inventoryValue","required":false,"location":""}]}]}]}]};
+module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"commercial.startdate","properties":[{"type":"date","data":"start_date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/income/","required":false,"location":"append ","select":[{"value":"id","label":"name"}]}]}]},{"fields":[{"label":"commercial.enddate","properties":[{"type":"date","data":"end_date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.value","properties":[{"type":"text","data":"current_value","placeholder":"commercial.currentValue ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.salesvalue","properties":[{"type":"text","data":"sales_value","placeholder":"commercial.salesValue","required":false,"location":""}]},{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.costValue","properties":[{"type":"text","data":"cost_value","placeholder":"commercial.costValue","required":false,"location":""}]},{"label":"commercial.inventoryValue","properties":[{"type":"text","data":"inventory_value","placeholder":"commercial.inventoryValue","required":false,"location":""}]}]}]}]};
 
 /***/ }),
 

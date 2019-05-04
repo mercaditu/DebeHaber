@@ -8,6 +8,7 @@ use App\Cycle;
 use Illuminate\Http\Request;
 use App\Http\Resources\GeneralResource;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\Filter;
 use Carbon\Carbon;
 
 class AccountMovementController extends Controller
@@ -15,26 +16,19 @@ class AccountMovementController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query = AccountMovement::orderBy('date', 'desc')
-                 ->with('chart:name,code')
-                 ->with('transaction:id,number,comment');
+            ->with('chart')
+            ->with('transaction:id,number,comment');
 
         return GeneralResource::collection(
             QueryBuilder::for($query)
-                ->allowedIncludes('chart')
-                ->allowedFilters('chart.name')
+                ->allowedFilters('chart.name', 'comment', Filter::exact('debit'), Filter::exact('credit'))
                 ->paginate(50)
         );
-        // return GeneralResource::collection(
-        //     AccountMovement::orderBy('date', 'desc')
-        //         ->with('chart:name,code')
-        //         ->with('transaction:id,number,comment')
-        //         ->paginate(50)
-        // );
     }
 
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        
+
         if ($request->type != 2) {
             $accountMovement = AccountMovement::firstOrNew(['id' => $request->id]);
             $accountMovement->taxpayer_id = $taxPayer->id;
@@ -63,10 +57,10 @@ class AccountMovementController extends Controller
             $toAccountMovement->date =  Carbon::now();
             $toAccountMovement->credit = $request->credit ?? 0;
             $toAccountMovement->currency = $request->to_currency;
-            $toAccountMovement->rate = $request->ro_rate ?? 1;
+            $toAccountMovement->rate = $request->to_rate ?? 1;
             $toAccountMovement->comment = $request->comment;
             $toAccountMovement->save();
-         }
+        }
 
         return response()->json('Ok', 200);
     }
@@ -77,22 +71,19 @@ class AccountMovementController extends Controller
             AccountMovement::with('chart')
                 ->with('transaction:id,number,comment')
                 ->where('id', $movement)
-                //->select('id','chart_id as from_chart_id','taxpayer_id','journal_id','partner_id','transaction_id','currency as from_currency','rate as from_rate','date','debit','credit')
                 ->first()
         );
-       
     }
-
 
     public function generate_Journals($startDate, $endDate, $taxPayer, $cycle)
     {
         \DB::connection()->disableQueryLog();
 
-         $journal = \App\Journal::where('cycle_id' , $cycle->id)
-            ->where('date' , $endDate->format('Y-m-d'))
-            ->where('is_automatic' , 1)
-            ->where('module_id' , 7)
-            ->with('details')->first()?? new \App\Journal();   
+        $journal = \App\Journal::where('cycle_id', $cycle->id)
+            ->where('date', $endDate->format('Y-m-d'))
+            ->where('is_automatic', 1)
+            ->where('module_id', 7)
+            ->with('details')->first() ?? new \App\Journal();
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
@@ -111,7 +102,7 @@ class AccountMovementController extends Controller
         $journal->is_automatic = 1;
         $journal->module_id = 7;
         $journal->save();
-        
+
         $chartController = new ChartController();
 
         //1st Query: Movements related to Credit Sales. Cash Sales are ignored.
@@ -119,7 +110,7 @@ class AccountMovementController extends Controller
             ->whereHas('transaction', function ($q) use ($taxPayer) {
                 $q->where('taxpayer_id', '=', $taxPayer->id)
                     ->where('payment_condition', '>', 0)
-                    ->where('type',2);
+                    ->where('type', 2);
             })
             ->with('transaction')
             ->get();
@@ -150,20 +141,20 @@ class AccountMovementController extends Controller
             $rateDifference = abs($invoiceRate - $paymentRate);
 
             if ($paymentRate > $invoiceRate) //Gain by Exchange Rante Difference
-                {
-                    $detail = new \App\JournalDetail();
-                    $detail->credit = $row->credit * $rateDifference;
-                    $detail->debit = 0;
-                    $detail->chart_id = $chartController->createIfNotExists_IncomeFromFX($taxPayer, $cycle)->id;
-                    $journal->details()->save($detail);
-                } else if ($paymentRate < $invoiceRate) //Loss by Exchange Rante Difference
-                {
-                    $detail = new \App\JournalDetail();
-                    $detail->credit = 0;
-                    $detail->debit = $row->credit * $rateDifference;
-                    $detail->chart_id = $chartController->createIfNotExists_ExpenseFromFX($taxPayer, $cycle)->id;
-                    $journal->details()->save($detail);
-                }
+            {
+                $detail = new \App\JournalDetail();
+                $detail->credit = $row->credit * $rateDifference;
+                $detail->debit = 0;
+                $detail->chart_id = $chartController->createIfNotExists_IncomeFromFX($taxPayer, $cycle)->id;
+                $journal->details()->save($detail);
+            } else if ($paymentRate < $invoiceRate) //Loss by Exchange Rante Difference
+            {
+                $detail = new \App\JournalDetail();
+                $detail->credit = 0;
+                $detail->debit = $row->credit * $rateDifference;
+                $detail->chart_id = $chartController->createIfNotExists_ExpenseFromFX($taxPayer, $cycle)->id;
+                $journal->details()->save($detail);
+            }
         }
 
         //2nd Query: Movements related to Credit Purchases. Cash Purchases are ignored.
@@ -171,11 +162,11 @@ class AccountMovementController extends Controller
             ->whereHas('transaction', function ($q) use ($taxPayer) {
                 $q->where('taxpayer_id', '=', $taxPayer->id)
                     ->where('payment_condition', '>', 0)
-                    ->where('type',1);
+                    ->where('type', 1);
             })
             ->with('transaction')
             ->get();
-           
+
         //run code for credit purchase (insert detail into journal)
         foreach ($listOfPayables as $row) {
             $value = $row->debit * $row->rate;
@@ -203,22 +194,22 @@ class AccountMovementController extends Controller
             $rateDifference = abs($invoiceRate - $paymentRate);
 
             if ($paymentRate < $invoiceRate) //Gain by Exchange Rante Difference
-                {
-                    $detail = new \App\JournalDetail();
-                    $detail->credit = $row->credit * $rateDifference;
-                    $detail->debit = 0;
-                    $detail->chart_id = $chartController->createIfNotExists_IncomeFromFX($taxPayer, $cycle)->id;
-                    $journal->details()->save($detail);
-                } else if ($paymentRate > $invoiceRate) //Loss by Exchange Rante Difference
-                {
-                    $detail = new \App\JournalDetail();
-                    $detail->credit = 0;
-                    $detail->debit = $row->credit * $rateDifference;
-                    $detail->chart_id = $chartController->createIfNotExists_ExpenseFromFX($taxPayer, $cycle)->id;
-                    $journal->details()->save($detail);
-                }
+            {
+                $detail = new \App\JournalDetail();
+                $detail->credit = $row->credit * $rateDifference;
+                $detail->debit = 0;
+                $detail->chart_id = $chartController->createIfNotExists_IncomeFromFX($taxPayer, $cycle)->id;
+                $journal->details()->save($detail);
+            } else if ($paymentRate > $invoiceRate) //Loss by Exchange Rante Difference
+            {
+                $detail = new \App\JournalDetail();
+                $detail->credit = 0;
+                $detail->debit = $row->credit * $rateDifference;
+                $detail->chart_id = $chartController->createIfNotExists_ExpenseFromFX($taxPayer, $cycle)->id;
+                $journal->details()->save($detail);
+            }
         }
-        
+
         //3rd Query: Movements that have no transactions. Example bank transfers and deposits
         $listOfMovements = AccountMovement::My($startDate, $endDate, $taxPayer->id)
             ->doesntHave('transaction')
@@ -239,7 +230,7 @@ class AccountMovementController extends Controller
                 $journal->details()->save($detail);
             }
         }
-    
+
         if ($journal->details()->count() == 0) {
             $journal->details()->delete();
             $journal->delete();
