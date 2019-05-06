@@ -97309,124 +97309,11 @@ var render = function() {
                                                   })
                                                 ]
                                               }
-                                            },
-                                            {
-                                              key: "empty",
-                                              fn: function(data) {
-                                                return [
-                                                  _c(
-                                                    "b-container",
-                                                    { staticClass: "m-25" },
-                                                    [
-                                                      _c(
-                                                        "b-row",
-                                                        {
-                                                          attrs: {
-                                                            "align-v": "center"
-                                                          }
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "b-col",
-                                                            [
-                                                              _c("b-img", {
-                                                                attrs: {
-                                                                  right: "",
-                                                                  fluid: "",
-                                                                  center: "",
-                                                                  src:
-                                                                    _vm.$route
-                                                                      .meta.img
-                                                                }
-                                                              })
-                                                            ],
-                                                            1
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "b-col",
-                                                            [
-                                                              _c("h4", [
-                                                                _vm._v(
-                                                                  "Nothing here"
-                                                                )
-                                                              ]),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "p",
-                                                                {
-                                                                  staticClass:
-                                                                    "lead"
-                                                                },
-                                                                [
-                                                                  _vm._v(
-                                                                    "But you can change that, start by clicking one of the following options."
-                                                                  )
-                                                                ]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _vm._l(
-                                                                _vm.$route.meta
-                                                                  .actions,
-                                                                function(
-                                                                  action
-                                                                ) {
-                                                                  return _c(
-                                                                    "b-button",
-                                                                    {
-                                                                      key:
-                                                                        action.index,
-                                                                      attrs: {
-                                                                        to:
-                                                                          action.url,
-                                                                        variant:
-                                                                          action.variant
-                                                                      }
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "i",
-                                                                        {
-                                                                          staticClass:
-                                                                            "material-icons md-18"
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            _vm._s(
-                                                                              action.icon
-                                                                            )
-                                                                          )
-                                                                        ]
-                                                                      ),
-                                                                      _vm._v(
-                                                                        "\n                          " +
-                                                                          _vm._s(
-                                                                            _vm.$t(
-                                                                              action.label
-                                                                            )
-                                                                          ) +
-                                                                          "\n                        "
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                }
-                                                              )
-                                                            ],
-                                                            2
-                                                          )
-                                                        ],
-                                                        1
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ]
-                                              }
                                             }
                                           ],
                                           null,
                                           false,
-                                          3215999561
+                                          1612661290
                                         )
                                       },
                                       [
@@ -97441,6 +97328,114 @@ var render = function() {
                                           1
                                         ),
                                         _vm._v(" "),
+                                        _c(
+                                          "template",
+                                          { slot: "empty" },
+                                          [
+                                            _c(
+                                              "b-container",
+                                              { staticClass: "m-25" },
+                                              [
+                                                _c(
+                                                  "b-row",
+                                                  {
+                                                    attrs: {
+                                                      "align-v": "center"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "b-col",
+                                                      [
+                                                        _c("b-img", {
+                                                          attrs: {
+                                                            right: "",
+                                                            fluid: "",
+                                                            center: "",
+                                                            src:
+                                                              _vm.$route.meta
+                                                                .img
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-col",
+                                                      [
+                                                        _c("h4", [
+                                                          _vm._v("Nothing here")
+                                                        ]),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "p",
+                                                          {
+                                                            staticClass: "lead"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "But you can change that, start by clicking one of the following options."
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _vm._l(
+                                                          _vm.$route.meta
+                                                            .actions,
+                                                          function(action) {
+                                                            return _c(
+                                                              "b-button",
+                                                              {
+                                                                key:
+                                                                  action.index,
+                                                                attrs: {
+                                                                  to:
+                                                                    action.url,
+                                                                  variant:
+                                                                    action.variant
+                                                                }
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "i",
+                                                                  {
+                                                                    staticClass:
+                                                                      "material-icons md-18"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        action.icon
+                                                                      )
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(
+                                                                  "\n                          " +
+                                                                    _vm._s(
+                                                                      _vm.$t(
+                                                                        action.label
+                                                                      )
+                                                                    ) +
+                                                                    "\n                        "
+                                                                )
+                                                              ]
+                                                            )
+                                                          }
+                                                        )
+                                                      ],
+                                                      2
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
                                         _vm._v(" "),
                                         _c(
                                           "div",
@@ -97459,7 +97454,8 @@ var render = function() {
                                           ],
                                           1
                                         )
-                                      ]
+                                      ],
+                                      2
                                     )
                                   ],
                                   1
@@ -114329,12 +114325,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var SalesImport = function SalesImport() {
-  return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../views/commercials/salesUpload */ "./resources/js/views/commercials/salesUpload.vue"));
+var Import = function Import() {
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/import */ "./resources/js/views/import.vue"));
 };
 
 var JournalList = function JournalList() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/accounts/journalList */ "./resources/js/views/accounts/journalList.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../views/accounts/journalList */ "./resources/js/views/accounts/journalList.vue"));
 };
 
 var JournalForm = function JournalForm() {
@@ -114350,23 +114346,23 @@ var ChartForm = function ChartForm() {
 };
 
 var Config = function Config() {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../views/configs/index */ "./resources/js/views/configs/index.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../views/configs/index */ "./resources/js/views/configs/index.vue"));
 };
 
 var VersionList = function VersionList() {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../views/configs/versionList */ "./resources/js/views/configs/versionList.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/configs/versionList */ "./resources/js/views/configs/versionList.vue"));
 };
 
 var VersionForm = function VersionForm() {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../views/configs/versionForm */ "./resources/js/views/configs/versionForm.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../views/configs/versionForm */ "./resources/js/views/configs/versionForm.vue"));
 };
 
 var CommercialReports = function CommercialReports() {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../views/commercials/reports */ "./resources/js/views/commercials/reports.vue"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/commercials/reports */ "./resources/js/views/commercials/reports.vue"));
 };
 
 var AccountingReports = function AccountingReports() {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../views/accounts/reports */ "./resources/js/views/accounts/reports.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../views/accounts/reports */ "./resources/js/views/accounts/reports.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ([//This will cause 404 Errors to be redirected to proper site.
@@ -114398,6 +114394,8 @@ var AccountingReports = function AccountingReports() {
   component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
   name: "salesList",
   meta: {
+    title: "commercial.salesBook",
+    img: "/img/apps/sales.svg",
     components: [{
       type: "invoices-this-month-kpi"
     }, {
@@ -114405,15 +114403,13 @@ var AccountingReports = function AccountingReports() {
       links: [{
         label: "general.manual",
         icon: "help_outline",
-        url: "/docs/en/transactions/sales"
+        url: "/docs/:lang/transactions/sales"
       }, {
         label: "general.report",
         icon: "insert_chart_outlined",
         url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
       }]
     }],
-    title: "commercial.salesBook",
-    img: "/img/apps/sales.svg",
     columns: [{
       key: "date",
       label: "commercial.date",
@@ -114457,7 +114453,7 @@ var AccountingReports = function AccountingReports() {
     icon: "cloud_upload",
     variant: "dark",
     path: "upload",
-    component: SalesImport,
+    component: Import,
     meta: {
       title: "commercial.salesInvoice"
     }

@@ -26,7 +26,7 @@ import Form from "../views/form";
 import FormList from "../views/formList";
 import List from "../views/list";
 
-const SalesImport = () => import("../views/commercials/salesUpload");
+const Import = () => import("../views/import");
 
 const JournalList = () => import("../views/accounts/journalList");
 const JournalForm = () => import("../components/journalForm");
@@ -74,6 +74,8 @@ export default [
         component: List,
         name: "salesList",
         meta: {
+            title: "commercial.salesBook",
+            img: "/img/apps/sales.svg",
             components: [
                 {
                     type: "invoices-this-month-kpi"
@@ -84,7 +86,7 @@ export default [
                         {
                             label: "general.manual",
                             icon: "help_outline",
-                            url: "/docs/en/transactions/sales"
+                            url: "/docs/:lang/transactions/sales"
                         },
                         {
                             label: "general.report",
@@ -95,8 +97,6 @@ export default [
                     ]
                 }
             ],
-            title: "commercial.salesBook",
-            img: "/img/apps/sales.svg",
             columns: [
                 {
                     key: "date",
@@ -150,7 +150,7 @@ export default [
                 variant: "dark",
 
                 path: "upload",
-                component: SalesImport,
+                component: Import,
                 meta: {
                     title: "commercial.salesInvoice"
                 }

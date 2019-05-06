@@ -100,7 +100,7 @@
                     <table-loading></table-loading>
                   </div>
 
-                  <template slot="empty" slot-scope="data">
+                  <template slot="empty">
                     <b-container class="m-25">
                       <b-row align-v="center">
                         <b-col>
