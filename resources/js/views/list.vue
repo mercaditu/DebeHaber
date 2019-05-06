@@ -55,7 +55,7 @@
                     </b-button-group>
                     <b-button-group class="mx-1">
                       <b-button
-                        v-for="child in this.$router.options.routes[3].children"
+                        v-for="child in this.$router.options.routes.find(r => r.name === $route.name).children"
                         v-bind:key="child.index"
                         :to="child.url"
                         :variant="child.variant"
@@ -80,7 +80,7 @@
                   </b-button-toolbar>
                 </b-col>
               </b-row>
-              {{ this.$router.options.routes }}
+              <!-- {{ this.$router.options.routes }} -->
               <b-card no-body>
                 <b-table
                   id="my-table"
