@@ -97184,7 +97184,8 @@ var render = function() {
                                               "b-button-group",
                                               { staticClass: "mx-1" },
                                               _vm._l(
-                                                _vm.$route.children,
+                                                this.$router.options.routes[3]
+                                                  .children,
                                                 function(child) {
                                                   return _c(
                                                     "b-button",
@@ -97274,7 +97275,11 @@ var render = function() {
                                   ],
                                   1
                                 ),
-                                _vm._v(" "),
+                                _vm._v(
+                                  "\n            " +
+                                    _vm._s(this.$router.options.routes) +
+                                    "\n            "
+                                ),
                                 _c(
                                   "b-card",
                                   { attrs: { "no-body": "" } },
