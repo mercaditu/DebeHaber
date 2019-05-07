@@ -53,11 +53,12 @@
                         size="sm"
                       >&lsaquo;</b-button>
                     </b-button-group>
+
                     <b-button-group class="mx-1">
                       <b-button
                         v-for="child in this.$router.options.routes.find(r => r.name === $route.name).children"
                         v-bind:key="child.index"
-                        :to="child.url"
+                        :to="child.path"
                         :variant="child.variant"
                         size="sm"
                       >
@@ -65,6 +66,7 @@
                         {{ $t(child.label) }}
                       </b-button>
                     </b-button-group>
+
                     <b-button-group class="mx-1">
                       <b-button
                         @click="refresh(items.links.next)"
