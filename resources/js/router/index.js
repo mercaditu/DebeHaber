@@ -195,20 +195,6 @@ export default [
                     ]
                 }
             ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "credit-notes/0"
-                },
-                {
-                    label: "general.upload",
-                    icon: "cloud_upload",
-                    variant: "dark",
-                    url: ""
-                }
-            ],
             title: "commercial.creditBook",
             description: "Some description",
             img: "/img/apps/credit-note.svg",
@@ -259,10 +245,27 @@ export default [
         },
         children: [
             {
+                name: "creditForm",
                 path: ":id",
                 component: Form,
-                name: "creditForm",
-                meta: CreditForm
+                meta: CreditForm,
+
+                label: "general.create",
+                url: "credit-notes/0",
+                icon: "add",
+                variant: "dark"
+            },
+            {
+                name: "creditUpload",
+                path: "upload",
+                component: Import,
+                meta: {
+                    title: "commercial.creditNotes"
+                },
+
+                label: "general.upload",
+                icon: "cloud_upload",
+                variant: "dark"
             }
         ]
     },
@@ -290,20 +293,6 @@ export default [
                                 "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
                         }
                     ]
-                }
-            ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "purchases/0"
-                },
-                {
-                    label: "general.upload",
-                    icon: "cloud_upload",
-                    variant: "dark",
-                    url: ""
                 }
             ],
             title: "commercial.purchaseBook",
@@ -351,10 +340,27 @@ export default [
         },
         children: [
             {
+                name: "purchaseForm",
                 path: ":id",
                 component: Form,
-                name: "purchaseForm",
-                meta: PurchaseForm
+                meta: PurchaseForm,
+
+                label: "general.create",
+                url: "purchases/0",
+                icon: "add",
+                variant: "dark"
+            },
+            {
+                name: "purchaseUpload",
+                path: "upload",
+                component: Import,
+                meta: {
+                    title: "commercial.purchaseBooks"
+                },
+
+                label: "general.upload",
+                icon: "cloud_upload",
+                variant: "dark"
             }
         ]
     },
@@ -382,20 +388,6 @@ export default [
                                 "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
                         }
                     ]
-                }
-            ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "sales/0"
-                },
-                {
-                    label: "general.upload",
-                    icon: "cloud_upload",
-                    variant: "dark",
-                    url: ""
                 }
             ],
             title: "commercial.debitBook",
@@ -444,7 +436,24 @@ export default [
                 path: ":id",
                 component: Form,
                 name: "debitForm",
-                meta: DebitForm
+                meta: DebitForm,
+
+                label: "general.create",
+                url: "debit-notes/0",
+                icon: "add",
+                variant: "dark"
+            },
+            {
+                name: "debitUpload",
+                path: "upload",
+                component: Import,
+                meta: {
+                    title: "commercial.debitNotes"
+                },
+
+                label: "general.upload",
+                icon: "cloud_upload",
+                variant: "dark"
             }
         ]
     },
@@ -472,20 +481,6 @@ export default [
                                 "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
                         }
                     ]
-                }
-            ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "sales/0"
-                },
-                {
-                    label: "general.upload",
-                    icon: "cloud_upload",
-                    variant: "dark",
-                    url: ""
                 }
             ],
             title: "commercial.fixedAssets",
@@ -532,7 +527,12 @@ export default [
                 path: ":id",
                 component: Form,
                 name: "fixedAssetForm",
-                meta: FixedAssetForm
+                meta: FixedAssetForm,
+
+                label: "general.create",
+                url: "fixed-assets/0",
+                icon: "add",
+                variant: "dark"
             }
         ]
     },
@@ -557,26 +557,6 @@ export default [
                                 "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
                         }
                     ]
-                }
-            ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "money/0"
-                },
-                {
-                    label: "general.transfer",
-                    icon: "compare_arrows",
-                    variant: "dark",
-                    url: "money/0"
-                },
-                {
-                    label: "general.upload",
-                    icon: "cloud_upload",
-                    variant: "dark",
-                    url: ""
                 }
             ],
             title: "commercial.moneyMovements",
@@ -638,16 +618,46 @@ export default [
                 path: ":id",
                 component: Form,
                 name: "moneyMovementForm",
-                meta: MoneyMovementDebitForm
+                meta: MoneyMovementDebitForm,
+
+                label: "general.create",
+                url: "money/0",
+                icon: "add",
+                variant: "dark"
             },
             {
                 path: "transfers",
                 component: Form,
                 name: "moneyTransferForm",
                 img: "/img/apps/money-transfer.svg",
-                meta: MoneyMovementForm
+                meta: MoneyMovementForm,
+
+                label: "general.transfer",
+                url: "money/transfer/0",
+                icon: "compare_arrows",
+                variant: "dark"
             }
         ]
+        // actions: [
+        //     {
+        //         label: "general.create",
+        //         icon: "add",
+        //         variant: "dark",
+        //         url: "money/0"
+        //     },
+        //     {
+        //         label: "general.transfer",
+        //         icon: "compare_arrows",
+        //         variant: "dark",
+        //         url: "money/0"
+        //     },
+        //     {
+        //         label: "general.upload",
+        //         icon: "cloud_upload",
+        //         variant: "dark",
+        //         url: ""
+        //     }
+        // ]
     },
     {
         path: "/:taxPayer/:cycle/commercial/inventories",

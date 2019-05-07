@@ -114491,17 +114491,6 @@ var AccountingReports = function AccountingReports() {
         url: "/:taxPayer/:cycle/commercial/reports/credit-notes/2019-03-01/2019-03-31"
       }]
     }],
-    actions: [{
-      label: "general.create",
-      icon: "add",
-      variant: "dark",
-      url: "credit-notes/0"
-    }, {
-      label: "general.upload",
-      icon: "cloud_upload",
-      variant: "dark",
-      url: ""
-    }],
     title: "commercial.creditBook",
     description: "Some description",
     img: "/img/apps/credit-note.svg",
@@ -114543,10 +114532,24 @@ var AccountingReports = function AccountingReports() {
     }]
   },
   children: [{
+    name: "creditForm",
     path: ":id",
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-    name: "creditForm",
-    meta: _views_commercials_creditForm_json__WEBPACK_IMPORTED_MODULE_0__
+    meta: _views_commercials_creditForm_json__WEBPACK_IMPORTED_MODULE_0__,
+    label: "general.create",
+    url: "credit-notes/0",
+    icon: "add",
+    variant: "dark"
+  }, {
+    name: "creditUpload",
+    path: "upload",
+    component: Import,
+    meta: {
+      title: "commercial.creditNotes"
+    },
+    label: "general.upload",
+    icon: "cloud_upload",
+    variant: "dark"
   }]
 }, {
   path: "/:taxPayer/:cycle/commercial/purchases",
@@ -114566,17 +114569,6 @@ var AccountingReports = function AccountingReports() {
         icon: "insert_chart_outlined",
         url: "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
       }]
-    }],
-    actions: [{
-      label: "general.create",
-      icon: "add",
-      variant: "dark",
-      url: "purchases/0"
-    }, {
-      label: "general.upload",
-      icon: "cloud_upload",
-      variant: "dark",
-      url: ""
     }],
     title: "commercial.purchaseBook",
     description: "Some description",
@@ -114614,10 +114606,24 @@ var AccountingReports = function AccountingReports() {
     }]
   },
   children: [{
+    name: "purchaseForm",
     path: ":id",
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
-    name: "purchaseForm",
-    meta: _views_commercials_purchaseForm_json__WEBPACK_IMPORTED_MODULE_5__
+    meta: _views_commercials_purchaseForm_json__WEBPACK_IMPORTED_MODULE_5__,
+    label: "general.create",
+    url: "purchases/0",
+    icon: "add",
+    variant: "dark"
+  }, {
+    name: "purchaseUpload",
+    path: "upload",
+    component: Import,
+    meta: {
+      title: "commercial.purchaseBooks"
+    },
+    label: "general.upload",
+    icon: "cloud_upload",
+    variant: "dark"
   }]
 }, {
   path: "/:taxPayer/:cycle/commercial/debit-notes",
@@ -114637,17 +114643,6 @@ var AccountingReports = function AccountingReports() {
         icon: "insert_chart_outlined",
         url: "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
       }]
-    }],
-    actions: [{
-      label: "general.create",
-      icon: "add",
-      variant: "dark",
-      url: "sales/0"
-    }, {
-      label: "general.upload",
-      icon: "cloud_upload",
-      variant: "dark",
-      url: ""
     }],
     title: "commercial.debitBook",
     description: "Some description",
@@ -114686,7 +114681,21 @@ var AccountingReports = function AccountingReports() {
     path: ":id",
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
     name: "debitForm",
-    meta: _views_commercials_debitForm_json__WEBPACK_IMPORTED_MODULE_1__
+    meta: _views_commercials_debitForm_json__WEBPACK_IMPORTED_MODULE_1__,
+    label: "general.create",
+    url: "debit-notes/0",
+    icon: "add",
+    variant: "dark"
+  }, {
+    name: "debitUpload",
+    path: "upload",
+    component: Import,
+    meta: {
+      title: "commercial.debitNotes"
+    },
+    label: "general.upload",
+    icon: "cloud_upload",
+    variant: "dark"
   }]
 }, {
   path: "/:taxPayer/:cycle/commercial/fixed-assets",
@@ -114706,17 +114715,6 @@ var AccountingReports = function AccountingReports() {
         icon: "insert_chart_outlined",
         url: "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
       }]
-    }],
-    actions: [{
-      label: "general.create",
-      icon: "add",
-      variant: "dark",
-      url: "sales/0"
-    }, {
-      label: "general.upload",
-      icon: "cloud_upload",
-      variant: "dark",
-      url: ""
     }],
     title: "commercial.fixedAssets",
     description: "Some description",
@@ -114753,7 +114751,11 @@ var AccountingReports = function AccountingReports() {
     path: ":id",
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
     name: "fixedAssetForm",
-    meta: _views_commercials_fixedAssetForm_json__WEBPACK_IMPORTED_MODULE_7__
+    meta: _views_commercials_fixedAssetForm_json__WEBPACK_IMPORTED_MODULE_7__,
+    label: "general.create",
+    url: "fixed-assets/0",
+    icon: "add",
+    variant: "dark"
   }]
 }, {
   path: "/:taxPayer/:cycle/commercial/money",
@@ -114771,22 +114773,6 @@ var AccountingReports = function AccountingReports() {
         icon: "insert_chart_outlined",
         url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
       }]
-    }],
-    actions: [{
-      label: "general.create",
-      icon: "add",
-      variant: "dark",
-      url: "money/0"
-    }, {
-      label: "general.transfer",
-      icon: "compare_arrows",
-      variant: "dark",
-      url: "money/0"
-    }, {
-      label: "general.upload",
-      icon: "cloud_upload",
-      variant: "dark",
-      url: ""
     }],
     title: "commercial.moneyMovements",
     description: "Some description",
@@ -114838,14 +114824,42 @@ var AccountingReports = function AccountingReports() {
     path: ":id",
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
     name: "moneyMovementForm",
-    meta: _views_commercials_moneyMovementDebitForm_json__WEBPACK_IMPORTED_MODULE_12__
+    meta: _views_commercials_moneyMovementDebitForm_json__WEBPACK_IMPORTED_MODULE_12__,
+    label: "general.create",
+    url: "money/0",
+    icon: "add",
+    variant: "dark"
   }, {
     path: "transfers",
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
     name: "moneyTransferForm",
     img: "/img/apps/money-transfer.svg",
-    meta: _views_commercials_moneyMovementForm_json__WEBPACK_IMPORTED_MODULE_13__
-  }]
+    meta: _views_commercials_moneyMovementForm_json__WEBPACK_IMPORTED_MODULE_13__,
+    label: "general.transfer",
+    url: "money/transfer/0",
+    icon: "compare_arrows",
+    variant: "dark"
+  }] // actions: [
+  //     {
+  //         label: "general.create",
+  //         icon: "add",
+  //         variant: "dark",
+  //         url: "money/0"
+  //     },
+  //     {
+  //         label: "general.transfer",
+  //         icon: "compare_arrows",
+  //         variant: "dark",
+  //         url: "money/0"
+  //     },
+  //     {
+  //         label: "general.upload",
+  //         icon: "cloud_upload",
+  //         variant: "dark",
+  //         url: ""
+  //     }
+  // ]
+
 }, {
   path: "/:taxPayer/:cycle/commercial/inventories",
   component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
