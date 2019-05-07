@@ -58,7 +58,7 @@
                       <b-button
                         v-for="child in this.$router.options.routes.find(r => r.name === $route.name).children"
                         v-bind:key="child.index"
-                        :to="child.path"
+                        :to="child.url"
                         :variant="child.variant"
                         size="sm"
                       >

@@ -151,6 +151,7 @@ export default [
                 meta: SalesForm,
 
                 label: "general.create",
+                url: "sales/0",
                 icon: "add",
                 variant: "dark"
             },

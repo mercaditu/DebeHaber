@@ -97199,7 +97199,7 @@ var render = function() {
                                                     {
                                                       key: child.index,
                                                       attrs: {
-                                                        to: child.path,
+                                                        to: child.url,
                                                         variant: child.variant,
                                                         size: "sm"
                                                       }
@@ -114458,6 +114458,7 @@ var AccountingReports = function AccountingReports() {
     component: _views_form__WEBPACK_IMPORTED_MODULE_21__["default"],
     meta: _views_commercials_salesForm_json__WEBPACK_IMPORTED_MODULE_2__,
     label: "general.create",
+    url: "sales/0",
     icon: "add",
     variant: "dark"
   }, {
