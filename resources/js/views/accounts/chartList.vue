@@ -41,9 +41,11 @@
               <b-table
                 hover
                 responsive
-                :items="items"
-                :fields="columns"
-                :current-page="current_page"
+                :items="items.data"
+                  :per-page="items.meta != null ? items.meta.per - page : 10"
+                  :fields="$parent.columns"
+                  :current-page="items.meta != null ? items.meta.current_page : 1"
+                  show-empty
               >
                 <template slot="type" slot-scope="data">
                   <chart-types :type="data.item.type" :sub_type="data.item.sub_type"/>
@@ -259,7 +261,7 @@ export default {
         {
           key: "code",
           label: this.$i18n.t("commercial.code"),
-          sortable: true
+          sortable: true,
         },
         {
           key: "name",

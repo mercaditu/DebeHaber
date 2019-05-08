@@ -114458,10 +114458,6 @@ var JournalForm = function JournalForm() {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../components/journalForm */ "./resources/js/components/journalForm.vue"));
 };
 
-var ChartList = function ChartList() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../views/accounts/chartList */ "./resources/js/views/accounts/chartList.vue"));
-};
-
 var ChartForm = function ChartForm() {
   return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../views/accounts/chartForm */ "./resources/js/views/accounts/chartForm.vue"));
 };
@@ -115296,31 +115292,40 @@ var AccountingReports = function AccountingReports() {
   meta: _views_accounts_budgetForm_json__WEBPACK_IMPORTED_MODULE_17__
 }, {
   path: "/:taxPayer/:cycle/accounting/charts",
-  component: ChartList,
+  component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
   name: "chartList",
   meta: {
-    buttons: [{
-      name: "manual",
-      visible: true
-    }, {
-      name: "uploadFromExcel",
-      visible: false
-    }, {
-      name: "createNewRecord",
-      visible: true
-    }],
     title: "accounting.chartOfAccounts",
-    description: "Some description",
-    img: "/img/apps/chart-of-accounts.svg"
+    img: "/img/apps/chart-of-accounts.svg",
+    components: [],
+    columns: [{
+      key: "code",
+      label: "commercial.code",
+      sortable: true
+    }, {
+      key: "name",
+      label: "commercial.accoune",
+      sortable: true
+    }, {
+      key: "type",
+      label: ""
+    }, {
+      key: "actions",
+      label: ""
+    }]
   },
   children: [{
+    name: "chartForm",
     path: ":id",
     component: ChartForm,
-    name: "chartForm",
     meta: {
       title: "Chart Form",
       img: "/img/apps/chart-of-accounts.svg"
-    }
+    },
+    label: "general.create",
+    url: "charts/0",
+    icon: "add",
+    variant: "dark"
   }]
 }, {
   path: "/:taxPayer/:cycle/config/",
