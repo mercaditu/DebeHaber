@@ -245,6 +245,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -528,9 +530,17 @@ var render = function() {
                                     attrs: {
                                       hover: "",
                                       responsive: "",
-                                      items: _vm.items,
-                                      fields: _vm.columns,
-                                      "current-page": _vm.current_page
+                                      items: _vm.items.data,
+                                      "per-page":
+                                        _vm.items.meta != null
+                                          ? _vm.items.meta.per - _vm.page
+                                          : 10,
+                                      fields: _vm.$parent.columns,
+                                      "current-page":
+                                        _vm.items.meta != null
+                                          ? _vm.items.meta.current_page
+                                          : 1,
+                                      "show-empty": ""
                                     },
                                     scopedSlots: _vm._u(
                                       [
