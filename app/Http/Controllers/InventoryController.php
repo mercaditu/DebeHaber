@@ -44,7 +44,8 @@ class InventoryController extends Controller
             ->groupBy('td.chart_id')
             ->select(
                 DB::raw('sum(td.value * transactions.rate) as sales'),
-                DB::raw('sum(td.cost * transactions.rate) as cost_value')
+                DB::raw('sum(td.cost * transactions.rate) as cost_value'),
+                DB::raw('avg(td.cost / td.value) as margin')
             )
             ->get();
 
