@@ -14,9 +14,9 @@
 Route::get('/', 'WelcomeController@show');
 Route::get('/home', 'HomeController@show');
 
-if (env('APP_ENV') === 'production') {
-    URL::forceSchema('https');
-}
+// if (env('APP_ENV') === 'production') {
+//     URL::forceSchema('https');
+// }
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('selectTaxPayer/{taxPayer}', 'TaxpayerController@selectTaxpayer')->name('selectTaxPayer');
