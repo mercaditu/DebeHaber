@@ -174,6 +174,8 @@ export default [
         component: List,
         name: "creditList",
         meta: {
+            title: "commercial.creditBook",
+            img: "/img/apps/credit-note.svg",
             components: [
                 {
                     type: "invoices-this-month-kpi"
@@ -195,9 +197,6 @@ export default [
                     ]
                 }
             ],
-            title: "commercial.creditBook",
-            description: "Some description",
-            img: "/img/apps/credit-note.svg",
             columns: [
                 {
                     key: "date",
@@ -274,6 +273,8 @@ export default [
         component: List,
         name: "purchaseList",
         meta: {
+            title: "commercial.purchaseBook",
+            img: "/img/apps/purchase-v1.svg",
             components: [
                 {
                     type: "invoices-this-month-kpi"
@@ -295,9 +296,6 @@ export default [
                     ]
                 }
             ],
-            title: "commercial.purchaseBook",
-            description: "Some description",
-            img: "/img/apps/purchase-v1.svg",
             columns: [
                 {
                     key: "date",
@@ -369,6 +367,8 @@ export default [
         component: List,
         name: "debitList",
         meta: {
+            title: "commercial.debitBook",
+            img: "/img/apps/credit-note.svg",
             components: [
                 {
                     type: "invoices-this-month-kpi"
@@ -390,9 +390,6 @@ export default [
                     ]
                 }
             ],
-            title: "commercial.debitBook",
-            description: "Some description",
-            img: "/img/apps/credit-note.svg",
             columns: [
                 {
                     key: "date",
@@ -462,6 +459,8 @@ export default [
         component: List,
         name: "fixedAssetList",
         meta: {
+            title: "commercial.fixedAssets",
+            img: "/img/apps/fixed-asset.svg",
             components: [
                 {
                     type: "invoices-this-month-kpi"
@@ -483,9 +482,6 @@ export default [
                     ]
                 }
             ],
-            title: "commercial.fixedAssets",
-            description: "Some description",
-            img: "/img/apps/fixed-asset.svg",
             columns: [
                 {
                     key: "purchase_date",
@@ -541,6 +537,8 @@ export default [
         component: List,
         name: "moneyMovementList",
         meta: {
+            title: "commercial.moneyMovements",
+            img: "/img/apps/money-flow.svg",
             components: [
                 {
                     type: "links",
@@ -559,9 +557,6 @@ export default [
                     ]
                 }
             ],
-            title: "commercial.moneyMovements",
-            description: "Some description",
-            img: "/img/apps/money-flow.svg",
             columns: [
                 {
                     key: "date",
@@ -644,31 +639,29 @@ export default [
         component: List,
         name: "inventoryList",
         meta: {
-            buttons: [
-                {
-                    name: "manual",
-                    visible: true
-                },
-                {
-                    name: "uploadFromExcel",
-                    visible: false
-                },
-                {
-                    name: "createNewRecord",
-                    visible: true
-                }
-            ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "inventories/0"
-                }
-            ],
             title: "commercial.inventories",
-            description: "Some description",
             img: "/img/apps/inventory.svg",
+            components: [
+                {
+                    type: "invoices-this-month-kpi"
+                },
+                {
+                    type: "links",
+                    links: [
+                        {
+                            label: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/:lang/transactions/inventory"
+                        },
+                        {
+                            label: "general.report",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/:taxPayer/:cycle/commercial/reports/inventory/2019-03-01/2019-03-31"
+                        }
+                    ]
+                }
+            ],           
             columns: [
                 {
                     key: "date",
@@ -725,23 +718,29 @@ export default [
         component: List,
         name: "receivableList",
         meta: {
-            buttons: [
+            title: "commercial.accountReceivables",
+            img: "/img/apps/account-receivable.svg",
+            components: [
                 {
-                    name: "manual",
-                    visible: true
+                    type: "invoices-this-month-kpi"
                 },
                 {
-                    name: "uploadFromExcel",
-                    visible: false
-                },
-                {
-                    name: "createNewRecord",
-                    visible: true
+                    type: "links",
+                    links: [
+                        {
+                            label: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/:lang/transactions/receivable"
+                        },
+                        {
+                            label: "general.report",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/:taxPayer/:cycle/commercial/reports/receivable/2019-03-01/2019-03-31"
+                        }
+                    ]
                 }
             ],
-            title: "commercial.accountReceivables",
-            description: "Some description",
-            img: "/img/apps/account-receivable.svg",
             columns: [
                 {
                     key: "date",
@@ -804,23 +803,29 @@ export default [
         component: List,
         name: "payableList",
         meta: {
-            buttons: [
+            title: "commercial.accountPayables",
+            img: "/img/apps/account-payable.svg",
+            components: [
                 {
-                    name: "manual",
-                    visible: true
+                    type: "invoices-this-month-kpi"
                 },
                 {
-                    name: "uploadFromExcel",
-                    visible: false
-                },
-                {
-                    name: "createNewRecord",
-                    visible: true
+                    type: "links",
+                    links: [
+                        {
+                            label: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/:lang/payable/sales"
+                        },
+                        {
+                            label: "general.report",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/:taxPayer/:cycle/commercial/reports/payable/2019-03-01/2019-03-31"
+                        }
+                    ]
                 }
             ],
-            title: "commercial.accountPayables",
-            description: "Some description",
-            img: "/img/apps/account-payable.svg",
             columns: [
                 {
                     key: "date",
@@ -882,18 +887,27 @@ export default [
         component: List,
         name: "impexList",
         meta: {
-            buttons: [
+            title: "commercial.impex",
+            img: "/img/apps/impex.svg",
+            components: [
                 {
-                    name: "manual",
-                    visible: true
+                    type: "invoices-this-month-kpi"
                 },
                 {
-                    name: "uploadFromExcel",
-                    visible: false
-                },
-                {
-                    name: "createNewRecord",
-                    visible: true
+                    type: "links",
+                    links: [
+                        {
+                            label: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/:lang/impex/sales"
+                        },
+                        {
+                            label: "general.report",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/:taxPayer/:cycle/commercial/reports/impex/2019-03-01/2019-03-31"
+                        }
+                    ]
                 }
             ],
             actions: [
@@ -904,9 +918,6 @@ export default [
                     url: "impexes/0"
                 }
             ],
-            title: "commercial.impex",
-            description: "Some description",
-            img: "/img/apps/impex.svg",
             columns: [
                 {
                     key: "date",
@@ -952,23 +963,29 @@ export default [
         component: List,
         name: "journalTemplateList",
         meta: {
-            buttons: [
+            title: "accounting.template",
+            img: "/img/apps/journal-template.svg",
+            components: [
                 {
-                    name: "manual",
-                    visible: true
+                    type: "invoices-this-month-kpi"
                 },
                 {
-                    name: "uploadFromExcel",
-                    visible: false
-                },
-                {
-                    name: "createNewRecord",
-                    visible: true
+                    type: "links",
+                    links: [
+                        {
+                            label: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/:lang/journaltemplate/sales"
+                        },
+                        {
+                            label: "general.report",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/:taxPayer/:cycle/commercial/reports/journaltemplate/2019-03-01/2019-03-31"
+                        }
+                    ]
                 }
             ],
-            title: "accounting.template",
-            description: "Some description",
-            img: "/img/apps/journal-template.svg",
             columns: [
                 {
                     key: "name",
@@ -996,22 +1013,28 @@ export default [
         component: JournalList,
         name: "journalList",
         meta: {
-            buttons: [
+            components: [
                 {
-                    name: "manual",
-                    visible: true
+                    type: "invoices-this-month-kpi"
                 },
                 {
-                    name: "uploadFromExcel",
-                    visible: false
-                },
-                {
-                    name: "createNewRecord",
-                    visible: true
+                    type: "links",
+                    links: [
+                        {
+                            label: "general.manual",
+                            icon: "help_outline",
+                            url: "/docs/:lang/journal/sales"
+                        },
+                        {
+                            label: "general.report",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/:taxPayer/:cycle/commercial/reports/journal/2019-03-01/2019-03-31"
+                        }
+                    ]
                 }
             ],
             title: "accounting.journal",
-            description: "Some description",
             img: "/img/apps/journals.svg"
         },
         children: [
