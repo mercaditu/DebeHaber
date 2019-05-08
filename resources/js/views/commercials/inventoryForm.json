@@ -5,6 +5,29 @@
     "cards": [
         {
             "rows": [
+              
+                {
+                    "fields": [
+                      
+                        {
+                            "label": "general.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "general.comment ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+                
+            ]
+        },
+        {
+            "rows": [
                 {
                     "fields": [
                         {
@@ -81,19 +104,8 @@
                                     "location": ""
                                 }
                             ]
-                        },
-                        {
-                            "label": "general.comment",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "comment",
-                                    "placeholder": "general.comment ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
                         }
+                        
                     ]
                 },
                 {
