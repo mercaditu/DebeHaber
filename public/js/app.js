@@ -2931,13 +2931,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       data: {
-        start_date: '',
-        end_date: '',
-        sales_vale: '',
-        cost_vale: '',
-        chart_id: ''
+        start_date: "",
+        end_date: "",
+        sales_vale: "",
+        cost_vale: "",
+        chart_id: ""
       },
-      charts: []
+      salesCharts: [],
+      inventoryCharts: []
     };
   },
   computed: {

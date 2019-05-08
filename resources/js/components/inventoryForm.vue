@@ -45,22 +45,18 @@ export default {
   components: { crud: crud },
   data() {
     return {
-     data: {
-       start_date:'',
-       end_date:'',
-       sales_vale:'',
-       cost_vale:'',
-       chart_id:''
-     },
-      charts:[],
-    
-
-     
+      data: {
+        start_date: "",
+        end_date: "",
+        sales_vale: "",
+        cost_vale: "",
+        chart_id: ""
+      },
+      salesCharts: [],
+      inventoryCharts: []
     };
   },
   computed: {
-  
-
     baseUrl() {
       return (
         "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
@@ -71,14 +67,11 @@ export default {
   mounted() {
     var app = this;
 
-
     crud.methods
       .onRead(app.baseUrl + "/accounting/charts/for/income/")
       .then(function(response) {
         app.charts = response.data.data;
       });
-
-   
   }
 };
 </script>

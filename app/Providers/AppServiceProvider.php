@@ -7,10 +7,10 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-    * Register any application services.
-    *
-    * @return void
-    */
+     * Register any application services.
+     *
+     * @return void
+     */
     public function register()
     {
         //
@@ -20,12 +20,14 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-    * Bootstrap any application services.
-    *
-    * @return void
-    */
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
     public function boot()
     {
-        //
+        if (env('APP_ENV') === 'production' || env('APP_ENV') === 'dev') {
+            \URL::forceScheme('https');
+        }
     }
 }
