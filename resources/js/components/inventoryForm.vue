@@ -1,54 +1,42 @@
 <template>
-  <div>
-     
-      <b-col>
-        <b-card>
-          <b-container>
-            <b-row>
-              <b-col>
-                <b-form-group :label="$t('commercial.startDate')">
-                  <b-input
-                    type="date"
-                    required
-                    placeholder="Missing Information"
-                    v-model="data.start_date"
-                  />
-                </b-form-group>
-                <b-form-group :label="$t('commercial.endDate')">
-                  <b-input
-                    type="date"
-                    required
-                    placeholder="Missing Information"
-                    v-model="data.end_date"
-                  />
-                </b-form-group>
-                <b-form-group :label="$t('commercial.salesValue')">
-                  <b-input type="number" placeholder="Value" v-model.number="data.sales_value"/>
-                </b-form-group>
-                <b-form-group :label="$t('commercial.costValue')">
-                  <b-input type="number" placeholder="Value" v-model.number="data.cost_value"/>
-                </b-form-group>
-                <b-form-group :label="$t('commercial.inventoryValue')">
-                  <b-input type="number" placeholder="Value" v-model.number="data.inventory_value"/>
-                </b-form-group>
-              </b-col>
-              <b-col>
-                <b-form-group :label="$t('commercial.chart')">
-                  <b-form-select v-model="data.chart_id">
-                    <option v-for="item in charts" :key="item.key" :value="item.id">{{ item.name }}</option>
-                  </b-form-select>
-                </b-form-group>
-                <b-form-group :label="$t('commercial.currentValue')">
-                  <b-input type="number" placeholder="Value" v-model.number="data.current_value"/>
-                </b-form-group>
-                
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-card>
-      </b-col>
-    
-  </div>
+  <b-card>
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-form-group :label="$t('commercial.startDate')">
+            <b-input
+              type="date"
+              required
+              placeholder="Missing Information"
+              v-model="data.start_date"
+            />
+          </b-form-group>
+          <b-form-group :label="$t('commercial.endDate')">
+            <b-input
+              type="date"
+              required
+              placeholder="Missing Information"
+              v-model="data.end_date"
+            />
+          </b-form-group>
+          <b-form-group :label="$t('commercial.salesValue')">
+            <b-input type="number" placeholder="Sales Value" v-model.number="data.sales_value"/>
+          </b-form-group>
+          <b-form-group :label="$t('commercial.costValue')">
+            <b-input placeholder="margin"></b-input>
+            <b-input type="number" placeholder="Cost" v-model.number="data.cost_value"/>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group :label="$t('commercial.chart')">
+            <b-form-select v-model="data.chart_id">
+              <option v-for="item in charts" :key="item.key" :value="item.id">{{ item.name }}</option>
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </b-container>
+  </b-card>
 </template>
 
 <script>

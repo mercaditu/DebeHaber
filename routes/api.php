@@ -89,14 +89,14 @@ Route::group(['middleware' => 'auth:api'], function () {
                     'template-details' => 'JournalTemplateDetailController',
                 ]);
 
-                // Route::get('sales/by-id/{id}', 'SalesController@get_salesByID');
                 Route::get('sales/default/{partnerID}', 'SalesController@getLastSale');
                 Route::get('sales/last', 'SalesController@get_lastDate');
+
                 Route::get('purchases/default/{partnerID}', 'PurchaseController@getLastPurchase');
 
                 Route::post('inventories/get_InventoryChartType', 'InventoryController@get_InventoryChartType');
-                Route::post('inventories/calc-revenue', 'InventoryController@Calulate_sales');
-                Route::post('inventories/calc-inventory', 'InventoryController@Calulate_InvenotryValue');
+                Route::post('inventories/calc-revenue', 'InventoryController@calcSales');
+                Route::post('inventories/calc-inventory', 'InventoryController@calcInventoryValue');
             });
 
             Route::prefix('accounting')->group(function () {
