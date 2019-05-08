@@ -14,8 +14,11 @@
 Route::get('/', 'WelcomeController@show');
 Route::get('/home', 'HomeController@show');
 
+if (env('APP_ENV') === 'production') {
+    URL::forceSchema('https');
+}
 
-Route::group(['middleware' => ['auth', 'forceSSL']], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('selectTaxPayer/{taxPayer}', 'TaxpayerController@selectTaxpayer')->name('selectTaxPayer');
 
     Route::post('taxpayer-integration', 'TaxpayerIntegrationController@store')->name('postTaxPayer');
