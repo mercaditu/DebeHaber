@@ -12,10 +12,6 @@
 */
 Route::get('depricate/{id}', 'FixedAssetController@depreciate');
 
-// if (env('APP_ENV') === 'production') {
-//     URL::forceSchema('https');
-// }
-
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/transactions', 'API\TransactionController@start');
     Route::post('/payment', 'API\PaymentController@start');

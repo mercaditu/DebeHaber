@@ -67,6 +67,6 @@ class Kernel extends HttpKernel
         'teamSubscribed' => \Laravel\Spark\Http\Middleware\VerifyTeamIsSubscribed::class,
 
         'accessTaxPayer' => Middleware\AccessTaxpayer::class,
-        // 'forceSSL' => \App\Http\Middleware\ForceSSL::class,
+        'forceSSL' => \App\Http\Middleware\ForceSSL::class,
     ];
 }
