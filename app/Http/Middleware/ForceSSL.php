@@ -15,7 +15,7 @@ class ForceSSL
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->secure()) {
+        if (empty($_SERVER['HTTPS'])) {
             return redirect()->secure($request->getRequestUri());
         }
 
