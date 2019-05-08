@@ -114839,27 +114839,7 @@ var AccountingReports = function AccountingReports() {
     url: "money/transfer/0",
     icon: "compare_arrows",
     variant: "dark"
-  }] // actions: [
-  //     {
-  //         label: "general.create",
-  //         icon: "add",
-  //         variant: "dark",
-  //         url: "money/0"
-  //     },
-  //     {
-  //         label: "general.transfer",
-  //         icon: "compare_arrows",
-  //         variant: "dark",
-  //         url: "money/0"
-  //     },
-  //     {
-  //         label: "general.upload",
-  //         icon: "cloud_upload",
-  //         variant: "dark",
-  //         url: ""
-  //     }
-  // ]
-
+  }]
 }, {
   path: "/:taxPayer/:cycle/commercial/inventories",
   component: _views_list__WEBPACK_IMPORTED_MODULE_23__["default"],
