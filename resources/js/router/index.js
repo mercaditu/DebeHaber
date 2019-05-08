@@ -705,10 +705,15 @@ export default [
         },
         children: [
             {
+                name: "inventoryForm",
                 path: ":id",
                 component: Form,
-                name: "inventoryForm",
-                meta: InventoryForm
+                meta: InventoryForm,
+
+                label: "general.create",
+                url: "inventories/0",
+                icon: "add",
+                variant: "dark"
             }
         ]
     },
