@@ -3766,9 +3766,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3780,7 +3777,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       accountCharts: [],
-      chart: ''
+      chart: ""
     };
   },
   computed: {
@@ -116769,7 +116766,7 @@ module.exports = {"pageurl":"/commercial/accounts-receivable","title":"commercia
 /*! exports provided: pageurl, title, img, module, cards, tables, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/commercial/sales","title":"commercial.salesInvoice","img":"/img/apps/sales.svg","module":2,"cards":[{"rows":[{"fields":[{"label":"commercial.date","properties":[{"type":"date","data":"date","placeholder":"commercial.date","required":true,"location":""}]},{"label":"commercial.document","properties":[{"type":"document","data":[{"documentcode":"code","codeexpiry":"code_expiry"}],"placeholder":"commercial.customer","required":false,"location":""}]}]},{"fields":[{"label":"commercial.customer","properties":[{"type":"partner","data":[{"name":"partner_name","taxid":"partner_taxid"}],"placeholder":"commercial.customer","required":false,"location":""}]},{"label":"commercial.number","properties":[{"type":"mask","data":"number","placeholder":"commercial.number","required":false,"location":""}]}]},{"fields":[{},{"label":"commercial.paymentCondition","properties":[{"type":"payment","data":[{"paymentcondition":"payment_condition","chartaccount":"account_chart"}],"placeholder":"commercial.customer ","required":false,"location":""}]}]},{"fields":[{},{"label":"commercial.currency","properties":[{"type":"currency","data":[{"salecurrency":"currency","currencyrate":"rate"}],"placeholder":"commercial.currency ","required":false,"location":""}]}]}]}],"tables":[{"data":"details","actions":true,"fields":[{"label":"accounting.chartOfAccounts","cols":4,"properties":[{"type":"select","data":"chart","api":"/accounting/charts/for/income","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.vat","cols":3,"properties":[{"type":"select","data":"vat","api":"/accounting/charts/for/vats-debit","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.value","cols":3,"properties":[{"type":"text","data":"value","placeholder":"commercial.value","required":false,"location":""}]},{"label":"","cols":2,"properties":[{"type":"actions","data":"","api":"/commercial/details","placeholder":"","required":false,"location":""}]}]}]};
+module.exports = {"pageurl":"/commercial/sales","title":"commercial.salesInvoice","img":"/img/apps/sales.svg","module":2,"cards":[{"rows":[{"fields":[{"label":"commercial.date","properties":[{"type":"date","data":"date","placeholder":"commercial.date","required":true,"location":""}]},{"label":"commercial.document","properties":[{"type":"document","data":[{"documentcode":"code","codeexpiry":"code_expiry"}],"placeholder":"commercial.customer","required":false,"location":""}]}]},{"fields":[{"label":"commercial.customer","properties":[{"type":"partner","data":[{"name":"partner_name","taxid":"partner_taxid"}],"placeholder":"commercial.customer","required":false,"location":""}]},{"label":"commercial.number","properties":[{"type":"mask","data":"number","placeholder":"commercial.number","required":false,"location":""}]}]},{"fields":[{},{"label":"commercial.paymentCondition","properties":[{"type":"payment","data":[{"paymentcondition":"payment_condition","chartaccount":"account_chart"}],"placeholder":"commercial.paymentCondition","required":false,"location":""}]}]},{"fields":[{},{"label":"commercial.currency","properties":[{"type":"currency","data":[{"salecurrency":"currency","currencyrate":"rate"}],"placeholder":"commercial.currency ","required":false,"location":""}]}]}]}],"tables":[{"data":"details","actions":true,"fields":[{"label":"accounting.chartOfAccounts","cols":4,"properties":[{"type":"select","data":"chart","api":"/accounting/charts/for/income","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.vat","cols":3,"properties":[{"type":"select","data":"vat","api":"/accounting/charts/for/vats-debit","required":false,"location":"","select":[{"value":"id","label":"name"}]}]},{"label":"commercial.value","cols":3,"properties":[{"type":"text","data":"value","placeholder":"commercial.value","required":false,"location":""}]},{"label":"","cols":2,"properties":[{"type":"actions","data":"","api":"/commercial/details","placeholder":"","required":false,"location":""}]}]}]};
 
 /***/ }),
 

@@ -5,20 +5,17 @@
         <b-input
           type="text"
           :placeholder="$t('commercial.paymentCondition')"
-          v-model.number="paymentCondition" 
+          v-model.number="paymentCondition"
         />
         <b-input-group-append v-if="paymentCondition == 0">
-           <multiselect v-model="chart_account_id" :options="accountCharts" 
-        placeholder="Select one"  @input="chartSelect"
-        label="name" 
-         track-by="name"></multiselect>
-          <!-- <b-form-select v-model="chartAccount">
-            <option
-              v-for="account in accountCharts"
-              :key="account.key"
-              :value="account.id"
-            >{{ account.name }}</option>
-          </b-form-select> -->
+          <multiselect
+            v-model="chart_account_id"
+            :options="accountCharts"
+            placeholder="Select one"
+            @input="chartSelect"
+            label="name"
+            track-by="name"
+          ></multiselect>
         </b-input-group-append>
       </b-input-group>
     </b-input-group>
@@ -26,14 +23,14 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 import crud from "../components/crud.vue";
 export default {
-  components: { crud: crud ,Multiselect},
+  components: { crud: crud, Multiselect },
   props: ["payment_condition", "chart_account_id"],
   data: () => ({
     accountCharts: [],
-    chart:''
+    chart: ""
   }),
   computed: {
     paymentCondition: {
@@ -64,10 +61,10 @@ export default {
   },
   methods: {
     chartSelect() {
-        //do something after mounting vue instance
-        var app = this;
-        console.log(app.chart_account_id);
-        app.chartAccount = app.chart_account_id;
+      //do something after mounting vue instance
+      var app = this;
+      console.log(app.chart_account_id);
+      app.chartAccount = app.chart_account_id;
     }
   },
   mounted() {

@@ -86,7 +86,7 @@
                                             "chartaccount": "account_chart"
                                         }
                                     ],
-                                    "placeholder": "commercial.customer ",
+                                    "placeholder": "commercial.paymentCondition",
                                     "required": false,
                                     "location": ""
                                 }

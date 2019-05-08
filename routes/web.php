@@ -15,7 +15,7 @@ Route::get('/', 'WelcomeController@show');
 Route::get('/home', 'HomeController@show');
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'forceSSL']], function () {
     Route::get('selectTaxPayer/{taxPayer}', 'TaxpayerController@selectTaxpayer')->name('selectTaxPayer');
 
     Route::post('taxpayer-integration', 'TaxpayerIntegrationController@store')->name('postTaxPayer');
