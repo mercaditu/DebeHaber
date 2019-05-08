@@ -401,6 +401,7 @@ return [
         'script-src' => [
             'allow' => [
                 // 'url',
+                'https://unpkg.com/vue-multiselect'
             ],
 
             'hashes' => [
@@ -417,7 +418,7 @@ return [
                 // 'https:',
             ],
 
-            'self' => false,
+            'self' => true,
 
             'unsafe-inline' => false,
 
@@ -428,14 +429,14 @@ return [
             'unsafe-hashed-attributes' => false,
 
             // https://www.chromestatus.com/feature/5792234276388864
-            'report-sample' => true,
+            'report-sample' => false,
 
             'add-generated-nonce' => false,
         ],
 
         'style-src' => [
             'allow' => [
-                //
+                // 'url',
             ],
 
             'hashes' => [
@@ -452,9 +453,9 @@ return [
                 // 'https:',
             ],
 
-            'self' => false,
+            'self' => true,
 
-            'unsafe-inline' => false,
+            'unsafe-inline' => true,
 
             'report-sample' => true,
 
@@ -462,7 +463,7 @@ return [
         ],
 
         'img-src' => [
-            //
+            'self' => true
         ],
 
         'default-src' => [
