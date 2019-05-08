@@ -131,7 +131,7 @@
                         {
                             "type": "select",
                             "data": "chart",
-                            "api": "/accounting/charts/for/income/",
+                            "api": "/accounting/charts/for/income",
                             "required": false,
                             "location": "",
                             "select": [{ "value": "id", "label": "name" }]
@@ -145,7 +145,7 @@
                         {
                             "type": "select",
                             "data": "vat",
-                            "api": "/accounting/charts/for/vats-debit/",
+                            "api": "/accounting/charts/for/vats-debit",
                             "required": false,
                             "location": "",
                             "select": [{ "value": "id", "label": "name" }]
