@@ -5,10 +5,8 @@
     "cards": [
         {
             "rows": [
-              
                 {
                     "fields": [
-                      
                         {
                             "label": "general.comment",
                             "properties": [
@@ -23,27 +21,12 @@
                         }
                     ]
                 }
-                
             ]
-        },
+        }
+    ],
+    "components": [
         {
-            "rows": [
-                {
-                    "fields": [
-                        {
-                            "properties": [
-                                {
-                                    "type": "component",
-                                    "name": "inventory-form"
-                                                                        
-                                }
-                            ]
-                        }
-                        
-                    ]
-                }
-                
-            ]
+            "name": "inventory-form"
         }
     ]
 }

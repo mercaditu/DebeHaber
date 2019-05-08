@@ -2923,6 +2923,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2933,8 +2961,8 @@ __webpack_require__.r(__webpack_exports__);
       data: {
         start_date: "",
         end_date: "",
-        sales_vale: "",
-        cost_vale: "",
+        sales_value: "",
+        inventory_value: "",
         chart_id: ""
       },
       salesCharts: [],
@@ -2946,10 +2974,24 @@ __webpack_require__.r(__webpack_exports__);
       return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
     }
   },
+  methods: {
+    calcSales: function calcSales() {
+      var app = this;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income/").then(function (response) {
+        app.charts = response.data.data;
+      });
+    },
+    calcInventory: function calcInventory() {
+      var app = this;
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income/").then(function (response) {
+        app.charts = response.data.data;
+      });
+    }
+  },
   mounted: function mounted() {
     var app = this;
     _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/income/").then(function (response) {
-      app.charts = response.data.data;
+      app.salesCharts = response.data.data;
     });
   }
 });
@@ -4485,6 +4527,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -93966,10 +94014,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "b-card",
+    "div",
     [
       _c(
-        "b-container",
+        "b-card",
+        {
+          attrs: {
+            title: "First Step",
+            "sub-title":
+              "Select a date range and a sales income category (related to stockable items) and press calculate"
+          }
+        },
         [
           _c(
             "b-row",
@@ -93979,14 +94034,10 @@ var render = function() {
                 [
                   _c(
                     "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.startDate") } },
+                    { attrs: { label: _vm.$t("general.startDate") } },
                     [
                       _c("b-input", {
-                        attrs: {
-                          type: "date",
-                          required: "",
-                          placeholder: "Missing Information"
-                        },
+                        attrs: { type: "date", required: "" },
                         model: {
                           value: _vm.data.start_date,
                           callback: function($$v) {
@@ -93997,18 +94048,20 @@ var render = function() {
                       })
                     ],
                     1
-                  ),
-                  _vm._v(" "),
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
                   _c(
                     "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.endDate") } },
+                    { attrs: { label: _vm.$t("general.endDate") } },
                     [
                       _c("b-input", {
-                        attrs: {
-                          type: "date",
-                          required: "",
-                          placeholder: "Missing Information"
-                        },
+                        attrs: { type: "date", required: "" },
                         model: {
                           value: _vm.data.end_date,
                           callback: function($$v) {
@@ -94019,26 +94072,168 @@ var render = function() {
                       })
                     ],
                     1
-                  ),
-                  _vm._v(" "),
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                [
                   _c(
                     "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.salesValue") } },
+                    { attrs: { label: _vm.$t("commercial.income") } },
                     [
-                      _c("b-input", {
-                        attrs: { type: "number", placeholder: "Sales Value" },
-                        model: {
-                          value: _vm.data.sales_value,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data, "sales_value", _vm._n($$v))
-                          },
-                          expression: "data.sales_value"
-                        }
-                      })
+                      _c(
+                        "b-input-group",
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              model: {
+                                value: _vm.data.chart_id,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.data, "chart_id", $$v)
+                                },
+                                expression: "data.chart_id"
+                              }
+                            },
+                            _vm._l(_vm.charts, function(item) {
+                              return _c(
+                                "option",
+                                { key: item.key, domProps: { value: item.id } },
+                                [_vm._v(_vm._s(item.name))]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group-append",
+                            [
+                              _c(
+                                "b-button",
+                                { attrs: { variant: "primary" } },
+                                [_vm._v("Calculate")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
-                  ),
-                  _vm._v(" "),
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("p", { staticClass: "lead" }, [
+                  _vm._v(
+                    "Sales Value: " + _vm._s(_vm.data.sales_value) + " PYG"
+                  )
+                ])
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                [
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: _vm.$t("commercial.inventory") } },
+                    [
+                      _c(
+                        "b-input-group",
+                        [
+                          _c(
+                            "b-form-select",
+                            {
+                              model: {
+                                value: _vm.data.chart_id,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.data, "chart_id", $$v)
+                                },
+                                expression: "data.chart_id"
+                              }
+                            },
+                            _vm._l(_vm.charts, function(item) {
+                              return _c(
+                                "option",
+                                { key: item.key, domProps: { value: item.id } },
+                                [_vm._v(_vm._s(item.name))]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-input-group-append",
+                            [
+                              _c(
+                                "b-button",
+                                { attrs: { variant: "primary" } },
+                                [_vm._v("Calculate")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-col", [
+                _c("p", { staticClass: "lead" }, [
+                  _vm._v(
+                    "Inventory Value: " + _vm._s(_vm.data.sales_value) + " PYG"
+                  )
+                ])
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-card",
+        {
+          attrs: {
+            title: "Second Step",
+            "sub-title": "Check or manually update your cost value"
+          }
+        },
+        [
+          _c(
+            "b-row",
+            [
+              _c("b-col", [
+                _c("p", [_vm._v(_vm._s(_vm.data.sales_value) + " PYG")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                [
                   _c(
                     "b-form-group",
                     { attrs: { label: _vm.$t("commercial.costValue") } },
@@ -94055,40 +94250,6 @@ var render = function() {
                           expression: "data.cost_value"
                         }
                       })
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.chart") } },
-                    [
-                      _c(
-                        "b-form-select",
-                        {
-                          model: {
-                            value: _vm.data.chart_id,
-                            callback: function($$v) {
-                              _vm.$set(_vm.data, "chart_id", $$v)
-                            },
-                            expression: "data.chart_id"
-                          }
-                        },
-                        _vm._l(_vm.charts, function(item) {
-                          return _c(
-                            "option",
-                            { key: item.key, domProps: { value: item.id } },
-                            [_vm._v(_vm._s(item.name))]
-                          )
-                        }),
-                        0
-                      )
                     ],
                     1
                   )
@@ -96122,7 +96283,7 @@ var render = function() {
       _vm._l(_vm.$route.meta.cards, function(card) {
         return _c(
           "div",
-          { key: card.index },
+          { key: card.index, attrs: { title: card.title } },
           [
             _c(
               "b-card",
@@ -96427,6 +96588,15 @@ var render = function() {
               1
             )
           ],
+          1
+        )
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.$route.meta.components, function(component) {
+        return _c(
+          "div",
+          { key: component.index },
+          [_c(component.name, { tag: "component" })],
           1
         )
       }),
@@ -112820,6 +112990,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_snack__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_snack__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var vue_snack_dist_vue_snack_min_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-snack/dist/vue-snack.min.css */ "./node_modules/vue-snack/dist/vue-snack.min.css");
 /* harmony import */ var vue_snack_dist_vue_snack_min_css__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_snack_dist_vue_snack_min_css__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_10__);
 /*
 |--------------------------------------------------------------------------
 | Laravel Spark Bootstrap
@@ -112851,6 +113023,8 @@ __webpack_require__(/*! vue-tour/dist/vue-tour.css */ "./node_modules/vue-tour/d
 
 
 
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("multiselect", vue_multiselect__WEBPACK_IMPORTED_MODULE_10___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_snack__WEBPACK_IMPORTED_MODULE_8___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_mask__WEBPACK_IMPORTED_MODULE_7__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_6__["default"]);
@@ -116695,10 +116869,10 @@ module.exports = {"pageurl":"/commercial/impexes","title":"commercial.impex","im
 /*!***********************************************************!*\
   !*** ./resources/js/views/commercials/inventoryForm.json ***!
   \***********************************************************/
-/*! exports provided: pageurl, title, img, cards, default */
+/*! exports provided: pageurl, title, img, cards, components, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]}]},{"rows":[{"fields":[{"properties":[{"type":"component","name":"inventory-form"}]}]}]}]};
+module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]}]}],"components":[{"name":"inventory-form"}]};
 
 /***/ }),
 

@@ -36,7 +36,8 @@
         </b-button-toolbar>
       </b-col>
     </b-row>
-    <div v-for="card in $route.meta.cards" v-bind:key="card.index">
+    <!-- Cards & Headers -->
+    <div v-for="card in $route.meta.cards" v-bind:key="card.index" :title="card.title">
       <b-card>
         <b-row v-for="row in card.rows" v-bind:key="row.index">
           <b-col v-for="col in row.fields" v-bind:key="col.index">
@@ -104,6 +105,11 @@
         </b-row>
       </b-card>
     </div>
+    <!-- Special Components -->
+    <div v-for="component in $route.meta.components" v-bind:key="component.index">
+      <component :is="component.name"></component>
+    </div>
+    <!-- Details -->
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
       <b-btn
         class="mb-5"

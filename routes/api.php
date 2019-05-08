@@ -118,6 +118,8 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                         Route::get('fixed-assets', 'ChartController@getFixedAssets');
                         Route::get('money', 'ChartController@getMoneyAccounts');
 
+                        Route::get('income/stockables', 'ChartController@getSalesOnStockablesAccounts');
+
                         Route::get('income', 'ChartController@getSalesAccounts');
                         Route::get('expense', 'ChartController@getPurchaseAccounts');
 
