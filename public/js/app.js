@@ -2872,6 +2872,246 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/inventoryForm.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/inventoryForm.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      data: {
+        date: "",
+        details: [],
+        id: 0,
+        number: "",
+        comment: "",
+        template_id: "",
+        template: "",
+        value: ""
+      },
+      pageUrl: "/accounting/journals",
+      accountCharts: [],
+      templates: [],
+      lastDeletedRow: []
+    };
+  },
+  computed: {
+    columns: function columns() {
+      return [{
+        key: "chart_id",
+        label: this.$i18n.t("commercial.account"),
+        sortable: true
+      }, {
+        key: "credit",
+        label: this.$i18n.t("general.credit"),
+        sortable: true
+      }, {
+        key: "debit",
+        label: this.$i18n.t("general.debit"),
+        sortable: true
+      }, {
+        key: "actions",
+        label: "",
+        sortable: false
+      }];
+    },
+    Balance: function Balance() {
+      var debit = 0;
+      var credit = 0;
+      this.data.details.forEach(function (e) {
+        debit += e.debit;
+        credit += e.credit;
+        console.log(e);
+      });
+      return debit - credit;
+    },
+    baseUrl: function baseUrl() {
+      return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
+    }
+  },
+  methods: {
+    onSave: function onSave() {
+      var app = this;
+
+      if (app.Balance < 0) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+          app.$snack.success({
+            text: app.$i18n.t("commercial.JournalSaved")
+          });
+          app.$router.go(-1);
+        })["catch"](function (error) {
+          app.$snack.danger({
+            text: "Error OMG!: " + error
+          });
+        });
+      }
+    },
+    onSaveNew: function onSaveNew() {
+      var app = this;
+
+      if (app.Balance === 0) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+          app.$snack.success({
+            text: app.$i18n.t("commercial.JournalSaved")
+          });
+          app.data.date = "", app.data.details = [], app.data.id = 0, app.data.number = "", app.data.comment = "", app.data.template_id = "", app.data.template = "", app.data.value = "";
+          app.$router.push({
+            name: app.$route.name,
+            params: {
+              id: "0"
+            }
+          });
+        })["catch"](function (error) {
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage")
+          });
+        });
+      }
+    },
+    onCancel: function onCancel() {
+      var _this = this;
+
+      this.$swal.fire({
+        title: this.$i18n.t("general.cancel"),
+        text: this.$i18n.t("general.cancelVerification"),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: this.$i18n.t("general.cancelConfirmation"),
+        cancelButtonText: this.$i18n.t("general.cancelRejection")
+      }).then(function (result) {
+        if (result.value) {
+          _this.$router.go(-1);
+        }
+      });
+    },
+    addDetailRow: function addDetailRow() {
+      this.data.details.push({
+        // index: this.data.details.length + 1,
+        id: 0,
+        chart_id: this.accountCharts[0].id,
+        debit: "0",
+        credit: "0"
+      });
+    },
+    deleteRow: function deleteRow(item) {
+      if (item.id > 0) {
+        var app = this;
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + "/details", item.id).then(function (response) {});
+      }
+
+      this.lastDeletedRow = item;
+      this.$snack.success({
+        text: this.$i18n.t("general.rowDeleted"),
+        button: this.$i18n.t("general.undo"),
+        action: this.undoDeletedRow
+      });
+      this.data.details.splice(this.data.details.indexOf(item), 1);
+    },
+    undoDeletedRow: function undoDeletedRow() {
+      if (this.lastDeletedRow.id > 0) {
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + "/details", this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
+      }
+
+      this.data.details.push(this.lastDeletedRow);
+    },
+    onGenerateDetail: function onGenerateDetail() {
+      var app = this;
+      app.data.template_id = app.data.template.id;
+      app.data.template.details.forEach(function (element) {
+        app.data.details.push({
+          id: 0,
+          chart_id: element.chart_id,
+          debit: app.data.value * element.debit_coef,
+          credit: app.data.value * element.credit_coef
+        });
+      });
+    }
+  },
+  mounted: function mounted() {
+    var app = this;
+
+    if (app.$route.params.id > 0) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + "/" + app.$route.params.id).then(function (response) {
+        app.data = response.data.data;
+      });
+    } else {
+      app.data.date = new Date(Date.now()).toISOString().split("T")[0];
+    }
+
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/charts/for/accountables/").then(function (response) {
+      app.accountCharts = response.data.data;
+    });
+    _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + "/accounting/journal-templates").then(function (response) {
+      app.templates = response.data.data;
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/passport/AuthorizedClients.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/passport/AuthorizedClients.vue?vue&type=script&lang=js& ***!
@@ -4404,6 +4644,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/crud.vue */ "./resources/js/components/crud.vue");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -93982,6 +94229,247 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/inventoryForm.vue?vue&type=template&id=14fb4805&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/inventoryForm.vue?vue&type=template&id=14fb4805& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "b-col",
+        [
+          _c(
+            "b-card",
+            [
+              _c(
+                "b-container",
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: { label: _vm.$t("commercial.startDate") }
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: {
+                                  type: "date",
+                                  required: "",
+                                  placeholder: "Missing Information"
+                                },
+                                model: {
+                                  value: _vm.data.start_date,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.data, "start_date", $$v)
+                                  },
+                                  expression: "data.start_date"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: _vm.$t("commercial.endDate") } },
+                            [
+                              _c("b-input", {
+                                attrs: {
+                                  type: "date",
+                                  required: "",
+                                  placeholder: "Missing Information"
+                                },
+                                model: {
+                                  value: _vm.data.end_date,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.data, "end_date", $$v)
+                                  },
+                                  expression: "data.end_date"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: { label: _vm.$t("commercial.salesValue") }
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: { type: "number", placeholder: "Value" },
+                                model: {
+                                  value: _vm.data.sales_value,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.data,
+                                      "sales_value",
+                                      _vm._n($$v)
+                                    )
+                                  },
+                                  expression: "data.sales_value"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: { label: _vm.$t("commercial.costValue") }
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: { type: "number", placeholder: "Value" },
+                                model: {
+                                  value: _vm.data.cost_value,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.data,
+                                      "cost_value",
+                                      _vm._n($$v)
+                                    )
+                                  },
+                                  expression: "data.cost_value"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                label: _vm.$t("commercial.inventoryValue")
+                              }
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: { type: "number", placeholder: "Value" },
+                                model: {
+                                  value: _vm.data.inventory_value,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.data,
+                                      "inventory_value",
+                                      _vm._n($$v)
+                                    )
+                                  },
+                                  expression: "data.inventory_value"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: _vm.$t("commercial.chart") } },
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.data.chart_id,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.data, "chart_id", $$v)
+                                    },
+                                    expression: "data.chart_id"
+                                  }
+                                },
+                                _vm._l(_vm.charts, function(item) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: item.key,
+                                      domProps: { value: item.id }
+                                    },
+                                    [_vm._v(_vm._s(item.name))]
+                                  )
+                                }),
+                                0
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                label: _vm.$t("commercial.currentValue")
+                              }
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: { type: "number", placeholder: "Value" },
+                                model: {
+                                  value: _vm.data.current_value,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.data,
+                                      "current_value",
+                                      _vm._n($$v)
+                                    )
+                                  },
+                                  expression: "data.current_value"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/passport/AuthorizedClients.vue?vue&type=template&id=397d14ca&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/passport/AuthorizedClients.vue?vue&type=template&id=397d14ca&scoped=true& ***!
@@ -96050,6 +96538,12 @@ var render = function() {
                                           }
                                         })
                                       ],
+                                      1
+                                    )
+                                  : property.type === "component"
+                                  ? _c(
+                                      "b-input-group",
+                                      [_c(property.name, { tag: "component" })],
                                       1
                                     )
                                   : property.type === "select"
@@ -112763,6 +113257,7 @@ Vue.component("search-site", __webpack_require__(/*! ./search-site.vue */ "./res
 Vue.component("select-data", __webpack_require__(/*! ./select.vue */ "./resources/js/components/select.vue")["default"]);
 Vue.component("create-taxpayer", __webpack_require__(/*! ./create-taxpayer.vue */ "./resources/js/components/create-taxpayer.vue")["default"]);
 Vue.component("search-transaction", __webpack_require__(/*! ./search-transaction.vue */ "./resources/js/components/search-transaction.vue")["default"]);
+Vue.component("inventory-form", __webpack_require__(/*! ./inventoryForm.vue */ "./resources/js/components/inventoryForm.vue")["default"]);
 Vue.component("search-taxpayer", __webpack_require__(/*! ./search-taxpayer.vue */ "./resources/js/components/search-taxpayer.vue")["default"]);
 Vue.component("filter-data", __webpack_require__(/*! ./filter.vue */ "./resources/js/components/filter.vue")["default"]);
 Vue.component("payment-condition", __webpack_require__(/*! ./payment-condition.vue */ "./resources/js/components/payment-condition.vue")["default"]);
@@ -113307,6 +113802,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_filter_vue_vue_type_template_id_b1c7bcfa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_filter_vue_vue_type_template_id_b1c7bcfa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/inventoryForm.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/inventoryForm.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inventoryForm_vue_vue_type_template_id_14fb4805___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inventoryForm.vue?vue&type=template&id=14fb4805& */ "./resources/js/components/inventoryForm.vue?vue&type=template&id=14fb4805&");
+/* harmony import */ var _inventoryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inventoryForm.vue?vue&type=script&lang=js& */ "./resources/js/components/inventoryForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _inventoryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _inventoryForm_vue_vue_type_template_id_14fb4805___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _inventoryForm_vue_vue_type_template_id_14fb4805___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/inventoryForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/inventoryForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/inventoryForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_inventoryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./inventoryForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/inventoryForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_inventoryForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/inventoryForm.vue?vue&type=template&id=14fb4805&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/inventoryForm.vue?vue&type=template&id=14fb4805& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inventoryForm_vue_vue_type_template_id_14fb4805___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./inventoryForm.vue?vue&type=template&id=14fb4805& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/inventoryForm.vue?vue&type=template&id=14fb4805&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inventoryForm_vue_vue_type_template_id_14fb4805___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_inventoryForm_vue_vue_type_template_id_14fb4805___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -116492,7 +117056,7 @@ module.exports = {"pageurl":"/commercial/impexes","title":"commercial.impex","im
 /*! exports provided: pageurl, title, img, cards, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]}]},{"rows":[{"fields":[{"label":"commercial.startdate","properties":[{"type":"date","data":"start_date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.chart","properties":[{"type":"select","data":"chart_id","placeholder":"commercial.chart","api":"/accounting/charts/for/income/","required":false,"location":"append ","select":[{"value":"id","label":"name"}]}]}]},{"fields":[{"label":"commercial.enddate","properties":[{"type":"date","data":"end_date","placeholder":"commercial.date","required":false,"location":""}]},{"label":"commercial.value","properties":[{"type":"text","data":"current_value","placeholder":"commercial.currentValue ","required":false,"location":""}]}]},{"fields":[{"label":"commercial.salesvalue","properties":[{"type":"text","data":"sales_value","placeholder":"commercial.salesValue","required":false,"location":""}]}]},{"fields":[{"label":"commercial.costValue","properties":[{"type":"text","data":"cost_value","placeholder":"commercial.costValue","required":false,"location":""}]},{"label":"commercial.inventoryValue","properties":[{"type":"text","data":"inventory_value","placeholder":"commercial.inventoryValue","required":false,"location":""}]}]}]}]};
+module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]}]},{"rows":[{"fields":[{"properties":[{"type":"component","name":"inventory-form"}]}]}]}]};
 
 /***/ }),
 

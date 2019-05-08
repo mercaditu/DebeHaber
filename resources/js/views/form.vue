@@ -48,6 +48,9 @@
                     v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
                   ></search-taxpayer>
                 </b-input-group>
+                  <b-input-group v-else-if="property.type === 'component'">
+                 <component :is="property.name"></component>
+              </b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
                   <select-data
                     v-bind:item.sync="data[property.data]"
@@ -127,8 +130,10 @@
         </b-row>
         <!-- Rows -->
         <b-row v-for="detail in data[table.data]" v-bind:key="detail.index">
-          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
+            <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
             <span v-for="property in col.properties" v-bind:key="property.index">
+              
+               
               <span v-if="property.type === 'select'">
                 <select-data
                   v-bind:item.sync="detail[property.data]"
@@ -136,6 +141,8 @@
                   :options="property.options"
                 ></select-data>
               </span>
+             
+             
               <b-input-group v-else-if="property.type === 'transaction'">
                 <search-transaction
                   v-bind:number.sync="detail[property.data[0]['transactionnumber']]"

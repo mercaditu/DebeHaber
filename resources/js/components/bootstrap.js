@@ -26,6 +26,10 @@ Vue.component(
     "search-transaction",
     require("./search-transaction.vue").default
 );
+Vue.component(
+    "inventory-form",
+    require("./inventoryForm.vue").default
+);
 Vue.component("search-taxpayer", require("./search-taxpayer.vue").default);
 Vue.component("filter-data", require("./filter.vue").default);
 Vue.component("payment-condition", require("./payment-condition.vue").default);

@@ -31,111 +31,18 @@
                 {
                     "fields": [
                         {
-                            "label": "commercial.startdate",
                             "properties": [
                                 {
-                                    "type": "date",
-                                    "data": "start_date",
-                                    "placeholder": "commercial.date",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        },
-                        {
-                            "label": "commercial.chart",
-                            "properties": [
-                                {
-                                    "type": "select",
-                                    "data": "chart_id",
-                                    "placeholder": "commercial.chart",
-                                    "api": "/accounting/charts/for/income/",
-                                    "required": false,
-                                    "location": "append ",
-                                    "select": [
-                                        {
-                                            "value": "id",
-                                            "label": "name"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {
-                            "label": "commercial.enddate",
-                            "properties": [
-                                {
-                                    "type": "date",
-                                    "data": "end_date",
-                                    "placeholder": "commercial.date",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        },
-                        {
-                            "label": "commercial.value",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "current_value",
-                                    "placeholder": "commercial.currentValue ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {
-                            "label": "commercial.salesvalue",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "sales_value",
-                                    "placeholder": "commercial.salesValue",
-                                    "required": false,
-                                    "location": ""
+                                    "type": "component",
+                                    "name": "inventory-form"
+                                                                        
                                 }
                             ]
                         }
                         
                     ]
-                },
-                {
-                    "fields": [
-                        {
-                            "label": "commercial.costValue",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "cost_value",
-                                    "placeholder": "commercial.costValue",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        },
-                        {
-                            "label": "commercial.inventoryValue",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "inventory_value",
-                                    "placeholder": "commercial.inventoryValue",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
                 }
+                
             ]
         }
     ]
