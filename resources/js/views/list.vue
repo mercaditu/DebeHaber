@@ -32,9 +32,7 @@
           <crud inline-template>
             <div>
               <b-row class="mb-10 mt-10">
-                <b-col>
-                  <filter-data></filter-data>
-                </b-col>
+                <b-col></b-col>
                 <b-col>
                   <b-button-toolbar
                     class="float-right"
@@ -69,6 +67,16 @@
 
                     <b-button-group class="mx-1">
                       <b-button
+                        @click="$parent.showFilter = !$parent.showFilter"
+                        variant="primary"
+                        size="sm"
+                      >
+                        <i class="material-icons md-18">search</i>
+                      </b-button>
+                    </b-button-group>
+
+                    <b-button-group class="mx-1">
+                      <b-button
                         @click="refresh(items.links.next)"
                         variant="primary"
                         size="sm"
@@ -84,6 +92,9 @@
               </b-row>
               <!-- {{ this.$router.options.routes }} -->
               <b-card no-body>
+                <div v-if="$parent.showFilter == true">
+                  <filter-data></filter-data>
+                </div>
                 <b-table
                   id="my-table"
                   hover
@@ -150,7 +161,8 @@ export default {
   components: { crud },
 
   data: () => ({
-    components: []
+    components: [],
+    showFilter: false
   }),
 
   mounted() {

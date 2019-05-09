@@ -24,6 +24,7 @@ class SalesController extends Controller
             ->with(['details:transaction_id,value'])
             ->whereBetween('date', [$cycle->start_date, $cycle->end_date])
             ->orderBy('date', 'desc');
+
         return GeneralResource::collection(
             QueryBuilder::for($query)
                 ->allowedIncludes('details')
@@ -149,7 +150,6 @@ class SalesController extends Controller
 
         //Clean up details by placing 0. this will allow cleaner updates and know what to delete.
         foreach ($journal->details()->get() as $detail) {
-
             $detail->credit = 0;
             $detail->debit = 0;
             $detail->save();
@@ -158,7 +158,6 @@ class SalesController extends Controller
         $salesQuery = Transaction::MySalesForJournals($startDate, $endDate, $taxPayer->id)
             ->join('transaction_details', 'transactions.id', '=', 'transaction_details.transaction_id')
             ->groupBy('rate');
-
 
         $comment = __('accounting.SalesBookComment', ['startDate' => $startDate->toDateString(), 'endDate' => $endDate->toDateString()]);
         $journal->cycle_id = $cycle->id; //TODO: Change this for specific cycle that is in range with transactions

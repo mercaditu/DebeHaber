@@ -29,7 +29,6 @@ import VueMask from "v-mask";
 import VueSnackbar from "vue-snack";
 import "vue-snack/dist/vue-snack.min.css";
 
-
 Vue.use(VueSnackbar);
 Vue.use(VueMask);
 Vue.use(VueSweetalert2);

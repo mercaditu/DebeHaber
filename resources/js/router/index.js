@@ -145,6 +145,17 @@ export default [
         },
         children: [
             {
+                name: "salesForm",
+                path: "f/:id",
+                component: Form,
+                meta: SalesForm,
+
+                label: "general.create",
+                url: "sales/f/0",
+                icon: "add",
+                variant: "dark"
+            },
+            {
                 name: "salesUpload",
                 path: "upload",
                 component: Import,
@@ -155,17 +166,6 @@ export default [
                 label: "general.upload",
                 url: "sales/upload",
                 icon: "cloud_upload",
-                variant: "dark"
-            },
-            {
-                name: "salesForm",
-                path: "form/:id",
-                component: Form,
-                meta: SalesForm,
-
-                label: "general.create",
-                url: "sales/0",
-                icon: "add",
                 variant: "dark"
             }
         ]
