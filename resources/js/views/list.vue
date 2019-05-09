@@ -153,15 +153,6 @@ export default {
     components: []
   }),
 
-  computed: {
-    formURL: function() {
-      return this.$route.name.replace("List", "Form");
-    },
-    uploadURL: function() {
-      return "";
-    }
-  },
-
   mounted() {
     if (this.$route.meta.columns != null) {
       this.$route.meta.columns.forEach(element => {

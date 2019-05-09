@@ -25,18 +25,19 @@ import SearchResult from "../views/searchResult";
 import Form from "../views/form";
 import FormList from "../views/formList";
 import List from "../views/list";
+import Import from "../views/import";
 
-const Import = () => import("../views/import");
-
+// Clean up
 const JournalList = () => import("../views/accounts/journalList");
 const JournalForm = () => import("../components/journalForm");
+
+const VersionList = () => import("../views/configs/versionList");
+const VersionForm = () => import("../views/configs/versionForm");
+// / Clean up
 
 const ChartForm = () => import("../views/accounts/chartForm");
 
 const Config = () => import("../views/configs/index");
-const VersionList = () => import("../views/configs/versionList");
-const VersionForm = () => import("../views/configs/versionForm");
-
 const CommercialReports = () => import("../views/commercials/reports");
 const AccountingReports = () => import("../views/accounts/reports");
 
@@ -144,17 +145,6 @@ export default [
         },
         children: [
             {
-                name: "salesForm",
-                path: ":id",
-                component: Form,
-                meta: SalesForm,
-
-                label: "general.create",
-                url: "sales/0",
-                icon: "add",
-                variant: "dark"
-            },
-            {
                 name: "salesUpload",
                 path: "upload",
                 component: Import,
@@ -163,7 +153,19 @@ export default [
                 },
 
                 label: "general.upload",
+                url: "sales/upload",
                 icon: "cloud_upload",
+                variant: "dark"
+            },
+            {
+                name: "salesForm",
+                path: "form/:id",
+                component: Form,
+                meta: SalesForm,
+
+                label: "general.create",
+                url: "sales/0",
+                icon: "add",
                 variant: "dark"
             }
         ]
@@ -337,17 +339,6 @@ export default [
         },
         children: [
             {
-                name: "purchaseForm",
-                path: ":id",
-                component: Form,
-                meta: PurchaseForm,
-
-                label: "general.create",
-                url: "purchases/0",
-                icon: "add",
-                variant: "dark"
-            },
-            {
                 name: "purchaseUpload",
                 path: "upload",
                 component: Import,
@@ -357,6 +348,17 @@ export default [
 
                 label: "general.upload",
                 icon: "cloud_upload",
+                variant: "dark"
+            },
+            {
+                name: "purchaseForm",
+                path: ":id",
+                component: Form,
+                meta: PurchaseForm,
+
+                label: "general.create",
+                url: "purchases/0",
+                icon: "add",
                 variant: "dark"
             }
         ]
@@ -660,7 +662,7 @@ export default [
                         }
                     ]
                 }
-            ],           
+            ],
             columns: [
                 {
                     key: "date",
@@ -1082,28 +1084,26 @@ export default [
             title: "accounting.chartOfAccounts",
             img: "/img/apps/chart-of-accounts.svg",
             components: [],
-            columns:[
+            columns: [
                 {
-                  key: "code",
-                  label:"commercial.code",
-                  sortable: true,
+                    key: "code",
+                    label: "commercial.code",
+                    sortable: true
                 },
                 {
-                  key: "name",
-                  label:"commercial.accoune",
-                  sortable: true
+                    key: "name",
+                    label: "commercial.accoune",
+                    sortable: true
                 },
                 {
-                  key: "type",
-                  label: ""
+                    key: "type",
+                    label: ""
                 },
                 {
-                  key: "actions",
-                  label: ""
+                    key: "actions",
+                    label: ""
                 }
-              ]
-            
-            
+            ]
         },
         children: [
             {
@@ -1120,7 +1120,6 @@ export default [
                 icon: "add",
                 variant: "dark"
             }
-            
         ]
     },
     {

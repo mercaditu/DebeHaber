@@ -13,7 +13,7 @@
                                 {
                                     "type": "text",
                                     "data": "comment",
-                                    "placeholder": "general.comment ",
+                                    "placeholder": "general.comment",
                                     "required": false,
                                     "location": ""
                                 }

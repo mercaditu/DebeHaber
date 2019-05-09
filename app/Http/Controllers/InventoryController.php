@@ -34,7 +34,7 @@ class InventoryController extends Controller
         );
     }
 
-    //TODO pass start and end date to calculate sales.
+    //TODO calcualte without VAT.
     public function calcSales(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         $transaction = Transaction::MySales()
@@ -42,14 +42,14 @@ class InventoryController extends Controller
             ->where('td.chart_id', $request->chart_id)
             ->whereBetween('date', [$request->start_date, $request->end_date])
             ->groupBy('td.chart_id')
-                ->select(
+            ->select(
                 DB::raw('sum(td.value * transactions.rate) as sales'),
                 DB::raw('sum(td.cost * transactions.rate) as cost_value'),
                 DB::raw('avg(td.cost / td.value) as margin')
             )
             ->first();
 
-        return response()->json($transaction !=null ? $transaction->sales : 0 );
+        return response()->json($transaction != null ? $transaction->sales : 0);
     }
 
     //TODO pass start date to calculate sales at beging of inventory range
@@ -62,7 +62,7 @@ class InventoryController extends Controller
             ->groupBy('jd.chart_id')
             ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as inventory_value'))
             ->first();
-        return response()->json($journals !=null ? $journals->inventory_value : 0);
+        return response()->json($journals != null ? $journals->inventory_value : 0);
     }
 
     /**
@@ -79,17 +79,37 @@ class InventoryController extends Controller
             $inventory = Inventory::where('id', $request->id)->first();
         }
 
+        $journal = Journal::firstOrNew(['id' => $request->id]);
+        $journal->comment = $request->comment;
+        $journal->date = $request->end_date;
+        $journal->save();
+
+        $detailSales = JournalDetail::firstOrNew(['journal_id' => $journal->id, 'chart_id' => $request->chart_sales_id]);
+        $detailSales->journal_id = $journal->id;
+        $detailSales->credit = $request->discount_value;
+        $detailSales->save();
+
+        $detailInventory = JournalDetail::firstOrNew(['journal_id' => $journal->id, 'chart_id' => $request->chart_id]);
+        $detailInventory->journal_id = $journal->id;
+        $detailInventory->debit = $request->discount_value;
+        $detailInventory->save();
+
+        //clean up unnecesary details.
+        //foreach
+
+        $inventory->journal->id = $journal->id;
+
         $inventory->taxpayer_id = $taxPayer->id;
         $inventory->chart_id = $request->chart_id;
+        $inventory->chart_sales_id = $request->chart_sales_id;
+
         $inventory->start_date = $request->start_date;
         $inventory->end_date = $request->end_date;
         $inventory->sales_value = $request->sales_value ?? 0;
-        $inventory->cost_value = $request->cost_value;
         $inventory->inventory_value = $request->inventory_value;
-        $inventory->chart_of_incomes = $request->chart_of_incomes;
-        $inventory->current_value = $request->current_value ?? 0;
-        $inventory->comments = $request->comment;
+        $inventory->discount_value = $request->discount_value;
 
+        $inventory->comments = $request->comment;
         $inventory->save();
 
         return response()->json('ok', 200);
