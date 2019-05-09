@@ -115,7 +115,13 @@ export default {
     var app = this;
 
     crud.methods
-      .onRead(app.baseUrl + "/accounting/charts/for/income/")
+      .onRead(app.baseUrl + "/accounting/charts/for/income/stockables/")
+      .then(function(response) {
+        app.salesCharts = response.data.data;
+      });
+
+    crud.methods
+      .onRead(app.baseUrl + "/accounting/charts/for/inventory/")
       .then(function(response) {
         app.salesCharts = response.data.data;
       });

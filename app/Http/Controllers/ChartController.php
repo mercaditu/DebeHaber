@@ -139,13 +139,24 @@ class ChartController extends Controller
         );
     }
 
-    public function getSalesOnStockablesAccounts(Taxpayer $taxPayer, Cycle $cycle)
+    public function getIncomesFromStockAccounts(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
             Chart::Incomes()
                 ->where('sub_type', 4)
                 ->orderBy('name')
-                ->select('name', 'id', 'sub_type')
+                ->select('name', 'id')
+                ->get()
+        );
+    }
+
+    public function getStockAccounts(Taxpayer $taxPayer, Cycle $cycle)
+    {
+        return GeneralResource::collection(
+            Chart::Assets()
+                ->where('sub_type', 8)
+                ->orderBy('name')
+                ->select('name', 'id')
                 ->get()
         );
     }
