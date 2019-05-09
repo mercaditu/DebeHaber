@@ -401,7 +401,7 @@ return [
         'script-src' => [
             'allow' => [
                 // 'url',
-                'https://unpkg.com/vue-multiselect'
+                
             ],
 
             'hashes' => [

@@ -50,3 +50,7 @@ Vue.component(
     require("./dashboard/TransactionsPie.vue").default
 );
 Vue.component("chart-types", require("./chart-types.vue").default);
+
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
+Vue.component('v-select', vSelect)

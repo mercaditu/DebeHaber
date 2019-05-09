@@ -8,14 +8,7 @@
           v-model.number="paymentCondition"
         />
         <b-input-group-append v-if="paymentCondition == 0">
-          <multiselect
-            v-model="chart_account_id"
-            :options="accountCharts"
-            placeholder="Select one"
-            @input="chartSelect"
-            label="name"
-            track-by="name"
-          ></multiselect>
+          <v-select v-model="chart_account_id" label="name" :options="accountCharts"></v-select>
         </b-input-group-append>
       </b-input-group>
     </b-input-group>
@@ -23,10 +16,9 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
 import crud from "../components/crud.vue";
 export default {
-  components: { crud: crud, Multiselect },
+  components: { crud: crud },
   props: ["payment_condition", "chart_account_id"],
   data: () => ({
     accountCharts: [],

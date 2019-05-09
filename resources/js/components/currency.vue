@@ -23,10 +23,9 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
 import crud from "../components/crud.vue";
 export default {
-  components: { crud: crud ,Multiselect},
+  components: { crud: crud },
   props: ["currency", "rate", "date", "type"],
   data: () => ({
     collections: [],

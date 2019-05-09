@@ -44,6 +44,13 @@ class Chart extends Model
             ->where('charts.chart_version_id', $cycle->chart_version_id);
     }
 
+    public function scopeAssets($query)
+    {
+        return $query
+            ->where('type', 1)
+            ->where('is_accountable', 1);
+    }
+
     //Brings all Cash and Bank accounts.
     public function scopeMoneyAccounts($query)
     {

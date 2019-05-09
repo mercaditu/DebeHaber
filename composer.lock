@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "b16de02b7e2432e28456f70b1ad61c56",
@@ -1940,16 +1940,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v9.3.0",
+            "version": "v9.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier.git",
-                "reference": "5c7639dc79f43bd230dd5507b43a527ed11aedfd"
+                "reference": "0f876d79c18d909e08ee8cfa48aae29827f1ef00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier/zipball/5c7639dc79f43bd230dd5507b43a527ed11aedfd",
-                "reference": "5c7639dc79f43bd230dd5507b43a527ed11aedfd",
+                "url": "https://api.github.com/repos/laravel/cashier/zipball/0f876d79c18d909e08ee8cfa48aae29827f1ef00",
+                "reference": "0f876d79c18d909e08ee8cfa48aae29827f1ef00",
                 "shasum": ""
             },
             "require": {
@@ -2002,20 +2002,20 @@
                 "laravel",
                 "stripe"
             ],
-            "time": "2019-04-16T16:26:04+00:00"
+            "time": "2019-05-07T15:05:48+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.15",
+            "version": "v5.8.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "8a34004aed6ff0aa4072360e3e5bd875edebc223"
+                "reference": "83d57f9f9162ab476c43b9ec00d463ff12c578fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/8a34004aed6ff0aa4072360e3e5bd875edebc223",
-                "reference": "8a34004aed6ff0aa4072360e3e5bd875edebc223",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/83d57f9f9162ab476c43b9ec00d463ff12c578fd",
+                "reference": "83d57f9f9162ab476c43b9ec00d463ff12c578fd",
                 "shasum": ""
             },
             "require": {
@@ -2149,7 +2149,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-04-30T14:05:03+00:00"
+            "time": "2019-05-07T14:37:11+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2227,7 +2227,8 @@
             "dist": {
                 "type": "path",
                 "url": "./spark",
-                "reference": "e8ca36ab2280851f041e0479cd9cc17f48319d97"
+                "reference": "b25d6b77a67847cb17b859fdec5bb63612029ce6",
+                "shasum": null
             },
             "require": {
                 "erusev/parsedown": "~1.0",
@@ -2607,16 +2608,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.12",
+            "version": "3.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "e1816f793c6abd33e3858ecb3b056da9a7dd5d73"
+                "reference": "d79ee01175c6a5e93f2a873dcda1b755b7570076"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/e1816f793c6abd33e3858ecb3b056da9a7dd5d73",
-                "reference": "e1816f793c6abd33e3858ecb3b056da9a7dd5d73",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/d79ee01175c6a5e93f2a873dcda1b755b7570076",
+                "reference": "d79ee01175c6a5e93f2a873dcda1b755b7570076",
                 "shasum": ""
             },
             "require": {
@@ -2671,7 +2672,7 @@
                 "php",
                 "phpspreadsheet"
             ],
-            "time": "2019-04-17T17:22:54+00:00"
+            "time": "2019-05-08T12:05:59+00:00"
         },
         {
             "name": "markbaker/complex",
@@ -6111,28 +6112,28 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.8.0",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e"
+                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/d50a81aea91bb188651e1e81e77c73ba95d8370e",
-                "reference": "d50a81aea91bb188651e1e81e77c73ba95d8370e",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/6a920a441783a50d7c95d08b3ae9189b149b259f",
+                "reference": "6a920a441783a50d7c95d08b3ae9189b149b259f",
                 "shasum": ""
             },
             "require": {
                 "illuminate/cookie": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
                 "illuminate/view": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-                "php": "^7.2"
+                "php": "^7.1"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
                 "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
-                "phpunit/phpunit": "^8.0"
+                "phpunit/phpunit": "^6.3|^7.0|^8.0"
             },
             "type": "library",
             "extra": {
@@ -6175,7 +6176,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2019-03-28T23:13:20+00:00"
+            "time": "2019-02-27T08:10:09+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",

@@ -1,27 +1,27 @@
 <template>
   <div>
-    <multiselect
-      v-model="item"
+    <v-select v-model="Item" label="name" :options="collections"></v-select>
+    <!-- <multiselect
+      v-model="Item"
       :options="collections"
       :placeholder="$t('general.pleaseSelect')"
-      @input="item"
+      @input="Item"
       label="name"
       track-by="name"
-    ></multiselect>
+    ></multiselect> -->
   </div>
 </template>
 
 <script>
-import multiselect from "vue-multiselect";
 import crud from "../components/crud.vue";
 export default {
-  components: { crud: crud, multiselect },
+  components: { crud: crud },
   props: ["item", "api", "options"],
   data: () => ({
     collections: []
   }),
   computed: {
-    document_id: {
+    Item: {
       // getter
       get: function() {
         return this.Id;

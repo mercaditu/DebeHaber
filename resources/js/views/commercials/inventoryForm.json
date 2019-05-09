@@ -22,11 +22,38 @@
                     ]
                 }
             ]
-        }
-    ],
-    "components": [
+        },
         {
-            "name": "inventory-form"
+            "rows": [
+                {
+                    "fields": [
+                        {
+                            "label": "",
+                            "properties": [
+                                {
+                                    "type": "inventory",
+                                    "data": [
+                                        {
+                                            "startDate": "start_date",
+                                            "endDate": "end_date",
+                                            "salesValue": "sales_value",
+                                            "inventoryValue": "inventory_value",
+                                            "costValue": "cost_value",
+                                            "chartId": "chart_id",
+                                            "chartofIncomes": "chart_of_incomes",
+                                            "Margin": "margin"
+                                        }
+                                    ],
+                                    "placeholder": "general.comment ",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ]
+   
 }

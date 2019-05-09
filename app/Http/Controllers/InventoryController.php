@@ -39,17 +39,17 @@ class InventoryController extends Controller
     {
         $transaction = Transaction::MySales()
             ->leftJoin('transaction_details as td', 'td.transaction_id', 'transactions.id')
-            ->whereIn('td.chart_id', $request->chart_id)
+            ->where('td.chart_id', $request->chart_id)
             ->whereBetween('date', [$request->start_date, $request->end_date])
             ->groupBy('td.chart_id')
-            ->select(
+                ->select(
                 DB::raw('sum(td.value * transactions.rate) as sales'),
                 DB::raw('sum(td.cost * transactions.rate) as cost_value'),
                 DB::raw('avg(td.cost / td.value) as margin')
             )
-            ->get();
+            ->first();
 
-        return response()->json($transaction);
+        return response()->json($transaction !=null ? $transaction->sales : 0 );
     }
 
     //TODO pass start date to calculate sales at beging of inventory range
@@ -60,9 +60,9 @@ class InventoryController extends Controller
             ->where('jd.chart_id', $request->chart_id)
             ->whereBetween('date', [$request->start_date, $request->end_date])
             ->groupBy('jd.chart_id')
-            ->select(DB::raw('sum(td.debit) as inventory_value'))
-            ->get();
-        return response()->json($journals ?? 0);
+            ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as inventory_value'))
+            ->first();
+        return response()->json($journals !=null ? $journals->inventory_value : 0);
     }
 
     /**
@@ -80,13 +80,14 @@ class InventoryController extends Controller
         }
 
         $inventory->taxpayer_id = $taxPayer->id;
-        $inventory->chart_id = $request->chart_id['id'];
+        $inventory->chart_id = $request->chart_id;
         $inventory->start_date = $request->start_date;
         $inventory->end_date = $request->end_date;
-        $inventory->sales_value = $request->sales_value;
+        $inventory->sales_value = $request->sales_value ?? 0;
         $inventory->cost_value = $request->cost_value;
         $inventory->inventory_value = $request->inventory_value;
-        // $inventory->chart_of_incomes =implode('', $request->selectcharttype) ;
+        $inventory->chart_of_incomes = $request->chart_of_incomes;
+        $inventory->current_value = $request->current_value ?? 0;
         $inventory->comments = $request->comment;
 
         $inventory->save();

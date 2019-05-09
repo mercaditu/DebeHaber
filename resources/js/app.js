@@ -28,9 +28,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import VueMask from "v-mask";
 import VueSnackbar from "vue-snack";
 import "vue-snack/dist/vue-snack.min.css";
-import Multiselect from "vue-multiselect";
 
-Vue.component("multiselect", Multiselect);
 
 Vue.use(VueSnackbar);
 Vue.use(VueMask);
