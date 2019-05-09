@@ -2944,9 +2944,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["start_date", "end_date", "sales_value", "inventory_value", "cost_value", "chart_id", "chart_of_incomes", "margin"],
@@ -28200,7 +28197,7 @@ exports.hasPointerEventSupport = hasPointerEventSupport;
 
 var getEnv = function getEnv(key) {
   var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var env = typeof process !== 'undefined' && process ? Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}) || false : {};
+  var env = typeof process !== 'undefined' && process ? Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}) || false : {};
 
   if (!key) {
     /* istanbul ignore next */
@@ -94135,59 +94132,107 @@ var render = function() {
     "div",
     [
       _c(
-        "b-card",
-        {
-          attrs: {
-            title: "First Step",
-            "sub-title":
-              "Select a date range and a sales income category (related to stockable items) and press calculate"
-          }
-        },
+        "b-row",
         [
           _c(
-            "b-row",
+            "b-col",
             [
               _c(
-                "b-col",
+                "b-form-group",
+                { attrs: { label: _vm.$t("general.startDate") } },
                 [
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("general.startDate") } },
-                    [
-                      _c("b-input", {
-                        attrs: { type: "date", required: "" },
-                        model: {
-                          value: _vm.startDate,
-                          callback: function($$v) {
-                            _vm.startDate = $$v
-                          },
-                          expression: "startDate"
-                        }
-                      })
-                    ],
-                    1
-                  )
+                  _c("b-input", {
+                    attrs: { type: "date", required: "" },
+                    model: {
+                      value: _vm.startDate,
+                      callback: function($$v) {
+                        _vm.startDate = $$v
+                      },
+                      expression: "startDate"
+                    }
+                  })
                 ],
                 1
-              ),
-              _vm._v(" "),
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
               _c(
-                "b-col",
+                "b-form-group",
+                { attrs: { label: _vm.$t("general.endDate") } },
+                [
+                  _c("b-input", {
+                    attrs: { type: "date", required: "" },
+                    model: {
+                      value: _vm.endDate,
+                      callback: function($$v) {
+                        _vm.endDate = $$v
+                      },
+                      expression: "endDate"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-form-group",
+                { attrs: { label: _vm.$t("commercial.income") } },
                 [
                   _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("general.endDate") } },
+                    "b-input-group",
                     [
-                      _c("b-input", {
-                        attrs: { type: "date", required: "" },
-                        model: {
-                          value: _vm.endDate,
-                          callback: function($$v) {
-                            _vm.endDate = $$v
-                          },
-                          expression: "endDate"
-                        }
-                      })
+                      _c(
+                        "b-form-select",
+                        {
+                          model: {
+                            value: _vm.chartId,
+                            callback: function($$v) {
+                              _vm.chartId = $$v
+                            },
+                            expression: "chartId"
+                          }
+                        },
+                        _vm._l(_vm.salesCharts, function(item) {
+                          return _c(
+                            "option",
+                            { key: item.key, domProps: { value: item.id } },
+                            [_vm._v(_vm._s(item.name))]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "primary" },
+                              on: { click: _vm.calcSales }
+                            },
+                            [_vm._v("Calculate")]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -94198,207 +94243,134 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.income") } },
-                    [
-                      _c(
-                        "b-input-group",
-                        [
-                          _c(
-                            "b-form-select",
-                            {
-                              model: {
-                                value: _vm.chartId,
-                                callback: function($$v) {
-                                  _vm.chartId = $$v
-                                },
-                                expression: "chartId"
-                              }
-                            },
-                            _vm._l(_vm.salesCharts, function(item) {
-                              return _c(
-                                "option",
-                                { key: item.key, domProps: { value: item.id } },
-                                [_vm._v(_vm._s(item.name))]
-                              )
-                            }),
-                            0
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "primary" },
-                                  on: { click: _vm.calcSales }
-                                },
-                                [_vm._v("Calculate")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", [
-                _c("p", { staticClass: "lead" }, [
-                  _vm._v(
-                    "Sales Value: " +
-                      _vm._s(_vm.salesValue) +
-                      " " +
-                      _vm._s(_vm.spark.taxPayerData.currency)
-                  )
-                ])
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.inventory") } },
-                    [
-                      _c(
-                        "b-input-group",
-                        [
-                          _c(
-                            "b-form-select",
-                            {
-                              model: {
-                                value: _vm.chartofIncomes,
-                                callback: function($$v) {
-                                  _vm.chartofIncomes = $$v
-                                },
-                                expression: "chartofIncomes"
-                              }
-                            },
-                            _vm._l(_vm.inventoryCharts, function(item) {
-                              return _c(
-                                "option",
-                                { key: item.key, domProps: { value: item.id } },
-                                [_vm._v(_vm._s(item.name))]
-                              )
-                            }),
-                            0
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-input-group-append",
-                            [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "primary" },
-                                  on: { click: _vm.calcInventory }
-                                },
-                                [_vm._v("Calculate")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-col", [
-                _c("p", { staticClass: "lead" }, [
-                  _vm._v(
-                    "Inventory Value: " +
-                      _vm._s(_vm.inventoryValue) +
-                      " " +
-                      _vm._s(_vm.spark.taxPayerData.currency)
-                  )
-                ])
-              ])
-            ],
-            1
-          )
+          _c("b-col", [
+            _c("p", { staticClass: "lead" }, [
+              _vm._v(
+                "Sales Value: " +
+                  _vm._s(_vm.salesValue) +
+                  " " +
+                  _vm._s(_vm.spark.taxPayerData.currency)
+              )
+            ])
+          ])
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "b-card",
-        {
-          attrs: {
-            title: "Second Step",
-            "sub-title": "Check or manually update your cost value"
-          }
-        },
+        "b-row",
         [
           _c(
-            "b-row",
+            "b-col",
             [
-              _c("b-col", [
-                _c("p", [
-                  _vm._v(
-                    _vm._s(_vm.salesValue) +
-                      " " +
-                      _vm._s(_vm.spark.taxPayerData.currency)
-                  )
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "b-col",
+                "b-form-group",
+                { attrs: { label: _vm.$t("commercial.inventory") } },
                 [
                   _c(
-                    "b-form-group",
-                    { attrs: { label: _vm.$t("commercial.costValue") } },
+                    "b-input-group",
                     [
-                      _c("b-input", {
-                        attrs: { placeholder: "margin" },
-                        model: {
-                          value: _vm.Margin,
-                          callback: function($$v) {
-                            _vm.Margin = _vm._n($$v)
-                          },
-                          expression: "Margin"
-                        }
-                      }),
+                      _c(
+                        "b-form-select",
+                        {
+                          model: {
+                            value: _vm.chartofIncomes,
+                            callback: function($$v) {
+                              _vm.chartofIncomes = $$v
+                            },
+                            expression: "chartofIncomes"
+                          }
+                        },
+                        _vm._l(_vm.inventoryCharts, function(item) {
+                          return _c(
+                            "option",
+                            { key: item.key, domProps: { value: item.id } },
+                            [_vm._v(_vm._s(item.name))]
+                          )
+                        }),
+                        0
+                      ),
                       _vm._v(" "),
-                      _c("b-input", {
-                        attrs: { type: "number", placeholder: "Cost" },
-                        on: { input: _vm.calcCost },
-                        model: {
-                          value: _vm.cost_value,
-                          callback: function($$v) {
-                            _vm.cost_value = _vm._n($$v)
-                          },
-                          expression: "cost_value"
-                        }
-                      })
+                      _c(
+                        "b-input-group-append",
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "primary" },
+                              on: { click: _vm.calcInventory }
+                            },
+                            [_vm._v("Calculate")]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("b-col", [
+            _c("p", { staticClass: "lead" }, [
+              _vm._v(
+                "Inventory Value: " +
+                  _vm._s(_vm.inventoryValue) +
+                  " " +
+                  _vm._s(_vm.spark.taxPayerData.currency)
+              )
+            ])
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-row",
+        [
+          _c("b-col", [
+            _c("p", [
+              _vm._v(
+                _vm._s(_vm.salesValue) +
+                  " " +
+                  _vm._s(_vm.spark.taxPayerData.currency)
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "b-col",
+            [
+              _c(
+                "b-form-group",
+                { attrs: { label: _vm.$t("commercial.costValue") } },
+                [
+                  _c("b-input", {
+                    attrs: { placeholder: "margin" },
+                    model: {
+                      value: _vm.Margin,
+                      callback: function($$v) {
+                        _vm.Margin = _vm._n($$v)
+                      },
+                      expression: "Margin"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("b-input", {
+                    attrs: { type: "number", placeholder: "Cost" },
+                    on: { input: _vm.calcCost },
+                    model: {
+                      value: _vm.cost_value,
+                      callback: function($$v) {
+                        _vm.cost_value = _vm._n($$v)
+                      },
+                      expression: "cost_value"
+                    }
+                  })
                 ],
                 1
               )
@@ -117159,7 +117131,7 @@ module.exports = {"pageurl":"/commercial/impexes","title":"commercial.impex","im
 /*! exports provided: pageurl, title, img, cards, default */
 /***/ (function(module) {
 
-module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]}]},{"rows":[{"fields":[{"label":"","properties":[{"type":"inventory","data":[{"startDate":"start_date","endDate":"end_date","salesValue":"sales_value","inventoryValue":"inventory_value","costValue":"cost_value","chartId":"chart_id","chartofIncomes":"chart_of_incomes","Margin":"margin"}],"placeholder":"general.comment ","required":false,"location":""}]}]}]}]};
+module.exports = {"pageurl":"/commercial/inventories","title":"commercial.inventories","img":"/img/apps/inventory.svg","cards":[{"rows":[{"fields":[{"label":"general.comment","properties":[{"type":"text","data":"comment","placeholder":"general.comment ","required":false,"location":""}]}]}]},{"title":"First Step","rows":[{"fields":[{"label":"","properties":[{"type":"inventory","data":[{"startDate":"start_date","endDate":"end_date","salesValue":"sales_value","inventoryValue":"inventory_value","costValue":"cost_value","chartId":"chart_id","chartofIncomes":"chart_of_incomes","margin":"margin"}]}]}]}]}]};
 
 /***/ }),
 
@@ -122893,9 +122865,9 @@ __webpack_require__(/*! ./forms/bootstrap */ "./spark/resources/assets/js/forms/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\SMART\Documents\GitHub\DebeHaber\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\SMART\Documents\GitHub\DebeHaber\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\SMART\Documents\GitHub\DebeHaber\resources\sass\app-rtl.scss */"./resources/sass/app-rtl.scss");
+__webpack_require__(/*! /Users/abhishek/Projects/DebeHaber/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Users/abhishek/Projects/DebeHaber/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/abhishek/Projects/DebeHaber/resources/sass/app-rtl.scss */"./resources/sass/app-rtl.scss");
 
 
 /***/ })

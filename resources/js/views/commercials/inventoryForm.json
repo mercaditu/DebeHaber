@@ -24,6 +24,7 @@
             ]
         },
         {
+            "title": "First Step",
             "rows": [
                 {
                     "fields": [
@@ -41,12 +42,9 @@
                                             "costValue": "cost_value",
                                             "chartId": "chart_id",
                                             "chartofIncomes": "chart_of_incomes",
-                                            "Margin": "margin"
+                                            "margin": "margin"
                                         }
-                                    ],
-                                    "placeholder": "general.comment ",
-                                    "required": false,
-                                    "location": ""
+                                    ]
                                 }
                             ]
                         }
@@ -55,5 +53,4 @@
             ]
         }
     ]
-   
 }

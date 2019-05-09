@@ -1,77 +1,82 @@
 <template>
   <div>
-    <b-card
-      title="First Step"
-      sub-title="Select a date range and a sales income category (related to stockable items) and press calculate"
-    >
-      <b-row>
-        <b-col>
-          <b-form-group :label="$t('general.startDate')">
-            <b-input type="date" required v-model="startDate"/>
-          </b-form-group>
-        </b-col>
-        <b-col>
-          <b-form-group :label="$t('general.endDate')">
-            <b-input type="date" required v-model="endDate"/>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-form-group :label="$t('commercial.income')">
-            <b-input-group>
-              <b-form-select v-model="chartId">
-                <option v-for="item in salesCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
-              </b-form-select>
-              <b-input-group-append>
-                <b-button variant="primary" @click="calcSales">Calculate</b-button>
-              </b-input-group-append>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-        <b-col>
-          <p class="lead">Sales Value: {{ salesValue }} {{spark.taxPayerData.currency}}</p>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-form-group :label="$t('commercial.inventory')">
-            <b-input-group>
-              <b-form-select v-model="chartofIncomes">
-                <option v-for="item in inventoryCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
-              </b-form-select>
-              <b-input-group-append>
-                <b-button variant="primary" @click="calcInventory">Calculate</b-button>
-              </b-input-group-append>
-            </b-input-group>
-          </b-form-group>
-        </b-col>
-        <b-col>
-          <p class="lead">Inventory Value: {{ inventoryValue }} {{spark.taxPayerData.currency}}</p>
-        </b-col>
-      </b-row>
-    </b-card>
-    <b-card title="Second Step" sub-title="Check or manually update your cost value">
-      <b-row>
-        <b-col>
-          <p>{{ salesValue }} {{spark.taxPayerData.currency}}</p>
-        </b-col>
-        <b-col>
-          <b-form-group :label="$t('commercial.costValue')">
-            <b-input placeholder="margin" v-model.number="Margin"></b-input>
-            <b-input type="number" placeholder="Cost" v-model.number="cost_value" @input="calcCost"/>
-          </b-form-group>
-        </b-col>
-      </b-row>
-    </b-card>
+    <b-row>
+      <b-col>
+        <b-form-group :label="$t('general.startDate')">
+          <b-input type="date" required v-model="startDate"/>
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-group :label="$t('general.endDate')">
+          <b-input type="date" required v-model="endDate"/>
+        </b-form-group>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-form-group :label="$t('commercial.income')">
+          <b-input-group>
+            <b-form-select v-model="chartId">
+              <option v-for="item in salesCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
+            </b-form-select>
+            <b-input-group-append>
+              <b-button variant="primary" @click="calcSales">Calculate</b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <p class="lead">Sales Value: {{ salesValue }} {{spark.taxPayerData.currency}}</p>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-form-group :label="$t('commercial.inventory')">
+          <b-input-group>
+            <b-form-select v-model="chartofIncomes">
+              <option
+                v-for="item in inventoryCharts"
+                :key="item.key"
+                :value="item.id"
+              >{{ item.name }}</option>
+            </b-form-select>
+            <b-input-group-append>
+              <b-button variant="primary" @click="calcInventory">Calculate</b-button>
+            </b-input-group-append>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <p class="lead">Inventory Value: {{ inventoryValue }} {{spark.taxPayerData.currency}}</p>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <p>{{ salesValue }} {{spark.taxPayerData.currency}}</p>
+      </b-col>
+      <b-col>
+        <b-form-group :label="$t('commercial.costValue')">
+          <b-input placeholder="margin" v-model.number="Margin"></b-input>
+          <b-input type="number" placeholder="Cost" v-model.number="cost_value" @input="calcCost"/>
+        </b-form-group>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 import crud from "../components/crud.vue";
 export default {
-  props: ["start_date", "end_date", "sales_value", "inventory_value", "cost_value" ,
-  "chart_id" ,"chart_of_incomes" , "margin"],
+  props: [
+    "start_date",
+    "end_date",
+    "sales_value",
+    "inventory_value",
+    "cost_value",
+    "chart_id",
+    "chart_of_incomes",
+    "margin"
+  ],
   components: { crud: crud },
   data() {
     return {
@@ -80,7 +85,7 @@ export default {
     };
   },
   computed: {
-     Margin: {
+    Margin: {
       // getter
       get: function() {
         return this.margin;
@@ -88,7 +93,6 @@ export default {
       // setter
       set: function(newValue) {
         this.$emit("update:margin", newValue);
-      
       }
     },
     startDate: {
@@ -162,7 +166,7 @@ export default {
         this.$emit("update:chart_of_incomes", newValue);
       }
     },
-    
+
     baseUrl() {
       return (
         "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
@@ -172,12 +176,15 @@ export default {
   methods: {
     calcSales() {
       var app = this;
-     
+
       crud.methods
-        .onUpdate(app.baseUrl + "/commercial/inventories/calc-revenue", app._props)
+        .onUpdate(
+          app.baseUrl + "/commercial/inventories/calc-revenue",
+          app._props
+        )
         .then(function(response) {
           if (response.status == 200) {
-           app.sales_value= response.data;
+            app.sales_value = response.data;
           }
         })
         .catch(function(error) {
@@ -189,13 +196,16 @@ export default {
     },
     calcInventory() {
       var app = this;
- 
-     crud.methods
-        .onUpdate(app.baseUrl + "/commercial/inventories/calc-inventory", app._props)
+
+      crud.methods
+        .onUpdate(
+          app.baseUrl + "/commercial/inventories/calc-inventory",
+          app._props
+        )
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
-                    app.inventoryValue= response.data;
+            app.inventoryValue = response.data;
           }
         })
         .catch(function(error) {
@@ -208,26 +218,17 @@ export default {
     calcCost() {
       var app = this;
       console.log(app.cost_value);
-      if(app.cost_value < app.inventory_value || app.cost_value == undefined)
-      {
-       
-        app.Margin = (app.cost_value/app.inventory_value) * 100;
-        app.costValue =app.cost_value;
+      if (app.cost_value < app.inventory_value || app.cost_value == undefined) {
+        app.Margin = (app.cost_value / app.inventory_value) * 100;
+        app.costValue = app.cost_value;
+      } else {
+        app.margin = 0;
+        app.cost_value = 0;
+        app.$snack.danger({
+          text: "Value is Less Than Inventory Value"
+        });
       }
-      else{
-         app.margin = 0;
-         app.cost_value = 0;
-         app.$snack.danger({
-            text: "Value is Less Than Inventory Value"
-          });
-      }
-
-      
-      
-      
-    
     }
-
   },
   mounted() {
     var app = this;
