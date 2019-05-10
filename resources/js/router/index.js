@@ -11,9 +11,9 @@ import ImpexForm from "../views/commercials/impexForm.json";
 import CycleForm from "../views/configs/cycleForm.json";
 import DocumentForm from "../views/configs/documentForm.json";
 import RateForm from "../views/configs/rateForm.json";
-
-import MoneyMovementDebitForm from "../views/commercials/moneyMovementDebitForm.json";
-import MoneyMovementForm from "../views/commercials/moneyMovementForm.json";
+import MoneyTransfer from "../views/commercials/moneyTransfer.json";
+import MoneyPayment from "../views/commercials/moneyPayment.json";
+import JournalForm from "../views/accounts/journalForm.json";
 import JournalTemplateForm from "../views/accounts/templateForm.json";
 import openingBalanceForm from "../views/accounts/openingBalanceForm.json";
 import closingBalanceForm from "../views/accounts/closingBalanceForm.json";
@@ -28,7 +28,7 @@ import List from "../views/list";
 import Import from "../views/import";
 
 // Clean up
-const JournalForm = () => import("../components/journalForm");
+//const JournalForm = () => import("../components/journalForm");
 
 const VersionList = () => import("../views/configs/versionList");
 const VersionForm = () => import("../views/configs/versionForm");
@@ -613,7 +613,7 @@ export default [
                 path: ":id",
                 component: Form,
                 name: "moneyMovementForm",
-                meta: MoneyMovementDebitForm,
+                meta: MoneyPayment,
 
                 label: "general.create",
                 url: "money/0",
@@ -621,11 +621,11 @@ export default [
                 variant: "dark"
             },
             {
-                path: "transfers",
+                path: "transfer/:id",
                 component: Form,
                 name: "moneyTransferForm",
                 img: "/img/apps/money-transfer.svg",
-                meta: MoneyMovementForm,
+                meta: MoneyTransfer,
 
                 label: "general.transfer",
                 url: "money/transfer/0",
@@ -1071,8 +1071,8 @@ export default [
             {
                 name: "journalForm",
                 path: ":id",
-                component: JournalForm,
-                meta: "journalForm",
+                component: Form,
+                meta: JournalForm,
                 label: "general.create",
                 url: "journals/0",
                 icon: "add",

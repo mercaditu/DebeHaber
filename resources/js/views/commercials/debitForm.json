@@ -107,7 +107,7 @@
                     "properties": [
                         {
                             "type": "select",
-                            "data": "chart_id",
+                            "data": "chart",
                             "placeholder": "commercial.chart",
                             "api": "/accounting/charts/for/expense/",
                             "required": false,
@@ -126,7 +126,7 @@
                     "properties": [
                         {
                             "type": "select",
-                            "data": "chart_vat_id",
+                            "data": "vat",
                             "placeholder": "commercial.vat",
                             "api": "/accounting/charts/for/vats-debit/ ",
                             "required": false,

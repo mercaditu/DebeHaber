@@ -107,7 +107,7 @@
                     "properties": [
                         {
                             "type": "select",
-                            "data": "chart_id",
+                            "data": "chart",
                             "api": "/accounting/charts/for/income/",
                             "required": true,
                             "location": "",
@@ -125,7 +125,7 @@
                     "properties": [
                         {
                             "type": "select",
-                            "data": "chart_vat_id",
+                            "data": "vat",
                             "api": "/accounting/charts/for/vats-debit/ ",
                             "required": false,
                             "location": "",

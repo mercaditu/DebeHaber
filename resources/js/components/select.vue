@@ -16,15 +16,16 @@
 import crud from "../components/crud.vue";
 export default {
   components: { crud: crud },
-  props: ["item", "api", "options"],
+  props: ["item","api", "options"],
   data: () => ({
-    collections: []
+    collections: [],
+    chart_id : ''
   }),
   computed: {
     Item: {
       // getter
       get: function() {
-        return this.Id;
+        return this.item;
       },
       // setter
       set: function(newValue) {
