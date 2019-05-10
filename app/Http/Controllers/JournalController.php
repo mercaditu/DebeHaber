@@ -21,25 +21,16 @@ class JournalController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         $query =  Journal::with([
-                     'details:journal_id,chart_id,debit,credit',
-                     'details.chart:id,name,code,type,sub_type'
-                ])
-                    ->orderBy('date', 'desc');
+            'details:journal_id,chart_id,debit,credit',
+            'details.chart:id,name,code,type,sub_type'
+        ])
+            ->orderBy('date', 'desc');
 
         return GeneralResource::collection(
             QueryBuilder::for($query)
                 ->allowedFilters('detail.chart.name')
                 ->paginate(50)
         );
-
-        // return GeneralResource::collection(
-        //     Journal::with([
-        //         'details:journal_id,chart_id,debit,credit',
-        //         'details.chart:id,name,code,type,sub_type'
-        //     ])
-        //         ->orderBy('date', 'desc')
-        //         ->paginate(50)
-        // );
     }
 
     /**
@@ -101,6 +92,19 @@ class JournalController extends Controller
     public function destroy(Journal $journal)
     {
         //clean up use of journal in transactions and other places
+    }
+
+    //TODO calcualte without VAT.
+    public function chartStats($taxPayer, $cycleId, $starDate, $endDate, $chartId)
+    {
+        $journals = Journal::leftJoin('journal_details as jd', 'jd.journal_id', 'journals.id')
+            ->where('journals.cycle_id', $cycleId)
+            ->where('jd.chart_id', $chartId)
+            ->whereBetween('date', [$starDate, $endDate])
+            ->groupBy('jd.chart_id')
+            ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as inventory_value'))
+            ->first();
+        return response()->json($journals != null ? $journals->inventory_value : 0);
     }
 
     public function generateJournalsByRange(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)

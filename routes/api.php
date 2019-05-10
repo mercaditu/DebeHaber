@@ -95,8 +95,6 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                 Route::get('purchases/default/{partnerID}', 'PurchaseController@getLastPurchase');
 
                 Route::post('inventories/get_InventoryChartType', 'InventoryController@get_InventoryChartType');
-                Route::post('inventories/calc-revenue', 'InventoryController@calcSales');
-                Route::post('inventories/calc-inventory', 'InventoryController@calc_invenotryValue');
             });
 
             Route::prefix('accounting')->group(function () {
@@ -112,6 +110,12 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                     'closing-balance' => 'ClosingBalanceController',
                     'charts' => 'ChartController',
                 ]);
+
+                Route::prefix('journals')->group(function () {
+                    Route::prefix('stats/{startDate}/{endDate}')->group(function () {
+                        Route::get('chart/{chartId}', 'JournalController@chartStats');
+                    });
+                });
 
                 Route::prefix('charts')->group(function () {
                     Route::prefix('for')->group(function () {

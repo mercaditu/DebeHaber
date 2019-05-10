@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Taxpayer;
 use App\Cycle;
-use App\Chart;
 use App\Inventory;
-use App\Transaction;
 use App\Journal;
 use App\JournalDetail;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
-use DB;
 
 class InventoryController extends Controller
 {
@@ -21,7 +18,7 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Taxpayer $taxPayer, Cycle $cycle)
+    public function index($taxPayer, Cycle $cycle)
     {
         $query = Inventory::whereDate('start_date', $cycle->start_date)
             ->whereDate('end_date', $cycle->end_date)
@@ -35,37 +32,6 @@ class InventoryController extends Controller
         );
     }
 
-    //TODO calcualte without VAT.
-    public function calcSales(Request $request, Taxpayer $taxPayer, Cycle $cycle)
-    {
-        $transaction = Transaction::MySales()
-            ->leftJoin('transaction_details as td', 'td.transaction_id', 'transactions.id')
-            ->where('td.chart_id', $request->chart_id)
-            ->whereBetween('date', [$request->start_date, $request->end_date])
-            ->groupBy('td.chart_id')
-            ->select(
-                DB::raw('sum(td.value * transactions.rate) as sales'),
-                DB::raw('sum(td.cost * transactions.rate) as cost_value'),
-                DB::raw('avg(td.cost / td.value) as margin')
-            )
-            ->first();
-
-        return response()->json($transaction != null ? $transaction->sales : 0);
-    }
-
-    //TODO pass start date to calculate sales at beging of inventory range
-    public function calc_invenotryValue(Request $request, Taxpayer $taxPayer, Cycle $cycle)
-    {
-        $journals = Journal::leftJoin('journal_details as jd', 'jd.journal_id', 'journals.id')
-            ->where('journals.cycle_id', $cycle->id)
-            ->where('jd.chart_id', $request->chart_sales_id)
-            ->whereBetween('date', [$request->start_date, $request->end_date])
-            ->groupBy('jd.chart_id')
-            ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as inventory_value'))
-            ->first();
-        return response()->json($journals != null ? $journals->inventory_value : 0);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -74,13 +40,9 @@ class InventoryController extends Controller
      */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        if ($request->id == 0) {
-            $inventory = new Inventory();
-        } else {
-            $inventory = Inventory::where('id', $request->id)->first();
-        }
+        $inventory = Inventory::firstOrNew(['id' => $request->id]);
 
-        $journal = Journal::firstOrNew(['id' => $request->id]);
+        $journal = Journal::firstOrNew(['id' => $request->journal_id]);
         $journal->comment = $request->comment;
         $journal->cycle_id = $cycle->id;
         $journal->date = $request->end_date;
@@ -123,7 +85,7 @@ class InventoryController extends Controller
      * @param  \App\Inventory  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Taxpayer $taxPayer, Cycle $cycle, $inventoryId)
+    public function show($taxPayer, $cycle, $inventoryId)
     {
         return new GeneralResource(
             Inventory::where('id', $inventoryId)

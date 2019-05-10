@@ -1,17 +1,13 @@
 <template>
   <div>
     <b-input-group>
-            <b-form-select v-model="chartofIncomes">
-              <option
-                v-for="item in inventoryCharts"
-                :key="item.key"
-                :value="item.id"
-              >{{ item.name }}</option>
-            </b-form-select>
-            <b-input-group-append>
-              <b-button variant="primary" @click="calcInventory">Calculate</b-button>
-            </b-input-group-append>
-          </b-input-group>
+      <b-form-select v-model="chartofIncomes">
+        <option v-for="item in inventoryCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
+      </b-form-select>
+      <b-input-group-append>
+        <b-button variant="primary" @click="calcInventory">Calculate</b-button>
+      </b-input-group-append>
+    </b-input-group>
   </div>
 </template>
 
@@ -22,9 +18,9 @@ export default {
   data() {
     return {
       inventoryCharts: [],
-      start_date : '',
-      end_date : '',
-      chart_sales_id:''
+      start_date: "",
+      end_date: "",
+      chart_sales_id: ""
     };
   },
   computed: {
@@ -59,11 +55,16 @@ export default {
   methods: {
     calcInventory() {
       var app = this;
-        app.start_date=app.$parent.$parent.data.start_date;
-        app.end_date=app.$parent.$parent.data.end_date;
+      app.start_date = app.$parent.$parent.data.start_date;
+      app.end_date = app.$parent.$parent.data.end_date;
       crud.methods
-        .onUpdate(
-          app.baseUrl + "/commercial/inventories/calc-inventory",
+        .onRead(
+          app.baseUrl +
+            "/accounting/journals/stats/" +
+            app.start_date +
+            "/" +
+            app.end_date +
+            "/chart",
           app._data
         )
         .then(function(response) {
@@ -81,7 +82,6 @@ export default {
   },
   mounted() {
     var app = this;
-
     crud.methods
       .onRead(app.baseUrl + "/accounting/charts/for/inventories/")
       .then(function(response) {
