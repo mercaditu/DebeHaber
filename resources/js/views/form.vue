@@ -49,12 +49,6 @@
                     v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
                   ></search-taxpayer>
                 </b-input-group>
-                <b-input-group v-else-if="property.type === 'salechart'">
-                  <calc-sales
-                    v-bind:sales_value.sync="data[property.data[0]['saleValue']]"
-                    v-bind:chart_id.sync="data[property.data[0]['chartId']]"
-                  ></calc-sales>
-                </b-input-group>
                  <b-input-group v-else-if="property.type === 'inventorychart'">
                   <calc-inventory
                     v-bind:inventory_value.sync="data[property.data[0]['inventoryValue']]"

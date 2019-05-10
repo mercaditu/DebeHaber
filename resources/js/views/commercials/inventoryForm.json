@@ -60,7 +60,7 @@
                             "label": "accounting.chart",
                             "properties": [
                                 {
-                                    "type": "salechart",
+                                    "type": "inventorychart",
                                     "data":[
                                         {
                                             "chartId": "chart_id",

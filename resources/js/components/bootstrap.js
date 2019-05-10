@@ -27,10 +27,6 @@ Vue.component(
     require("./search-transaction.vue").default
 );
 Vue.component(
-    "calc-sales",
-    require("./CalcSales.vue").default
-);
-Vue.component(
     "calc-inventory",
     require("./CalcInventory.vue").default
 );

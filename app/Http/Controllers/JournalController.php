@@ -10,6 +10,7 @@ use App\Http\Resources\GeneralResource;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Jobs\GenerateJournal;
 use Illuminate\Http\Request;
+use DB;
 
 class JournalController extends Controller
 {

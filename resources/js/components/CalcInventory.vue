@@ -23,17 +23,6 @@ export default {
     };
   },
   computed: {
-    inventoryValue: {
-      // getter
-      get: function() {
-        return this.value;
-      },
-      // setter
-      set: function(newValue) {
-        this.$emit("update:value", newValue);
-      }
-    },
-
     baseUrl() {
       return (
         "/api/" +
@@ -55,10 +44,11 @@ export default {
             app.$parent.$parent.data.start_date +
             "/" +
             app.$parent.$parent.data.end_date +
-            "/chart"
+            "/chart/" + app.chart_id
         )
         .then(function(response) {
           if (response.status == 200) {
+           
             app.value = response.data;
           }
         })
@@ -68,6 +58,7 @@ export default {
             text: this.$i18n.t("general.errorMessage") + error.message
           });
         });
+         this.$emit("update:sales_value", app.value);
     }
   },
   mounted() {
