@@ -31,7 +31,7 @@
         <div v-if="$route.name.includes('List')">
           <crud inline-template>
             <div>
-              <b-row class="mb-10 mt-10">
+              <b-row>
                 <b-col></b-col>
                 <b-col>
                   <b-button-toolbar
@@ -67,8 +67,9 @@
 
                     <b-button-group class="mx-1">
                       <b-button
+                        v-if="$parent.showFilter == true"
                         @click="$parent.showFilter = !$parent.showFilter"
-                        variant="primary"
+                        variant="success"
                         size="sm"
                       >
                         <i class="material-icons md-18">search</i>
@@ -91,10 +92,11 @@
                 </b-col>
               </b-row>
               <!-- {{ this.$router.options.routes }} -->
+              <div v-if="$parent.showFilter == true" class="mb-5">
+                <filter-data></filter-data>
+              </div>
+
               <b-card no-body>
-                <div v-if="$parent.showFilter == true">
-                  <filter-data></filter-data>
-                </div>
                 <b-table
                   id="my-table"
                   hover
@@ -144,6 +146,41 @@
                   </div>
                 </b-table>
               </b-card>
+
+              <b-button-toolbar class="float-right" key-nav aria-label="Toolbar with button groups">
+                <b-button-group class="mx-1">
+                  <b-button @click="refresh(items.links.first)" variant="primary" size="sm">&laquo;</b-button>
+                  <b-button @click="refresh(items.links.prev)" variant="primary" size="sm">&lsaquo;</b-button>
+                </b-button-group>
+
+                <b-button-group class="mx-1">
+                  <b-button
+                    v-for="child in this.$router.options.routes.find(r => r.name === $route.name).children"
+                    v-bind:key="child.index"
+                    :to="child.url"
+                    :variant="child.variant"
+                    size="sm"
+                  >
+                    <i class="material-icons md-18">{{ child.icon }}</i>
+                    {{ $t(child.label) }}
+                  </b-button>
+                </b-button-group>
+
+                <b-button-group class="mx-1">
+                  <b-button
+                    @click="$parent.showFilter = !$parent.showFilter"
+                    variant="success"
+                    size="sm"
+                  >
+                    <i class="material-icons md-18">search</i>
+                  </b-button>
+                </b-button-group>
+
+                <b-button-group class="mx-1">
+                  <b-button @click="refresh(items.links.next)" variant="primary" size="sm">&rsaquo;</b-button>
+                  <b-button @click="refresh(items.links.last)" variant="primary" size="sm">&raquo;</b-button>
+                </b-button-group>
+              </b-button-toolbar>
             </div>
           </crud>
         </div>

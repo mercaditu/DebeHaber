@@ -41,6 +41,11 @@ td {
     text-overflow: ellipsis; /* IE, Safari (WebKit), Opera >= 11, FF > 6 */
 }
 
+.card {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
 .success {
     background-color: $success !important;
 }
