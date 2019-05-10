@@ -41,6 +41,7 @@ export default {
       },
       // setter
       set: function(newValue) {
+        this.chart_id=newValue;
         this.$emit("update:chart_id", newValue);
       }
     },
