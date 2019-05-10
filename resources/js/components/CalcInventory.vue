@@ -14,7 +14,7 @@
 <script>
 import crud from "../components/crud.vue";
 export default {
-  props:["api"],
+  props: ["api"],
   components: { crud: crud },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
       },
       // setter
       set: function(newValue) {
-        this.chart_id=newValue;
+        this.chart_id = newValue;
         this.$emit("update:chart_id", newValue);
       }
     },
@@ -67,7 +67,8 @@ export default {
             app.$parent.$parent.data.start_date +
             "/" +
             app.$parent.$parent.data.end_date +
-            "/chart/" + app.chart_id
+            "/chart/" +
+            app.chart_id
         )
         .then(function(response) {
           if (response.status == 200) {
@@ -84,11 +85,9 @@ export default {
   },
   mounted() {
     var app = this;
-    crud.methods
-      .onRead(app.baseUrl + app.api)
-      .then(function(response) {
-        app.charts = response.data.data;
-      });
+    crud.methods.onRead(app.baseUrl + app.api).then(function(response) {
+      app.charts = response.data.data;
+    });
   }
 };
 </script>
