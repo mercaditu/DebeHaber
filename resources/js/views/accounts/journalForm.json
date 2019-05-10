@@ -49,7 +49,7 @@
                             ]
                         },
                         {
-                            "label": "commercial.Template",
+                            "label": "",
                             "properties": [
                                 {
                                     "type": "template",
@@ -83,7 +83,7 @@
                         {
                             "type": "select",
                             "data": "chart",
-                            "api": "/accounting/charts/for/income",
+                            "api": "/accounting/charts/for/accountables",
                             "required": false,
                             "location": "",
                             "select": [{ "value": "id", "label": "name" }]

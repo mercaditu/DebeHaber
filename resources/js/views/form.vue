@@ -61,6 +61,12 @@
                     v-bind:chart_sales_id.sync="data[property.data[0]['chartId']]"
                   ></calc-inventory>
                 </b-input-group>
+                 <b-input-group v-else-if="property.type === 'template'">
+                  <calc-tempalte
+                    v-bind:template_id.sync="data[property.data[0]['template']]"
+                    v-bind:value.sync="data[property.data[0]['value']]"
+                  ></calc-tempalte>
+                </b-input-group>
                 <b-input-group v-else-if="property.type === 'Margin'">
                   <calc-margin
                     v-bind:discount_value.sync="data[property.data]"
@@ -207,7 +213,8 @@ export default {
       data: {
         date: new Date(Date.now()).toISOString().split("T")[0],
         expenses: [],
-        transactions: []
+        transactions: [],
+        details: []
       }
     };
   },

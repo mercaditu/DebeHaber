@@ -12,7 +12,7 @@
                             "properties": [
                                 {
                                     "type": "select",
-                                    "data": "currency_id",
+                                    "data": "currency",
                                     "placeholder": "commercial.expiryDate",
                                     "api": "/config/currencies ",
                                     "required": false,

@@ -24,7 +24,7 @@
                             "properties": [
                                 {
                                     "type": "select",
-                                    "data": "chart_version_id",
+                                    "data": "chartVersion",
                                     "placeholder": "commercial.chartVersion",
                                     "api": "/config/chart-versions/ ",
                                     "required": false,

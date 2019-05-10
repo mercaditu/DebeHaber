@@ -38,6 +38,10 @@ Vue.component(
     "calc-margin",
     require("./CalcMargin.vue").default
 );
+Vue.component(
+    "calc-tempalte",
+    require("./CalcTemplate.vue").default
+);
 Vue.component("search-taxpayer", require("./search-taxpayer.vue").default);
 Vue.component("filter-data", require("./filter.vue").default);
 Vue.component("payment-condition", require("./payment-condition.vue").default);
