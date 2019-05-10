@@ -8,6 +8,7 @@ use App\Chart;
 use App\Inventory;
 use App\Transaction;
 use App\Journal;
+use App\JournalDetail;
 use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class InventoryController extends Controller
     {
         $journals = Journal::leftJoin('journal_details as jd', 'jd.journal_id', 'journals.id')
             ->where('journals.cycle_id', $cycle->id)
-            ->where('jd.chart_id', $request->chart_id)
+            ->where('jd.chart_id', $request->chart_sales_id)
             ->whereBetween('date', [$request->start_date, $request->end_date])
             ->groupBy('jd.chart_id')
             ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as inventory_value'))
@@ -81,6 +82,7 @@ class InventoryController extends Controller
 
         $journal = Journal::firstOrNew(['id' => $request->id]);
         $journal->comment = $request->comment;
+        $journal->cycle_id = $cycle->id;
         $journal->date = $request->end_date;
         $journal->save();
 
@@ -97,7 +99,7 @@ class InventoryController extends Controller
         //clean up unnecesary details.
         //foreach
 
-        $inventory->journal->id = $journal->id;
+        $inventory->journal_id = $journal->id;
 
         $inventory->taxpayer_id = $taxPayer->id;
         $inventory->chart_id = $request->chart_id;

@@ -15,10 +15,12 @@ class ForceSSL
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->secure()) {
-            return redirect()->secure($request->getRequestUri());
+        if (env('APP_ENV') === 'production' || env('APP_ENV') === 'dev')
+        {
+            if (!$request->secure()) {
+                return redirect()->secure($request->getRequestUri());
+            }
         }
-
         return $next($request);
     }
 }

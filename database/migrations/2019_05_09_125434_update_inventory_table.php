@@ -14,8 +14,8 @@ class UpdateInventoryTable extends Migration
     public function up()
     {
         Schema::table('inventories', function (Blueprint $table) {
-            $table->unsignedInteger('journal_id')->after('chart_sales_id');
             $table->unsignedInteger('chart_sales_id')->after('chart_id');
+            $table->unsignedInteger('journal_id')->after('chart_sales_id');
             $table->unsignedDecimal('discount_value', 18, 2)->default(0)->after('inventory_value');
             $table->dropColumn('cost_value');
             $table->dropColumn('current_value');

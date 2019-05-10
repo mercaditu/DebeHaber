@@ -96,7 +96,7 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
 
                 Route::post('inventories/get_InventoryChartType', 'InventoryController@get_InventoryChartType');
                 Route::post('inventories/calc-revenue', 'InventoryController@calcSales');
-                Route::post('inventories/calc-inventory', 'InventoryController@calcInventoryValue');
+                Route::post('inventories/calc-inventory', 'InventoryController@calc_invenotryValue');
             });
 
             Route::prefix('accounting')->group(function () {
@@ -119,7 +119,7 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                         Route::get('money', 'ChartController@getMoneyAccounts');
 
                         Route::get('income/stockables', 'ChartController@getIncomesFromStockAccounts');
-                        Route::get('inventories', 'ChartController@getSalesOnStockablesAccounts');
+                        Route::get('inventories', 'ChartController@getStockAccounts');
 
                         Route::get('income', 'ChartController@getSalesAccounts');
                         Route::get('expense', 'ChartController@getPurchaseAccounts');

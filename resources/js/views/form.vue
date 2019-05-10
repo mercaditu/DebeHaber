@@ -49,18 +49,24 @@
                     v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
                   ></search-taxpayer>
                 </b-input-group>
-                <b-input-group v-else-if="property.type === 'inventory'">
-                  <inventory-form
-                    v-bind:start_date.sync="data[property.data[0]['startDate']]"
-                    v-bind:end_date.sync="data[property.data[0]['endDate']]"
-                    v-bind:sales_value.sync="data[property.data[0]['salesValue']]"
-                    v-bind:inventory_value.sync="data[property.data[0]['inventoryValue']]"
-                    v-bind:cost_value.sync="data[property.data[0]['costValue']]"
+                <b-input-group v-else-if="property.type === 'salechart'">
+                  <calc-sales
+                    v-bind:sales_value.sync="data[property.data[0]['saleValue']]"
                     v-bind:chart_id.sync="data[property.data[0]['chartId']]"
-                    v-bind:chart_of_incomes.sync="data[property.data[0]['chartofIncomes']]"
-                    v-bind:margin.sync="data[property.data[0]['Margin']]"
-                  ></inventory-form>
+                  ></calc-sales>
                 </b-input-group>
+                 <b-input-group v-else-if="property.type === 'inventorychart'">
+                  <calc-inventory
+                    v-bind:inventory_value.sync="data[property.data[0]['inventoryValue']]"
+                    v-bind:chart_sales_id.sync="data[property.data[0]['chartId']]"
+                  ></calc-inventory>
+                </b-input-group>
+                <b-input-group v-else-if="property.type === 'Margin'">
+                  <calc-margin
+                    v-bind:discount_value.sync="data[property.data]"
+                  ></calc-margin>
+                </b-input-group>
+                 <b-input-group v-else-if="property.type === 'label'">{{data[property.data]}}</b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
                   <select-data
                     v-bind:item.sync="data[property.data]"

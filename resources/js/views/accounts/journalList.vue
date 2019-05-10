@@ -75,7 +75,7 @@
                       >{{ data.item.currency.code }}</small>
                     </span>
                   </template>
-
+                   
                   <template slot="row-details" slot-scope="row">
                     <b-row>
                       <b-col cols="8" colspan="2">

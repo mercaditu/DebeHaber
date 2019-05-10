@@ -28,7 +28,6 @@ import List from "../views/list";
 import Import from "../views/import";
 
 // Clean up
-const JournalList = () => import("../views/accounts/journalList");
 const JournalForm = () => import("../components/journalForm");
 
 const VersionList = () => import("../views/configs/versionList");
@@ -969,6 +968,7 @@ export default [
         component: List,
         name: "journalTemplateList",
         meta: {
+           
             title: "accounting.template",
             img: "/img/apps/journal-template.svg",
             components: [
@@ -1016,43 +1016,69 @@ export default [
     //Journals
     {
         path: "/:taxPayer/:cycle/accounting/journals",
-        component: JournalList,
+        component: List,
         name: "journalList",
         meta: {
+            details: 1,
+            title: "accounting.journal",
+            img: "/img/apps/journals.svg",
             components: [
+                
+            ],
+            columns: [
                 {
-                    type: "invoices-this-month-kpi"
+                    key: "date",
+                    label: "commercial.date",
+                    formatter: (value, key, item) => {
+                        return new Date(item.date).toLocaleDateString();
+                    },
+                    sortable: true,
+                    searchable: false
                 },
                 {
-                    type: "links",
-                    links: [
-                        {
-                            label: "general.manual",
-                            icon: "help_outline",
-                            url: "/docs/:lang/journal/sales"
-                        },
-                        {
-                            label: "general.report",
-                            icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/journal/2019-03-01/2019-03-31"
-                        }
-                    ]
+                    key: "comment",
+                    label: "commercial.comment",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    key: "value",
+                    formatter: (value, key, item) => {
+                        return new Number(
+                            item.details.reduce(function(sum, row) {
+                                return sum + new Number(row["debit"]);
+                            }, 0)
+                        ).toLocaleString();
+                    },
+                    label: "commercial.number",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    key: "hasDetails",
+                    label: "",
+                    sortable: false
+                  },
+                {
+                    key: "actions",
+                    label: "",
+                    sortable: false,
+                    searchable: false
                 }
-            ],
-            title: "accounting.journal",
-            img: "/img/apps/journals.svg"
+            ]
         },
         children: [
             {
+                name: "journalForm",
                 path: ":id",
                 component: JournalForm,
-                name: "journalForm",
-                meta: {
-                    title: "accounting.journal",
-                    img: "/img/apps/journals.svg"
-                }
-            }
+                meta: "journalForm",
+                label: "general.create",
+                url: "journals/0",
+                icon: "add",
+                variant: "dark"
+            },
+            
         ]
     },
     //Opening Balance
