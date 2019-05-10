@@ -1,0 +1,136 @@
+{
+    "pageurl": "/commercial/journals",
+    "title": "commercial.journal",
+    "img": "/img/apps/journals.svg",
+    "module": 2,
+    "cards": [
+        {
+            "rows": [
+                {
+                    "fields": [
+                        {
+                            "label": "commercial.date",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data": "date",
+                                    "placeholder": "commercial.date",
+                                    "required": true,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.number",
+                            "properties": [
+                                {
+                                    "type": "mask",
+                                    "data": "number",
+                                    "placeholder": "commercial.number",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "commercial.comment",
+                            "properties": [
+                                {
+                                    "type": "text",
+                                    "data": "comment",
+                                    "placeholder": "commercial.comment",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.Template",
+                            "properties": [
+                                {
+                                    "type": "template",
+                                    "data": [
+                                        {
+                                            "template": "template_id",
+                                            "value": "value"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.Template",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+                
+            ]
+        }
+    ],
+    "tables": [
+        {
+            "data": "details",
+            "actions": true,
+            "fields": [
+                {
+                    "label": "accounting.chartOfAccounts",
+                    "cols": 4,
+                    "properties": [
+                        {
+                            "type": "select",
+                            "data": "chart",
+                            "api": "/accounting/charts/for/income",
+                            "required": false,
+                            "location": "",
+                            "select": [{ "value": "id", "label": "name" }]
+                        }
+                    ]
+                },
+                {
+                    "label": "accounting.debit",
+                    "cols": 3,
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "debit",
+                            "placeholder": "commercial.debit",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "accounting.credit",
+                    "cols": 3,
+                    "properties": [
+                        {
+                            "type": "text",
+                            "data": "credit",
+                            "placeholder": "commercial.value",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                },
+                {
+                    "label": "",
+                    "cols": 2,
+                    "properties": [
+                        {
+                            "type": "actions",
+                            "data": "",
+                            "api": "/commercial/details",
+                            "placeholder": "",
+                            "required": false,
+                            "location": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

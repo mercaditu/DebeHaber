@@ -98,7 +98,7 @@
 
               <b-card no-body>
                 <b-table
-                  id="my-table"
+                
                   hover
                   responsive
                   :items="items.data"
@@ -107,6 +107,47 @@
                   :current-page="items.meta != null ? items.meta.current_page : 1"
                   show-empty
                 >
+                <template slot="row-details" slot-scope="row" >
+                    <b-row>
+                      <b-col cols="8" colspan="2">
+                        <span class="text-muted">{{ $t('accounting.chartOfAccounts') }}</span>
+                      </b-col>
+                      <b-col cols="2" class="text-sm-right">
+                        <span class="text-muted">{{ $t('general.credit') }}</span>
+                      </b-col>
+                      <b-col cols="2" class="text-sm-right">
+                        <span class="text-muted">{{ $t('general.debit') }}</span>
+                      </b-col>
+                    </b-row>
+                    <b-row v-for="detail in row.item.details" :key="detail.key">
+                      <b-col cols="2">
+                        <b>{{ detail.chart.code }}</b>
+                      </b-col>
+                      <b-col cols="6">
+                        <chart-types
+                          :chart="detail.chart.name"
+                          :type="detail.chart.type"
+                          :sub_type="detail.chart.sub_type"
+                        />
+                      </b-col>
+                      <b-col
+                        cols="2"
+                        class="text-sm-right"
+                      >{{ new Number(detail.credit).toLocaleString() }}</b-col>
+                      <b-col
+                        cols="2"
+                        class="text-sm-right"
+                      >{{ new Number(detail.debit).toLocaleString() }}</b-col>
+                    </b-row>
+                  </template>
+
+                  <template slot="hasDetails" slot-scope="row">
+                    <b-button-group size="sm" class="show-when-hovered">
+                      <b-button @click="row.toggleDetails">
+                        <i class="material-icons md-19">remove_red_eye</i>
+                      </b-button>
+                    </b-button-group>
+                  </template>
                   <template slot="actions" slot-scope="data">
                     <table-actions :row="data.item"></table-actions>
                   </template>
@@ -139,6 +180,8 @@
                       </b-row>
                     </b-container>
                   </template>
+
+                    
 
                   <div slot="table-busy" class="text-center text-danger my-2">
                     <b-spinner class="align-middle"></b-spinner>

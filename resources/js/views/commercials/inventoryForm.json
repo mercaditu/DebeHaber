@@ -29,22 +29,108 @@
                 {
                     "fields": [
                         {
-                            "label": "",
+                            "label": "commercial.startDate",
                             "properties": [
                                 {
-                                    "type": "inventory",
-                                    "data": [
+                                    "type": "date",
+                                    "data":"start_date",
+                                    "placeholder": "commercial.startDate",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.endDate",
+                            "properties": [
+                                {
+                                    "type": "date",
+                                    "data":"end_date",
+                                    "placeholder": "commercial.endDate",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "accounting.chart",
+                            "properties": [
+                                {
+                                    "type": "salechart",
+                                    "data":[
                                         {
-                                            "startDate": "start_date",
-                                            "endDate": "end_date",
-                                            "salesValue": "sales_value",
-                                            "inventoryValue": "inventory_value",
-                                            "costValue": "cost_value",
                                             "chartId": "chart_id",
-                                            "chartofIncomes": "chart_of_incomes",
-                                            "margin": "margin"
+                                            "saleValue": "sales_value"
                                         }
-                                    ]
+                                    ],
+                                    "placeholder": "commercial.chart",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.saleValue",
+                            "properties": [
+                                {
+                                    "type": "label",
+                                    "data":"sales_value",
+                                    "placeholder": "commercial.SaleValue",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "accounting.chart",
+                            "properties": [
+                                {
+                                    "type": "inventorychart",
+                                    "data":[
+                                        {
+                                            "chartId": "chart_sales_id",
+                                            "inventoryValue": "inventory_value"
+                                        }
+                                    ],
+                                    "placeholder": "commercial.chart",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        },
+                        {
+                            "label": "commercial.InventoryValue",
+                            "properties": [
+                                {
+                                    "type": "label",
+                                    "data":"inventory_value",
+                                    "placeholder": "commercial.InventoryValue",
+                                    "required": false,
+                                    "location": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "commercial.Margin",
+                            "properties": [
+                                {
+                                    "type": "Margin",
+                                    "data":"discount_value",
+                                    "placeholder": "commercial.Margin",
+                                    "required": false,
+                                    "location": ""
                                 }
                             ]
                         }
