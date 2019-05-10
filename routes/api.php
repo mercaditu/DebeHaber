@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
 
                 Route::get('purchases/default/{partnerID}', 'PurchaseController@getLastPurchase');
 
-                Route::post('inventories/get_InventoryChartType', 'InventoryController@get_InventoryChartType');
+                // Route::post('inventories/get_InventoryChartType', 'InventoryController@get_InventoryChartType');
             });
 
             Route::prefix('accounting')->group(function () {
@@ -122,10 +122,10 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                         Route::get('fixed-assets', 'ChartController@getFixedAssets');
                         Route::get('money', 'ChartController@getMoneyAccounts');
 
-                        Route::get('income/stockables', 'ChartController@getIncomesFromStockAccounts');
                         Route::get('inventories', 'ChartController@getStockAccounts');
 
                         Route::get('income', 'ChartController@getSalesAccounts');
+                        Route::get('income/stockables', 'ChartController@getIncomesFromStockAccounts');
                         Route::get('expense', 'ChartController@getPurchaseAccounts');
 
                         Route::get('vats-credit', 'ChartController@getVATCredit');

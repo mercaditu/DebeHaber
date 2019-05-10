@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-input-group>
-      <b-form-select v-model="chartofIncomes">
-        <option v-for="item in inventoryCharts" :key="item.key" :value="item.id">{{ item.name }}</option>
+      <b-form-select v-model="chart_id">
+        <option v-for="item in charts" :key="item.key" :value="item.id">{{ item.name }}</option>
       </b-form-select>
       <b-input-group-append>
         <b-button variant="primary" @click="calcInventory">Calculate</b-button>
@@ -17,59 +17,49 @@ export default {
   components: { crud: crud },
   data() {
     return {
-      inventoryCharts: [],
-      start_date: "",
-      end_date: "",
-      chart_sales_id: ""
+      charts: [],
+      chart_id: "",
+      value: ""
     };
   },
   computed: {
     inventoryValue: {
       // getter
       get: function() {
-        return this.inventory_value;
+        return this.value;
       },
       // setter
       set: function(newValue) {
-        this.$emit("update:inventory_value", newValue);
-      }
-    },
-    chartofIncomes: {
-      // getter
-      get: function() {
-        return this.chart_sales_id;
-      },
-      // setter
-      set: function(newValue) {
-        this.chart_sales_id = newValue;
-        this.$emit("update:chart_sales_id", newValue);
+        this.$emit("update:value", newValue);
       }
     },
 
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle +
+        "/accounting"
       );
     }
   },
   methods: {
     calcInventory() {
       var app = this;
-      app.start_date = app.$parent.$parent.data.start_date;
-      app.end_date = app.$parent.$parent.data.end_date;
+
       crud.methods
         .onRead(
           app.baseUrl +
-            "/accounting/journals/stats/" +
-            app.start_date +
+            "/journals/stats/" +
+            app.$parent.$parent.data.start_date +
             "/" +
-            app.end_date +
-            "/chart",
-          app._data
+            app.$parent.$parent.data.end_date +
+            "/chart"
         )
         .then(function(response) {
           if (response.status == 200) {
-            app.inventoryValue = response.data;
+            app.value = response.data;
           }
         })
         .catch(function(error) {
@@ -83,9 +73,9 @@ export default {
   mounted() {
     var app = this;
     crud.methods
-      .onRead(app.baseUrl + "/accounting/charts/for/inventories/")
+      .onRead(app.baseUrl + "/charts/for/inventories/")
       .then(function(response) {
-        app.inventoryCharts = response.data.data;
+        app.charts = response.data.data;
       });
   }
 };

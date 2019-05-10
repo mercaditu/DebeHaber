@@ -102,9 +102,9 @@ class JournalController extends Controller
             ->where('jd.chart_id', $chartId)
             ->whereBetween('date', [$starDate, $endDate])
             ->groupBy('jd.chart_id')
-            ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as inventory_value'))
+            ->select(DB::raw('sum(jd.credit) - sum(jd.debit) as value'))
             ->first();
-        return response()->json($journals != null ? $journals->inventory_value : 0);
+        return response()->json($journals != null ? $journals->value : 0);
     }
 
     public function generateJournalsByRange(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
