@@ -31,6 +31,7 @@ $brand-inverse: $gray-dark !default;
 
 body {
     background-color: #e3e8ee !important;
+    color: black !important;
 }
 
 td {
@@ -101,6 +102,10 @@ td {
 .list-group-item.disabled {
     background-color: inherit !important;
     color: #a8b6bf !important;
+}
+
+.v-select {
+    background-color: white !important;
 }
 
 .navbar-default .navbar-nav > li {

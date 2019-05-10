@@ -8,7 +8,7 @@
         </h2>
       </b-col>
       <b-col cols="3">
-        <b-dropdown :text="$t('general.actions')" variant="primary" right>
+        <!-- <b-dropdown :text="$t('general.actions')" variant="primary" right>
           <b-dropdown-item
             @shortkey="onSaveNew()"
             @click="onSaveNew()"
@@ -24,8 +24,8 @@
             {{ $t('general.cancel') }}
             <small class="text-secondary float-right">esc</small>
           </b-dropdown-item>
-        </b-dropdown>
-        <b-button-toolbar>
+        </b-dropdown>-->
+        <b-button-toolbar class="float-right">
           <b-btn variant="success" @click="onSaveNew()" v-if="changed">
             <i class="material-icons">save</i>
           </b-btn>
@@ -49,25 +49,23 @@
                     v-bind:partner_taxid.sync="data[property.data[0]['taxid']]"
                   ></search-taxpayer>
                 </b-input-group>
-                 <b-input-group v-else-if="property.type === 'inventorychart'">
+                <b-input-group v-else-if="property.type === 'inventorychart'">
                   <calc-inventory
                     :api="property.api"
                     v-bind:value.sync="data[property.data[0]['Value']]"
                     v-bind:chart_id.sync="data[property.data[0]['chartId']]"
                   ></calc-inventory>
                 </b-input-group>
-                 <b-input-group v-else-if="property.type === 'template'">
+                <b-input-group v-else-if="property.type === 'template'">
                   <calc-tempalte
                     v-bind:template_id.sync="data[property.data[0]['template']]"
                     v-bind:value.sync="data[property.data[0]['value']]"
                   ></calc-tempalte>
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'Margin'">
-                  <calc-margin
-                    v-bind:discount_value.sync="data[property.data]"
-                  ></calc-margin>
+                  <calc-margin v-bind:discount_value.sync="data[property.data]"></calc-margin>
                 </b-input-group>
-                 <b-input-group v-else-if="property.type === 'label'">{{data[property.data]}}</b-input-group>
+                <b-input-group v-else-if="property.type === 'label'">{{data[property.data]}}</b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
                   <select-data
                     v-bind:item.sync="data[property.data]"
@@ -121,14 +119,15 @@
         </b-row>
       </b-card>
     </div>
+
     <!-- Special Components -->
     <div v-for="component in $route.meta.components" v-bind:key="component.index">
       <component :is="component.name"></component>
     </div>
+
     <!-- Details -->
     <div v-for="table in $route.meta.tables" v-bind:key="table.index">
       <b-btn
-        class="mb-5"
         size="sm"
         variant="dark"
         v-shortkey="['ctrl', 'd']"

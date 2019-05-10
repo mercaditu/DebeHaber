@@ -39,7 +39,7 @@
                     key-nav
                     aria-label="Toolbar with button groups"
                   >
-                    <b-button-group class="mx-1">
+                    <b-button-group class="mx-1" v-if="items.data.length > 0">
                       <b-button
                         @click="refresh(items.links.first)"
                         variant="primary"
@@ -65,9 +65,8 @@
                       </b-button>
                     </b-button-group>
 
-                    <b-button-group class="mx-1">
+                    <b-button-group class="mx-1" v-if="items.data.length > 0">
                       <b-button
-                        v-if="$parent.showFilter == true"
                         @click="$parent.showFilter = !$parent.showFilter"
                         variant="success"
                         size="sm"
@@ -76,7 +75,7 @@
                       </b-button>
                     </b-button-group>
 
-                    <b-button-group class="mx-1">
+                    <b-button-group class="mx-1" v-if="items.data.length > 0">
                       <b-button
                         @click="refresh(items.links.next)"
                         variant="primary"
@@ -98,7 +97,6 @@
 
               <b-card no-body>
                 <b-table
-                
                   hover
                   responsive
                   :items="items.data"
@@ -107,7 +105,7 @@
                   :current-page="items.meta != null ? items.meta.current_page : 1"
                   show-empty
                 >
-                <template slot="row-details" slot-scope="row" >
+                  <template slot="row-details" slot-scope="row">
                     <b-row>
                       <b-col cols="8" colspan="2">
                         <span class="text-muted">{{ $t('accounting.chartOfAccounts') }}</span>
@@ -181,8 +179,6 @@
                     </b-container>
                   </template>
 
-                    
-
                   <div slot="table-busy" class="text-center text-danger my-2">
                     <b-spinner class="align-middle"></b-spinner>
                     <strong>Loading...</strong>
@@ -190,7 +186,12 @@
                 </b-table>
               </b-card>
 
-              <b-button-toolbar class="float-right" key-nav aria-label="Toolbar with button groups">
+              <b-button-toolbar
+                class="float-right"
+                key-nav
+                aria-label="Toolbar with button groups"
+                v-if="items.data.length > 0"
+              >
                 <b-button-group class="mx-1">
                   <b-button @click="refresh(items.links.first)" variant="primary" size="sm">&laquo;</b-button>
                   <b-button @click="refresh(items.links.prev)" variant="primary" size="sm">&lsaquo;</b-button>
