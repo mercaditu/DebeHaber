@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-input-group>
-      <b-form-select v-model="chart_id">
+      <b-form-select v-model="chartId">
         <option v-for="item in charts" :key="item.key" :value="item.id">{{ item.name }}</option>
       </b-form-select>
       <b-input-group-append>
@@ -14,6 +14,7 @@
 <script>
 import crud from "../components/crud.vue";
 export default {
+  props:["api"],
   components: { crud: crud },
   data() {
     return {
@@ -23,6 +24,27 @@ export default {
     };
   },
   computed: {
+    Value: {
+      // getter
+      get: function() {
+        return this.value;
+      },
+      // setter
+      set: function(newValue) {
+        this.$emit("update:value", newValue);
+      }
+    },
+    chartId: {
+      // getter
+      get: function() {
+        return this.chart_id;
+      },
+      // setter
+      set: function(newValue) {
+        this.$emit("update:chart_id", newValue);
+      }
+    },
+
     baseUrl() {
       return (
         "/api/" +
@@ -48,8 +70,7 @@ export default {
         )
         .then(function(response) {
           if (response.status == 200) {
-           
-            app.value = response.data;
+            app.Value = response.data;
           }
         })
         .catch(function(error) {
@@ -58,13 +79,12 @@ export default {
             text: this.$i18n.t("general.errorMessage") + error.message
           });
         });
-         this.$emit("update:sales_value", app.value);
     }
   },
   mounted() {
     var app = this;
     crud.methods
-      .onRead(app.baseUrl + "/charts/for/inventories/")
+      .onRead(app.baseUrl + app.api)
       .then(function(response) {
         app.charts = response.data.data;
       });

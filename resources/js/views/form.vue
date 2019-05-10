@@ -51,8 +51,9 @@
                 </b-input-group>
                  <b-input-group v-else-if="property.type === 'inventorychart'">
                   <calc-inventory
-                    v-bind:inventory_value.sync="data[property.data[0]['inventoryValue']]"
-                    v-bind:chart_sales_id.sync="data[property.data[0]['chartId']]"
+                    :api="property.api"
+                    v-bind:value.sync="data[property.data[0]['Value']]"
+                    v-bind:chart_id.sync="data[property.data[0]['chartId']]"
                   ></calc-inventory>
                 </b-input-group>
                  <b-input-group v-else-if="property.type === 'template'">

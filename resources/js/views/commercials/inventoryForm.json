@@ -60,11 +60,13 @@
                             "label": "accounting.chart",
                             "properties": [
                                 {
+                                    "api": "/charts/for/income/stockables",
                                     "type": "inventorychart",
                                     "data":[
                                         {
+                                            
                                             "chartId": "chart_id",
-                                            "saleValue": "sales_value"
+                                            "Value": "sales_value"
                                         }
                                     ],
                                     "placeholder": "commercial.chart",
@@ -93,11 +95,13 @@
                             "label": "accounting.chart",
                             "properties": [
                                 {
+                                    "api": "/charts/for/inventories/",
                                     "type": "inventorychart",
                                     "data":[
                                         {
+                                            
                                             "chartId": "chart_sales_id",
-                                            "inventoryValue": "inventory_value"
+                                            "Value": "inventory_value"
                                         }
                                     ],
                                     "placeholder": "commercial.chart",
