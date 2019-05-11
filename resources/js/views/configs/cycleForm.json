@@ -1,5 +1,5 @@
 {
-    "pageurl": "/config/cycles/store",
+    "pageurl": "/config/cycles",
     "title": "accounting.accountingCycle",
     "img": "/img/apps/cycle.svg",
     "cards": [
@@ -24,7 +24,7 @@
                             "properties": [
                                 {
                                     "type": "select",
-                                    "data": "chartVersion",
+                                    "data": "chart_version",
                                     "placeholder": "commercial.chartVersion",
                                     "api": "/config/chart-versions/ ",
                                     "required": false,

@@ -16,6 +16,7 @@ use App\JournalDetail;
 use App\ProductionDetail;
 use App\Http\Resources\GeneralResource;
 use Illuminate\Http\Request;
+use DB;
 
 class ChartController extends Controller
 {
@@ -27,7 +28,28 @@ class ChartController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(
-            Chart::orderBy('code')->get()
+            Chart::
+            join('charts as parent', 'parent.id', 'charts.parent_id')
+            ->orderBy('code')
+            ->select(
+                DB::raw('charts.id as id'),
+                DB::raw('charts.parent_id'),
+                DB::raw('charts.chart_version_id'),
+                DB::raw('charts.taxpayer_id'),
+                DB::raw('charts.country'),
+                DB::raw('charts.is_accountable'),
+                DB::raw('charts.code'),
+                DB::raw('charts.name'),
+                DB::raw('charts.level'),
+                DB::raw('charts.type'),
+                DB::raw('charts.sub_type'),
+                DB::raw('charts.partner_taxid'),
+                DB::raw('charts.partner_name'),
+                DB::raw('charts.coefficient'),
+                DB::raw('charts.asset_years'),
+                DB::raw('parent.name as parentName'),
+                DB::raw('parent.code as parentCode')
+            )->get()
         );
     }
 
@@ -89,8 +111,29 @@ class ChartController extends Controller
     public function show(Taxpayer $taxPayer, Cycle $cycle, Chart $chart)
     {
         return new GeneralResource(
-            Chart::where('id', $chart->id)
-                ->first()
+            Chart::where('charts.id', $chart->id)
+            ->join('charts as parent', 'parent.id', 'charts.parent_id')
+            ->orderBy('code')
+            ->select(
+                DB::raw('charts.id as id'),
+                DB::raw('charts.parent_id'),
+                DB::raw('charts.chart_version_id'),
+                DB::raw('charts.taxpayer_id'),
+                DB::raw('charts.country'),
+                DB::raw('charts.is_accountable'),
+                DB::raw('charts.code'),
+                DB::raw('charts.name'),
+                DB::raw('charts.level'),
+                DB::raw('charts.type'),
+                DB::raw('charts.sub_type'),
+                DB::raw('charts.partner_taxid'),
+                DB::raw('charts.partner_name'),
+                DB::raw('charts.coefficient'),
+                DB::raw('charts.asset_years'),
+                DB::raw('parent.name as parentName'),
+                DB::raw('parent.code as parentCode')
+            )->first()
+            
         );
     }
 

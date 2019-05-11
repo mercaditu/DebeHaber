@@ -1149,160 +1149,146 @@ export default [
         ]
     },
     {
-        path: "/:taxPayer/:cycle/config/",
-        component: Config,
-        name: "configMenu",
+        path: "/:taxPayer/:cycle/config/chart-versions",
+        component: VersionList,
+        name: "versionList",
         meta: {
-            title: "Dashboard",
-            description: "Some description",
-            img: "/img/apps/cycle.svg"
+            ttitle: "accounting.chartVersion",
+            img: "/img/apps/sales.svg",
+            components: [
+                
+            ],
+            columns: [
+                {
+                    key: "name",
+                    sortable: true
+                },
+               
+            ]
         },
         children: [
             {
-                path: "chart-versions",
-                component: VersionList,
-                name: "versionList",
+                name: "versionForm",
+                path: ":id",
+                component: VersionForm,
                 meta: {
-                    buttons: [
-                        {
-                            name: "manual",
-                            visible: true
-                        },
-                        {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
-                        }
-                    ],
-                    title: "accounting.chartVersion",
-                    description: "Some description",
-                    img: "/img/apps/sales.svg"
+                    title: "Version Form"
                 },
-                children: [
-                    {
-                        path: ":id",
-                        component: VersionForm,
-                        name: "versionForm",
-                        meta: {
-                            title: "Version Form"
-                        }
-                    }
-                ]
+
+                label: "general.create",
+                url: "chart-versions/0",
+                icon: "add",
+                variant: "dark"
             },
-            {
-                path: "cycles",
-                component: List,
-                name: "cycleList",
-                meta: {
-                    buttons: [
-                        {
-                            name: "manual",
-                            visible: true
-                        },
-                        {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
-                        }
-                    ],
-                    title: "accounting.accountingCycle",
-                    description: "Some description",
-                    img: "/img/apps/cycle.svg",
-                    columns: [
-                        {
-                            key: "chart_version.name",
-                            sortable: true
-                        },
-                        {
-                            key: "year",
-                            sortable: false
-                        },
-                        {
-                            key: "actions",
-                            label: "",
-                            sortable: false
-                        }
-                    ]
+         
+        ]
+    },         
+
+    {
+        path: "/:taxPayer/:cycle/config/cycles",
+        component: List,
+        name: "cycleList",
+        meta: {
+            title: "accounting.accountingCycle",
+            img: "/img/apps/cycle.svg",
+            components: [
+                
+            ],
+            columns: [
+                {
+                    key: "chart_version.name",
+                    sortable: true
                 },
-                children: [
-                    {
-                        path: ":id",
-                        component: Form,
-                        name: "cycleForm",
-                        meta: CycleForm
-                    }
-                ]
+                {
+                    key: "year",
+                    sortable: false
+                },
+                {
+                    key: "actions",
+                    label: "",
+                    sortable: false
+                }
+            ]
+        },
+        children: [
+            {
+                name: "cycleForm",
+                path: ":id",
+                component: Form,
+                meta: CycleForm,
+
+                label: "general.create",
+                url: "cycles/0",
+                icon: "add",
+                variant: "dark"
             },
+         
+        ]
+    },
+    {
+        path: "/:taxPayer/:cycle/config/documents",
+        component: List,
+        name: "documentList",
+        meta: {
+            title: "commercial.documents",
+            img: "/img/apps/sales.svg",
+            components: [
+                
+            ],
+            columns: [
+                {
+                    key: "name",
+                    sortable: true
+                }
+               
+            ]
+        },
+        children: [
             {
-                path: "documents",
-                component: List,
-                name: "documentList",
-                meta: {
-                    buttons: [
-                        {
-                            name: "manual",
-                            visible: true
-                        },
-                        {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
-                        }
-                    ],
-                    title: "commercial.documents",
-                    description: "Some description",
-                    img: "/img/apps/sales.svg"
-                },
-                children: [
-                    {
-                        path: ":id",
-                        component: Form,
-                        name: "documentForm",
-                        meta: DocumentForm
-                    }
-                ]
+                name: "documentForm",
+                path: ":id",
+                component: Form,
+                meta: DocumentForm,
+
+                label: "general.create",
+                url: "documents/0",
+                icon: "add",
+                variant: "dark"
             },
+         
+        ]
+    },
+    {
+        path: "/:taxPayer/:cycle/config/rates",
+        component: List,
+        name: "rateList",
+        meta: {
+            title: "commercial.exchangeRates",
+            img: "/img/apps/sales.svg",
+            components: [
+                
+            ],
+            columns: [
+                {
+                    key: "name",
+                    sortable: true
+                }
+               
+            ]
+        },
+        children: [
             {
-                path: "rates",
-                component: List,
-                name: "rateList",
-                meta: {
-                    buttons: [
-                        {
-                            name: "manual",
-                            visible: true
-                        },
-                        {
-                            name: "uploadFromExcel",
-                            visible: false
-                        },
-                        {
-                            name: "createNewRecord",
-                            visible: true
-                        }
-                    ],
-                    title: "commercial.exchangeRates",
-                    description: "Some description",
-                    img: "/img/apps/sales.svg"
-                },
-                children: [
-                    {
-                        path: ":id",
-                        component: Form,
-                        name: "rateForm",
-                        meta: RateForm
-                    }
-                ]
-            }
+                name: "rateForm",
+                path: ":id",
+                component: Form,
+                meta: RateForm,
+
+                label: "general.create",
+                url: "rates/0",
+                icon: "add",
+                variant: "dark"
+            },
+         
         ]
     },
     {

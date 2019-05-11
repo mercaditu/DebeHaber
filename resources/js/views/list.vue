@@ -90,7 +90,6 @@
                   </b-button-toolbar>
                 </b-col>
               </b-row>
-              <!-- {{ this.$router.options.routes }} -->
               <div v-if="$parent.showFilter == true" class="mb-5">
                 <filter-data></filter-data>
               </div>
@@ -196,7 +195,7 @@
                   <b-button @click="refresh(items.links.first)" variant="primary" size="sm">&laquo;</b-button>
                   <b-button @click="refresh(items.links.prev)" variant="primary" size="sm">&lsaquo;</b-button>
                 </b-button-group>
-
+                
                 <b-button-group class="mx-1">
                   <b-button
                     v-for="child in this.$router.options.routes.find(r => r.name === $route.name).children"

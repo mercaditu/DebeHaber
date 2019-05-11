@@ -135,19 +135,20 @@ export default {
     }
   },
   beforeUpdate() {
-    //var app = this;
+    var app = this;
 
-    if (this.name != this.viewURL) {
-      this.$children[1].currentPage = 1;
-      this.name = this.viewURL;
-      this.refresh("/api" + this.$route.path);
+    if (app.name != app.viewURL) {
+      app.$children[1].currentPage = 1;
+      app.name = app.viewURL;
+      app.refresh("/api" + app.$route.path);
     }
   },
   mounted() {
     var app = this;
-    this.name = this.viewURL;
+    app.name = app.viewURL;
 
-    app.refresh("/api" + this.$route.path);
+    app.refresh("/api" + app.$route.path);
+ 
   }
 };
 </script>
