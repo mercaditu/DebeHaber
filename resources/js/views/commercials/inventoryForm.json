@@ -100,7 +100,7 @@
                                     "data":[
                                         {
                                             
-                                            "chartId": "chart_sales_id",
+                                            "chartId": "chart_income_id",
                                             "Value": "inventory_value"
                                         }
                                     ],
@@ -126,6 +126,20 @@
                 },
                 {
                     "fields": [
+                        {
+                            "label": "accounting.chartOfAccounts",
+                            "cols": 4,
+                            "properties": [
+                                {
+                                    "type": "select",
+                                    "data": "chart_expense",
+                                    "api": "/accounting/charts/for/costof-goodsold",
+                                    "required": false,
+                                    "location": "",
+                                    "select": [{ "value": "id", "label": "name" }]
+                                }
+                            ]
+                        },
                         {
                             "label": "commercial.Margin",
                             "properties": [

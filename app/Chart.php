@@ -77,6 +77,7 @@ class Chart extends Model
             ->where('is_accountable', 1);
     }
 
+
     //Brings all Fixed Asset Type accounts into list.
     public function scopeInventories($query)
     {

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
+    protected $fillable = [
+        'id'
+       
+    ];
     /**
      * Get the taxPayer that owns the model.
      *

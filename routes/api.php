@@ -127,6 +127,8 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                         Route::get('income', 'ChartController@getSalesAccounts');
                         Route::get('income/stockables', 'ChartController@getIncomesFromStockAccounts');
                         Route::get('expense', 'ChartController@getPurchaseAccounts');
+                        Route::get('costof-goodsold', 'ChartController@getCostOfGoodSoldAccounts');
+
 
                         Route::get('vats-credit', 'ChartController@getVATCredit');
                         Route::get('vats-debit', 'ChartController@getVATDebit');

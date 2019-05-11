@@ -1270,10 +1270,29 @@ export default [
             ],
             columns: [
                 {
-                    key: "name",
+                    key: "currency.name",
+                    label: "commercial.currency",
+                    searchable: true,
                     sortable: true
+                },
+                {
+                    key: "buy_rate",
+                    label: "commercial.buyRate",
+                    searchable: true,
+                    sortable: true
+                },
+                {
+                    key: "sell_rate",
+                    label: "commercial.sellRate",
+                    searchable: true,
+                    sortable: true
+                },
+                {
+                    key: "actions",
+                    label: "",
+                    sortable: false
                 }
-               
+                
             ]
         },
         children: [

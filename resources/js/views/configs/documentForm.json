@@ -13,34 +13,34 @@
                             "data": "type",
                             "placeholder": "commercial.expiryDate",
                             "api": "",
-                            "options": [{ "value": "1", "text": "Invoice"
+                            "options": [{ "id": "1", "name": "Invoice"
                                 },
-                                { "value": "2", "text": "DebitNote"
+                                { "id": "2", "name": "DebitNote"
                                 },
-                                { "value": "3", "text": "CreditNote"
+                                { "id": "3", "name": "CreditNote"
                                 },
-                                { "value": "4", "text": "CustomsClearence"
+                                { "id": "4", "name": "CustomsClearence"
                                 },
-                                { "value": "5", "text": "SelfInvoice"
+                                { "id": "5", "name": "SelfInvoice"
                                 },{
-                                    "value": "6",
-                                    "text": "Ticket"
+                                    "id": "6",
+                                    "name": "Ticket"
                                 },
                                 {
-                                    "value": "7",
-                                    "text": "AirTicket"
+                                    "id": "7",
+                                    "name": "AirTicket"
                                 },
                                 {
-                                    "value": "8",
-                                    "text": "InvoiceFromAbroad"
+                                    "id": "8",
+                                    "name": "InvoiceFromAbroad"
                                 },
                                 {
-                                    "value": "9",
-                                    "text": "AbsorbedRetention"
+                                    "id": "9",
+                                    "name": "AbsorbedRetention"
                                 },
                                 {
-                                    "value": "10",
-                                    "text": "ElectronicAirTicket"
+                                    "id": "10",
+                                    "name": "ElectronicAirTicket"
                                 }],
                             "condition": "payment_condition",
                             "required": false,

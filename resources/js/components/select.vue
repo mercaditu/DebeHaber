@@ -42,6 +42,7 @@ export default {
     //do something after mounting vue instance
     var app = this;
     if (app.api === "") {
+      console.log(app);
       app.collections = app.options;
     } else {
       crud.methods.onRead(app.baseUrl + app.api).then(function(response) {

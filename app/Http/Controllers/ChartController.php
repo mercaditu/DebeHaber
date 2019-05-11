@@ -204,6 +204,17 @@ class ChartController extends Controller
         );
     }
 
+    public function getCostOfGoodSoldAccounts(Taxpayer $taxPayer, Cycle $cycle)
+    {
+        return GeneralResource::collection(
+            Chart::Expenses()
+                ->where('sub_type', 1)
+                ->orderBy('name')
+                ->select('name', 'id')
+                ->get()
+        );
+    }
+
     public function getFixedAssets(Taxpayer $taxPayer, Cycle $cycle)
     {
         return GeneralResource::collection(

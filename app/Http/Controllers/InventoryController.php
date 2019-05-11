@@ -48,12 +48,14 @@ class InventoryController extends Controller
         $journal->date = $request->end_date;
         $journal->save();
 
-        $detailSales = JournalDetail::firstOrNew(['journal_id' => $journal->id, 'chart_id' => $request->chart_sales_id]);
+        $detailSales = JournalDetail::firstOrNew(['journal_id' => $journal->id, 'chart_id' => $request->chart_expense['id']]);
+        $detailSales->chart_id = $request->chart_expense['id'];
         $detailSales->journal_id = $journal->id;
         $detailSales->credit = $request->discount_value;
         $detailSales->save();
 
-        $detailInventory = JournalDetail::firstOrNew(['journal_id' => $journal->id, 'chart_id' => $request->chart_id]);
+        $detailInventory = JournalDetail::firstOrNew(['journal_id' => $journal->id, 'chart_id' => $request->chart_income_id]);
+        $detailInventory->chart_id = $request->chart_income_id;
         $detailInventory->journal_id = $journal->id;
         $detailInventory->debit = $request->discount_value;
         $detailInventory->save();
@@ -65,7 +67,8 @@ class InventoryController extends Controller
 
         $inventory->taxpayer_id = $taxPayer->id;
         $inventory->chart_id = $request->chart_id;
-        $inventory->chart_sales_id = $request->chart_sales_id;
+        $inventory->chart_income_id = $request->chart_income_id;
+        $inventory->chart_expense_id = $request->chart_expense['id'];
 
         $inventory->start_date = $request->start_date;
         $inventory->end_date = $request->end_date;
