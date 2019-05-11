@@ -915,14 +915,6 @@ export default [
                     ]
                 }
             ],
-            actions: [
-                {
-                    label: "general.create",
-                    icon: "add",
-                    variant: "dark",
-                    url: "impexes/0"
-                }
-            ],
             columns: [
                 {
                     key: "date",
@@ -937,7 +929,7 @@ export default [
                     key: "partner",
                     label: "commercial.supplier",
                     formatter: (value, key, item) => {
-                        return item.partner_name.substring(0, 15) + "...";
+                        return item.partner_name!=null? item.partner_name.substring(0, 15) + "..." : '';
                     },
                     sortable: true
                 },
@@ -955,10 +947,15 @@ export default [
         },
         children: [
             {
-                path: ":id",
+                 path: ":id",
                 component: Form,
                 name: "impexForm",
-                meta: ImpexForm
+                meta: ImpexForm,
+
+                label: "general.create",
+                url: "impexes/0",
+                icon: "add",
+                variant: "dark"
             }
         ]
     },
@@ -1007,10 +1004,16 @@ export default [
         children: [
             {
                 path: ":id",
-                component: Form,
-                name: "journalTemplateForm",
-                meta: JournalTemplateForm
-            }
+               component: Form,
+               name: "journalTemplateForm",
+               meta: JournalTemplateForm,
+
+               label: "general.create",
+               url: "journal-templates/0",
+               icon: "add",
+               variant: "dark"
+           }
+           
         ]
     },
     //Journals
