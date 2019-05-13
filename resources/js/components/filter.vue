@@ -70,7 +70,7 @@ export default {
           query += "&filter[" + element.column + "]=" + element.query;
         }
       });
-
+      console.log("/api" + app.$route.path + "?" + query);
       app.$parent.refresh("/api" + app.$route.path + "?" + query);
     }
   }

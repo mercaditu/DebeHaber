@@ -1117,12 +1117,14 @@ export default [
                 {
                     key: "code",
                     label: "commercial.code",
-                    sortable: true
+                    sortable: true,
+                    searchable: true
                 },
                 {
                     key: "name",
-                    label: "commercial.accoune",
-                    sortable: true
+                    label: "commercial.account",
+                    sortable: true,
+                    searchable: true
                 },
                 {
                     key: "type",
