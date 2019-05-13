@@ -28,33 +28,31 @@ class ChartController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        $query =  Chart::
-        orderBy('code')
-        ->select(
-            DB::raw('charts.id as id'),
-            DB::raw('charts.parent_id'),
-            DB::raw('charts.chart_version_id'),
-            DB::raw('charts.taxpayer_id'),
-            DB::raw('charts.country'),
-            DB::raw('charts.is_accountable'),
-            DB::raw('charts.code'),
-            DB::raw('charts.name'),
-            DB::raw('charts.level'),
-            DB::raw('(CASE WHEN (charts.type = 1) THEN "Asset" WHEN (charts.type = 2) THEN "Liabilities"  WHEN (charts.type = 3) THEN "Capital"  WHEN (charts.type = 4) THEN "Income"  ELSE "Expense" END) as  type'),
-            DB::raw('charts.sub_type'),
-            DB::raw('charts.partner_taxid'),
-            DB::raw('charts.partner_name'),
-            DB::raw('charts.coefficient'),
-            DB::raw('charts.asset_years')
-     
-        );
+        $query =  Chart::orderBy('code')
+            ->select(
+                DB::raw('charts.id as id'),
+                DB::raw('charts.parent_id'),
+                DB::raw('charts.chart_version_id'),
+                DB::raw('charts.taxpayer_id'),
+                DB::raw('charts.country'),
+                DB::raw('charts.is_accountable'),
+                DB::raw('charts.code'),
+                DB::raw('charts.name'),
+                DB::raw('charts.level'),
+                DB::raw('(CASE WHEN (charts.type = 1) THEN "Asset" WHEN (charts.type = 2) THEN "Liabilities"  WHEN (charts.type = 3) THEN "Capital"  WHEN (charts.type = 4) THEN "Income"  ELSE "Expense" END) as  type'),
+                DB::raw('charts.sub_type'),
+                DB::raw('charts.partner_taxid'),
+                DB::raw('charts.partner_name'),
+                DB::raw('charts.coefficient'),
+                DB::raw('charts.asset_years')
+
+            );
 
         return GeneralResource::collection(
             QueryBuilder::for($query)
                 ->allowedFilters('name')
-                ->paginate(50)
+                ->paginate(500)
         );
-       
     }
 
     /**
@@ -116,28 +114,28 @@ class ChartController extends Controller
     {
         return new GeneralResource(
             Chart::where('charts.id', $chart->id)
-            ->join('charts as parent', 'parent.id', 'charts.parent_id')
-            ->orderBy('code')
-            ->select(
-                DB::raw('charts.id as id'),
-                DB::raw('charts.parent_id'),
-                DB::raw('charts.chart_version_id'),
-                DB::raw('charts.taxpayer_id'),
-                DB::raw('charts.country'),
-                DB::raw('charts.is_accountable'),
-                DB::raw('charts.code'),
-                DB::raw('charts.name'),
-                DB::raw('charts.level'),
-                DB::raw('charts.type'),
-                DB::raw('charts.sub_type'),
-                DB::raw('charts.partner_taxid'),
-                DB::raw('charts.partner_name'),
-                DB::raw('charts.coefficient'),
-                DB::raw('charts.asset_years'),
-                DB::raw('parent.name as parentName'),
-                DB::raw('parent.code as parentCode')
-            )->first()
-            
+                ->join('charts as parent', 'parent.id', 'charts.parent_id')
+                ->orderBy('code')
+                ->select(
+                    DB::raw('charts.id as id'),
+                    DB::raw('charts.parent_id'),
+                    DB::raw('charts.chart_version_id'),
+                    DB::raw('charts.taxpayer_id'),
+                    DB::raw('charts.country'),
+                    DB::raw('charts.is_accountable'),
+                    DB::raw('charts.code'),
+                    DB::raw('charts.name'),
+                    DB::raw('charts.level'),
+                    DB::raw('charts.type'),
+                    DB::raw('charts.sub_type'),
+                    DB::raw('charts.partner_taxid'),
+                    DB::raw('charts.partner_name'),
+                    DB::raw('charts.coefficient'),
+                    DB::raw('charts.asset_years'),
+                    DB::raw('parent.name as parentName'),
+                    DB::raw('parent.code as parentCode')
+                )->first()
+
         );
     }
 
