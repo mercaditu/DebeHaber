@@ -90,8 +90,9 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
+                            type: "lastMonth",
                             url:
-                                "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
+                                "/:taxPayer/:cycle/commercial/reports/sales/:startDate/:endDate"
                         }
                     ]
                 }
@@ -929,7 +930,9 @@ export default [
                     key: "partner",
                     label: "commercial.supplier",
                     formatter: (value, key, item) => {
-                        return item.partner_name!=null? item.partner_name.substring(0, 15) + "..." : '';
+                        return item.partner_name != null
+                            ? item.partner_name.substring(0, 15) + "..."
+                            : "";
                     },
                     sortable: true
                 },
@@ -947,7 +950,7 @@ export default [
         },
         children: [
             {
-                 path: ":id",
+                path: ":id",
                 component: Form,
                 name: "impexForm",
                 meta: ImpexForm,
@@ -965,7 +968,6 @@ export default [
         component: List,
         name: "journalTemplateList",
         meta: {
-           
             title: "accounting.template",
             img: "/img/apps/journal-template.svg",
             components: [
@@ -1004,16 +1006,15 @@ export default [
         children: [
             {
                 path: ":id",
-               component: Form,
-               name: "journalTemplateForm",
-               meta: JournalTemplateForm,
+                component: Form,
+                name: "journalTemplateForm",
+                meta: JournalTemplateForm,
 
-               label: "general.create",
-               url: "journal-templates/0",
-               icon: "add",
-               variant: "dark"
-           }
-           
+                label: "general.create",
+                url: "journal-templates/0",
+                icon: "add",
+                variant: "dark"
+            }
         ]
     },
     //Journals
@@ -1029,13 +1030,12 @@ export default [
                 {
                     type: "links",
                     links: [
-                      
                         {
-                            label: "general.journal",
-                            icon: "insert_chart_outlined",
+                            label: "accounting.generateJournal",
+                            icon: "refresh",
                             url:
-                                "/api/:taxPayer/:cycle/generate-journals/2019-03-01/2019-03-31",
-                            type:'api'    
+                                "/api/:taxPayer/:cycle/generate-journals/:startDate/:endDate",
+                            type: "dateRange"
                         }
                     ]
                 }
@@ -1073,7 +1073,7 @@ export default [
                     key: "hasDetails",
                     label: "",
                     sortable: false
-                  },
+                },
                 {
                     key: "actions",
                     label: "",
@@ -1092,8 +1092,7 @@ export default [
                 url: "journals/0",
                 icon: "add",
                 variant: "dark"
-            },
-            
+            }
         ]
     },
     //Opening Balance
@@ -1172,15 +1171,12 @@ export default [
         meta: {
             ttitle: "accounting.chartVersion",
             img: "/img/apps/sales.svg",
-            components: [
-                
-            ],
+            components: [],
             columns: [
                 {
                     key: "name",
                     sortable: true
-                },
-               
+                }
             ]
         },
         children: [
@@ -1196,10 +1192,9 @@ export default [
                 url: "chart-versions/0",
                 icon: "add",
                 variant: "dark"
-            },
-         
+            }
         ]
-    },         
+    },
 
     {
         path: "/:taxPayer/:cycle/config/cycles",
@@ -1208,9 +1203,7 @@ export default [
         meta: {
             title: "accounting.accountingCycle",
             img: "/img/apps/cycle.svg",
-            components: [
-                
-            ],
+            components: [],
             columns: [
                 {
                     key: "chart_version.name",
@@ -1238,8 +1231,7 @@ export default [
                 url: "cycles/0",
                 icon: "add",
                 variant: "dark"
-            },
-         
+            }
         ]
     },
     {
@@ -1249,15 +1241,12 @@ export default [
         meta: {
             title: "commercial.documents",
             img: "/img/apps/sales.svg",
-            components: [
-                
-            ],
+            components: [],
             columns: [
                 {
                     key: "name",
                     sortable: true
                 }
-               
             ]
         },
         children: [
@@ -1271,8 +1260,7 @@ export default [
                 url: "documents/0",
                 icon: "add",
                 variant: "dark"
-            },
-         
+            }
         ]
     },
     {
@@ -1282,9 +1270,7 @@ export default [
         meta: {
             title: "commercial.exchangeRates",
             img: "/img/apps/sales.svg",
-            components: [
-                
-            ],
+            components: [],
             columns: [
                 {
                     key: "currency.name",
@@ -1309,7 +1295,6 @@ export default [
                     label: "",
                     sortable: false
                 }
-                
             ]
         },
         children: [
@@ -1323,8 +1308,7 @@ export default [
                 url: "rates/0",
                 icon: "add",
                 variant: "dark"
-            },
-         
+            }
         ]
     },
     {

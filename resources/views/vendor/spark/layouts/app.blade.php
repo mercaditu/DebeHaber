@@ -74,7 +74,7 @@
             'taxPayerData' => $taxPayerData ?? [],
             'taxPayerConfig' => $taxPayerConfig ?? [],
             'teamRole' => $teamRole ?? '',
-
+            'currentCycle' => $currentCycle ?? '',
             'language' => Auth::user() != null ? Auth::user()->language : 'en',
 
             'enumChartType' => App\Enums\ChartTypeEnum::labels(),

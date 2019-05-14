@@ -15,8 +15,9 @@
             <b-list-group v-else flush>
               <b-list-group-item
                 v-for="link in component.links"
-                v-bind:key="link.key" href="#"
-                @click="OpenLink(link.url,link.type)"
+                v-bind:key="link.key"
+                href="#"
+                @click="openLink(link.url,link.type)"
               >
                 <i class="material-icons">{{ link.icon }}</i>
                 {{ $t(link.label) }}
@@ -195,7 +196,7 @@
                   <b-button @click="refresh(items.links.first)" variant="primary" size="sm">&laquo;</b-button>
                   <b-button @click="refresh(items.links.prev)" variant="primary" size="sm">&lsaquo;</b-button>
                 </b-button-group>
-                
+
                 <b-button-group class="mx-1">
                   <b-button
                     v-for="child in this.$router.options.routes.find(r => r.name === $route.name).children"
@@ -244,19 +245,23 @@ export default {
     components: [],
     showFilter: false
   }),
-  methods: 
-  {
-    OpenLink(link,type)
-    {
-      if(type === 'api') {
-      var link = link.replace(':taxPayer',this.$route.params.taxPayer);
-      link = link.replace(':cycle',this.$route.params.cycle);
+  methods: {
+    openLink(link, type) {
+      if (type === "dateRange") {
+        var link = link.replace(":taxPayer", this.$route.params.taxPayer);
+        link = link.replace(":cycle", this.$route.params.cycle);
+        link = link.replace(":startDate", this.spark.currentCycle.start_date);
+        link = link.replace(":endDate", this.spark.currentCycle.end_date);
         crud.methods.onRead(link);
-      }
-      else
-      {
-        link = link.replace(':lang',this.spark.language);
-         window.location.href = link ;  
+      } else if (type === "lastMonth") {
+        var link = link.replace(":taxPayer", this.$route.params.taxPayer);
+        link = link.replace(":cycle", this.$route.params.cycle);
+        link = link.replace(":startDate", this.spark.currentCycle.start_date);
+        link = link.replace(":endDate", this.spark.currentCycle.end_date);
+        crud.methods.onRead(link);
+      } else {
+        link = link.replace(":lang", this.spark.language);
+        window.location.href = link;
       }
     }
   },

@@ -92,7 +92,7 @@ class FixedAssetController extends Controller
             // calculate in days.
             $dailyDepreciation = $fixedAsset->purchase_value / ($fixedAssetGroup->asset_years * 365);
             // use the difference in time to calculate percentage reduction from purchase value.
-            $fixedAsset->currentValue = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
+            $fixedAsset->current_value = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
             $fixedAsset->save();
         }
     }
