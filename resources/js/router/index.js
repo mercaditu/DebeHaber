@@ -1026,7 +1026,19 @@ export default [
             title: "accounting.journal",
             img: "/img/apps/journals.svg",
             components: [
-                
+                {
+                    type: "links",
+                    links: [
+                      
+                        {
+                            label: "general.journal",
+                            icon: "insert_chart_outlined",
+                            url:
+                                "/api/:taxPayer/:cycle/generate-journals/2019-03-01/2019-03-31",
+                            type:'api'    
+                        }
+                    ]
+                }
             ],
             columns: [
                 {

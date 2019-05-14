@@ -15,8 +15,8 @@
             <b-list-group v-else flush>
               <b-list-group-item
                 v-for="link in component.links"
-                v-bind:key="link.key"
-                :href="link.url"
+                v-bind:key="link.key" href="#"
+                @click="OpenLink(link.url,link.type)"
               >
                 <i class="material-icons">{{ link.icon }}</i>
                 {{ $t(link.label) }}
@@ -244,6 +244,22 @@ export default {
     components: [],
     showFilter: false
   }),
+  methods: 
+  {
+    OpenLink(link,type)
+    {
+      if(type === 'api') {
+      var link = link.replace(':taxPayer',this.$route.params.taxPayer);
+      link = link.replace(':cycle',this.$route.params.cycle);
+        crud.methods.onRead(link);
+      }
+      else
+      {
+        link = link.replace(':lang',this.spark.language);
+         window.location.href = link ;  
+      }
+    }
+  },
 
   mounted() {
     if (this.$route.meta.columns != null) {

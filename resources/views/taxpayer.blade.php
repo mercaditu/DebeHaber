@@ -42,7 +42,7 @@
                      <!-- {{ $taxPayerIntegration }}  -->
 
                     <b-card no-body>
-                        <b-tabs pills card v-model="tabIndex">
+                        <b-tabs pills card >
                         <b-tab active>
                             <template slot="title">
                                 <i class="material-icons">info</i>
