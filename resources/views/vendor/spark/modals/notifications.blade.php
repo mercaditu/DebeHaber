@@ -15,7 +15,7 @@
                             </button>
 
                             <button class="btn btn-light" :class="{'active': showingAnnouncements}" @click="showAnnouncements" style="width: 50%;">
-                                {{__('Announcements')}} <i class="fa fa-circle text-danger p-l-xs" v-if="hasUnreadAnnouncements"></i>
+                                {{__('Announcements')}} <i class="fa fa-circle text-danger" v-if="hasUnreadAnnouncements"></i>
                             </button>
                         </div>
                     </div>
@@ -23,11 +23,11 @@
                     <div class="modal-body">
                         <!-- Informational Messages -->
                         <div class="notification-container" v-if="loadingNotifications">
-                            <i class="fa fa-btn fa-spinner fa-spin"></i> {{__('Loading Notifications')}}
+                            <div><i class="fa fa-btn fa-spinner fa-spin"></i> {{__('Loading Notifications')}}</div>
                         </div>
 
                         <div class="notification-container" v-if=" ! loadingNotifications && activeNotifications.length == 0">
-                            <div class="alert alert-warning m-b-none">
+                            <div class="alert alert-warning">
                                 {{__('We don\'t have anything to show you right now! But when we do, we\'ll be sure to let you know. Talk to you soon!')}}
                             </div>
                         </div>

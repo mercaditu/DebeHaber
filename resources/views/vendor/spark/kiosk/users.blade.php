@@ -40,10 +40,12 @@
                 <div class="table-responsive">
                     <table class="table table-valign-middle mb-0">
                         <thead>
-                            <th></th>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('E-Mail Address')}}</th>
-                            <th class="th-fit"></th>
+                            <tr>
+                                <th></th>
+                                <th>{{__('Name')}}</th>
+                                <th>{{__('E-Mail Address')}}</th>
+                                <th class="th-fit"></th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -55,14 +57,14 @@
 
                                 <!-- Name -->
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         @{{ searchUser.name }}
                                     </div>
                                 </td>
 
                                 <!-- E-Mail Address -->
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         @{{ searchUser.email }}
                                     </div>
                                 </td>

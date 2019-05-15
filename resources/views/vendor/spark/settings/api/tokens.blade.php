@@ -7,31 +7,33 @@
                 <div class="table-responsive">
                     <table class="table table-valign-middle mb-0">
                         <thead>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Created')}}</th>
-                            <th>{{__('Last Used')}}</th>
-                            <th>&nbsp;</th>
+                            <tr>
+                                <th>{{__('Name')}}</th>
+                                <th>{{__('Created')}}</th>
+                                <th>{{__('Last Used')}}</th>
+                                <th>&nbsp;</th>
+                            </tr>
                         </thead>
 
                         <tbody>
                         <tr v-for="token in tokens">
                             <!-- Name -->
                             <td>
-                                <div class="btn-table-align">
+                                <div>
                                     @{{ token.name }}
                                 </div>
                             </td>
 
                             <!-- Created At -->
                             <td>
-                                <div class="btn-table-align">
+                                <div>
                                     @{{ token.created_at | datetime }}
                                 </div>
                             </td>
 
                             <!-- Last Used At -->
                             <td>
-                                <div class="btn-table-align">
+                                <div>
                                         <span v-if="token.last_used_at">
                                             @{{ token.last_used_at | datetime }}
                                         </span>

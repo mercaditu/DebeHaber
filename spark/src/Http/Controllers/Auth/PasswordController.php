@@ -12,7 +12,15 @@ class PasswordController extends Controller
 {
     use SendsPasswordResetEmails, ResetsPasswords {
         SendsPasswordResetEmails::broker insteadof ResetsPasswords;
+        ResetsPasswords::credentials insteadof SendsPasswordResetEmails;
     }
+
+    /**
+     * Where to redirect users after log in.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
 
     /**
      * Create a new password controller instance.

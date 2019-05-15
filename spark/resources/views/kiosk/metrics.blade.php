@@ -130,27 +130,29 @@
                     <div class="table-responsive">
                         <table class="table table-valign-middle mb-0">
                             <thead>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Subscribers')}}</th>
-                            <th>{{__('Trialing')}}</th>
+                                <tr>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('Subscribers')}}</th>
+                                    <th>{{__('Trialing')}}</th>
+                                </tr>
                             </thead>
 
                             <tbody>
                             <tr v-if="genericTrialUsers">
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         {{__('On Generic Trial')}}
                                     </div>
                                 </td>
 
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         {{__('N/A')}}
                                     </div>
                                 </td>
 
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         @{{ genericTrialUsers }}
                                     </div>
                                 </td>
@@ -158,21 +160,21 @@
                             <tr v-for="plan in plans">
                                 <!-- Plan Name -->
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         @{{ plan.name }} (@{{ __(plan.interval) | capitalize }})
                                     </div>
                                 </td>
 
                                 <!-- Subscriber Count -->
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         @{{ plan.count }}
                                     </div>
                                 </td>
 
                                 <!-- Trialing Count -->
                                 <td>
-                                    <div class="btn-table-align">
+                                    <div>
                                         @{{ plan.trialing }}
                                     </div>
                                 </td>

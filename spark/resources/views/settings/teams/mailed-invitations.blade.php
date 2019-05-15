@@ -6,15 +6,17 @@
             <div class="table-responsive">
                 <table class="table table-valign-middle mb-0">
                     <thead>
-                        <th>{{__('E-Mail Address')}}</th>
-                        <th class="th-fit">&nbsp;</th>
+                        <tr>
+                            <th>{{__('E-Mail Address')}}</th>
+                            <th class="th-fit">&nbsp;</th>
+                        </tr>
                     </thead>
 
                     <tbody>
                         <tr class="reveal" v-for="invitation in invitations">
                             <!-- E-Mail Address -->
                             <td>
-                                <div class="btn-table-align">
+                                <div>
                                     @{{ invitation.email }}
                                 </div>
                             </td>
