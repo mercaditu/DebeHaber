@@ -70,27 +70,30 @@ class AccountMovementController extends Controller
     //Simple movements from one account to another. Maybe this should create two movements to demonstrate how it goes from one account into another.
     public function processMovement($data, $taxPayer, $cycle)
     {
-        $accMovement = new AccountMovement();
-
-        $accMovement->chart_id = $this->checkChartAccount($data['AccountName'], $taxPayer, $cycle);
-        $accMovement->taxpayer_id = $taxPayer->id;
-        $accMovement->currency = $data['CurrencyCode'];
-
+        $chartId = $this->checkChartAccount($data['AccountName'], $taxPayer, $cycle);
+        $date = $this->convert_date($data['Date']);
         //Check currency rate based on date. if nothing found use default from api. TODO this should be updated to buy and sell rates.
+        $rate = 1;
         if ($data['CurrencyRate'] ==  '') {
-            $accMovement->rate = $this->checkCurrencyRate($accMovement->currency, $taxPayer, $data['Date']) ?? 1;
+            $rate = $this->checkCurrencyRate($data['CurrencyCode'], $taxPayer, $data['Date']) ?? 1;
         } else {
-            $accMovement->rate = $data['CurrencyRate'] ?? 1;
+            $rate = $data['CurrencyRate'] ?? 1;
         }
 
-        // if ($data['CurrencyRate'] ==  '') {
-        // 	$currency_id = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
-        //     $transaction->rate = $this->checkCurrencyRate($currency_id, $taxPayer, $data['Date']) ?? 1;
-        // } else {
-        //     $transaction->rate = $data['CurrencyRate'];
-        // }
+        $accMovement = AccountMovement::where('taxpayer_id', $taxPayer->id)
+            ->where('chart_id', $chartId)
+            ->where('currency', $data['CurrencyCode'])
+            ->where('rate', $rate)
+            ->where('date', $date)
+            ->first()
+            ?? new AccountMovement();
 
-        $accMovement->date = $this->convert_date($data['Date']);
+        $accMovement->chart_id = $chartId;
+        $accMovement->taxpayer_id = $taxPayer->id;
+        $accMovement->currency = $data['CurrencyCode'];
+        $accMovement->rate = $rate;
+
+        $accMovement->date = $date;
         $accMovement->credit = $data['Credit'] * $accMovement->rate ?? 0;
         $accMovement->debit = $data['Debit'] * $accMovement->rate ?? 0;
         $accMovement->comment = $data['Comment'];
