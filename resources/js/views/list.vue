@@ -243,26 +243,42 @@ export default {
 
   data: () => ({
     components: [],
-    showFilter: false
+    showFilter: false,
+    link: ''
   }),
   methods: {
     openLink(link, type) {
+
       if (type === "dateRange") {
-        var link = link.replace(":taxPayer", this.$route.params.taxPayer);
-        link = link.replace(":cycle", this.$route.params.cycle);
-        link = link.replace(":startDate", this.spark.currentCycle.start_date);
-        link = link.replace(":endDate", this.spark.currentCycle.end_date);
-        crud.methods.onRead(link);
+         this.link = link;
+         this.GenrateLink();
       } else if (type === "lastMonth") {
         var link = link.replace(":taxPayer", this.$route.params.taxPayer);
         link = link.replace(":cycle", this.$route.params.cycle);
         link = link.replace(":startDate", this.spark.currentCycle.start_date);
         link = link.replace(":endDate", this.spark.currentCycle.end_date);
         crud.methods.onRead(link);
+        app.$snack.success({
+              text: app.$i18n.t("commercial.Saved")
+            });
       } else {
         link = link.replace(":lang", this.spark.language);
         window.location.href = link;
       }
+    },
+    GenrateLink()
+    {
+       app.$snack.success({
+              text: "Hang on, code running."
+            });
+        setTimeout(function(){
+            var link = this.link;
+            link = link.replace(":taxPayer", this.$route.params.taxPayer);
+            link = link.replace(":cycle", this.$route.params.cycle);
+            link = link.replace(":startDate", this.spark.currentCycle.start_date);
+            link = link.replace(":endDate", this.spark.currentCycle.end_date);
+            crud.methods.onRead(link);
+        }.bind(this), 3000);
     }
   },
 

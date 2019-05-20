@@ -42,7 +42,8 @@ class JournalController extends Controller
      */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        $journal = $request->id == 0 ? new Journal() : Journal::where('id', $request->id)->first();
+        $journal = $request->id == 0 ? new Journal() : 
+        Journal::where('id', $request->id)->first();
 
         $journal->date = $request->date;
         $journal->number = $request->number;

@@ -47,7 +47,8 @@ class FixedAssetController extends Controller
 
     public function insertFixedAsset($data, Taxpayer $taxPayer, Cycle $cycle)
     {
-        $fixedAsset = FixedAsset::where('id', $data['id'])->where('taxpayer_id', $taxPayer->id)->first() ?? new FixedAsset();
+        $fixedAsset = FixedAsset::where('id', $data['id'])
+        ->where('taxpayer_id', $taxPayer->id)->first() ?? new FixedAsset();
 
         $ChartController = new ChartController();
 

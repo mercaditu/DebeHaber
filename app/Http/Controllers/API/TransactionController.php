@@ -136,6 +136,8 @@ class TransactionController extends Controller
 					$detail->chart_id = $chart_id;
 					$detail->value = $groupedRowsByType->sum('Value') - $discountOnRow;
 
+					$detail->cost = groupedRowsByType[0]['Cost'] *  $transaction->rate;
+
 					//This prevents 0% or null references from searching and/or creating false accounts.
 					if (isset($groupedRowsByType[0]['VATPercentage']) && $groupedRowsByType[0]['VATPercentage'] > 0) {
 						if (($transaction->type == 1 && $transaction->sub_type == 1) || ($transaction->type == 2 && $transaction->sub_type == 2)) {
