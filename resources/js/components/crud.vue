@@ -96,7 +96,6 @@ export default {
         confirmButtonText: "Yes, delete it!"
       })
         .then(resp => {
-          console.log(resp.value);
           if (resp.value) {
             app
               .onDelete("/api" + app.$route.path, item.id)
@@ -148,7 +147,6 @@ export default {
     app.name = app.viewURL;
 
     app.refresh("/api" + app.$route.path);
- 
   }
 };
 </script>

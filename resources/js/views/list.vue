@@ -16,6 +16,7 @@
               <b-list-group-item
                 v-for="link in component.links"
                 v-bind:key="link.key"
+                :disabled="linkDisabled"
                 href="#"
                 @click="openLink(link.url,link.type)"
               >
@@ -244,14 +245,15 @@ export default {
   data: () => ({
     components: [],
     showFilter: false,
-    link: ''
+    link: "",
+    linkDisabled: false
   }),
+
   methods: {
     openLink(link, type) {
-
       if (type === "dateRange") {
-         this.link = link;
-         this.GenrateLink();
+        this.link = link;
+        this.GenrateLink();
       } else if (type === "lastMonth") {
         var link = link.replace(":taxPayer", this.$route.params.taxPayer);
         link = link.replace(":cycle", this.$route.params.cycle);
@@ -259,26 +261,36 @@ export default {
         link = link.replace(":endDate", this.spark.currentCycle.end_date);
         crud.methods.onRead(link);
         app.$snack.success({
-              text: app.$i18n.t("commercial.Saved")
-            });
+          text: app.$i18n.t("commercial.Saved")
+        });
       } else {
         link = link.replace(":lang", this.spark.language);
         window.location.href = link;
       }
     },
-    GenrateLink()
-    {
-       app.$snack.success({
-              text: "Hang on, code running."
-            });
-        setTimeout(function(){
-            var link = this.link;
-            link = link.replace(":taxPayer", this.$route.params.taxPayer);
-            link = link.replace(":cycle", this.$route.params.cycle);
-            link = link.replace(":startDate", this.spark.currentCycle.start_date);
-            link = link.replace(":endDate", this.spark.currentCycle.end_date);
-            crud.methods.onRead(link);
-        }.bind(this), 3000);
+
+    GenrateLink() {
+      var app = this;
+      this.linkDisabled = true;
+
+      // setTimeout(
+      //   function() {
+      var link = this.link;
+      link = link.replace(":taxPayer", this.$route.params.taxPayer);
+      link = link.replace(":cycle", this.$route.params.cycle);
+      link = link.replace(":startDate", this.spark.currentCycle.start_date);
+      link = link.replace(":endDate", this.spark.currentCycle.end_date);
+      crud.methods.onRead(link);
+      // }.bind(this),
+      //   3000
+      // );
+
+      app.$snack.success({
+        text: "Hang on, code running.",
+        time: 30
+      });
+      // disapear snackBar Message after 30 Seconds
+      crud.methods.refresh(this.$route.path);
     }
   },
 
