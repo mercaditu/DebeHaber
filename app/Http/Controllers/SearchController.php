@@ -124,7 +124,7 @@ class SearchController extends Controller
     public function searchChartsName(TaxPayer $taxPayer, Cycle $cycle, $q)
     {
         $chart = Chart::My($taxPayer, $cycle)->selectRaw('max(name) as name,max(code) as code,max(id) as id')
-            ->whereNull('parent_id')
+            ->where('is_accountable', 'false')
             ->where('name', 'LIKE', '%' . $q . '%')
             ->groupBy('code')
             ->get();
@@ -134,7 +134,7 @@ class SearchController extends Controller
     public function searchChartsCode(TaxPayer $taxPayer, Cycle $cycle, $q)
     {
         $chart = Chart::My($taxPayer, $cycle)->selectRaw('max(name) as name,max(code) as code,max(id) as id')
-            ->whereNull('parent_id')
+            ->where('is_accountable', 'false')
             ->where('code', 'LIKE', '%' . $q . '%')
             ->groupBy('code')
             ->get();

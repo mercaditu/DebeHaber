@@ -99,7 +99,7 @@ class ChartController extends Controller
             $chart->partner_taxid = $request->partner_taxid;
             $chart->partner_name = $request->partner_name;
         }
-
+      //  return response()->json($chart,500);
         $chart->save();
         return response()->json(200);
     }
