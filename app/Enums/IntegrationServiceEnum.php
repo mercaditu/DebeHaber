@@ -15,12 +15,13 @@ class IntegrationServiceEnum extends Enum
 
 	public function ERPNext($module)
 	{
-		if ($module == "SalesInvoice") {
-			// return [
-			// 	{"number", "doc.name"},
-			// 	{"partner_name", "doc.customer.name"}
-			// ];
-		} else ($module == "PurchaseInvoice"){
+		// if ($module == "SalesInvoice") {
+		// 	return 
+		// 		{ name: "Student login", value: "login1" },
+		// 		{ name: "Student password", value: "password" }
+		// 	;
+		// }
+		// else ($module == "PurchaseInvoice"){
 			// return [
 			// 	{"number", "doc.name"},
 			// 	{"partner_name", "doc.supplier.name"}

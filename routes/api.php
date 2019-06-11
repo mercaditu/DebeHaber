@@ -38,9 +38,11 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
         Route::get('documents/by/{type}', 'DocumentController@get_document');
 
         Route::prefix('{cycle}')->group(function () {
-
+            Route::prefix('ERPNEXT')->group(function () {
+                    Route::post('uploadERPNEXTSales', 'API\ErpNextIntegrationController@uploadErpNext_sales');
+                    Route::post('getERPNEXTSales', 'API\ErpNextIntegrationController@getDataFromERPNEXT');
+            });
             Route::get('generate-journals/{startDate}/{endDate}', 'JournalController@generateJournalsByRange');
-
             Route::prefix('search')->group(function () {
                 Route::get('expenses/{q}', 'SearchController@searchExpenses');
                 Route::get('purchases/products/{q}', 'SearchController@searchPurchaseTransactions');

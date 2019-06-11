@@ -263,4 +263,112 @@ class TransactionController extends Controller
 		$journal->details()->where('debit', 0)->where('credit', 0)->delete();
 		$journal->save();
 	}
+
+	
+
+	public function upload_transaction(Request $request,Taxpayer $taxPayer, Cycle $cycle)
+	{
+		$transactions = [];
+		$Jsondata=collect($request);
+		for ($i=0; $i < count($Jsondata[0]['data']) ; $i++) 
+		{
+			$transaction = new Transaction();
+			$transaction->taxpayer_id = $taxPayer->id;
+			array_push($transactions, $transaction);
+		}
+		
+	   foreach(collect($request) as $row)
+	   {
+		
+		  for ($i=0; $i <count($row['data']) ; $i++) 
+		  { 
+			$transactions[$i][$row['column']] = $row['data'][$i];
+		  }
+		  
+	   }
+	
+	   foreach ($transactions as $transaction) {
+		$transaction->save();
+	   }
+	   return response()->json($transactions[0]);
+	  
+	}
+
+	public function uploadErpNext_sales(Request $request,Taxpayer $taxPayer, Cycle $cycle)
+	{
+		$transactions = [];
+		$Jsondata=collect($request);
+
+		
+		
+		foreach ($Jsondata as $data) {
+			$transaction = Transaction::where('number', $data['name'])
+			->where(function ($query)  {
+				return $query->where('type', 2)
+					->where('sub_type', 1);
+			})
+			->where('taxpayer_id', $taxPayer->id)
+			->whereDate('date', $this->convert_date($data['transaction_date']))
+			->first() ?? new Transaction();
+
+			$transaction->type = 2;
+			$transaction->sub_type = 1;
+			$transaction->taxpayer_id = $taxPayer->id;
+
+			$transaction->partner_name = $data['customer_name'];
+			//$transaction->partner_taxid = $data['CustomerTaxID'];
+
+			//TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
+			$transaction->currency = $data['currency'] ?? $taxPayer->currency;
+
+			if ($data['CurrencyRate'] ==  '') {
+				// $currency_id = $this->checkCurrency($data['CurrencyCode'], $taxPayer);
+				$transaction->rate = $this->checkCurrencyRate($transaction->currency, $taxPayer, $data['Date']) ?? 1;
+			} else {
+				$transaction->rate = $data['conversion_rate'];
+			}
+
+		
+			$transaction->date = $this->convert_date($data['transaction_date']);
+			$transaction->number = $data['name'];
+			$transaction->code = $data['Code'] != '' ? $data['Code'] : null;
+			$transaction->code_expiry = $data['CodeExpiry'] != '' ? $this->convert_date($data['CodeExpiry'])  : null;
+			$transaction->comment = $data['Comment'] ?? '';
+			$transaction->save();
+
+			 foreach ($data['items'] as $item) {
+				 $type=0;
+				 if ($item['is_stock_item'] == 1) {
+					 $type=2;
+				 }
+				 elseif ($item['is_fixed_asset'] == 0) {
+					$type=1;
+				 }
+				 else {
+					$type=3;
+				 }
+				$chart_id = $this->checkChart($type, $item['item_name'], $taxPayer, $cycle,2);
+				$detail = TransactionDetail::where('chart_id', $chart_id)->where('transaction_id', $transaction->id)->first() ?? new TransactionDetail();
+
+				$detail->transaction_id = $transaction->id;
+				$detail->chart_id = $chart_id;
+				$detail->value = $item['net_amount'];
+				$detail->cost = $item['base_rate'];
+
+				//This prevents 0% or null references from searching and/or creating false accounts.
+				// if (isset($groupedRowsByType[0]['VATPercentage']) && $groupedRowsByType[0]['VATPercentage'] > 0) {
+				// 	if (($transaction->type == 1 && $transaction->sub_type == 1) || ($transaction->type == 2 && $transaction->sub_type == 2)) {
+				// 		$detail->chart_vat_id = $this->checkCreditVAT($groupedRowsByType[0]['VATPercentage'], $taxPayer, $cycle);
+				// 	} elseif (($transaction->type == 2 && $transaction->sub_type == 1) || ($transaction->type == 1 && $transaction->sub_type == 2)) {
+				// 		$detail->chart_vat_id = $this->checkDebitVAT($groupedRowsByType[0]['VATPercentage'], $taxPayer, $cycle);
+				// 	}
+				// }
+
+				$detail->save();
+			 }
+
+				
+
+		}
+	}
 }

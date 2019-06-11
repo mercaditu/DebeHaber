@@ -149,7 +149,7 @@ class Controller extends BaseController
             if ($costCenter == 1) {
                 if ($type == 2) {
                     //Sales
-                    $chart = $chartController->createIfNotExists_Incomes($taxPayer, $cycle, $costCenter->Name);
+                    $chart = $chartController->createIfNotExists_Incomes($taxPayer, $cycle, $costCenter->Name ?? '');
                 } else {
                     //Purchase
                     $chart = $chartController->createIfNotExists_Expenses($taxPayer, $cycle, $costCenter->Name ?? '');
