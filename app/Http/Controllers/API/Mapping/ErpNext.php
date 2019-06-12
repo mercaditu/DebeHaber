@@ -1,23 +1,79 @@
 <?php
 
-namespace App\Http\Controllers\API\Mapping;
+return [
+    [
+        'key' => 'CustomerName',
+        'value' => 'customer_name',
+    ],
+    [
+        'key' => 'CustomerTaxID',
+        'value' => '',
+    ],
+    [
+        'key' => 'SupplierName',
+        'value' => 'company',
+    ],
+    [
+        'key' => 'SupplierTaxID',
+        'value' => '',
+    ],
+    [
+        'key' => 'Date',
+        'value' => 'posting_date',
+    ],
+    [
+        'key' => 'Number',
+        'value' => 'name',
+    ],
+    [
+        'key' => 'CodeExpiry',
+        'value' => '',
+    ],
+    [
+        'key' => 'PaymentCondition',
+        'value' => 'due_date',
+    ],
+    [
+        'key' => 'CurrencyCode',
+        'value' => 'currency',
+    ],
+    [
+        'key' => 'CurrencyRate',
+        'value' => 'conversion_rate',
+    ],
+    [
+        'key' => 'Comment',
+        'value' => '',
+    ],
 
-use App\Taxpayer;
-use App\Cycle;
-use App\Transaction;
-use App\TransactionDetail;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+    [
+        'key' => 'items',
+        'value' => [
+            [
+                'key' => 'Type',
+                'value' => ''
+        ],
+        [
+                'key' => 'Name',
+                'value' => 'item_name'
+        ],
+        [
+            'key' => 'Value',
+            'value' => 'net_rate'
+        ],
+        [
+            'key' => 'Cost',
+            'value' => 'base_rate'
+        ],
+        [
+            'key' => 'VATPercentage',
+            'value' => ''
+        ]
+        
+        ]
+    ]
 
-class ERPNext extends Controller
-{
-	//config file
 
-	//urld
-	//modle
+    
+];
 
-	// 'mapping' = ['Sales Invoice' =>
-	// ['partner_name' = 'client.name',
-	// 	'partner_taxid' = 'client.taxid'
-	// ]];
-}

@@ -16,34 +16,52 @@ class IntegrationController extends Controller
 
 	public function test(Request $request, Taxpayer $taxPayer, Cycle $cycle)
 	{
-		$url = strpos($request['url'], "http") ? "http://" . $request['url'] : $request['url'];
-		$token = "token " . $request['key'] . ":" . $request['secrete'];
+		$url = strpos($request['url'], "http") ? $request['url'] : "http://" . $request['url'] ;
+		$token = "token " . $request['api_key'] . ":" . $request['api_secrete'];
 		$client = new \GuzzleHttp\Client();
-
-		$response = $client->request(
-			'GET',
-			$url . '/api/resource/Sales%20Invoice?fields=["*"]',
-			[
-				'headers' => [
-					'Authorization'     => $token
+		try {
+			$response = $client->request(
+				'GET',
+				$url . '/api/resource/Sales%20Invoice?fields=["*"]',
+				[
+					'headers' => [
+						'Authorization'     => $token
+					]
 				]
-			]
-		);
-		$response = $response->getBody()->getContents();
-		return response()->json($response);
+			);
+			$response = $response->getBody()->getContents();
+			return response()->json($response);
+		} catch (\Throwable $th) {
+			return response()->json("Invalid Response",500);
+		}
+		
+		
 
 		//return true or false;
 	}
 
 	public function get(Request $request, Taxpayer $taxPayer, Cycle $cycle)
 	{
-		$url = strpos($request['url'], "http") ? "http://" . $request['url'] : $request['url'];
-		$token = "token " . $request['key'] . ":" . $request['secrete'];
+		
+		$url = strpos($request['url'], "http") ? $request['url'] : "http://" . $request['url'] ;
+		$token = "token " . $request['api_key'] . ":" . $request['api_secrete'];
 		$client = new \GuzzleHttp\Client();
 
 		$response = $client->request(
 			'GET',
-			$url . '/api/resource/Sales%20Invoice?fields=["*"]',
+			$url . '/api/resource/Item/?limit_page_length=1000&fields=["name","is_stock_item","is_fixed_asset"]',
+			[
+				'headers' => [
+					'Authorization'     => $token
+				]
+			]
+		);
+		$items = json_decode($response->getBody()->getContents());
+		$items = collect($items->data);
+
+		$response = $client->request(
+			'GET',
+			$url . '/api/resource/Sales%20Invoice?fields=["name"]',
 			[
 				'headers' => [
 					'Authorization'     => $token
@@ -51,17 +69,77 @@ class IntegrationController extends Controller
 			]
 		);
 
-		$response = $response->getBody()->getContents();
+		$response = json_decode($response->getBody()->getContents());
+		$response = collect($response->data);
 
 		//mapping
-		$model = "Model Name"; //controller based on model;
+		$mappings = include('Mapping/ErpNext.php');
+		
+		
+		$models = collect();
+	
 		foreach ($response as $row) {
-			foreach ($mapping as $map) {
-				$model[$map->key] = $row[$map->value];
+			$row=collect($row);
+			$response = $client->request(
+				'GET',
+				$url . '/api/resource/Sales%20Invoice/'. $row['name'],
+				[
+					'headers' => [
+						'Authorization'     => $token
+					]
+				]
+			);
+	
+			$response = json_decode($response->getBody()->getContents());
+			$row = collect($response->data);
+		
+			
+			if ($request->module === 1) {
+				$model = new \App\Transaction(); //controller based on model;
 			}
+			//return response()->json($mappings);
+			foreach ($mappings as $map) {
+				
+				if(count($map['value']) === 1)
+				{
+					if ($map['value'] != '') {
+						$model[$map['key']] = $row[$map['value']];
+					}
+					else{
+						$model[$map['key']] = '';
+					}
+					
+				}
+				else
+				{
+					$details = collect();
+					foreach ($row[$map['key']] as $data) 
+					{
+						$data = collect($data);
+						if ($request->module === 1) {
+							$modeldetail = new \App\TransactionDetail(); //controller based on model;
+						}
+
+						foreach ($map['value'] as $detailmap) 
+						{
+							if ($detailmap['value'] != '') {
+							$modeldetail[$detailmap['key']] = $data[$detailmap['value']];
+							}
+							else{
+								$modeldetail[$detailmap['key']] = '';
+							}
+						}
+
+						$details->add($modeldetail);
+					}
+					$model['details'] = $details;
+				}
+			}
+			
+			$models->add($model);
 		}
 
-		return response()->json($response);
+		return response()->json($models);
 	}
 
 	public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)

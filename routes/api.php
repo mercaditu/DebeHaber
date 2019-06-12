@@ -38,9 +38,10 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
         Route::get('documents/by/{type}', 'DocumentController@get_document');
 
         Route::prefix('{cycle}')->group(function () {
-            Route::prefix('ERPNEXT')->group(function () {
-                    Route::post('uploadERPNEXTSales', 'API\ErpNextIntegrationController@uploadErpNext_sales');
-                    Route::post('getERPNEXTSales', 'API\ErpNextIntegrationController@getDataFromERPNEXT');
+            Route::prefix('Integration')->group(function () {
+                Route::post('Test', 'API\IntegrationController@test');
+                Route::post('GetData', 'API\IntegrationController@get');
+                   
             });
             Route::get('generate-journals/{startDate}/{endDate}', 'JournalController@generateJournalsByRange');
             Route::prefix('search')->group(function () {
@@ -64,6 +65,7 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                     'currencies' => 'CurrencyController',
                     'rates' => 'CurrencyRateController',
                     'documents' => 'DocumentController',
+                    'integration-service' => 'IntegrationServiceController'
                 ]);
             });
 
@@ -89,6 +91,8 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
                     'fixed-assets' => 'FixedAssetController',
                     'details' => 'DetailController',
                     'template-details' => 'JournalTemplateDetailController',
+
+                    
                 ]);
 
                 Route::get('sales/default/{partnerID}', 'SalesController@getLastSale');

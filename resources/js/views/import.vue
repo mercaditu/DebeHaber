@@ -16,6 +16,13 @@
       </b-tab>
       <b-tab title="Online Service Import">
         <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
+           <b-table :items="data.integrationservice" :fields="data.integrationfields"  striped>
+            <template slot="actions" slot-scope="data">
+                    <b-button
+                    @click="get_data(data.item)"
+            >Fetch Data</b-button>
+            </template>
+          </b-table>
 
         <b-modal id="integration-form" title="Integration Service Form" size="lg">
           <b-row>
@@ -27,7 +34,15 @@
             <b-col>
               <b-form-group label="Template">
                 <b-select v-model="data.template">
-                  <option value="ERPNext">ERPNext</option>
+                  <option value="1">ERPNext</option>
+                </b-select>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label="Module">
+                <b-select v-model="data.module">
+                  <option value="1">Sales</option>
+                  <option value="1">Purcahse</option>
                 </b-select>
               </b-form-group>
             </b-col>
@@ -42,14 +57,22 @@
           <b-row>
             <b-col>
               <b-form-group label="API Key">
-                <b-input type="text" v-model="data.key"/>
+                <b-input type="text" v-model="data.api_key"/>
               </b-form-group>
             </b-col>
             <b-col>
               <b-form-group label="API Secrete">
-                <b-input type="password" v-model="data.secrete"/>
+                <b-input type="password" v-model="data.api_secrete"/>
               </b-form-group>
             </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <b-form-group label="Run Every Days">
+                <b-input type="text" v-model="data.run_every_xdays"/>
+              </b-form-group>
+            </b-col>
+            
           </b-row>
 
           <div slot="modal-footer">
@@ -61,10 +84,10 @@
           </div>
         </b-modal>
 
-        <b-button v-shortkey="['ctrl', 'd']" @shortkey="add()" @click="add()">Get Data</b-button>
+        <!-- <b-button v-shortkey="['ctrl', 'd']" @shortkey="get_data()" @click="get_data()">Get Data</b-button> -->
 
         <b-card no-body v-if="data.data.length > 0">
-          <b-table :items="data.data" :fields="data.fields" striped>
+          <b-table :items="data.data" :fields="data.integrationservice" striped>
             <template slot="show_details" slot-scope="row">
               <b-button
                 size="sm"
@@ -113,15 +136,21 @@ export default {
   data() {
     return {
       data: {
+        integrationfields: ["template","module", "name", "url","actions"],
         fields: ["customer_name", "name", "net_total", "show_details"],
         name: "",
         url: "",
-        key: "",
-        secrete: "",
-        template: "",
-        data: []
+        api_key: "",
+        api_secrete: "",
+        template: 0,
+        module: 0,
+        run_every_xdays: 15,
+        data: '',
+        integrationservice : [],
+        selectedIntegration : ''
       },
 
+      //for excel 
       columns: [
         { name: "type", value: "type" },
         { name: "partner_taxid", value: "partner_taxid" },
@@ -152,11 +181,114 @@ export default {
     //////Integration Services Methods Controller
 
     //list services for my taxpayer + module
-    onLoad() {},
+    onLoad() {
+      var app= this;
+      crud.methods.onRead(app.baseUrl + "/config/integration-service").then(function(response) {
+      app.data.integrationservice = response.data.data;
+    });
+    },
     //save services
+    save_configuration()
+    {
+      var app= this;
+      crud.methods
+        .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
+        .then(function(response) {
+           app.$snack.success({
+              text: app.$i18n.t("commercial.Saved")
+            });
+              app.$bvModal.hide('integration-form');
+        })
+        .catch(function(error) {
+          console.log(error);
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage") + error.message
+          });
 
-    //IntegrationController: test service
+        });
+      
+    },
 
+    select_configuration(data)
+    {
+      var app= this;
+      app.data.selectedIntegration = data;
+      app.test_server();
+    },
+
+    test_server()
+    {
+      var app= this;
+     //IntegrationController: test service
+     if (app.data.selectedIntegration != '')
+     {
+     crud.methods
+        .onUpdate(app.baseUrl + "/Integration/Test" , app.data.selectedIntegration)
+        .then(function(response) {
+         if (response.status === 200) {
+            app.$snack.danger({
+            text: "Test Succesfully..."
+          });
+         }
+         else
+         {
+           app.$snack.danger({
+            text: "Something is Wrong..."
+          });
+         }
+        
+         
+        })
+        .catch(function(error) {
+          console.log(error);
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage") + error.message
+          });
+        });
+     }
+     else{
+        app.$snack.danger({
+            text: "Please Select Integration..."
+          });
+     }
+    },
+    
+    get_data(data)
+    {
+      var app= this;
+       app.data.selectedIntegration = data;
+        app.test_server();
+     //IntegrationController: test service
+     if (app.data.selectedIntegration != '')
+     {
+     crud.methods
+        .onUpdate(app.baseUrl + "/Integration/GetData" , app.data.selectedIntegration)
+        .then(function(response) {
+         if (response.status === 200) {
+           app.data.data = response.data;
+         }
+         else
+         {
+           app.$snack.danger({
+            text: "Something is Wrong..."
+          });
+         }
+        
+         
+        })
+        .catch(function(error) {
+          console.log(error);
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage") + error.message
+          });
+        });
+     }
+     else{
+        app.$snack.danger({
+            text: "Please Select Integration..."
+          });
+     }
+    },
     //Fetch Data
     //Go into server, call data, map data, and show user withour column names
 
@@ -168,7 +300,9 @@ export default {
     }
   },
 
-  mounted: {
+  mounted() {
+    var app= this;
+    app.onLoad();
     //list integration services stored in database.
     //get list of templates
   }
