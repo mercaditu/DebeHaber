@@ -1,7 +1,7 @@
 <template>
-  <b-card>
-    <b-tabs content-class="mt-3">
-      <b-tab title="Excel" active>
+  <b-card no-body>
+    <b-tabs pills card vertical>
+      <b-tab title="File Import" active>
         <b-card class="app">
           <h3>Example - Import file with required login, firstname, lastname and optional values</h3>
           <br>
@@ -14,11 +14,13 @@
           </div>
         </b-card>
       </b-tab>
-      <b-tab title="API">
-        <b-card class="app">
+      <b-tab title="Online Service Import">
+        <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
+
+        <b-modal id="integration-form" title="Integration Service Form" size="lg">
           <b-row>
             <b-col>
-              <b-form-group label="API Name">
+              <b-form-group label="Service Name">
                 <b-input type="text" v-model="data.name"/>
               </b-form-group>
             </b-col>
@@ -45,48 +47,53 @@
             </b-col>
             <b-col>
               <b-form-group label="API Secrete">
-                <b-input type="text" v-model="data.secrete"/>
+                <b-input type="password" v-model="data.secrete"/>
               </b-form-group>
             </b-col>
           </b-row>
-          <b-button
-            v-shortkey="['ctrl', 'd']"
-            @shortkey="save_configuration()"
-            @click="save_configuration()"
-          >Save Configuration</b-button>
-          <b-button v-shortkey="['ctrl', 'd']" @shortkey="add()" @click="add()">Get Data</b-button>
-          <b-card no-body v-if="data.data.length > 0">
-            <b-table :items="data.data" :fields="data.fields" striped>
-              <template slot="show_details" slot-scope="row">
-                <b-button
-                  size="sm"
-                  @click="row.toggleDetails"
-                  class="mr-2"
-                >{{ row.detailsShowing ? 'Hide' : 'Show'}} Details</b-button>
-              </template>
 
-              <template slot="row-details" slot-scope="row">
-                <b-card>
-                  <b-row class="mb-2">
-                    <b-col sm="3" class="text-sm-right">
-                      <b>Age:</b>
-                    </b-col>
-                    <b-col></b-col>
-                  </b-row>
+          <div slot="modal-footer">
+            <b-button
+              v-shortkey="['ctrl', 'd']"
+              @shortkey="save_configuration()"
+              @click="save_configuration()"
+            >Save Configuration</b-button>
+          </div>
+        </b-modal>
 
-                  <b-row class="mb-2">
-                    <b-col sm="3" class="text-sm-right">
-                      <b>Is Active:</b>
-                    </b-col>
-                    <b-col></b-col>
-                  </b-row>
+        <b-button v-shortkey="['ctrl', 'd']" @shortkey="add()" @click="add()">Get Data</b-button>
 
-                  <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-                </b-card>
-              </template>
-            </b-table>
-            <b-button @click="upload()">Upload</b-button>
-          </b-card>
+        <b-card no-body v-if="data.data.length > 0">
+          <b-table :items="data.data" :fields="data.fields" striped>
+            <template slot="show_details" slot-scope="row">
+              <b-button
+                size="sm"
+                @click="row.toggleDetails"
+                class="mr-2"
+              >{{ row.detailsShowing ? 'Hide' : 'Show'}} Details</b-button>
+            </template>
+
+            <template slot="row-details" slot-scope="row">
+              <b-card>
+                <b-row class="mb-2">
+                  <b-col sm="3" class="text-sm-right">
+                    <b>Age:</b>
+                  </b-col>
+                  <b-col></b-col>
+                </b-row>
+
+                <b-row class="mb-2">
+                  <b-col sm="3" class="text-sm-right">
+                    <b>Is Active:</b>
+                  </b-col>
+                  <b-col></b-col>
+                </b-row>
+
+                <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+              </b-card>
+            </template>
+          </b-table>
+          <b-button @click="upload()">Upload</b-button>
         </b-card>
       </b-tab>
     </b-tabs>
@@ -142,50 +149,28 @@ export default {
     }
   },
   methods: {
+    //////Integration Services Methods Controller
+
+    //list services for my taxpayer + module
+    onLoad() {},
+    //save services
+
+    //IntegrationController: test service
+
+    //Fetch Data
+    //Go into server, call data, map data, and show user withour column names
+
+    //Store Data
+    //Use existing Store function
+
     onValidate(results) {
       this.results = results;
-    },
-
-    //get list of api templates saved online local server
-
-    //fetch data from remote server
-
-    //get template map from our server
-
-    //store remote data to our server using map
-
-    add() {
-      var app = this;
-      crud.methods
-        .onUpdate(app.baseUrl + "/ERPNEXT/getERPNEXTSales", app.data)
-        .then(function(response) {
-          app.data.sales = response.data.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-          app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
-          });
-        });
-    },
-
-    upload() {
-      var app = this;
-
-      crud.methods
-        .onUpdate(app.baseUrl + "/ERPNEXT/uploadERPNEXTSales", app.data)
-        .then(function(response) {
-          app.$snack.success({
-            text: app.$i18n.t("commercial.Saved")
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-          app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
-          });
-        });
     }
+  },
+
+  mounted: {
+    //list integration services stored in database.
+    //get list of templates
   }
 };
 </script>
