@@ -15,9 +15,22 @@
         </b-card>
       </b-tab>
       <b-tab title="Online Service Import">
+          <b-row>
+            <b-col>
+              <b-form-group label="Start Date">
+                <b-input type="date" v-model="data.start_date"/>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label="End Date">
+                <b-input type="date" v-model="data.end_date"/>
+              </b-form-group>
+            </b-col>
+          </b-row>
         <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
            <b-table :items="data.integrationservice" :fields="data.integrationfields"  striped>
             <template slot="actions" slot-scope="data">
+            
                     <b-button
                     @click="get_data(data.item)"
             >Fetch Data</b-button>
@@ -147,7 +160,10 @@ export default {
         run_every_xdays: 15,
         data: '',
         integrationservice : [],
-        selectedIntegration : ''
+        selectedIntegration : '',
+        start_date : '',
+        end_date : '',
+        
       },
 
       //for excel 
@@ -256,15 +272,20 @@ export default {
     get_data(data)
     {
       var app= this;
-       app.data.selectedIntegration = data;
-        app.test_server();
+      data.start_date =  app.data.start_date;
+      data.end_date =  app.data.end_date;
+      
      //IntegrationController: test service
-     if (app.data.selectedIntegration != '')
-     {
+    //  if (data != '')
+    //  {
+      app.$snack.danger({
+            text: "Data Fetching..."
+          });
      crud.methods
-        .onUpdate(app.baseUrl + "/Integration/GetData" , app.data.selectedIntegration)
+        .onUpdate(app.baseUrl + "/Integration/GetData" , data)
         .then(function(response) {
          if (response.status === 200) {
+          
            app.data.data = response.data;
          }
          else
@@ -282,12 +303,45 @@ export default {
             text: this.$i18n.t("general.errorMessage") + error.message
           });
         });
-     }
-     else{
-        app.$snack.danger({
-            text: "Please Select Integration..."
+    //  }
+    //  else{
+    //     app.$snack.danger({
+    //         text: "Please Select Integration..."
+    //       });
+    //  }
+    },
+
+     upload()
+    {
+      var app= this;
+      crud.methods
+        .onUpdate(app.baseUrl + "/Integration/UploadData" ,  app.data.data)
+        .then(function(response) {
+         
+           if (response.status === 200) {
+          
+            app.$snack.danger({
+            text: "Uploaded..."
           });
-     }
+         }
+         else
+         {
+           app.$snack.danger({
+            text: "Something is Wrong..."
+          });
+         }
+         
+        
+        
+         
+        })
+        .catch(function(error) {
+          console.log(error);
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage") + error.message
+          });
+        });
+ 
     },
     //Fetch Data
     //Go into server, call data, map data, and show user withour column names

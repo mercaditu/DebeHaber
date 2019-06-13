@@ -43,6 +43,7 @@ class TransactionController extends Controller
 				$i = 0;
 				foreach ($groupedRow as $data) {
 					try {
+						
 						$data = $this->processTransaction($data, $taxPayer, $cycle);
 						$data["Message"] = "Success";
 						$transactionData[$i] = $data;

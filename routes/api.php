@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
             Route::prefix('Integration')->group(function () {
                 Route::post('Test', 'API\IntegrationController@test');
                 Route::post('GetData', 'API\IntegrationController@get');
+                Route::post('UploadData', 'API\IntegrationController@store');
                    
             });
             Route::get('generate-journals/{startDate}/{endDate}', 'JournalController@generateJournalsByRange');
