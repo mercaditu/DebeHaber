@@ -101,7 +101,6 @@ class IntegrationController extends Controller
 
 			$response = json_decode($response->getBody()->getContents());
 			$row = collect($response->data);
-
 			$app = app();
 			$controller = $app->make('\App\Http\Controllers\API\ErpNextController' );
 			$model= $controller->callAction('salesInvoice', $parameters = [$request, $taxPayer,$cycle,$items,$customers,$row]);
@@ -116,6 +115,6 @@ class IntegrationController extends Controller
 	public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
 	{
 		$transaction = (new TransactionController())->start($request);
-		return response()->json($transaction,500);
+		return response()->json($transaction,200);
 	}
 }

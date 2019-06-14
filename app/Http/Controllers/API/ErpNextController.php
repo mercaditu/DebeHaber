@@ -12,7 +12,9 @@ use DateTime;
 
 class ErpNextController extends Controller
 {
-	
+	// const url = ['items' => '/api/resource/Item/?limit_page_length=1000&fields=["name","is_stock_item","is_fixed_asset"]',
+	// 'customers' => '/api/resource/Customer/?limit_page_length=1000&fields=["name","tax_id"]' , 
+	// 'invoice' =>'/api/resource/Sales%20Invoice?limit_page_length=20&fields=["name"]&filters=[["Sales Invoice","posting_date", ">","{{startDate}}"],["Sales Invoice","posting_date", "<","{{endDate}}"]]'];
 
 	public function salesInvoice(Request $request, Taxpayer $taxPayer, Cycle $cycle,$items,$customers,$row)
 	{
@@ -44,26 +46,29 @@ class ErpNextController extends Controller
 				$data = collect($data);
 				$detail = new \App\TransactionDetail();
 				$salesitem=$items->where('name',$data['item_code'])->first();
+				 if	($salesitem != null)
+				 {
+					if ($salesitem->is_stock_item == 1) {
+						$detail->Type = 2;
+						$detail->Name = 'Product';
+					 }
+					 elseif ($salesitem->is_fixed_asset == 0) {
+						$detail->Type = 1;
+						$detail->Name = 'Service';
+	
+					 }
+					 else {
+						$detail->Type = 3;
+						$detail->Name = 'Fixed Asset';
+					 }
+					
+					$detail->Value = $data['net_rate'];
+					$detail->Cost = $data['base_rate'];
+					
+					$detail->VATPercentage = $row['taxes'][0]->rate;
+					$model['Details'] = $detail;
+				 }	
 				
-				 if ($salesitem->is_stock_item == 1) {
-					$detail->Type = 2;
-					$detail->Name = 'Product';
-				 }
-				 elseif ($salesitem->is_fixed_asset == 0) {
-					$detail->Type = 1;
-					$detail->Name = 'Service';
-
-				 }
-				 else {
-					$detail->Type = 3;
-					$detail->Name = 'Fixed Asset';
-				 }
-				
-				$detail->Value = $data['net_rate'];
-				$detail->Cost = $data['base_rate'];
-				
-				$detail->VATPercentage = $row['taxes'][0]->rate;
-			    $model['Details'] = $detail;
 			}
 	
 		return $model;

@@ -100,6 +100,15 @@
         <!-- <b-button v-shortkey="['ctrl', 'd']" @shortkey="get_data()" @click="get_data()">Get Data</b-button> -->
 
         <b-card no-body v-if="data.data.length > 0">
+            <b-col>
+              <b-form-group label="Columns" >
+              <b-form-select v-model="data.selected" :options="data.fields"></b-form-select>
+              </b-form-group>
+                <b-form-group label="Value">
+               <b-form-input v-model="data.value" type="text"></b-form-input>
+                <b-button @click="update()">Update</b-button>
+              </b-form-group>
+            </b-col>
           <b-table :items="data.data" :fields="data.integrationservice" striped>
             <template slot="show_details" slot-scope="row">
               <b-button
@@ -130,6 +139,8 @@
             </template>
           </b-table>
           <b-button @click="upload()">Upload</b-button>
+
+        
         </b-card>
       </b-tab>
     </b-tabs>
@@ -150,7 +161,7 @@ export default {
     return {
       data: {
         integrationfields: ["template","module", "name", "url","actions"],
-        fields: ["customer_name", "name", "net_total", "show_details"],
+        fields: ["Code","Comment"],
         name: "",
         url: "",
         api_key: "",
@@ -163,7 +174,8 @@ export default {
         selectedIntegration : '',
         start_date : '',
         end_date : '',
-        
+        selected: '',
+        value: ''
       },
 
       //for excel 
@@ -210,6 +222,7 @@ export default {
       crud.methods
         .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
         .then(function(response) {
+           app.onLoad();
            app.$snack.success({
               text: app.$i18n.t("commercial.Saved")
             });
@@ -287,6 +300,8 @@ export default {
          if (response.status === 200) {
           
            app.data.data = response.data;
+           
+           console.log(app);
          }
          else
          {
@@ -348,7 +363,15 @@ export default {
 
     //Store Data
     //Use existing Store function
-
+      update() {
+        var app= this;
+       app.data.data.forEach(element =>  {
+       if(element[app.data.selected] ===  '')
+       {
+          element[app.data.selected] = app.data.value;
+       }
+      });
+    },
     onValidate(results) {
       this.results = results;
     }
@@ -357,6 +380,8 @@ export default {
   mounted() {
     var app= this;
     app.onLoad();
+    app.data.start_date = moment().subtract(1, 'months').startOf('month').format("YYYY-MM-DD");
+    app.data.end_date = moment().subtract(1, 'months').endOf('month').format("YYYY-MM-DD");
     //list integration services stored in database.
     //get list of templates
   }
