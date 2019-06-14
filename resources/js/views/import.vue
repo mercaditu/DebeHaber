@@ -220,7 +220,7 @@ export default {
     {
       var app= this;
       crud.methods
-        .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
+        .onUpdate(app.baseUrl + "/config/integration-service" , app.data.data)
         .then(function(response) {
            app.onLoad();
            app.$snack.success({
