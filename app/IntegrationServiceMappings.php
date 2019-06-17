@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IntegrationServiceMappings extends Model
 {
-    protected $table = 'integration_service_mappings'
+    protected $table = 'integration_service_mappings';
     protected $fillable = [
         'id'
     ];
