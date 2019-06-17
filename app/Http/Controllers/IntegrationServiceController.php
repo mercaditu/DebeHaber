@@ -45,7 +45,8 @@ class IntegrationServiceController extends Controller
      */
     public function store(Request $request,Taxpayer $taxPayer, Cycle $cycle)
     {
-        $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
+        try {
+            $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
         $integrationservice->taxpayer_id = $taxPayer->id;
         $integrationservice->template = $request->template;
         $integrationservice->module = $request->module;
@@ -55,6 +56,10 @@ class IntegrationServiceController extends Controller
         $integrationservice->api_key = $request->api_key;
         $integrationservice->run_every_xdays = $request->run_every_xdays;
         $integrationservice->save();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+       
 
         return response()->json('Ok', 200);
     }
