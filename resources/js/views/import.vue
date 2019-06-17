@@ -219,6 +219,7 @@ export default {
     save_configuration()
     {
       var app= this;
+      console.log(app.data.data);
       crud.methods
         .onUpdate(app.baseUrl + "/config/integration-service" , app.data.data)
         .then(function(response) {

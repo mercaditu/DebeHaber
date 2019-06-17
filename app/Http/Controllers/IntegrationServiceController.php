@@ -46,6 +46,7 @@ class IntegrationServiceController extends Controller
     public function store(Request $request,Taxpayer $taxPayer, Cycle $cycle)
     {
         try {
+            return response()->json($request, 500);
             $request = collect($request);
             $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
             $integrationservice->taxpayer_id = $taxPayer->id;
