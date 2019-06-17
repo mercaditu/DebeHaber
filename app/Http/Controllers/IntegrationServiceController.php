@@ -18,12 +18,12 @@ class IntegrationServiceController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        $query = IntegrationService::where('taxpayer_id',$taxPayer->id)
-            ->with('details');
+        
+      
         return GeneralResource::collection(
-            QueryBuilder::for($query)
-                ->allowedIncludes('details')
-                ->paginate(50)
+            IntegrationService::where('taxpayer_id',$taxPayer->id)
+            ->with('details')
+            ->paginate(50)
         );
     }
 
