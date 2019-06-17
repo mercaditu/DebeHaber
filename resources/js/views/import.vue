@@ -219,9 +219,9 @@ export default {
     save_configuration()
     {
       var app= this;
-      console.log(app.data.data);
+      console.log(app.data);
       crud.methods
-        .onUpdate(app.baseUrl + "/config/integration-service" , app.data.data)
+        .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
         .then(function(response) {
            app.onLoad();
            app.$snack.success({
