@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IntegrationService extends Model
 {
+    protected $table = 'integration_services';
     protected $fillable = [
         'id'
     ];
