@@ -46,17 +46,17 @@ class IntegrationServiceController extends Controller
     public function store(Request $request,Taxpayer $taxPayer, Cycle $cycle)
     {
         try {
-        $request = collect($request);
-        $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
-        $integrationservice->taxpayer_id = $taxPayer->id;
-        $integrationservice->template = $request->template;
-        $integrationservice->module = $request->module;
-        $integrationservice->name = $request->name;
-        $integrationservice->url = $request->url;
-        $integrationservice->api_secrete = $request->api_secrete;
-        $integrationservice->api_key = $request->api_key;
-        $integrationservice->run_every_xdays = $request->run_every_xdays;
-        $integrationservice->save();
+            $request = collect($request);
+            $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
+            $integrationservice->taxpayer_id = $taxPayer->id;
+            $integrationservice->template = $request->template;
+            $integrationservice->module = $request->module;
+            $integrationservice->name = $request->name;
+            $integrationservice->url = $request->url;
+            $integrationservice->api_secrete = $request->api_secrete;
+            $integrationservice->api_key = $request->api_key;
+            $integrationservice->run_every_xdays = $request->run_every_xdays;
+            $integrationservice->save();
         } catch (\Throwable $th) {
             throw $th;
         }
