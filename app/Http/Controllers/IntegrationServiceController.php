@@ -19,7 +19,7 @@ class IntegrationServiceController extends Controller
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
         
-        dd('taxPayer');
+        $query =;
         return GeneralResource::collection(
             IntegrationService::where('taxpayer_id',$taxPayer->id)
             ->with('details')
