@@ -219,10 +219,10 @@ export default {
     save_configuration()
     {
       var app= this;
-      console.log(app.data);
       crud.methods
         .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
         .then(function(response) {
+          console.log(response)
            app.onLoad();
            app.$snack.success({
               text: app.$i18n.t("commercial.Saved")
