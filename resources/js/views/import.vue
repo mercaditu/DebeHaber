@@ -157,8 +157,7 @@ export default {
     crud: crud,
     XlsCsvParser
   },
-  data() {
-    return {
+   data: () => ({
       data: {
         integrationfields: ["template","module", "name", "url","actions"],
         fields: ["Code","Comment"],
@@ -196,8 +195,8 @@ export default {
       ],
       results: null,
       help: "Necessary columns are: login, firstname and lastname"
-    };
-  },
+ 
+   }),
   computed: {
     baseUrl() {
       return (
