@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\IntegrationService;
-use App\TaxPayer;
+use App\Taxpayer;
 use App\Http\Resources\GeneralResource;
 use App\Cycle;
 
@@ -17,11 +17,9 @@ class IntegrationServiceController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        
-      
         return GeneralResource::collection(
-            IntegrationService::where('taxpayer_id',$taxPayer->id)
-            ->with('details')
+            IntegrationService::where('taxpayer_id', $taxPayer->id)
+            // ->with('details')
             ->paginate(50)
         );
     }
@@ -42,10 +40,8 @@ class IntegrationServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Taxpayer $taxPayer, Cycle $cycle)
+    public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-        try {
-            
             $request = collect($request);
             $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
             $integrationservice->taxpayer_id = $taxPayer->id;
@@ -57,10 +53,6 @@ class IntegrationServiceController extends Controller
             $integrationservice->api_key = $request->api_key ?? '';
             $integrationservice->run_every_xdays = $request->run_every_xdays  ?? 15;
             $integrationservice->save();
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-       
 
         return 'integrationservice';
     }
