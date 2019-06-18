@@ -28,7 +28,7 @@
             </b-col>
           </b-row>
         <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
-           <b-table :items="data.integrationservice" :fields="data.integrationfields"  striped>
+           <b-table :items="data.integrationservice"   striped>
             <template slot="actions" slot-scope="data">
             
                     <b-button
@@ -55,7 +55,7 @@
               <b-form-group label="Module">
                 <b-select v-model="data.module">
                   <option value="1">Sales</option>
-                  <option value="1">Purcahse</option>
+                  <option value="2">Purcahse</option>
                 </b-select>
               </b-form-group>
             </b-col>
@@ -159,7 +159,7 @@ export default {
   },
    data: () => ({
       data: {
-        integrationfields: ["template","module", "name", "url","actions"],
+        //integrationfields: ["template","module", "name", "url","actions"],
         fields: ["Code","Comment"],
         name: "",
         url: "",
