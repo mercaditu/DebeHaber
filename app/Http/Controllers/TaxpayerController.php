@@ -71,6 +71,8 @@ class TaxpayerController extends Controller
     public function store(Request $request)
     {
         
+        
+        
         //Used below for date and year.
         $current_date = Carbon::now();
 
@@ -176,7 +178,7 @@ class TaxpayerController extends Controller
         $team->addSeat();
 
         //Send an email to user or team members.
-        return view('taxpayer')->with('taxPayer', $taxPayer);
+        return response()->json('ok', 200);
     }
 
     //This is for Customers or Suppliers that are also Taxpayers.

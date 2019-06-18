@@ -221,7 +221,7 @@ export default {
       crud.methods
         .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
         .then(function(response) {
-          console.log(response)
+          console.log(response.responseText)
            app.onLoad();
            app.$snack.success({
               text: app.$i18n.t("commercial.Saved")
@@ -229,7 +229,7 @@ export default {
               app.$bvModal.hide('integration-form');
         })
         .catch(function(error) {
-          console.log(error);
+          console.log(error.responseText);
           app.$snack.danger({
             text: this.$i18n.t("general.errorMessage") + error.message
           });

@@ -11,9 +11,13 @@ export default {
         return {
             // Array will be automatically processed with visualization.arrayToDataTable function
             chartData: [
-                ['Item', 'Value']
-            ],
-            selectedType: "PieChart",
+        ["Item", "Value"],
+      
+      
+        
+      
+      ],
+            selectedType: "ColumnChart",
             chartTypes: [
                 "PieChart",
                 "LineChart",
@@ -31,7 +35,7 @@ export default {
     computed: {
         baseUrl() {
             var app = this;
-            return '/api/' + app.$route.params.taxPayer + '/kpi/transactionsByItem/' + app.type + '/' + app.startDate + '/' + app.endDate;
+            return '/api/' + app.$route.params.taxPayer + '/kpi/transactionsByDate/' + app.type + '/' + app.startDate + '/' + app.endDate;
         },
     },
 
@@ -42,8 +46,10 @@ export default {
         crud.methods
         .onRead(app.baseUrl)
         .then(function (response) {
-            response.data.data.forEach(element => {
-                app.chartData.push([element.Item,Number(element.Value)])
+            console.log(response,'asd');
+            response.data.forEach(element => {
+                console.log(element)
+                app.chartData.push([String(element.Item),Number(element.Value)])
             });
 
         });

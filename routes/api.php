@@ -12,7 +12,9 @@
 */
 Route::get('depricate/{id}', 'FixedAssetController@depreciate');
 
+
 Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
+    Route::post('taxpayer/store', 'TaxpayerController@store');
     Route::post('/transactions', 'API\TransactionController@start');
     Route::post('/payment', 'API\PaymentController@start');
     Route::post('/movement', 'API\AccountMovementController@start');
@@ -153,7 +155,10 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
         });
 
         Route::prefix('kpi')->group(function () {
-            Route::get('/transactions/{type}/{startDate}/{endDate}', 'KPIController@transactionByItems');
+            Route::get('/transactionsByItem/{type}/{startDate}/{endDate}', 'KPIController@transactionByItems');
+            Route::get('/transactionsByDate/{type}/{startDate}/{endDate}', 'KPIController@transactionByDate');
+            Route::get('/totalVat', 'KPIController@totalVatDebit');
+            Route::get('/totalVatCredit', 'KPIController@totalVatCredit');
         });
     });
 });

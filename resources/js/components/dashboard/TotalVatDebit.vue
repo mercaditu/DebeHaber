@@ -11,7 +11,7 @@ export default {
         return {
             // Array will be automatically processed with visualization.arrayToDataTable function
             chartData: [
-                ['Item', 'Value']
+                ['Item', 'Total']
             ],
             selectedType: "PieChart",
             chartTypes: [
@@ -31,7 +31,7 @@ export default {
     computed: {
         baseUrl() {
             var app = this;
-            return '/api/' + app.$route.params.taxPayer + '/kpi/transactionsByItem/' + app.type + '/' + app.startDate + '/' + app.endDate;
+            return '/api/' + app.$route.params.taxPayer + '/kpi/totalVat/';
         },
     },
 
@@ -42,8 +42,9 @@ export default {
         crud.methods
         .onRead(app.baseUrl)
         .then(function (response) {
+            console.log(response);
             response.data.data.forEach(element => {
-                app.chartData.push([element.Item,Number(element.Value)])
+                app.chartData.push([element.Item,Number(element.Total)])
             });
 
         });

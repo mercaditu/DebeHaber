@@ -3,7 +3,7 @@
 
 <!-- Create Team -->
 {{-- @if (Spark::createsAdditionalTeams())
-<a class="dropdown-item" href="/settings#/{{Spark::teamsPrefix()}}">
+<a class="dropdown-item" :href="/settings#/{{Spark::teamsPrefix()}}">
 <i class="fa fa-fw text-left fa-btn fa-plus-circle"></i> {{__('teams.create_team')}}
 </a>
 @endif --}}

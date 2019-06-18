@@ -57,6 +57,20 @@ Vue.component(
     "pie-transaction-items",
     require("./dashboard/TransactionsPie.vue").default
 );
+Vue.component(
+    "bar-transaction-date",
+    require("./dashboard/TransactionsByDate.vue").default
+);
+Vue.component(
+    "total-vat-debit",
+    require("./dashboard/TotalVatDebit.vue").default
+);
+Vue.component(
+    "total-vat-credit",
+    require("./dashboard/TotalVatCredit.vue").default
+);
+
+
 Vue.component("chart-types", require("./chart-types.vue").default);
 
 import vSelect from 'vue-select'
