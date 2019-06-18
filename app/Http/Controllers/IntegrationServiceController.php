@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\IntegrationService;
 use App\TaxPayer;
-use Spatie\QueryBuilder\QueryBuilder;
 use App\Http\Resources\GeneralResource;
 use App\Cycle;
 

@@ -109,7 +109,7 @@ Route::get('depricate/{id}', 'FixedAssetController@depreciate');
             Route::prefix('accounting')->group(function () {
                 //maybe add global scope.
                 Route::get('journal/ByCycleID/{id}', 'JournalController@getJournalsByCycleID');
-                Route::get('journals/balance-sheet', 'AccountingController@getBalanceSheet');
+               // Route::get('journals/balance-sheet', 'AccountingController@getBalanceSheet');
 
                 Route::resources([
                     'journals' => 'JournalController',
