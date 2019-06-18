@@ -75,7 +75,7 @@ class IntegrationController extends Controller
 		
 		$response = $client->request(
 			'GET',
-			$url . '/api/resource/Sales%20Invoice?limit_page_length=20&fields=["name"]&filters=[["Sales Invoice","posting_date", ">","' . Carbon::parse($request->start_date)->toDateString() . '"],["Sales Invoice","posting_date", "<","' . Carbon::parse($request->end_date)->toDateString() . '"]]',
+			$url . '/api/resource/Sales%20Invoice?fields=["name"]&filters=[["Sales Invoice","posting_date", ">","' . Carbon::parse($request->start_date)->toDateString() . '"],["Sales Invoice","posting_date", "<","' . Carbon::parse($request->end_date)->toDateString() . '"]]',
 			[
 				'headers' => [
 					'Authorization'     => $token

@@ -107,33 +107,15 @@
             </b-form-group>
           </b-col>
           <b-table :items="data.data" :fields="data.datafields" striped>
-            <template slot="show_details" slot-scope="row">
-              <b-button
-                size="sm"
-                @click="row.toggleDetails"
-                class="mr-2"
-              >{{ row.detailsShowing ? 'Hide' : 'Show'}} Details</b-button>
-            </template>
-
-            <template slot="row-details" slot-scope="row">
-              <b-card>
-                <b-row class="mb-2">
-                  <b-col sm="3" class="text-sm-right">
-                    <b>Age:</b>
-                  </b-col>
-                  <b-col></b-col>
-                </b-row>
-
-                <b-row class="mb-2">
-                  <b-col sm="3" class="text-sm-right">
-                    <b>Is Active:</b>
-                  </b-col>
-                  <b-col></b-col>
-                </b-row>
-
-                <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-              </b-card>
-            </template>
+              <template slot="Type" slot-scope="data">
+                <div v-if="data.item.Type===2">
+                  Sales
+                </div>
+                 <div v-else>
+                  Purchase
+                </div>
+                  </template>
+           
           </b-table>
           <b-button @click="upload()">Upload</b-button>
         </b-card>
@@ -155,8 +137,8 @@ export default {
   data: () => ({
     data: {
       integrationfields: ["name", "url","lastrun_on","actions"],
-      updatefields: ["Code", "Comment"],
-      datafields: ["CustomerName","CustomerTaxID","Date","Number","Code","CodeExpiry"],
+      updatefields: ["Code", "CodeExpiry"],
+      datafields: ["Type","CustomerName","CustomerTaxID","Date","Number","Code","CodeExpiry"],
       id: 0,
       name: "",
       url: "",

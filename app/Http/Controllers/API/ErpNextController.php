@@ -31,7 +31,7 @@ class ErpNextController extends Controller
 			$model->Date = $row['posting_date'];
 			$model->Number = $row['name'];
 			$model->Code = '';
-			$model->CodeExpiry = $row['due_date'];
+			$model->CodeExpiry = '';
 			$datetime1 = new DateTime($row['posting_date']);
 			$datetime2 = new DateTime($row['due_date']);
 			$interval = $datetime1->diff($datetime2);
