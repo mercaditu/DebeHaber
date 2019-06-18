@@ -63,7 +63,7 @@ class IntegrationServiceController extends Controller
         }
        
 
-        return response()->json('Ok', 200);
+        return 'integrationservice';
     }
 
     /**
