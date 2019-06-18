@@ -17,12 +17,12 @@ class IntegrationServiceController extends Controller
      */
     public function index(Taxpayer $taxPayer, Cycle $cycle)
     {
-        
-      
+
+
         return GeneralResource::collection(
-            IntegrationService::where('taxpayer_id',$taxPayer->id)
-            ->with('details')
-            ->paginate(50)
+            IntegrationService::where('taxpayer_id', $taxPayer->id)
+                ->with('details')
+                ->paginate(50)
         );
     }
 
@@ -42,11 +42,10 @@ class IntegrationServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Taxpayer $taxPayer, Cycle $cycle)
+    public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
         try {
-            
-            $request = collect($request);
+
             $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
             $integrationservice->taxpayer_id = $taxPayer->id;
             $integrationservice->template = $request->template ?? 0;
@@ -60,7 +59,7 @@ class IntegrationServiceController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-       
+
 
         return 'integrationservice';
     }

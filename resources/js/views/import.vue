@@ -15,27 +15,24 @@
         </b-card>
       </b-tab>
       <b-tab title="Online Service Import">
-          <b-row>
-            <b-col>
-              <b-form-group label="Start Date">
-                <b-input type="date" v-model="data.start_date"/>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group label="End Date">
-                <b-input type="date" v-model="data.end_date"/>
-              </b-form-group>
-            </b-col>
-          </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Start Date">
+              <b-input type="date" v-model="data.start_date"/>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="End Date">
+              <b-input type="date" v-model="data.end_date"/>
+            </b-form-group>
+          </b-col>
+        </b-row>
         <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
-           <b-table :items="data.integrationservice"   striped>
-            <template slot="actions" slot-scope="data">
-            
-                    <b-button
-                    @click="get_data(data.item)"
-            >Fetch Data</b-button>
-            </template>
-          </b-table>
+        <b-table :items="data.integrationservice" striped>
+          <template slot="actions" slot-scope="data">
+            <b-button @click="get_data(data.item)">Fetch Data</b-button>
+          </template>
+        </b-table>
 
         <b-modal id="integration-form" title="Integration Service Form" size="lg">
           <b-row>
@@ -85,7 +82,6 @@
                 <b-input type="text" v-model="data.run_every_xdays"/>
               </b-form-group>
             </b-col>
-            
           </b-row>
 
           <div slot="modal-footer">
@@ -100,15 +96,15 @@
         <!-- <b-button v-shortkey="['ctrl', 'd']" @shortkey="get_data()" @click="get_data()">Get Data</b-button> -->
 
         <b-card no-body v-if="data.data.length > 0">
-            <b-col>
-              <b-form-group label="Columns" >
+          <b-col>
+            <b-form-group label="Columns">
               <b-form-select v-model="data.selected" :options="data.fields"></b-form-select>
-              </b-form-group>
-                <b-form-group label="Value">
-               <b-form-input v-model="data.value" type="text"></b-form-input>
-                <b-button @click="update()">Update</b-button>
-              </b-form-group>
-            </b-col>
+            </b-form-group>
+            <b-form-group label="Value">
+              <b-form-input v-model="data.value" type="text"></b-form-input>
+              <b-button @click="update()">Update</b-button>
+            </b-form-group>
+          </b-col>
           <b-table :items="data.data" :fields="data.integrationservice" striped>
             <template slot="show_details" slot-scope="row">
               <b-button
@@ -139,8 +135,6 @@
             </template>
           </b-table>
           <b-button @click="upload()">Upload</b-button>
-
-        
         </b-card>
       </b-tab>
     </b-tabs>
@@ -157,46 +151,46 @@ export default {
     crud: crud,
     XlsCsvParser
   },
-   data: () => ({
-      data: {
-        //integrationfields: ["template","module", "name", "url","actions"],
-        fields: ["Code","Comment"],
-        name: "",
-        url: "",
-        api_key: "",
-        api_secrete: "",
-        template: 0,
-        module: 0,
-        run_every_xdays: 15,
-        data: '',
-        integrationservice : [],
-        selectedIntegration : '',
-        start_date : '',
-        end_date : '',
-        selected: '',
-        value: ''
-      },
+  data: () => ({
+    data: {
+      //integrationfields: ["template","module", "name", "url","actions"],
+      fields: ["Code", "Comment"],
+      id: 0,
+      name: "",
+      url: "",
+      api_key: "",
+      api_secrete: "",
+      template: 0,
+      module: 0,
+      run_every_xdays: 15,
+      data: "",
+      integrationservice: [],
+      selectedIntegration: "",
+      start_date: "",
+      end_date: "",
+      selected: "",
+      value: ""
+    },
 
-      //for excel 
-      columns: [
-        { name: "type", value: "type" },
-        { name: "partner_taxid", value: "partner_taxid" },
-        { name: "partner_name", value: "partner_name" },
-        { name: "document_type", value: "document_type" },
-        { name: "currency", value: "currency" },
-        { name: "rate", value: "rate" },
-        { name: "payment_condition", value: "payment_condition" },
-        { name: "date", value: "date" },
-        { name: "number", value: "number" },
-        { name: "code", value: "code" },
-        { name: "code_expiry", value: "code_expiry" },
-        { name: "is_deductible", value: "is_deductible" },
-        { name: "sub_type", value: "sub_type" }
-      ],
-      results: null,
-      help: "Necessary columns are: login, firstname and lastname"
- 
-   }),
+    //for excel
+    columns: [
+      { name: "type", value: "type" },
+      { name: "partner_taxid", value: "partner_taxid" },
+      { name: "partner_name", value: "partner_name" },
+      { name: "document_type", value: "document_type" },
+      { name: "currency", value: "currency" },
+      { name: "rate", value: "rate" },
+      { name: "payment_condition", value: "payment_condition" },
+      { name: "date", value: "date" },
+      { name: "number", value: "number" },
+      { name: "code", value: "code" },
+      { name: "code_expiry", value: "code_expiry" },
+      { name: "is_deductible", value: "is_deductible" },
+      { name: "sub_type", value: "sub_type" }
+    ],
+    results: null,
+    help: "Necessary columns are: login, firstname and lastname"
+  }),
   computed: {
     baseUrl() {
       return (
@@ -209,146 +203,97 @@ export default {
 
     //list services for my taxpayer + module
     onLoad() {
-      var app= this;
-      crud.methods.onRead(app.baseUrl + "/config/integration-service").then(function(response) {
-      app.data.integrationservice = response.data.data;
-    });
+      var app = this;
+      console.log(app);
+      crud.methods
+        .onRead(app.baseUrl + "/config/integration-service")
+        .then(function(response) {
+          app.data.integrationservice = response.data.data;
+        });
     },
     //save services
-    save_configuration()
-    {
-      var app= this;
+    save_configuration() {
+      var app = this;
       crud.methods
-        .onUpdate(app.baseUrl + "/config/integration-service" , app.data)
+        .onUpdate(app.baseUrl + "/config/integration-service", app.data)
         .then(function(response) {
-          console.log(response.responseText)
-           app.onLoad();
-           app.$snack.success({
-              text: app.$i18n.t("commercial.Saved")
-            });
-              app.$bvModal.hide('integration-form');
+          console.log(response.responseText);
+          app.onLoad();
+          app.$snack.success({
+            text: app.$i18n.t("commercial.Saved")
+          });
+          app.$bvModal.hide("integration-form");
         })
         .catch(function(error) {
           console.log(error.responseText);
           app.$snack.danger({
             text: this.$i18n.t("general.errorMessage") + error.message
           });
-
         });
-      
     },
 
-    select_configuration(data)
-    {
-      var app= this;
+    select_configuration(data) {
+      var app = this;
       app.data.selectedIntegration = data;
       app.test_server();
     },
 
-    test_server()
-    {
-      var app= this;
-     //IntegrationController: test service
-     if (app.data.selectedIntegration != '')
-     {
-     crud.methods
-        .onUpdate(app.baseUrl + "/Integration/Test" , app.data.selectedIntegration)
-        .then(function(response) {
-         if (response.status === 200) {
+    test_server() {
+      var app = this;
+      //IntegrationController: test service
+      if (app.data.selectedIntegration != "") {
+        crud.methods
+          .onUpdate(
+            app.baseUrl + "/Integration/Test",
+            app.data.selectedIntegration
+          )
+          .then(function(response) {
+            if (response.status === 200) {
+              app.$snack.danger({
+                text: "Test Succesfully..."
+              });
+            } else {
+              app.$snack.danger({
+                text: "Something is Wrong..."
+              });
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
             app.$snack.danger({
-            text: "Test Succesfully..."
+              text: this.$i18n.t("general.errorMessage") + error.message
+            });
           });
-         }
-         else
-         {
-           app.$snack.danger({
-            text: "Something is Wrong..."
-          });
-         }
-        
-         
-        })
-        .catch(function(error) {
-          console.log(error);
-          app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
-          });
-        });
-     }
-     else{
+      } else {
         app.$snack.danger({
-            text: "Please Select Integration..."
-          });
-     }
-    },
-    
-    get_data(data)
-    {
-      var app= this;
-      data.start_date =  app.data.start_date;
-      data.end_date =  app.data.end_date;
-      
-     //IntegrationController: test service
-    //  if (data != '')
-    //  {
-      app.$snack.danger({
-            text: "Data Fetching..."
-          });
-     crud.methods
-        .onUpdate(app.baseUrl + "/Integration/GetData" , data)
-        .then(function(response) {
-         if (response.status === 200) {
-          
-           app.data.data = response.data;
-           
-           console.log(app);
-         }
-         else
-         {
-           app.$snack.danger({
-            text: "Something is Wrong..."
-          });
-         }
-        
-         
-        })
-        .catch(function(error) {
-          console.log(error);
-          app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
-          });
+          text: "Please Select Integration..."
         });
-    //  }
-    //  else{
-    //     app.$snack.danger({
-    //         text: "Please Select Integration..."
-    //       });
-    //  }
+      }
     },
 
-     upload()
-    {
-      var app= this;
+    get_data(data) {
+      var app = this;
+      data.start_date = app.data.start_date;
+      data.end_date = app.data.end_date;
+
+      //IntegrationController: test service
+      //  if (data != '')
+      //  {
+      app.$snack.danger({
+        text: "Data Fetching..."
+      });
       crud.methods
-        .onUpdate(app.baseUrl + "/Integration/UploadData" ,  app.data.data)
+        .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
-         
-           if (response.status === 200) {
-          
+          if (response.status === 200) {
+            app.data.data = response.data;
+
+            console.log(app);
+          } else {
             app.$snack.danger({
-            text: "Uploaded..."
-          });
-         }
-         else
-         {
-           app.$snack.danger({
-            text: "Something is Wrong..."
-          });
-         }
-         
-        
-        
-         
+              text: "Something is Wrong..."
+            });
+          }
         })
         .catch(function(error) {
           console.log(error);
@@ -356,20 +301,47 @@ export default {
             text: this.$i18n.t("general.errorMessage") + error.message
           });
         });
- 
+      //  }
+      //  else{
+      //     app.$snack.danger({
+      //         text: "Please Select Integration..."
+      //       });
+      //  }
+    },
+
+    upload() {
+      var app = this;
+      crud.methods
+        .onUpdate(app.baseUrl + "/Integration/UploadData", app.data.data)
+        .then(function(response) {
+          if (response.status === 200) {
+            app.$snack.danger({
+              text: "Uploaded..."
+            });
+          } else {
+            app.$snack.danger({
+              text: "Something is Wrong..."
+            });
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage") + error.message
+          });
+        });
     },
     //Fetch Data
     //Go into server, call data, map data, and show user withour column names
 
     //Store Data
     //Use existing Store function
-      update() {
-        var app= this;
-       app.data.data.forEach(element =>  {
-       if(element[app.data.selected] ===  '')
-       {
+    update() {
+      var app = this;
+      app.data.data.forEach(element => {
+        if (element[app.data.selected] === "") {
           element[app.data.selected] = app.data.value;
-       }
+        }
       });
     },
     onValidate(results) {
@@ -378,10 +350,16 @@ export default {
   },
 
   mounted() {
-    var app= this;
+    var app = this;
     app.onLoad();
-    app.data.start_date = moment().subtract(1, 'months').startOf('month').format("YYYY-MM-DD");
-    app.data.end_date = moment().subtract(1, 'months').endOf('month').format("YYYY-MM-DD");
+    app.data.start_date = moment()
+      .subtract(1, "months")
+      .startOf("month")
+      .format("YYYY-MM-DD");
+    app.data.end_date = moment()
+      .subtract(1, "months")
+      .endOf("month")
+      .format("YYYY-MM-DD");
     //list integration services stored in database.
     //get list of templates
   }
