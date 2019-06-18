@@ -63,11 +63,10 @@ export default {
         data: $data
       })
         .then(function(response) {
-            console.log(response);
           return response;
         })
         .catch(function(error) {
-          console.log(error);
+          console.log(JSON.stringify(error));
           return error.response;
         });
     },
