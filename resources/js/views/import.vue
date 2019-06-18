@@ -117,6 +117,7 @@
                   </template>
            
           </b-table>
+          
           <b-button @click="upload()">Upload</b-button>
         </b-card>
       </b-tab>
@@ -153,7 +154,8 @@ export default {
       start_date: "",
       end_date: "",
       selected: "",
-      value: ""
+      value: "",
+      limit_start: 100
     },
      pageUrl: '/config/integration-service',
 
@@ -276,24 +278,28 @@ export default {
       }
     },
 
+
+
     get_data(data) {
       var app = this;
+
       data.start_date = app.data.start_date;
       data.end_date = app.data.end_date;
+      data.limit_Start = app.data.limit_start
 
-      //IntegrationController: test service
-      //  if (data != '')
-      //  {
-      app.$snack.danger({
+      app.$snack.info({
         text: "Data Fetching..."
       });
+
       crud.methods
         .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
           if (response.status === 200) {
-            app.data.data = response.data;
-
-            console.log(app);
+            app.data.data.push(response.data);
+            app.data.limit_start += 20
+            if (response.length() > 0) {
+              get_data(data);
+            }
           } else {
             app.$snack.danger({
               text: "Something is Wrong..."
@@ -306,12 +312,7 @@ export default {
             text: this.$i18n.t("general.errorMessage") + error.message
           });
         });
-      //  }
-      //  else{
-      //     app.$snack.danger({
-      //         text: "Please Select Integration..."
-      //       });
-      //  }
+
     },
 
     upload() {

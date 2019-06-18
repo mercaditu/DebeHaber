@@ -50,7 +50,6 @@ export default {
         url: $url,
         responseType: "json"
       }).catch(function(error) {
-        console.log(error.response);
         return error.response;
       });
     },
