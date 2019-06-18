@@ -42,7 +42,7 @@ class IntegrationServiceController extends Controller
      */
     public function store(Request $request, Taxpayer $taxPayer, Cycle $cycle)
     {
-            $request = collect($request);
+          
             $integrationservice = IntegrationService::firstOrNew(['id' => $request->id]);
             $integrationservice->taxpayer_id = $taxPayer->id;
             $integrationservice->template = $request->template ?? 0;
@@ -54,7 +54,7 @@ class IntegrationServiceController extends Controller
             $integrationservice->run_every_xdays = $request->run_every_xdays  ?? 15;
             $integrationservice->save();
 
-        return 'integrationservice';
+            return response()->json($integrationservice, 200);
     }
 
     /**
@@ -97,8 +97,14 @@ class IntegrationServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Taxpayer $taxPayer, Cycle $cycle, $id)
     {
-        //
+        try {
+            //TODO: Run Tests to make sure it deletes all journals related to transaction
+            IntegrationService::where('id', $id)->forceDelete();
+            return response()->json('Ok', 200);
+        } catch (\Exception $e) {
+            return response()->json($e, 500);
+        }
     }
 }

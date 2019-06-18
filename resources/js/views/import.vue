@@ -28,9 +28,10 @@
           </b-col>
         </b-row>
         <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
-        <b-table :items="data.integrationservice" striped>
+        <b-table :items="data.integrationservice" :fields="data.integrationfields" striped>
           <template slot="actions" slot-scope="data">
             <b-button @click="get_data(data.item)">Fetch Data</b-button>
+             <b-button @click="delete_configuration(data.item)">Delete</b-button>
           </template>
         </b-table>
 
@@ -98,14 +99,14 @@
         <b-card no-body v-if="data.data.length > 0">
           <b-col>
             <b-form-group label="Columns">
-              <b-form-select v-model="data.selected" :options="data.fields"></b-form-select>
+              <b-form-select v-model="data.selected" :options="data.updatefields"></b-form-select>
             </b-form-group>
             <b-form-group label="Value">
               <b-form-input v-model="data.value" type="text"></b-form-input>
               <b-button @click="update()">Update</b-button>
             </b-form-group>
           </b-col>
-          <b-table :items="data.data" :fields="data.integrationservice" striped>
+          <b-table :items="data.data" :fields="data.datafields" striped>
             <template slot="show_details" slot-scope="row">
               <b-button
                 size="sm"
@@ -153,8 +154,9 @@ export default {
   },
   data: () => ({
     data: {
-      //integrationfields: ["template","module", "name", "url","actions"],
-      fields: ["Code", "Comment"],
+      integrationfields: ["name", "url","lastrun_on","actions"],
+      updatefields: ["Code", "Comment"],
+      datafields: ["CustomerName","CustomerTaxID","Date","Number","Code","CodeExpiry"],
       id: 0,
       name: "",
       url: "",
@@ -171,6 +173,7 @@ export default {
       selected: "",
       value: ""
     },
+     pageUrl: '/config/integration-service',
 
     //for excel
     columns: [
@@ -206,7 +209,7 @@ export default {
       var app = this;
       console.log(app);
       crud.methods
-        .onRead(app.baseUrl + "/config/integration-service")
+        .onRead(app.baseUrl + app.pageUrl)
         .then(function(response) {
           app.data.integrationservice = response.data.data;
         });
@@ -215,7 +218,7 @@ export default {
     save_configuration() {
       var app = this;
       crud.methods
-        .onUpdate(app.baseUrl + "/config/integration-service", app.data)
+        .onUpdate(app.baseUrl + app.pageUrl, app.data)
         .then(function(response) {
           console.log(response.responseText);
           app.onLoad();
@@ -231,7 +234,27 @@ export default {
           });
         });
     },
+    delete_configuration(item) {
+      var app = this;
+     
+            if (item.id > 0) {
+                var app = this;
 
+                crud.methods
+                .onDelete(app.baseUrl + app.pageUrl, item.id)
+                .then(function (response) { });
+            }
+
+            this.lastDeletedRow = item;
+
+            this.$snack.success({
+                text: this.$i18n.t('general.rowDeleted'),
+                button: this.$i18n.t('general.undo'),
+                action: this.undoDeletedRow
+            });
+
+            this.data.integrationservice.splice(this.data.integrationservice.indexOf(item), 1);
+    },
     select_configuration(data) {
       var app = this;
       app.data.selectedIntegration = data;
