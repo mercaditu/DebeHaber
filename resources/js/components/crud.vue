@@ -65,7 +65,7 @@ export default {
           return response;
         })
         .catch(function(error) {
-          console.log(JSON.stringify(error));
+          console.log(error.response);
           return error.response;
         });
     },

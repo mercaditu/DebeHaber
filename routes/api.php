@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
         Route::prefix('{cycle}')->group(function () {
             Route::prefix('Integration')->group(function () {
                 Route::post('Test', 'API\IntegrationController@test');
-                Route::post('GetData', 'API\IntegrationController@get');
+                Route::post('GetData', 'API\IntegrationController@integration');
                 Route::post('UploadData', 'API\IntegrationController@store');
                    
             });

@@ -45,7 +45,7 @@
             <b-col>
               <b-form-group label="Template">
                 <b-select v-model="data.template">
-                  <option value="1">ERPNext</option>
+                  <option value="1">ErpNext</option>
                 </b-select>
               </b-form-group>
             </b-col>
@@ -108,7 +108,7 @@
           </b-col>
           <b-table :items="data.data" :fields="data.datafields" striped>
               <template slot="Type" slot-scope="data">
-                <div v-if="data.item.Type===2">
+                <div v-if="data.item.Type === 2">
                   Sales
                 </div>
                  <div v-else>
@@ -143,19 +143,19 @@ export default {
       id: 0,
       name: "",
       url: "",
+      data : [],
       api_key: "",
       api_secrete: "",
       template: 0,
       module: 0,
       run_every_xdays: 15,
-      data: "",
       integrationservice: [],
       selectedIntegration: "",
       start_date: "",
       end_date: "",
       selected: "",
-      value: "",
-      limit_start: 100
+      value: ""
+      
     },
      pageUrl: '/config/integration-service',
 
@@ -191,7 +191,6 @@ export default {
     //list services for my taxpayer + module
     onLoad() {
       var app = this;
-      console.log(app);
       crud.methods
         .onRead(app.baseUrl + app.pageUrl)
         .then(function(response) {
@@ -282,12 +281,13 @@ export default {
 
     get_data(data) {
       var app = this;
-
-      data.start_date = app.data.start_date;
-      data.end_date = app.data.end_date;
-      data.limit_Start = app.data.limit_start
-
-      app.$snack.info({
+       data.startDate = app.data.start_date;
+      data.endDate = app.data.end_date;
+      if (data.template === 1) {
+        data.templateName = 'ErpNext'
+      }
+      
+      app.$snack.show({
         text: "Data Fetching..."
       });
 
@@ -295,11 +295,10 @@ export default {
         .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
           if (response.status === 200) {
-            app.data.data.push(response.data);
-            app.data.limit_start += 20
-            if (response.length() > 0) {
-              get_data(data);
-            }
+           response.data.forEach(element => {
+             app.data.data.push(element);
+           });
+         
           } else {
             app.$snack.danger({
               text: "Something is Wrong..."
