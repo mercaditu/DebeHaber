@@ -314,6 +314,9 @@ export default {
               text: "Something is Wrong..."
             });
           }
+          app.$snack.show({
+            text: "Data Fetched..."
+          });
         })
         .catch(function(error) {
           console.log(error);
