@@ -299,13 +299,15 @@ export default {
         .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
           if (response.status === 200) {
-            response.data.forEach(element => {
-              app.data.data.push(element);
-            });
-            app.data.limit_start += 20;
-            s;
-            if (response.data.length > 0) {
-              app.get_data(data);
+            if (response.data != null) {
+              response.data.forEach(element => {
+                app.data.data.push(element);
+              });
+              app.data.limit_start += 20;
+
+              if (response.data.length > 0) {
+                app.get_data(data);
+              }
             }
           } else {
             app.$snack.danger({
