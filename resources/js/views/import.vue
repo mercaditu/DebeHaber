@@ -31,7 +31,7 @@
         <b-table :items="data.integrationservice" :fields="data.integrationfields" striped>
           <template slot="actions" slot-scope="data">
             <b-button @click="get_data(data.item)">Fetch Data</b-button>
-             <b-button @click="delete_configuration(data.item)">Delete</b-button>
+            <b-button @click="delete_configuration(data.item)">Delete</b-button>
           </template>
         </b-table>
 
@@ -107,17 +107,12 @@
             </b-form-group>
           </b-col>
           <b-table :items="data.data" :fields="data.datafields" striped>
-              <template slot="Type" slot-scope="data">
-                <div v-if="data.item.Type === 2">
-                  Sales
-                </div>
-                 <div v-else>
-                  Purchase
-                </div>
-                  </template>
-           
+            <template slot="Type" slot-scope="data">
+              <div v-if="data.item.Type === 2">Sales</div>
+              <div v-else>Purchase</div>
+            </template>
           </b-table>
-          
+
           <b-button @click="upload()">Upload</b-button>
         </b-card>
       </b-tab>
@@ -137,13 +132,21 @@ export default {
   },
   data: () => ({
     data: {
-      integrationfields: ["name", "url","lastrun_on","actions"],
+      integrationfields: ["name", "url", "lastrun_on", "actions"],
       updatefields: ["Code", "CodeExpiry"],
-      datafields: ["Type","CustomerName","CustomerTaxID","Date","Number","Code","CodeExpiry"],
+      datafields: [
+        "Type",
+        "CustomerName",
+        "CustomerTaxID",
+        "Date",
+        "Number",
+        "Code",
+        "CodeExpiry"
+      ],
       id: 0,
       name: "",
       url: "",
-      data : [],
+      data: [],
       api_key: "",
       api_secrete: "",
       template: 0,
@@ -154,10 +157,11 @@ export default {
       start_date: "",
       end_date: "",
       selected: "",
-      value: ""
-      
+      limit_start: 0,
+      value: "",
+      transaction: []
     },
-     pageUrl: '/config/integration-service',
+    pageUrl: "/config/integration-service",
 
     //for excel
     columns: [
@@ -191,11 +195,9 @@ export default {
     //list services for my taxpayer + module
     onLoad() {
       var app = this;
-      crud.methods
-        .onRead(app.baseUrl + app.pageUrl)
-        .then(function(response) {
-          app.data.integrationservice = response.data.data;
-        });
+      crud.methods.onRead(app.baseUrl + app.pageUrl).then(function(response) {
+        app.data.integrationservice = response.data.data;
+      });
     },
     //save services
     save_configuration() {
@@ -219,24 +221,27 @@ export default {
     },
     delete_configuration(item) {
       var app = this;
-     
-            if (item.id > 0) {
-                var app = this;
 
-                crud.methods
-                .onDelete(app.baseUrl + app.pageUrl, item.id)
-                .then(function (response) { });
-            }
+      if (item.id > 0) {
+        var app = this;
 
-            this.lastDeletedRow = item;
+        crud.methods
+          .onDelete(app.baseUrl + app.pageUrl, item.id)
+          .then(function(response) {});
+      }
 
-            this.$snack.success({
-                text: this.$i18n.t('general.rowDeleted'),
-                button: this.$i18n.t('general.undo'),
-                action: this.undoDeletedRow
-            });
+      this.lastDeletedRow = item;
 
-            this.data.integrationservice.splice(this.data.integrationservice.indexOf(item), 1);
+      this.$snack.success({
+        text: this.$i18n.t("general.rowDeleted"),
+        button: this.$i18n.t("general.undo"),
+        action: this.undoDeletedRow
+      });
+
+      this.data.integrationservice.splice(
+        this.data.integrationservice.indexOf(item),
+        1
+      );
     },
     select_configuration(data) {
       var app = this;
@@ -277,16 +282,15 @@ export default {
       }
     },
 
-
-
     get_data(data) {
       var app = this;
-       data.startDate = app.data.start_date;
+      data.startDate = app.data.start_date;
       data.endDate = app.data.end_date;
+      data.limit_Start = app.data.limit_start;
       if (data.template === 1) {
-        data.templateName = 'ErpNext'
+        data.templateName = "ErpNext";
       }
-      
+
       app.$snack.show({
         text: "Data Fetching..."
       });
@@ -295,10 +299,14 @@ export default {
         .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
           if (response.status === 200) {
-           response.data.forEach(element => {
-             app.data.data.push(element);
-           });
-         
+            response.data.forEach(element => {
+              app.data.data.push(element);
+            });
+            app.data.limit_start += 20;
+            s;
+            if (response.data.length > 0) {
+              app.get_data(data);
+            }
           } else {
             app.$snack.danger({
               text: "Something is Wrong..."
@@ -311,7 +319,6 @@ export default {
             text: this.$i18n.t("general.errorMessage") + error.message
           });
         });
-
     },
 
     upload() {
@@ -320,6 +327,7 @@ export default {
         .onUpdate(app.baseUrl + "/Integration/UploadData", app.data.data)
         .then(function(response) {
           if (response.status === 200) {
+            app.data.transaction = response.data;
             app.$snack.danger({
               text: "Uploaded..."
             });
