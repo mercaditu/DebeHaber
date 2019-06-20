@@ -104,8 +104,8 @@ class ErpNext_Sales extends Controller
 					// 	$detail->Name = 'Fixed Asset';
 					//  }
 					
-					$detail->Value = $data['net_rate'];
-					$detail->Cost = $data['base_rate'];
+					$detail->Value = $data['amount'];
+					$detail->Cost = 0;
 					
 					$detail->VATPercentage = $row['taxes'][0]->rate;
 					$details->add($detail);
