@@ -28,8 +28,8 @@ class ErpNext_Sales extends Controller
 		$collection = collect();
 		
 		$salesurl = $this->url;
-		 $salesurl = str_replace('{{pageStart}}', $request->limit_Start, $salesurl);
-		  return response()->json($salesurl,500);
+		$salesurl = str_replace('{{pageStart}}', $request->limit_Start, $salesurl);
+		
 		$data = (new IntegrationController())->get($salesurl, $this->header);
 		$data = json_decode($data->getBody()->getContents());
 		$data = collect($data->data);
