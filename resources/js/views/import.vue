@@ -1,123 +1,135 @@
 <template>
-  <b-card no-body>
-    <b-tabs pills card vertical>
-      <b-tab title="File Import" active>
-        <b-card class="app">
-          <h3>Example - Import file with required login, firstname, lastname and optional values</h3>
-          <br>
-          <xls-csv-parser :columns="columns" @on-validate="onValidate" :help="help" lang="en"></xls-csv-parser>
-          <br>
-          <br>
-          <div class="results" v-if="results">
-            <h3>Results:</h3>
-            <pre>{{ JSON.stringify(results, null, 2) }}</pre>
-          </div>
-        </b-card>
-      </b-tab>
-      <b-tab title="Online Service Import">
-        <b-row>
-          <b-col>
-            <b-form-group label="Start Date">
-              <b-input type="date" v-model="data.start_date"/>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label="End Date">
-              <b-input type="date" v-model="data.end_date"/>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-button v-b-modal.integration-form>Create new Integration Service</b-button>
-        <b-table :items="data.integrationservice" :fields="data.integrationfields" striped>
-          <template slot="actions" slot-scope="data">
-            <b-button @click="get_data(data.item)">Fetch Data</b-button>
-            <b-button @click="delete_configuration(data.item)">Delete</b-button>
-          </template>
-        </b-table>
-
-        <b-modal id="integration-form" title="Integration Service Form" size="lg">
+  <div>
+    <b-card no-body>
+      <b-tabs pills card vertical>
+        <b-tab title="File Import">
+          <b-card class="app">
+            <h3>Example - Import file with required login, firstname, lastname and optional values</h3>
+            <br>
+            <xls-csv-parser :columns="columns" @on-validate="onValidate" :help="help" lang="en"></xls-csv-parser>
+            <br>
+            <br>
+            <div class="results" v-if="results">
+              <h3>Results:</h3>
+              <pre>{{ JSON.stringify(results, null, 2) }}</pre>
+            </div>
+          </b-card>
+        </b-tab>
+        <b-tab title="Online Service Import" active>
           <b-row>
             <b-col>
-              <b-form-group label="Service Name">
-                <b-input type="text" v-model="data.name"/>
-              </b-form-group>
+              <h3>List of Integration Services</h3>
             </b-col>
             <b-col>
-              <b-form-group label="Template">
-                <b-select v-model="data.template">
-                  <option value="1">ErpNext</option>
-                </b-select>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group label="Module">
-                <b-select v-model="data.module">
-                  <option value="1">Sales</option>
-                  <option value="2">Purcahse</option>
-                </b-select>
-              </b-form-group>
+              <b-button v-b-modal.integration-form class="float-right">Create Integration</b-button>
             </b-col>
           </b-row>
-          <b-row>
-            <b-col>
-              <b-form-group label="Domain or IP Address">
-                <b-input type="text" v-model="data.url"/>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <b-form-group label="API Key">
-                <b-input type="text" v-model="data.api_key"/>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group label="API Secrete">
-                <b-input type="password" v-model="data.api_secrete"/>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <b-form-group label="Run Every Days">
-                <b-input type="text" v-model="data.run_every_xdays"/>
-              </b-form-group>
-            </b-col>
-          </b-row>
-
-          <div slot="modal-footer">
-            <b-button
-              v-shortkey="['ctrl', 'd']"
-              @shortkey="save_configuration()"
-              @click="save_configuration()"
-            >Save Configuration</b-button>
-          </div>
-        </b-modal>
-
-        <!-- <b-button v-shortkey="['ctrl', 'd']" @shortkey="get_data()" @click="get_data()">Get Data</b-button> -->
-
-        <b-card no-body v-if="data.data.length > 0">
-          <b-col>
-            <b-form-group label="Columns">
-              <b-form-select v-model="data.selected" :options="data.updatefields"></b-form-select>
-            </b-form-group>
-            <b-form-group label="Value">
-              <b-form-input v-model="data.value" type="text"></b-form-input>
-              <b-button @click="update()">Update</b-button>
-            </b-form-group>
-          </b-col>
-          <b-table :items="data.data" :fields="data.datafields" striped>
-            <template slot="Type" slot-scope="data">
-              <div v-if="data.item.Type === 2">Sales</div>
-              <div v-else>Purchase</div>
+          <b-table :items="data.integrationservice" :fields="data.integrationfields" striped>
+            <template slot="actions" slot-scope="data">
+              <b-button @click="get_data(data.item)">Fetch Data</b-button>
+              <b-button @click="delete_configuration(data.item)">Delete</b-button>
             </template>
           </b-table>
 
-          <b-button @click="upload()">Upload</b-button>
-        </b-card>
-      </b-tab>
-    </b-tabs>
-  </b-card>
+          <b-row>
+            <b-col>
+              <b-form-group label="Start Date">
+                <b-input type="date" v-model="data.start_date"/>
+              </b-form-group>
+            </b-col>
+            <b-col>
+              <b-form-group label="End Date">
+                <b-input type="date" v-model="data.end_date"/>
+              </b-form-group>
+            </b-col>
+          </b-row>
+
+          <b-modal id="integration-form" title="Integration Service Form" size="lg">
+            <b-row>
+              <b-col>
+                <b-form-group label="Service Name">
+                  <b-input type="text" v-model="data.name"/>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="Template">
+                  <b-select v-model="data.template">
+                    <option value="1">ErpNext</option>
+                  </b-select>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="Module">
+                  <b-select v-model="data.module">
+                    <option value="1">Sales</option>
+                    <option value="2">Purcahse</option>
+                  </b-select>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <b-form-group label="Domain or IP Address">
+                  <b-input type="text" v-model="data.url"/>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <b-form-group label="API Key">
+                  <b-input type="text" v-model="data.api_key"/>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="API Secrete">
+                  <b-input type="password" v-model="data.api_secrete"/>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <b-form-group label="Run Every Days">
+                  <b-input type="text" v-model="data.run_every_xdays"/>
+                </b-form-group>
+              </b-col>
+            </b-row>
+
+            <div slot="modal-footer">
+              <b-button
+                v-shortkey="['ctrl', 'd']"
+                @shortkey="save_configuration()"
+                @click="save_configuration()"
+              >Save Configuration</b-button>
+            </div>
+          </b-modal>
+
+          <!-- <b-button v-shortkey="['ctrl', 'd']" @shortkey="get_data()" @click="get_data()">Get Data</b-button> -->
+        </b-tab>
+      </b-tabs>
+    </b-card>
+    <b-card v-if="data.data.length > 0">
+      <b-row>
+        <b-col>
+          <b-form-group label="Columns">
+            <b-form-select v-model="data.selected" :options="data.updatefields"></b-form-select>
+          </b-form-group>
+          <b-form-group label="Value">
+            <b-form-input v-model="data.value" type="text"></b-form-input>
+            <b-button @click="update()">Update</b-button>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-button @click="upload()">Start Import</b-button>
+        </b-col>
+      </b-row>
+      <b-table :items="data.data" :fields="data.datafields" striped>
+        <template slot="Type" slot-scope="data">
+          <div v-if="data.item.Type === 2">Sales</div>
+          <div v-else>Purchase</div>
+        </template>
+      </b-table>
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -292,7 +304,7 @@ export default {
       }
 
       app.$snack.show({
-        text: "Data Fetching..."
+        text: "Fetching Data, Hang on..."
       });
 
       crud.methods
