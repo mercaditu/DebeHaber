@@ -15,7 +15,7 @@ class ErpNext_Sales extends Controller
 {
 
 	 const take = 20;
-	 public $url = '{{url}}/api/resource/Sales%20Invoice?limit_start={{pageStart}}&limit_page_length={{pageLength}}&fields=["name","customer_name"]&filters=[["Sales Invoice","posting_date", ">","{{startDate}}"],["Sales Invoice","posting_date", "<","{{endDate}}"]]';
+	 public $url = '{{url}}/api/resource/Sales%20Invoice?limit_start={{pageStart}}&limit_page_length={{pageLength}}&fields=["name","customer_name"]&filters=[["Sales Invoice","posting_date", ">=","{{startDate}}"],["Sales Invoice","posting_date", "<=","{{endDate}}"]]';
 	 public $header = [
 		 				'headers' => [
 		 					'Authorization'     => 'token {{key}}:{{secret}}'
