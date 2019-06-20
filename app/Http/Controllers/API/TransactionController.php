@@ -99,7 +99,7 @@ class TransactionController extends Controller
 		$transaction->code_expiry = $data['CodeExpiry'] != '' ? $this->convert_date($data['CodeExpiry'])  : null;
 		$transaction->comment = $data['Comment'];
 		$transaction->save();
-
+	
 		//Process details of the invoice.
 		$this->processDetail(
 			collect($data['Details']),
@@ -107,13 +107,14 @@ class TransactionController extends Controller
 			$taxPayer,
 			$cycle
 		);
-
+	
 		$data['cloud_id'] = $transaction->id;
 		return $data;
 	}
 
 	public function processDetail($details, Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle)
 	{
+	
 		$totalDiscount = $details->where('Value', '<', 0)->sum('Value');
 		$totalValue = $details->where('Value', '>', 0)->sum('Value') != 0 ?
 			$details->where('Value', '>', 0)->sum('Value') : 1;
@@ -122,22 +123,24 @@ class TransactionController extends Controller
 		//If 5 rows can be converted into 1 row it is better for our system's health and reduce server load.
 		foreach ($details->groupBy('VATPercentage') as $groupedRowsByVat) {
 			foreach ($groupedRowsByVat->groupBy('Type') as $groupedRowsByType) {
+				
 				if ($groupedRowsByType[0]['Value'] > 0) {
 					//Code for Row Level Discounts in certain transactions
 					$discountOnRow = 0;
 					if ($totalDiscount > 0) {
-						$percentage = $details->sum('value') / $totalValue;
+						$percentage = $details->sum('Value') / $totalValue;
 						$discountOnRow = $percentage * $totalDiscount;
 					}
-
+	
 					$chart_id = $this->checkChart($groupedRowsByType[0]['Type'], $groupedRowsByType[0]['Name'], $taxPayer, $cycle, $transaction->type);
+					
 					$detail = TransactionDetail::where('chart_id', $chart_id)->where('transaction_id', $transaction->id)->first() ?? new TransactionDetail();
-
+				
 					$detail->transaction_id = $transaction->id;
 					$detail->chart_id = $chart_id;
 					$detail->value = $groupedRowsByType->sum('Value') - $discountOnRow;
 
-					$detail->cost = groupedRowsByType[0]['Cost'] *  $transaction->rate;
+					$detail->cost = $groupedRowsByType[0]['Cost'] *  $transaction->rate;
 
 					//This prevents 0% or null references from searching and/or creating false accounts.
 					if (isset($groupedRowsByType[0]['VATPercentage']) && $groupedRowsByType[0]['VATPercentage'] > 0) {

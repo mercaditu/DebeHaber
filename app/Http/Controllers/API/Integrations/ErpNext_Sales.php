@@ -82,6 +82,7 @@ class ErpNext_Sales extends Controller
 			$model->CurrencyRate = $row['conversion_rate'];
 			$model->Comment = '';
 
+			$details = collect();
 			foreach ($row['items'] as $data) 
 			{
 				$data = collect($data);
@@ -107,10 +108,10 @@ class ErpNext_Sales extends Controller
 					$detail->Cost = $data['base_rate'];
 					
 					$detail->VATPercentage = $row['taxes'][0]->rate;
-					$model['Details'] = $detail;
+					$details->add($detail);
 				//  }
 			}
-	
+			$model['Details'] = $details;
 		return $model;
 	}
 
