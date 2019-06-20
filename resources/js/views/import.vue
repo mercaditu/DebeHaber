@@ -299,6 +299,7 @@ export default {
         .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
           if (response.status === 200) {
+            console.log(response);
             if (response.data != null) {
               response.data.forEach(element => {
                 app.data.data.push(element);
