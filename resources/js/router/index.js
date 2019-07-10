@@ -203,7 +203,9 @@ export default [
                     key: "partner_name",
                     label: "commercial.customer",
                     formatter: (value, key, item) => {
-                        return item.partner_name.substring(0, 18) + "...";
+                        return item.partner_name != null ?
+                            item.partner_name.substring(0, 15) + "..." :
+                            "";
                     },
                     sortable: true,
                     searchable: true
@@ -719,7 +721,9 @@ export default [
                     key: "partner",
                     label: "commercial.customer",
                     formatter: (value, key, item) => {
-                        return item.partner_name.substring(0, 15) + "...";
+                        return item.partner_name != null ?
+                            item.partner_name.substring(0, 15) + "..." :
+                            "";
                     },
                     sortable: true
                 },
@@ -798,7 +802,9 @@ export default [
                     key: "partner",
                     label: "commercial.supplier",
                     formatter: (value, key, item) => {
-                        return item.partner_name.substring(0, 15) + "...";
+                        return item.partner_name != null ?
+                            item.partner_name.substring(0, 15) + "..." :
+                            "";
                     },
                     sortable: true
                 },
