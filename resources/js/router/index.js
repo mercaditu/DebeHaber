@@ -75,14 +75,12 @@ export default [
         meta: {
             title: "commercial.salesBook",
             img: "/img/apps/sales.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/:lang/transactions/sales"
@@ -91,14 +89,12 @@ export default [
                             label: "general.report",
                             icon: "insert_chart_outlined",
                             type: "lastMonth",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/sales/:startDate/:endDate"
+                            url: "/:taxPayer/:cycle/commercial/reports/sales/:startDate/:endDate"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -111,7 +107,7 @@ export default [
                     key: "partner_name",
                     label: "commercial.customer",
                     formatter: (value, key, item) => {
-                        return item.partner_name.substring(0, 32) + "...";
+                        return item.partner_name != null ? item.partner_name.substring(0, 32) + "..." : "";
                     },
                     sortable: true,
                     searchable: true
@@ -127,7 +123,7 @@ export default [
                     label: "general.total",
                     formatter: (value, key, item) => {
                         return new Number(
-                            item.details.reduce(function(sum, row) {
+                            item.details.reduce(function (sum, row) {
                                 return sum + new Number(row["value"]);
                             }, 0)
                         ).toLocaleString();
@@ -143,8 +139,7 @@ export default [
                 }
             ]
         },
-        children: [
-            {
+        children: [{
                 name: "salesForm",
                 path: "f/:id",
                 component: Form,
@@ -177,14 +172,12 @@ export default [
         meta: {
             title: "commercial.creditBook",
             img: "/img/apps/credit-note.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/en/transactions/credit-notes"
@@ -192,14 +185,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/credit-notes/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/credit-notes/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -227,7 +218,7 @@ export default [
                     label: "general.total",
                     formatter: (value, key, item) => {
                         return new Number(
-                            item.details.reduce(function(sum, row) {
+                            item.details.reduce(function (sum, row) {
                                 return sum + new Number(row["value"]);
                             }, 0)
                         ).toLocaleString();
@@ -243,8 +234,7 @@ export default [
                 }
             ]
         },
-        children: [
-            {
+        children: [{
                 name: "creditForm",
                 path: ":id",
                 component: Form,
@@ -276,14 +266,12 @@ export default [
         meta: {
             title: "commercial.purchaseBook",
             img: "/img/apps/purchase-v1.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/en/transactions/purchases"
@@ -291,14 +279,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/purchases/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -323,7 +309,7 @@ export default [
                     label: "general.total",
                     formatter: (value, key, item) => {
                         return new Number(
-                            item.details.reduce(function(sum, row) {
+                            item.details.reduce(function (sum, row) {
                                 return sum + new Number(row["value"]);
                             }, 0)
                         ).toLocaleString();
@@ -337,8 +323,7 @@ export default [
                 }
             ]
         },
-        children: [
-            {
+        children: [{
                 name: "purchaseUpload",
                 path: "upload",
                 component: Import,
@@ -370,14 +355,12 @@ export default [
         meta: {
             title: "commercial.debitBook",
             img: "/img/apps/credit-note.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/en/transactions/debit-notes"
@@ -385,14 +368,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/debit-notes/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -415,7 +396,7 @@ export default [
                     label: "general.total",
                     formatter: (value, key, item) => {
                         return new Number(
-                            item.details.reduce(function(sum, row) {
+                            item.details.reduce(function (sum, row) {
                                 return sum + new Number(row["value"]);
                             }, 0)
                         ).toLocaleString();
@@ -429,8 +410,7 @@ export default [
                 }
             ]
         },
-        children: [
-            {
+        children: [{
                 path: ":id",
                 component: Form,
                 name: "debitForm",
@@ -462,14 +442,12 @@ export default [
         meta: {
             title: "commercial.fixedAssets",
             img: "/img/apps/fixed-asset.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/en/transactions/fixed-assets"
@@ -477,14 +455,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/fixed-assets/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "purchase_date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -519,19 +495,17 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                path: ":id",
-                component: Form,
-                name: "fixedAssetForm",
-                meta: FixedAssetForm,
+        children: [{
+            path: ":id",
+            component: Form,
+            name: "fixedAssetForm",
+            meta: FixedAssetForm,
 
-                label: "general.create",
-                url: "fixed-assets/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "fixed-assets/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     {
         path: "/:taxPayer/:cycle/commercial/money",
@@ -540,26 +514,21 @@ export default [
         meta: {
             title: "commercial.moneyMovements",
             img: "/img/apps/money-flow.svg",
-            components: [
-                {
-                    type: "links",
-                    links: [
-                        {
-                            label: "general.manual",
-                            icon: "help_outline",
-                            url: "/docs/en/transactions/sales"
-                        },
-                        {
-                            label: "general.report",
-                            icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
-                        }
-                    ]
-                }
-            ],
-            columns: [
-                {
+            components: [{
+                type: "links",
+                links: [{
+                        label: "general.manual",
+                        icon: "help_outline",
+                        url: "/docs/en/transactions/sales"
+                    },
+                    {
+                        label: "general.report",
+                        icon: "insert_chart_outlined",
+                        url: "/:taxPayer/:cycle/commercial/reports/sales/2019-03-01/2019-03-31"
+                    }
+                ]
+            }],
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -609,8 +578,7 @@ export default [
                 }
             ]
         },
-        children: [
-            {
+        children: [{
                 path: ":id",
                 component: Form,
                 name: "moneyMovementForm",
@@ -642,14 +610,12 @@ export default [
         meta: {
             title: "commercial.inventories",
             img: "/img/apps/inventory.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/:lang/transactions/inventory"
@@ -657,14 +623,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/inventory/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/inventory/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -705,19 +669,17 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                name: "inventoryForm",
-                path: ":id",
-                component: Form,
-                meta: InventoryForm,
+        children: [{
+            name: "inventoryForm",
+            path: ":id",
+            component: Form,
+            meta: InventoryForm,
 
-                label: "general.create",
-                url: "inventories/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "inventories/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     {
         path: "/:taxPayer/:cycle/commercial/accounts-receivable",
@@ -726,14 +688,12 @@ export default [
         meta: {
             title: "commercial.accountReceivables",
             img: "/img/apps/account-receivable.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/:lang/transactions/receivable"
@@ -741,14 +701,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/receivable/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/receivable/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     format: "date",
                     label: "commercial.date",
@@ -794,14 +752,12 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                path: ":id",
-                component: Form,
-                name: "receivableForm",
-                meta: ReceivableForm
-            }
-        ]
+        children: [{
+            path: ":id",
+            component: Form,
+            name: "receivableForm",
+            meta: ReceivableForm
+        }]
     },
     //Accounts Payable
     {
@@ -811,14 +767,12 @@ export default [
         meta: {
             title: "commercial.accountPayables",
             img: "/img/apps/account-payable.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/:lang/payable/sales"
@@ -826,14 +780,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/payable/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/payable/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     format: "date",
                     label: "commercial.date",
@@ -878,14 +830,12 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                path: ":id",
-                component: Form,
-                name: "payableForm",
-                meta: PayableForm
-            }
-        ]
+        children: [{
+            path: ":id",
+            component: Form,
+            name: "payableForm",
+            meta: PayableForm
+        }]
     },
     //Impexes
     {
@@ -895,14 +845,12 @@ export default [
         meta: {
             title: "commercial.impex",
             img: "/img/apps/impex.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/:lang/impex/sales"
@@ -910,14 +858,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/impex/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/impex/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "date",
                     format: "date",
                     label: "commercial.date",
@@ -930,9 +876,9 @@ export default [
                     key: "partner",
                     label: "commercial.supplier",
                     formatter: (value, key, item) => {
-                        return item.partner_name != null
-                            ? item.partner_name.substring(0, 15) + "..."
-                            : "";
+                        return item.partner_name != null ?
+                            item.partner_name.substring(0, 15) + "..." :
+                            "";
                     },
                     sortable: true
                 },
@@ -948,19 +894,17 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                path: ":id",
-                component: Form,
-                name: "impexForm",
-                meta: ImpexForm,
+        children: [{
+            path: ":id",
+            component: Form,
+            name: "impexForm",
+            meta: ImpexForm,
 
-                label: "general.create",
-                url: "impexes/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "impexes/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     //Journal Templates
     {
@@ -970,14 +914,12 @@ export default [
         meta: {
             title: "accounting.template",
             img: "/img/apps/journal-template.svg",
-            components: [
-                {
+            components: [{
                     type: "invoices-this-month-kpi"
                 },
                 {
                     type: "links",
-                    links: [
-                        {
+                    links: [{
                             label: "general.manual",
                             icon: "help_outline",
                             url: "/docs/:lang/journaltemplate/sales"
@@ -985,14 +927,12 @@ export default [
                         {
                             label: "general.report",
                             icon: "insert_chart_outlined",
-                            url:
-                                "/:taxPayer/:cycle/commercial/reports/journaltemplate/2019-03-01/2019-03-31"
+                            url: "/:taxPayer/:cycle/commercial/reports/journaltemplate/2019-03-01/2019-03-31"
                         }
                     ]
                 }
             ],
-            columns: [
-                {
+            columns: [{
                     key: "name",
                     sortable: true
                 },
@@ -1003,19 +943,17 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                path: ":id",
-                component: Form,
-                name: "journalTemplateForm",
-                meta: JournalTemplateForm,
+        children: [{
+            path: ":id",
+            component: Form,
+            name: "journalTemplateForm",
+            meta: JournalTemplateForm,
 
-                label: "general.create",
-                url: "journal-templates/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "journal-templates/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     //Journals
     {
@@ -1026,22 +964,16 @@ export default [
             details: 1,
             title: "accounting.journal",
             img: "/img/apps/journals.svg",
-            components: [
-                {
-                    type: "links",
-                    links: [
-                        {
-                            label: "accounting.generateJournal",
-                            icon: "refresh",
-                            url:
-                                "/api/:taxPayer/:cycle/generate-journals/:startDate/:endDate",
-                            type: "dateRange"
-                        }
-                    ]
-                }
-            ],
-            columns: [
-                {
+            components: [{
+                type: "links",
+                links: [{
+                    label: "accounting.generateJournal",
+                    icon: "refresh",
+                    url: "/api/:taxPayer/:cycle/generate-journals/:startDate/:endDate",
+                    type: "dateRange"
+                }]
+            }],
+            columns: [{
                     key: "date",
                     label: "commercial.date",
                     formatter: (value, key, item) => {
@@ -1060,7 +992,7 @@ export default [
                     key: "value",
                     formatter: (value, key, item) => {
                         return new Number(
-                            item.details.reduce(function(sum, row) {
+                            item.details.reduce(function (sum, row) {
                                 return sum + new Number(row["debit"]);
                             }, 0)
                         ).toLocaleString();
@@ -1082,18 +1014,16 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                name: "journalForm",
-                path: ":id",
-                component: Form,
-                meta: JournalForm,
-                label: "general.create",
-                url: "journals/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+        children: [{
+            name: "journalForm",
+            path: ":id",
+            component: Form,
+            meta: JournalForm,
+            label: "general.create",
+            url: "journals/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     //Opening Balance
     {
@@ -1124,8 +1054,7 @@ export default [
             title: "accounting.chartOfAccounts",
             img: "/img/apps/chart-of-accounts.svg",
             components: [],
-            columns: [
-                {
+            columns: [{
                     key: "code",
                     label: "commercial.code",
                     sortable: true,
@@ -1147,22 +1076,20 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                name: "chartForm",
-                path: ":id",
-                component: ChartForm,
-                meta: {
-                    title: "Chart Form",
-                    img: "/img/apps/chart-of-accounts.svg"
-                },
+        children: [{
+            name: "chartForm",
+            path: ":id",
+            component: ChartForm,
+            meta: {
+                title: "Chart Form",
+                img: "/img/apps/chart-of-accounts.svg"
+            },
 
-                label: "general.create",
-                url: "charts/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "charts/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     {
         path: "/:taxPayer/:cycle/config/chart-versions",
@@ -1172,28 +1099,24 @@ export default [
             ttitle: "accounting.chartVersion",
             img: "/img/apps/sales.svg",
             components: [],
-            columns: [
-                {
-                    key: "name",
-                    sortable: true
-                }
-            ]
+            columns: [{
+                key: "name",
+                sortable: true
+            }]
         },
-        children: [
-            {
-                name: "versionForm",
-                path: ":id",
-                component: VersionForm,
-                meta: {
-                    title: "Version Form"
-                },
+        children: [{
+            name: "versionForm",
+            path: ":id",
+            component: VersionForm,
+            meta: {
+                title: "Version Form"
+            },
 
-                label: "general.create",
-                url: "chart-versions/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "chart-versions/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
 
     {
@@ -1204,8 +1127,7 @@ export default [
             title: "accounting.accountingCycle",
             img: "/img/apps/cycle.svg",
             components: [],
-            columns: [
-                {
+            columns: [{
                     key: "chart_version.name",
                     sortable: true
                 },
@@ -1220,19 +1142,17 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                name: "cycleForm",
-                path: ":id",
-                component: Form,
-                meta: CycleForm,
+        children: [{
+            name: "cycleForm",
+            path: ":id",
+            component: Form,
+            meta: CycleForm,
 
-                label: "general.create",
-                url: "cycles/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "cycles/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     {
         path: "/:taxPayer/:cycle/config/documents",
@@ -1242,26 +1162,22 @@ export default [
             title: "commercial.documents",
             img: "/img/apps/sales.svg",
             components: [],
-            columns: [
-                {
-                    key: "name",
-                    sortable: true
-                }
-            ]
+            columns: [{
+                key: "name",
+                sortable: true
+            }]
         },
-        children: [
-            {
-                name: "documentForm",
-                path: ":id",
-                component: Form,
-                meta: DocumentForm,
+        children: [{
+            name: "documentForm",
+            path: ":id",
+            component: Form,
+            meta: DocumentForm,
 
-                label: "general.create",
-                url: "documents/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "documents/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     {
         path: "/:taxPayer/:cycle/config/rates",
@@ -1271,8 +1187,7 @@ export default [
             title: "commercial.exchangeRates",
             img: "/img/apps/sales.svg",
             components: [],
-            columns: [
-                {
+            columns: [{
                     key: "currency.name",
                     label: "commercial.currency",
                     searchable: true,
@@ -1297,19 +1212,17 @@ export default [
                 }
             ]
         },
-        children: [
-            {
-                name: "rateForm",
-                path: ":id",
-                component: Form,
-                meta: RateForm,
+        children: [{
+            name: "rateForm",
+            path: ":id",
+            component: Form,
+            meta: RateForm,
 
-                label: "general.create",
-                url: "rates/0",
-                icon: "add",
-                variant: "dark"
-            }
-        ]
+            label: "general.create",
+            url: "rates/0",
+            icon: "add",
+            variant: "dark"
+        }]
     },
     {
         path: "/:taxPayer/:cycle/commercial/reports",
