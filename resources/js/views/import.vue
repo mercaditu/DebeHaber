@@ -5,10 +5,10 @@
         <b-tab title="File Import">
           <b-card class="app">
             <h3>Example - Import file with required login, firstname, lastname and optional values</h3>
-            <br>
+            <br />
             <xls-csv-parser :columns="columns" @on-validate="onValidate" :help="help" lang="en"></xls-csv-parser>
-            <br>
-            <br>
+            <br />
+            <br />
             <div class="results" v-if="results">
               <h3>Results:</h3>
               <pre>{{ JSON.stringify(results, null, 2) }}</pre>
@@ -25,7 +25,7 @@
             </b-col>
           </b-row>
           <b-table :items="data.integrationservice" :fields="data.integrationfields" striped>
-            <template slot="actions" slot-scope="data">
+            <template v-slot:cell(actions)="data">
               <b-button @click="get_data(data.item)">Fetch Data</b-button>
               <b-button @click="delete_configuration(data.item)">Delete</b-button>
             </template>
@@ -34,12 +34,12 @@
           <b-row>
             <b-col>
               <b-form-group label="Start Date">
-                <b-input type="date" v-model="data.start_date"/>
+                <b-input type="date" v-model="data.start_date" />
               </b-form-group>
             </b-col>
             <b-col>
               <b-form-group label="End Date">
-                <b-input type="date" v-model="data.end_date"/>
+                <b-input type="date" v-model="data.end_date" />
               </b-form-group>
             </b-col>
           </b-row>
@@ -48,7 +48,7 @@
             <b-row>
               <b-col>
                 <b-form-group label="Service Name">
-                  <b-input type="text" v-model="data.name"/>
+                  <b-input type="text" v-model="data.name" />
                 </b-form-group>
               </b-col>
               <b-col>
@@ -70,26 +70,26 @@
             <b-row>
               <b-col>
                 <b-form-group label="Domain or IP Address">
-                  <b-input type="text" v-model="data.url"/>
+                  <b-input type="text" v-model="data.url" />
                 </b-form-group>
               </b-col>
             </b-row>
             <b-row>
               <b-col>
                 <b-form-group label="API Key">
-                  <b-input type="text" v-model="data.api_key"/>
+                  <b-input type="text" v-model="data.api_key" />
                 </b-form-group>
               </b-col>
               <b-col>
                 <b-form-group label="API Secrete">
-                  <b-input type="password" v-model="data.api_secrete"/>
+                  <b-input type="password" v-model="data.api_secrete" />
                 </b-form-group>
               </b-col>
             </b-row>
             <b-row>
               <b-col>
                 <b-form-group label="Run Every Days">
-                  <b-input type="text" v-model="data.run_every_xdays"/>
+                  <b-input type="text" v-model="data.run_every_xdays" />
                 </b-form-group>
               </b-col>
             </b-row>
@@ -123,7 +123,7 @@
         </b-col>
       </b-row>
       <b-table :items="data.data" :fields="data.datafields" striped>
-        <template slot="Type" slot-scope="data">
+        <template v-slot:cell(type)="data">
           <div v-if="data.item.Type === 2">Sales</div>
           <div v-else>Purchase</div>
         </template>

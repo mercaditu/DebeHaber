@@ -107,7 +107,7 @@ class ErpNext_Sales extends Controller
 					$detail->Value = $data['amount'];
 					$detail->Cost = 0;
 					
-					$detail->VATPercentage = $row['taxes'][0]->rate;
+					$detail->VATPercentage = $row['taxes']!=null?$row['taxes'][0]->rate:0;
 					$details->add($detail);
 				//  }
 			}

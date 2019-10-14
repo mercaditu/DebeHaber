@@ -3,95 +3,75 @@
     "title": "commercial.accountspayable",
     "img": "/img/apps/accounts-payable.svg",
     "module": 2,
-    "cards": [
-        {
-            "rows": [
-                {
-                    "fields": [
-                        {
-                            "label": "commercial.date",
-                            "properties": [
-                                {
-                                    "type": "date",
-                                    "data": "date",
-                                    "placeholder": "commercial.date",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        },
-                        {
-                            "label": "commercial.chart",
-                            "properties": [
-                                {
-                                    "type": "select",
-                                    "data": "chart_account_id",
-                                    "placeholder": "commercial.chart",
-                                    "api": "/accounting/charts/for/money/",
-                                    "required": false,
-                                    "location": "",
-                                    "select": [
-                                        {
-                                            "value": "id",
-                                            "label": "name"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {
-                            "label": "commercial.value",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "payment_value",
-                                    "placeholder": "commercial.value ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        },
-                        {
-                            "label": "commercial.currency",
-                            "properties": [
-                                {
-                                    "type": "currency",
-                                    "data": [
-                                        {
-                                            "salecurrency": "currency",
-                                            "currencyrate": "rate"
-                                        }
-                                    ],
-                                    "placeholder": "commercial.currency ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "fields": [
-                        {},
-                        {
-                            "label": "general.comment",
-                            "properties": [
-                                {
-                                    "type": "text",
-                                    "data": "comment",
-                                    "placeholder": "general.comment ",
-                                    "required": false,
-                                    "location": ""
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+    "cards": [{
+        "rows": [{
+                "fields": [{
+                        "label": "commercial.date",
+                        "properties": [{
+                            "type": "date",
+                            "data": "date",
+                            "placeholder": "commercial.date",
+                            "required": false,
+                            "location": ""
+                        }]
+                    },
+                    {
+                        "label": "commercial.chart",
+                        "properties": [{
+                            "type": "select",
+                            "data": "chart_account_id",
+                            "placeholder": "commercial.chart",
+                            "api": "/accounting/charts/for/money/",
+                            "required": false,
+                            "location": "",
+                            "select": [{
+                                "value": "id",
+                                "label": "name"
+                            }]
+                        }]
+                    }
+                ]
+            },
+            {
+                "fields": [{
+                        "label": "commercial.value",
+                        "properties": [{
+                            "type": "text",
+                            "data": "payment_value",
+                            "placeholder": "commercial.value ",
+                            "required": false,
+                            "location": ""
+                        }]
+                    },
+                    {
+                        "label": "commercial.currency",
+                        "properties": [{
+                            "type": "currency",
+                            "data": [{
+                                "salecurrency": "currency",
+                                "currencyrate": "rate"
+                            }],
+                            "placeholder": "commercial.currency ",
+                            "required": false,
+                            "location": ""
+                        }]
+                    }
+                ]
+            },
+            {
+                "fields": [{},
+                    {
+                        "label": "general.comment",
+                        "properties": [{
+                            "type": "text",
+                            "data": "comment",
+                            "placeholder": "general.comment ",
+                            "required": false,
+                            "location": ""
+                        }]
+                    }
+                ]
+            }
+        ]
+    }]
 }

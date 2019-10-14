@@ -5,7 +5,7 @@
         <b-card-group deck>
           <b-card bg-variant="dark" text-variant="light">
             <h1>
-              <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26">
+              <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26" />
               {{ $t($route.meta.title) }}
             </h1>
           </b-card>
@@ -106,7 +106,7 @@
                   :current-page="items.meta != null ? items.meta.current_page : 1"
                   show-empty
                 >
-                  <template slot="row-details" slot-scope="row">
+                  <template v-slot:row-details="row">
                     <b-row>
                       <b-col cols="8" colspan="2">
                         <span class="text-muted">{{ $t('accounting.chartOfAccounts') }}</span>
@@ -140,14 +140,14 @@
                     </b-row>
                   </template>
 
-                  <template slot="hasDetails" slot-scope="row">
+                  <template v-slot:cell(show_details)="row">
                     <b-button-group size="sm" class="show-when-hovered">
                       <b-button @click="row.toggleDetails">
                         <i class="material-icons md-19">remove_red_eye</i>
                       </b-button>
                     </b-button-group>
                   </template>
-                  <template slot="actions" slot-scope="data">
+                  <template v-slot:cell(actions)="data">
                     <table-actions :row="data.item"></table-actions>
                   </template>
 
@@ -159,7 +159,7 @@
                     <b-container class="m-25">
                       <b-row align-v="center">
                         <b-col>
-                          <b-img right fluid center :src="$route.meta.img"/>
+                          <b-img right fluid center :src="$route.meta.img" />
                         </b-col>
                         <b-col>
                           <h4>Nothing here</h4>
