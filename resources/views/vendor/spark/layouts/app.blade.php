@@ -82,7 +82,8 @@
             'enumEquity' => App\Enums\ChartEquityTypeEnum::labels(),
             'enumExpense' => App\Enums\ChartExpenseTypeEnum::labels(),
             'enumLiability' => App\Enums\ChartLiabilityTypeEnum::labels(),
-            'enumRevenue' => App\Enums\ChartRevenueTypeEnum::labels()
+            'enumRevenue' => App\Enums\ChartRevenueTypeEnum::labels(),
+            'mainUrl' => env("APP_URL")
             
         ]
     )); ?>

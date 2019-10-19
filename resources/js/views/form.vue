@@ -3,7 +3,7 @@
     <b-row>
       <b-col cols="9">
         <h2 text-variant="dark">
-          <img :src="$route.meta.img" alt class="mr-10" width="32">
+          <img :src="$route.meta.img" alt class="mr-10" width="32" />
           {{ $t($route.meta.title) }}
         </h2>
       </b-col>
@@ -215,7 +215,11 @@ export default {
   computed: {
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     }
   },
