@@ -24,7 +24,7 @@ export default {
     vat: "",
     name: ""
   }),
-   computed: {
+  computed: {
     formURL: function() {
       return this.$route.name.replace("List", "Form");
     },
@@ -35,21 +35,21 @@ export default {
   methods: {
     get_data() {
       var app = this;
-      axios.get("/api" + app.$route.path + "/kpi").then(({ data }) => {
-        app.total = new Number(data[0].total).toLocaleString();
-        app.value = new Number(data[0].value).toLocaleString();
-        app.vat = new Number(data[0].vat).toLocaleString(undefined, {
-          maximumFractionDigits: 0
+      axios
+        .get(app.spark.baseURl + "/api" + app.$route.path + "/kpi")
+        .then(({ data }) => {
+          app.total = new Number(data[0].total).toLocaleString();
+          app.value = new Number(data[0].value).toLocaleString();
+          app.vat = new Number(data[0].vat).toLocaleString(undefined, {
+            maximumFractionDigits: 0
+          });
         });
-      });
     }
   },
   watch: {
     viewURL: function() {
       var app = this;
-     app.get_data();
-
-     
+      app.get_data();
     }
   },
   mounted() {
