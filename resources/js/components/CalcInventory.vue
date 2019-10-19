@@ -48,7 +48,7 @@ export default {
 
     baseUrl() {
       return (
-        "/api/" +
+       this.spark.mainUrl + "/api/" +
         this.$route.params.taxPayer +
         "/" +
         this.$route.params.cycle +

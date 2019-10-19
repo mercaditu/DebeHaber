@@ -1,11 +1,11 @@
 <template>
   <div>
-     <b-input-group>
-        <b-input type="number" placeholder="Cost" v-model.number="discountValue" @input="calcCost"/>
-         <b-input-group-append>
-          <b-input placeholder="margin" v-model.number="margin"></b-input>
-         </b-input-group-append>
-              </b-input-group>
+    <b-input-group>
+      <b-input type="number" placeholder="Cost" v-model.number="discountValue" @input="calcCost" />
+      <b-input-group-append>
+        <b-input placeholder="margin" v-model.number="margin"></b-input>
+      </b-input-group-append>
+    </b-input-group>
   </div>
 </template>
 
@@ -15,13 +15,12 @@ export default {
   components: { crud: crud },
   data() {
     return {
-     disocunt_value:0,
-     inventory_value:0,
-     margin:0
+      disocunt_value: 0,
+      inventory_value: 0,
+      margin: 0
     };
   },
   computed: {
-   
     discountValue: {
       // getter
       get: function() {
@@ -35,18 +34,25 @@ export default {
     },
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     }
   },
   methods: {
     calcCost() {
       var app = this;
-      app.inventory_value=app.$parent.$parent.data.inventory_value;
-      
-      if (app.disocunt_value < app.inventory_value || app.disocunt_value == undefined) {
+      app.inventory_value = app.$parent.$parent.data.inventory_value;
+
+      if (
+        app.disocunt_value < app.inventory_value ||
+        app.disocunt_value == undefined
+      ) {
         app.margin = (app.disocunt_value / app.inventory_value) * 100;
-        app.margin = app.margin.toFixed(2)
+        app.margin = app.margin.toFixed(2);
       } else {
         app.margin = 0;
         app.disocunt_value = 0;
@@ -56,9 +62,7 @@ export default {
       }
     }
   },
-  mounted() {
-    
-  }
+  mounted() {}
 };
 </script>
 

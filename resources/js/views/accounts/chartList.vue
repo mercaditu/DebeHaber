@@ -5,7 +5,7 @@
         <b-card-group deck>
           <b-card bg-variant="dark" text-variant="white">
             <h4 class="upper-case">
-              <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26">
+              <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26" />
               {{ $t($route.meta.title) }}
             </h4>
             <p class="lead" v-if="$route.name.includes('List')">{{ $t($route.meta.description) }},</p>
@@ -42,13 +42,13 @@
                 hover
                 responsive
                 :items="items.data"
-                  :per-page="items.meta != null ? items.meta.per - page : 10"
-                  :fields="$parent.columns"
-                  :current-page="items.meta != null ? items.meta.current_page : 1"
-                  show-empty
+                :per-page="items.meta != null ? items.meta.per - page : 10"
+                :fields="$parent.columns"
+                :current-page="items.meta != null ? items.meta.current_page : 1"
+                show-empty
               >
                 <template slot="type" slot-scope="data">
-                  <chart-types :type="data.item.type" :sub_type="data.item.sub_type"/>
+                  <chart-types :type="data.item.type" :sub_type="data.item.sub_type" />
                 </template>
 
                 <template slot="code" slot-scope="data">
@@ -115,16 +115,16 @@
               v-model="parentChart.code"
             />
             <b-input-group-append>
-              <b-input readonly type="text" v-model="parentChart.name"/>
+              <b-input readonly type="text" v-model="parentChart.name" />
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
 
         <b-form-group :label="$t('accounting.chart')">
           <b-input-group>
-            <b-input required :placeholder="$t('commercial.code')" v-model.trim="newChart.code"/>
+            <b-input required :placeholder="$t('commercial.code')" v-model.trim="newChart.code" />
             <b-input-group-append>
-              <b-input required :placeholder="$t('commercial.name')" v-model.trim="newChart.name"/>
+              <b-input required :placeholder="$t('commercial.name')" v-model.trim="newChart.name" />
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
@@ -150,35 +150,35 @@
           v-if="newChart.type == 1"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumAsset"/>
+          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumAsset" />
         </b-form-group>
         <b-form-group
           label="Liability Types"
           v-if="newChart.type == 2"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumLiability"/>
+          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumLiability" />
         </b-form-group>
         <b-form-group
           label="Equity Types"
           v-if="newChart.type == 3"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumEquity"/>
+          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumEquity" />
         </b-form-group>
         <b-form-group
           label="Revenue Types"
           v-if="newChart.type == 4"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumRevenue"/>
+          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumRevenue" />
         </b-form-group>
         <b-form-group
           label="Expense Types"
           v-if="newChart.type == 5"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumExpense"/>
+          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumExpense" />
         </b-form-group>
 
         <b-button-toolbar class="float-right d-none d-md-block">
@@ -207,7 +207,7 @@
               v-model="fromChart.code"
             />
             <b-input-group-append>
-              <b-input readonly type="text" v-model="fromChart.name"/>
+              <b-input readonly type="text" v-model="fromChart.name" />
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
@@ -250,7 +250,11 @@ export default {
   computed: {
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     },
     formURL: function() {
@@ -261,7 +265,7 @@ export default {
         {
           key: "code",
           label: this.$i18n.t("commercial.code"),
-          sortable: true,
+          sortable: true
         },
         {
           key: "name",
@@ -316,7 +320,10 @@ export default {
             app.$snack.success({
               text: app.$i18n.t("chart.saved")
             });
-            app.$parent.items.splice(app.$parent.items.indexOf(app.fromChart), 1);
+            app.$parent.items.splice(
+              app.$parent.items.indexOf(app.fromChart),
+              1
+            );
             app.$refs.mergeModel.hide();
           })
           .catch(function(error) {

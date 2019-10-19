@@ -125,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     baseUrl: function baseUrl() {
-      return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
+      return this.spark.mainUrl + "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
     }
   },
   methods: {

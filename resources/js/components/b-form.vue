@@ -25,7 +25,11 @@ export default {
     },
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     }
   },

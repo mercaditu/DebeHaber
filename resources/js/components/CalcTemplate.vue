@@ -11,7 +11,7 @@
       <b-col>
         <b-form-group :label="$t('commercial.value')">
           <b-input-group-append>
-            <b-input type="text" placeholder="Value" v-model="Value"/>
+            <b-input type="text" placeholder="Value" v-model="Value" />
             <b-btn variant="primary" @click="onGenerateDetail()">{{ $t('general.generate') }}</b-btn>
           </b-input-group-append>
         </b-form-group>
@@ -59,7 +59,11 @@ export default {
 
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     }
   },

@@ -72,22 +72,23 @@ export default {
   computed: {
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     }
   },
   methods: {
     search() {
-     
       var app = this;
       if (app.query.length < 3) {
         app.results = [];
       } else {
-         
         crud.methods
           .onRead(app.baseUrl + "/search/expenses/" + app.query)
           .then(function(data) {
-            
             app.results = data.data;
             app.skip += app.pageSize;
           });
@@ -98,11 +99,11 @@ export default {
       var app = this;
       app.$parent.data.expenses.push({
         transaction_detail_id: item.id,
-      chart : item.chart , 
-      chart_id :item.chart_id, 
-      value : item.value,
-      currency : item.currency,
-      rate: item.rate 
+        chart: item.chart,
+        chart_id: item.chart_id,
+        value: item.value,
+        currency: item.currency,
+        rate: item.rate
       });
     }
   },
