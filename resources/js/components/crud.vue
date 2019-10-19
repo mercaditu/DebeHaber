@@ -98,7 +98,7 @@ export default {
         .then(resp => {
           if (resp.value) {
             app
-              .onDelete(app.spark.baseUrl + "/api" + app.$route.path, item.id)
+              .onDelete("/api" + app.$route.path, item.id)
               .then(function(response) {
                 app.items.splice(app.items.indexOf(item), 1);
                 app.$snack.success({
@@ -139,14 +139,14 @@ export default {
     if (app.name != app.viewURL) {
       app.$children[1].currentPage = 1;
       app.name = app.viewURL;
-      app.refresh(app.spark.baseUrl + "/api" + app.$route.path);
+      app.refresh("/api" + app.$route.path);
     }
   },
   mounted() {
     var app = this;
     app.name = app.viewURL;
 
-    app.refresh(app.spark.baseUrl + "/api" + app.$route.path);
+    app.refresh("/api" + app.$route.path);
   }
 };
 </script>

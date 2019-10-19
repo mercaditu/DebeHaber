@@ -70,9 +70,7 @@ export default {
           query += "&filter[" + element.column + "]=" + element.query;
         }
       });
-      app.$parent.refresh(
-        app.spark.baseURl + "/api" + app.$route.path + "?" + query
-      );
+      app.$parent.refresh("/api" + app.$route.path + "?" + query);
     }
   }
 };
