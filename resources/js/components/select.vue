@@ -8,7 +8,7 @@
       @input="Item"
       label="name"
       track-by="name"
-    ></multiselect> -->
+    ></multiselect>-->
   </div>
 </template>
 
@@ -16,10 +16,10 @@
 import crud from "../components/crud.vue";
 export default {
   components: { crud: crud },
-  props: ["item","api", "options"],
+  props: ["item", "api", "options"],
   data: () => ({
     collections: [],
-    chart_id : ''
+    chart_id: ""
   }),
   computed: {
     Item: {
@@ -34,7 +34,11 @@ export default {
     },
     baseUrl() {
       return (
-        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
+        this.spark.mainUrl +
+        "/api/" +
+        this.$route.params.taxPayer +
+        "/" +
+        this.$route.params.cycle
       );
     }
   },
