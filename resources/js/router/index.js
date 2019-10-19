@@ -20,7 +20,7 @@ import closingBalanceForm from "../views/accounts/closingBalanceForm.json";
 import budgetForm from "../views/accounts/budgetForm.json";
 
 import FourZeroFour from "../views/404";
-import DashBoard from "../views/index";
+import DashBoard from "../views/Index";
 import SearchResult from "../views/searchResult";
 import Form from "../views/form";
 import FormList from "../views/formList";
