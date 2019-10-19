@@ -13,7 +13,7 @@
 Route::get('depricate/{id}', 'FixedAssetController@depreciate');
 
 
-Route::group(['middleware' => ['auth:api', 'forceSSL']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::post('taxpayer/store', 'TaxpayerController@store');
     Route::post('/transactions', 'API\TransactionController@start');
     Route::post('/payment', 'API\PaymentController@start');
