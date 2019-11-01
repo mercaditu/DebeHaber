@@ -135,7 +135,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -162,8 +161,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Spatie\QueryBuilder\QueryBuilderServiceProvider::class,
-        
-      
 
         /*
          * Package Service Providers...
@@ -184,6 +181,7 @@ return [
         RyanWeber\Mutators\TimezonedServiceProvider::class,
         Nasyrov\Laravel\Enums\EnumServiceProvider::class,
         Swap\Laravel\SwapServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
