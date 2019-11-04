@@ -325,6 +325,10 @@ __webpack_require__.r(__webpack_exports__);
     if (app.$route.params.id > 0) {
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + "/" + app.$route.params.id).then(function (response) {
         app.data = response.data.data;
+
+        if (app.data.is_accountable == 1) {
+          app.data.is_accountable = true;
+        }
       });
     } else {
       app.data.code = "", app.data.type = 1, app.data.is_accountable = false;

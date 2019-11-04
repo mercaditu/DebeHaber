@@ -331,6 +331,9 @@ export default {
         .onRead(app.baseUrl + app.pageUrl + "/" + app.$route.params.id)
         .then(function(response) {
           app.data = response.data.data;
+          if (app.data.is_accountable == 1) {
+            app.data.is_accountable = true;
+          }
         });
     } else {
       (app.data.code = ""),
