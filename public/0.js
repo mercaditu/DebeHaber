@@ -151,10 +151,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'crud': _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    crud: _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -164,10 +224,10 @@ __webpack_require__.r(__webpack_exports__);
         taxpayer_id: null,
         country: null,
         is_accountable: false,
-        parentCode: '',
-        parentName: '',
-        code: '',
-        name: '',
+        parentCode: "",
+        parentName: "",
+        code: "",
+        name: "",
         level: 1,
         type: 1,
         sub_type: 1,
@@ -175,16 +235,16 @@ __webpack_require__.r(__webpack_exports__);
         partner_name: null,
         coefficient: null,
         asset_years: null,
-        created_at: '',
-        updated_at: ''
+        created_at: "",
+        updated_at: ""
       },
-      pageUrl: '/accounting/charts',
+      pageUrl: "/accounting/charts",
       parentCharts: []
     };
   },
   computed: {
     baseUrl: function baseUrl() {
-      return '/api/' + this.$route.params.taxPayer + '/' + this.$route.params.cycle;
+      return "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle;
     }
   },
   methods: {
@@ -192,30 +252,32 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
         app.$snack.success({
-          text: app.$i18n.t('commercial.CharttSaved')
+          text: app.$i18n.t("commercial.CharttSaved")
         });
         app.$router.go(-1);
       })["catch"](function (error) {
         app.$snack.danger({
-          text: 'Error OMG!'
+          text: "Error OMG!"
         });
       });
     },
     onSaveNew: function onSaveNew() {
       var app = this;
       _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl, app.data).then(function (response) {
+        console.log(response);
         app.$snack.success({
-          text: this.$i18n.t('general.saved', app.data.number)
+          text: app.$i18n.t("general.saved", app.data.number)
         });
         app.$router.push({
           name: app.$route.name,
           params: {
-            id: '0'
+            id: "0"
           }
         });
       })["catch"](function (error) {
+        console.log(error);
         app.$snack.danger({
-          text: this.$i18n.t('general.errorMessage')
+          text: app.$i18n.t("general.errorMessage")
         });
       });
     },
@@ -223,12 +285,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$swal.fire({
-        title: this.$i18n.t('general.cancel'),
-        text: this.$i18n.t('general.cancelVerification'),
-        type: 'warning',
+        title: this.$i18n.t("general.cancel"),
+        text: this.$i18n.t("general.cancelVerification"),
+        type: "warning",
         showCancelButton: true,
-        confirmButtonText: this.$i18n.t('general.cancelConfirmation'),
-        cancelButtonText: this.$i18n.t('general.cancelRejection')
+        confirmButtonText: this.$i18n.t("general.cancelConfirmation"),
+        cancelButtonText: this.$i18n.t("general.cancelRejection")
       }).then(function (result) {
         if (result.value) {
           _this.$router.go(-1);
@@ -238,20 +300,20 @@ __webpack_require__.r(__webpack_exports__);
     deleteRow: function deleteRow(item) {
       if (item.id > 0) {
         var app = this;
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + '/details', item.id).then(function (response) {});
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onDelete(app.baseUrl + app.pageUrl + "/details", item.id).then(function (response) {});
       }
 
       this.lastDeletedRow = item;
       this.$snack.success({
-        text: this.$i18n.t('general.rowDeleted'),
-        button: this.$i18n.t('general.undo'),
+        text: this.$i18n.t("general.rowDeleted"),
+        button: this.$i18n.t("general.undo"),
         action: this.undoDeletedRow
       });
       this.data.details.splice(this.data.details.indexOf(item), 1);
     },
     undoDeletedRow: function undoDeletedRow() {
       if (this.lastDeletedRow.id > 0) {
-        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + '/details', this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
+        _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onUpdate(app.baseUrl + app.pageUrl + "/details", this.lastDeletedRow).then(function (response) {}); //axios code to insert detail again??? or let save do it.
       }
 
       this.data.details.push(this.lastDeletedRow);
@@ -261,11 +323,11 @@ __webpack_require__.r(__webpack_exports__);
     var app = this;
 
     if (app.$route.params.id > 0) {
-      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + '/' + app.$route.params.id).then(function (response) {
+      _components_crud_vue__WEBPACK_IMPORTED_MODULE_0__["default"].methods.onRead(app.baseUrl + app.pageUrl + "/" + app.$route.params.id).then(function (response) {
         app.data = response.data.data;
       });
     } else {
-      app.data.code = '', app.data.type = 1, app.data.is_accountable = false;
+      app.data.code = "", app.data.type = 1, app.data.is_accountable = false;
     }
   }
 });
@@ -323,9 +385,7 @@ var render = function() {
                     _vm._v("keyboard_backspace")
                   ]),
                   _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.$t("general.return")) +
-                      "\n            "
+                    "\n        " + _vm._s(_vm.$t("general.return")) + "\n      "
                   )
                 ]
               ),
@@ -336,9 +396,7 @@ var render = function() {
                   attrs: { src: _vm.$route.meta.img, alt: "", width: "32" }
                 }),
                 _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.$route.meta.title) +
-                    "\n            "
+                  "\n        " + _vm._s(_vm.$route.meta.title) + "\n      "
                 )
               ])
             ],
@@ -382,9 +440,9 @@ var render = function() {
                             _vm._v("save")
                           ]),
                           _vm._v(
-                            "\n                        " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.save")) +
-                              "\n                    "
+                              "\n          "
                           )
                         ]
                       ),
@@ -415,9 +473,9 @@ var render = function() {
                             _vm._v("cancel")
                           ]),
                           _vm._v(
-                            "\n                        " +
+                            "\n            " +
                               _vm._s(_vm.$t("general.cancel")) +
-                              "\n                    "
+                              "\n          "
                           )
                         ]
                       )
@@ -641,13 +699,13 @@ var render = function() {
                             _vm._v("school")
                           ]),
                           _vm._v(
-                            "\n                            Chart Configuration\n                        "
+                            "\n              Chart Configuration\n            "
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", [
                           _vm._v(
-                            "\n                            Charts are the life blood of any accounting system. All journal entries have multiple charts, and configuring them correctly can speed up the accounting process.\n                            The first step is to\n                        "
+                            "\n              Charts are the life blood of any accounting system. All journal entries have multiple charts, and configuring them correctly can speed up the accounting process.\n              The first step is to\n            "
                           )
                         ]),
                         _vm._v(" "),
@@ -718,11 +776,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(
-                                            _vm.$t("accounting.isAccountable")
-                                          ) +
-                                          "\n                                "
+                                        _vm._s(
+                                          _vm.$t("accounting.isAccountable")
+                                        )
                                       )
                                     ]
                                   )
@@ -736,135 +792,171 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _vm.data.type == 1
-                        ? _c(
-                            "b-form-group",
+                      _c(
+                        "div",
+                        {
+                          directives: [
                             {
-                              attrs: {
-                                label: "Asset Types",
-                                description:
-                                  "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                              }
-                            },
-                            [
-                              _c("b-form-radio-group", {
-                                attrs: { options: _vm.spark.enumAsset },
-                                model: {
-                                  value: _vm.data.sub_type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "sub_type", _vm._n($$v))
-                                  },
-                                  expression: "data.sub_type"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.data.type == 2
-                        ? _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                label: "Liability Types",
-                                description:
-                                  "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                              }
-                            },
-                            [
-                              _c("b-form-radio-group", {
-                                attrs: { options: _vm.spark.enumLiability },
-                                model: {
-                                  value: _vm.data.sub_type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "sub_type", _vm._n($$v))
-                                  },
-                                  expression: "data.sub_type"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.data.type == 3
-                        ? _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                label: "Equity Types",
-                                description:
-                                  "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                              }
-                            },
-                            [
-                              _c("b-form-radio-group", {
-                                attrs: { options: _vm.spark.enumEquity },
-                                model: {
-                                  value: _vm.data.sub_type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "sub_type", _vm._n($$v))
-                                  },
-                                  expression: "data.sub_type"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.data.type == 4
-                        ? _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                label: "Revenue Types",
-                                description:
-                                  "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                              }
-                            },
-                            [
-                              _c("b-form-radio-group", {
-                                attrs: { options: _vm.spark.enumRevenue },
-                                model: {
-                                  value: _vm.data.sub_type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "sub_type", _vm._n($$v))
-                                  },
-                                  expression: "data.sub_type"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.data.type == 5
-                        ? _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                label: "Expense Types",
-                                description:
-                                  "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
-                              }
-                            },
-                            [
-                              _c("b-form-radio-group", {
-                                attrs: { options: _vm.spark.enumExpense },
-                                model: {
-                                  value: _vm.data.sub_type,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.data, "sub_type", _vm._n($$v))
-                                  },
-                                  expression: "data.sub_type"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e()
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.data.is_accountable === true,
+                              expression: "data.is_accountable === true"
+                            }
+                          ]
+                        },
+                        [
+                          _vm.data.type == 1
+                            ? _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: "Asset Types",
+                                    description:
+                                      "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                                  }
+                                },
+                                [
+                                  _c("b-form-radio-group", {
+                                    attrs: { options: _vm.spark.enumAsset },
+                                    model: {
+                                      value: _vm.data.sub_type,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "sub_type",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.sub_type"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.data.type == 2
+                            ? _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: "Liability Types",
+                                    description:
+                                      "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                                  }
+                                },
+                                [
+                                  _c("b-form-radio-group", {
+                                    attrs: { options: _vm.spark.enumLiability },
+                                    model: {
+                                      value: _vm.data.sub_type,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "sub_type",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.sub_type"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.data.type == 3
+                            ? _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: "Equity Types",
+                                    description:
+                                      "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                                  }
+                                },
+                                [
+                                  _c("b-form-radio-group", {
+                                    attrs: { options: _vm.spark.enumEquity },
+                                    model: {
+                                      value: _vm.data.sub_type,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "sub_type",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.sub_type"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.data.type == 4
+                            ? _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: "Revenue Types",
+                                    description:
+                                      "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                                  }
+                                },
+                                [
+                                  _c("b-form-radio-group", {
+                                    attrs: { options: _vm.spark.enumRevenue },
+                                    model: {
+                                      value: _vm.data.sub_type,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "sub_type",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.sub_type"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.data.type == 5
+                            ? _c(
+                                "b-form-group",
+                                {
+                                  attrs: {
+                                    label: "Expense Types",
+                                    description:
+                                      "Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
+                                  }
+                                },
+                                [
+                                  _c("b-form-radio-group", {
+                                    attrs: { options: _vm.spark.enumExpense },
+                                    model: {
+                                      value: _vm.data.sub_type,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data,
+                                          "sub_type",
+                                          _vm._n($$v)
+                                        )
+                                      },
+                                      expression: "data.sub_type"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
