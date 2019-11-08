@@ -4,7 +4,7 @@
       <b-button :to="{ name: formURL, params: { id: row.id }}" variant="primary">
         <i class="material-icons md-18">edit</i>
       </b-button>
-      <b-button @click="$parent.$parent.onDestroy(row)" variant="light">
+      <b-button @click="$parent.$parent.$parent.$parent.onDestroy(row)" variant="light">
         <i class="material-icons md-19">delete_outline</i>
       </b-button>
     </b-button-group>
