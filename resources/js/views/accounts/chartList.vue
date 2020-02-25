@@ -81,7 +81,9 @@
                     <b-button
                       size="sm"
                       v-b-modal.mergeChartOfAccounts
-                      @click="$parent.mergeChart(data.item)"
+                      @click="$parent.me
+
+                      rgeChart(data.item)"
                       ref="btnShow"
                     >
                       <i class="material-icons">delete</i>
