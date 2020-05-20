@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use RyanWeber\Mutators\Timezoned;
+//use RyanWeber\Mutators\Timezoned;
 
 
 class Transaction extends Model
 {
     use SoftDeletes;
-    use Timezoned;
+  //  use Timezoned;
 
     protected $timezoned = ['date', 'created_at', 'updated_at', 'deleted_at'];
     protected $softDelete = true;

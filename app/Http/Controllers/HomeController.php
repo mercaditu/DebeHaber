@@ -50,7 +50,7 @@ class HomeController extends Controller
         ->with('taxPayerIntegrations', $taxPayerIntegrations)
         ->with('integrationInvites', $integrationInvites);
 
-        return view('home');
+        
     }
 
     public function myTaxpayers()

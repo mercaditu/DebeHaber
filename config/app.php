@@ -178,7 +178,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        RyanWeber\Mutators\TimezonedServiceProvider::class,
+      //  RyanWeber\Mutators\TimezonedServiceProvider::class,
         Nasyrov\Laravel\Enums\EnumServiceProvider::class,
         Swap\Laravel\SwapServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,

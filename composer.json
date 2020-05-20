@@ -27,8 +27,8 @@
         "php-http/curl-client": "^2.0",
         "php-http/message": "^1.7",
         "predis/predis": "^1.1",
-        "rweber7912/timezoned": "dev-master",
         "sandervanhooft/laravel-blade-readable-numbers": "^1.0",
+        "spatie/array-to-xml": "^2.11",
         "spatie/laravel-cookie-consent": "^2.6",
         "spatie/laravel-query-builder": "^1.17",
         "wildbit/swiftmailer-postmark": "^3.0"

@@ -17,6 +17,8 @@ class ChartExpenseTypeEnum extends Enum
     const WagesExpense          = 9;
     const OtherExpenses         = 10;
     const DiffInExchangeRate    = 11;
+    const GPERS    = 12;
+    const CUOTA    = 13;
 
     public static function labels()
     {

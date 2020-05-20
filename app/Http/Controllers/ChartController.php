@@ -632,6 +632,74 @@ class ChartController extends Controller
         return $chart;
     }
 
+    public function createIfNotExists_ExpensesFromAranduka(Taxpayer $taxPayer, Cycle $cycle, $chartName = '')
+    {
+        $query = Chart::My($taxPayer, $cycle)
+            ->where('type', 6)
+            ->where('sub_type', 12)
+            ->where('is_accountable', true);
+
+        if ($chartName != '') {
+            $query->where(function ($q) use ($chartName) {
+                $q->where('name', $chartName)
+                    ->orWhereHas('aliases', function ($subQ) use ($chartName) {
+                        $subQ->where('name', 'like', '%' . $chartName . '%');
+                    });
+            });
+        }
+
+        $chart = $query->first();
+
+        if (!isset($chart)) {
+            //if not, create specific.
+            $chart = new Chart();
+            $chart->taxpayer_id = $taxPayer->id;
+            $chart->chart_version_id = $cycle->chart_version_id;
+            $chart->type = 5;
+            $chart->sub_type = 12;
+            $chart->is_accountable = true;
+            $chart->code = '##';
+            $chart->name = $chartName != '' ? $chartName : __('enum.GPERS');
+            $chart->save();
+        }
+
+        return $chart;
+    }
+
+    public function createIfNotExists_ExpensesFromCUOTA(Taxpayer $taxPayer, Cycle $cycle, $chartName = '')
+    {
+        $query = Chart::My($taxPayer, $cycle)
+            ->where('type', 6)
+            ->where('sub_type', 12)
+            ->where('is_accountable', true);
+
+        if ($chartName != '') {
+            $query->where(function ($q) use ($chartName) {
+                $q->where('name', $chartName)
+                    ->orWhereHas('aliases', function ($subQ) use ($chartName) {
+                        $subQ->where('name', 'like', '%' . $chartName . '%');
+                    });
+            });
+        }
+
+        $chart = $query->first();
+
+        if (!isset($chart)) {
+            //if not, create specific.
+            $chart = new Chart();
+            $chart->taxpayer_id = $taxPayer->id;
+            $chart->chart_version_id = $cycle->chart_version_id;
+            $chart->type = 5;
+            $chart->sub_type = 13;
+            $chart->is_accountable = true;
+            $chart->code = '##';
+            $chart->name = $chartName != '' ? $chartName : __('enum.CUOTA');
+            $chart->save();
+        }
+
+        return $chart;
+    }
+
     // Expense from Foreign Exchange
     public function createIfNotExists_ExpenseFromFX(Taxpayer $taxPayer, Cycle $cycle)
     {
