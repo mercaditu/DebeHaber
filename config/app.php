@@ -182,6 +182,7 @@ return [
         Nasyrov\Laravel\Enums\EnumServiceProvider::class,
         Swap\Laravel\SwapServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+      ZanySoft\Zip\ZipServiceProvider::class,
     ],
 
     /*
@@ -234,6 +235,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Swap' => Swap\Laravel\Facades\Swap::class,
         'QueryBuilder' => Spatie\QueryBuilder\QueryBuilderFacade::class,
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
     ],
 
 ];

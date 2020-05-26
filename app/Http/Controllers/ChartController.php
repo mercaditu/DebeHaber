@@ -632,10 +632,10 @@ class ChartController extends Controller
         return $chart;
     }
 
-    public function createIfNotExists_ExpensesFromAranduka(Taxpayer $taxPayer, Cycle $cycle, $chartName = '')
+    public function createIfNotExists_ExpensesFromGPERS(Taxpayer $taxPayer, Cycle $cycle, $chartName = '')
     {
         $query = Chart::My($taxPayer, $cycle)
-            ->where('type', 6)
+            ->where('type', 5)
             ->where('sub_type', 12)
             ->where('is_accountable', true);
 

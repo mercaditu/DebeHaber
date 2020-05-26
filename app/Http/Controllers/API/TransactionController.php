@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+ini_set('memory_limit', '3000M');
+ini_set('max_execution_time', '0');
 use App\Taxpayer;
 use App\Cycle;
 use App\Transaction;
@@ -43,7 +45,7 @@ class TransactionController extends Controller
 				$i = 0;
 				foreach ($groupedRow as $data) {
 					try {
-						
+
 						$data = $this->processTransaction($data, $taxPayer, $cycle);
 						$data["Message"] = "Success";
 						$transactionData[$i] = $data;
@@ -99,7 +101,7 @@ class TransactionController extends Controller
 		$transaction->code_expiry = $data['CodeExpiry'] != '' ? $this->convert_date($data['CodeExpiry'])  : null;
 		$transaction->comment = $data['Comment'];
 		$transaction->save();
-	
+
 		//Process details of the invoice.
 		$this->processDetail(
 			collect($data['Details']),
@@ -107,14 +109,14 @@ class TransactionController extends Controller
 			$taxPayer,
 			$cycle
 		);
-	
+
 		$data['cloud_id'] = $transaction->id;
 		return $data;
 	}
 
 	public function processDetail($details, Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle)
 	{
-	
+
 		$totalDiscount = $details->where('Value', '<', 0)->sum('Value');
 		$totalValue = $details->where('Value', '>', 0)->sum('Value') != 0 ?
 			$details->where('Value', '>', 0)->sum('Value') : 1;
@@ -123,7 +125,7 @@ class TransactionController extends Controller
 		//If 5 rows can be converted into 1 row it is better for our system's health and reduce server load.
 		foreach ($details->groupBy('VATPercentage') as $groupedRowsByVat) {
 			foreach ($groupedRowsByVat->groupBy('Type') as $groupedRowsByType) {
-				
+
 				if ($groupedRowsByType[0]['Value'] > 0) {
 					//Code for Row Level Discounts in certain transactions
 					$discountOnRow = 0;
@@ -131,11 +133,11 @@ class TransactionController extends Controller
 						$percentage = $details->sum('Value') / $totalValue;
 						$discountOnRow = $percentage * $totalDiscount;
 					}
-	
+
 					$chart_id = $this->checkChart($groupedRowsByType[0]['Type'], $groupedRowsByType[0]['Name'], $taxPayer, $cycle, $transaction->type);
-					
+
 					$detail = TransactionDetail::where('chart_id', $chart_id)->where('transaction_id', $transaction->id)->first() ?? new TransactionDetail();
-				
+
 					$detail->transaction_id = $transaction->id;
 					$detail->chart_id = $chart_id;
 					$detail->value = $groupedRowsByType->sum('Value') - $discountOnRow;
@@ -268,34 +270,34 @@ class TransactionController extends Controller
 		$journal->save();
 	}
 
-	
+
 
 	public function upload_transaction(Request $request,Taxpayer $taxPayer, Cycle $cycle)
 	{
 		$transactions = [];
 		$Jsondata=collect($request);
-		for ($i=0; $i < count($Jsondata[0]['data']) ; $i++) 
+		for ($i=0; $i < count($Jsondata[0]['data']) ; $i++)
 		{
 			$transaction = new Transaction();
 			$transaction->taxpayer_id = $taxPayer->id;
 			array_push($transactions, $transaction);
 		}
-		
+
 	   foreach(collect($request) as $row)
 	   {
-		
-		  for ($i=0; $i <count($row['data']) ; $i++) 
-		  { 
+
+		  for ($i=0; $i <count($row['data']) ; $i++)
+		  {
 			$transactions[$i][$row['column']] = $row['data'][$i];
 		  }
-		  
+
 	   }
-	
+
 	   foreach ($transactions as $transaction) {
 		$transaction->save();
 	   }
 	   return response()->json($transactions[0]);
-	  
+
 	}
 
 	public function uploadErpNext_sales(Request $request,Taxpayer $taxPayer, Cycle $cycle)
@@ -303,8 +305,8 @@ class TransactionController extends Controller
 		$transactions = [];
 		$Jsondata=collect($request);
 
-		
-		
+
+
 		foreach ($Jsondata as $data) {
 			$transaction = Transaction::where('number', $data['name'])
 			->where(function ($query)  {
@@ -332,7 +334,7 @@ class TransactionController extends Controller
 				$transaction->rate = $data['conversion_rate'];
 			}
 
-		
+
 			$transaction->date = $this->convert_date($data['transaction_date']);
 			$transaction->number = $data['name'];
 			$transaction->code = $data['Code'] != '' ? $data['Code'] : null;
@@ -371,7 +373,7 @@ class TransactionController extends Controller
 				$detail->save();
 			 }
 
-				
+
 
 		}
 	}

@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth:api']], function () {
                 Route::post('Test', 'API\IntegrationController@test');
                 Route::post('GetData', 'API\IntegrationController@integration');
                 Route::post('UploadData', 'API\IntegrationController@store');
-                Route::post('arundukaUpload', 'API\ArandukaController@import');   
+                Route::post('arundukaUpload', 'API\PRY\ArandukaController@import');   
             });
             Route::get('generate-journals/{startDate}/{endDate}', 'JournalController@generateJournalsByRange');
             Route::prefix('search')->group(function () {

@@ -2,7 +2,7 @@
   <div>
     <b-card no-body>
       <b-tabs pills card vertical>
-      <b-tab title="File Import">
+      <b-tab title="Aranduka Import">
         <b-card class="app">
           <h3>Example - Import Aranduka </h3>
           <br />
@@ -209,12 +209,12 @@ export default {
       { name: "document_type", value: "document_type" },
       { name: "document_name", value: "document_name" },
       { name: "date", value: "date" },
-      { name: "mes", value: "mes" },
+      { name: "number", value: "mes" },
       { name: "id_type", value: "id_type" },
       { name: "partner_taxid", value: "partner_taxid" },
       { name: "partner_name", value: "partner_name" },
       { name: "letterhead_number", value: "letterhead_number" },
-      { name: "number", value: "number" },
+      { name: "document_number", value: "number" },
       { name: "payment_condition", value: "payment_condition" },
       { name: "total", value: "total" },
       { name: "type", value: "type" },
@@ -413,24 +413,30 @@ export default {
     onValidate(results) {
       this.results = results;
     },
+    forceFileDownload(response){
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'file.zip') //or any other extension
+      document.body.appendChild(link)
+      link.click()
+    },
     arundukaUpload() {
       var app = this;
-      crud.methods
-        .onUpdate(app.baseUrl + "/Integration/arundukaUpload", app.$data)
+      axios({
+        method: "post",
+        url: app.baseUrl + "/Integration/arundukaUpload",
+        responseType:
+        'arraybuffer',
+        data: app.$data
+      })
         .then(function(response) {
-        console.log(response);
-          if (response.status === 200) {
-            app.$snack.danger({
-              text: "Uploaded..."
-            });
-          } else {
-            app.$snack.danger({
-              text: "Something is Wrong..."
-            });
-          }
+          app.forceFileDownload(response)
+          //console.log(response);
+
         })
         .catch(function(error) {
-          console.log(error);
+        //  console.log(error.response);
           app.$snack.danger({
             text: this.$i18n.t("general.errorMessage") + error.message
           });

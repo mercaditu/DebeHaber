@@ -31,7 +31,8 @@
         "spatie/array-to-xml": "^2.11",
         "spatie/laravel-cookie-consent": "^2.6",
         "spatie/laravel-query-builder": "^1.17",
-        "wildbit/swiftmailer-postmark": "^3.0"
+        "wildbit/swiftmailer-postmark": "^3.0",
+        "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
