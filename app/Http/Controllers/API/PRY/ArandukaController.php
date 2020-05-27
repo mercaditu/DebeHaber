@@ -61,7 +61,7 @@ class ArandukaController extends Controller
          }
 
 
-         $transaction = new Transaction();
+         $transaction =Transaction::where('partner_taxid',$collection[$i]["partner_taxid"])->where('number',$collection[$i]["number"])->first() ?? new Transaction();
 
          $transaction->type = $transactionType;
          $transaction->sub_type = $transactionSubType;

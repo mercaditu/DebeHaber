@@ -1,6 +1,6 @@
 HTTP/1.0 200 OK
 Cache-Control: no-cache, private
 Content-Type:  application/json
-Date:          Tue, 26 May 2020 10:56:53 GMT
+Date:          Wed, 27 May 2020 13:40:45 GMT
 
 {"informante":{"ruc":"1528628","dv":2,"nombre":"SHAH, ABHISHEK PRASHANT","tipoContribuyente":"FISICO","tipoSociedad":null,"nombreFantasia":null,"obligaciones":{"impuesto":211,"nombre":"IVA  General","fechaDesde":"02\/01\/2007"},"clasificacion":"FISICO"},"identificacion":{"periodo":"2020","tipoMovimiento":"CON_MOVIMIENTO","tipoPresentacion":"ORIGINAL","version":"1.0.3"},"cantidades":{"ingresos":0,"egresos":593},"totales":{"ingresos":[],"egresos":{"ruc":"1528628","periodo":2020,"tipoEgreso":"gasto","clasificacion":"GPERS","valor":263560153},"arbolIngresos":{"subtotalGravado":0,"subtotalNoGravado":0},"arbolEgresos":{"gasto":{"total":263560153,"GPERS":263560153}}}}

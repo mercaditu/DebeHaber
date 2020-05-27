@@ -209,7 +209,7 @@ export default {
       { name: "document_type", value: "document_type" },
       { name: "document_name", value: "document_name" },
       { name: "date", value: "date" },
-      { name: "number", value: "mes" },
+      { name: "number", value: "nos" },
       { name: "id_type", value: "id_type" },
       { name: "partner_taxid", value: "partner_taxid" },
       { name: "partner_name", value: "partner_name" },
