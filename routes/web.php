@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'forceSSL']], function () {
         Route::prefix('commercial')->group(function () {
             Route::prefix('reports')->group(function () {
                 Route::get('PRY/hechauka/{start_date}/{end_date}', 'API\PRY\HechaukaController@generateFiles');
+                Route::post('PRY/aranduka/{start_date}/{end_date}', 'API\PRY\ArandukaController@generateFiles');
                 Route::get('purchases/{strDate}/{endDate}/{e?}', 'ReportController@purchases')->name('reports.purchases');
                 Route::get('purchases-byVAT/{strDate}/{endDate}/{e?}', 'ReportController@purchasesByVAT')->name('reports.purchaseByVAT');
                 Route::get('purchases-bySupplier/{strDate}/{endDate}/', 'ReportController@purchasesBySupplier')->name('reports.purchaseBySupplier');

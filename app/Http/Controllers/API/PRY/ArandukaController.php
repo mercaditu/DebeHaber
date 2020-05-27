@@ -28,56 +28,69 @@ use Zip;
 
 class ArandukaController extends Controller
 {
-    public function import(Request $request,Taxpayer $taxPayer,Cycle $cycle)
+    public function generateFiles(Request $request,Taxpayer $taxPayer,Cycle $cycle,$startDate, $endDate)
     {
 
       $transactionController = new TransactionController();
-      $collection = array();
+      $collection = collect();
       $results = collect($request["results"]);
-      foreach ($results as $result) {
-        for ($i=0; $i <count($result["data"]) ; $i++) {
-          $collection[$i][$result["column"]] = $result["data"][$i];
-        }
-      }
 
+
+
+        for ($i=0; $i <count($results[0]["data"]) ; $i++) {
+            $data =collect();
+          foreach ($results as $result) {
+          $data->put($result["column"],$result["data"][$i]);
+          }
+            $collection->push($data);
+        }
+
+
+      $startDate = Carbon::parse($startDate)->startOfDay();
+      $endDate = Carbon::parse($endDate)->endOfDay();
 
       $details = [];
       $total = 0;
     //  $paginate =10;
       $i=0;
 
-      for ($i; $i < count($collection) ; $i++)
+
+
+      $collection = $collection->whereBetween('date',[$startDate,$endDate]);
+
+    //  return response()->json($collection,500);
+      foreach ($collection as $data)
      {
-         $total = $total + $collection[$i]["total"];
+         $total = $total + $data["total"];
          $transactionType = '';
          $transactionSubType = 1;
-         if($collection[$i]["document_type"] == 1)
+         if($data["document_type"] == 1)
          {
-           $transactionType = $collection[$i]["document_type"];
+           $transactionType = $data["document_type"];
          }
          else
          {
-           $transactionType = $collection[$i]["document_type"];
+           $transactionType = $data["document_type"];
          }
 
 
-         $transaction =Transaction::where('partner_taxid',$collection[$i]["partner_taxid"])->where('number',$collection[$i]["number"])->first() ?? new Transaction();
+         $transaction =Transaction::where('partner_taxid',$data["partner_taxid"])->where('number',$data["number"])->first() ?? new Transaction();
 
          $transaction->type = $transactionType;
          $transaction->sub_type = $transactionSubType;
          $transaction->taxpayer_id = $taxPayer->id;
 
-         $transaction->partner_name = $collection[$i]["partner_name"];
-         $transaction->partner_taxid = $collection[$i]["partner_taxid"];
+         $transaction->partner_name = $data["partner_name"];
+         $transaction->partner_taxid = $data["partner_taxid"];
 
          //TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
          $transaction->currency = $taxPayer->currency;
 
 
-         $transaction->rate = $transactionController->checkCurrencyRate($transaction->currency, $taxPayer,$collection[$i]["date"]) ?? 1;
+         $transaction->rate = $transactionController->checkCurrencyRate($transaction->currency, $taxPayer,$data["date"]) ?? 1;
 
          $paymentCondition = '';
-         if($collection[$i]["payment_condition"] == "contado")
+         if($data["payment_condition"] == "contado")
          {
            $paymentCondition =0;
          }
@@ -85,33 +98,33 @@ class ArandukaController extends Controller
            $paymentCondition =1;
          }
          $transaction->payment_condition = $paymentCondition;
-         $transaction->date = $transactionController->convert_date($collection[$i]["date"]);
-         $transaction->number = $collection[$i]["number"];
+         $transaction->date = $transactionController->convert_date($data["date"]);
+         $transaction->number = $data["number"];
          $transaction->save();
 
           $transactiondetail = $this->processDetail(
      			$transaction,
      			$taxPayer,
-     			$cycle,$collection[$i]
+     			$cycle,$data
      		);
 
         $detail=['periodo' => 2020,
                  'tipo' => 1,
                  'relacionadoTipoIdentificacion' => 'RUC',
-                 "fecha" => $collection[$i]["date"],
+                 "fecha" => $data["date"],
                  'id' => $transactiondetail->id,
                  'ruc' => $taxPayer->taxid,
-                 'egresoMontoTotal' =>$collection[$i]['total'],
-                 'relacionadoNombres' => $collection[$i]["partner_name"],
-                 'relacionadoNumeroIdentificacion' =>  $collection[$i]["partner_taxid"],
-                 'timbradoCondicion' => $collection[$i]["payment_condition"],
-                 'timbradoDocumento' => $collection[$i]["number"],
-                 'timbradoNumero' => $collection[$i]["letterhead_number"],
-                 'tipoEgreso' => $collection[$i]["type"],
-                 'tipoEgresoTexto' => $collection[$i]["typetext"],
-                 'tipoTexto' => $collection[$i]["document_name"],
-                 'subtipoEgreso' => $collection[$i]["sub_type"],
-                 'subtipoEgresoTexto' => $collection[$i]["chart_name"],
+                 'egresoMontoTotal' =>$data['total'],
+                 'relacionadoNombres' => $data["partner_name"],
+                 'relacionadoNumeroIdentificacion' =>  $data["partner_taxid"],
+                 'timbradoCondicion' => $data["payment_condition"],
+                 'timbradoDocumento' => $data["number"],
+                 'timbradoNumero' => $data["letterhead_number"],
+                 'tipoEgreso' => $data["type"],
+                 'tipoEgresoTexto' => $data["typetext"],
+                 'tipoTexto' => $data["document_name"],
+                 'subtipoEgreso' => $data["sub_type"],
+                 'subtipoEgresoTexto' => $data["chart_name"],
                   ];
        $details[$i] = $detail;
 
