@@ -9,8 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_xls_csv_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-xls-csv-parser */ "./node_modules/vue-xls-csv-parser/dist/xls-csv-parser.min.js");
-/* harmony import */ var vue_xls_csv_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_xls_csv_parser__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -144,108 +142,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    XlsCsvParser: vue_xls_csv_parser__WEBPACK_IMPORTED_MODULE_0__["XlsCsvParser"]
-  },
   name: "",
   data: function data() {
     return {
       startDate: "",
-      endDate: "",
-      arandukaColumns: [{
-        name: "document_type",
-        value: "document_type"
-      }, {
-        name: "document_name",
-        value: "document_name"
-      }, {
-        name: "date",
-        value: "date"
-      }, {
-        name: "id_type",
-        value: "id_type"
-      }, {
-        name: "partner_taxid",
-        value: "partner_taxid"
-      }, {
-        name: "partner_name",
-        value: "partner_name"
-      }, {
-        name: "letterhead_number",
-        value: "letterhead_number"
-      }, {
-        name: "document_number",
-        value: "number"
-      }, {
-        name: "payment_condition",
-        value: "payment_condition"
-      }, {
-        name: "total",
-        value: "total"
-      }, {
-        name: "number",
-        value: "receiptnumber"
-      }, {
-        name: "type",
-        value: "type"
-      }, {
-        name: "typetext",
-        value: "typetext"
-      }, {
-        name: "sub_type",
-        value: "sub_type"
-      }, {
-        name: "chart_name",
-        value: "chart_name"
-      }],
-      results: null
+      endDate: ""
     };
   },
   methods: {
     generateReport: function generateReport(path) {
       var app = this;
       window.open(app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate, '_blank');
-    },
-    arundukaUpload: function arundukaUpload(path) {
-      var app = this;
-      axios({
-        method: "post",
-        url: app.$route.path + "/" + path + "/" + app.startDate + "/" + app.endDate,
-        responseType: 'arraybuffer',
-        data: app.$data
-      }).then(function (response) {
-        try {
-          app.forceFileDownload(response);
-        } catch (e) {
-          app.$snack.danger({
-            text: "Data Not Available"
-          });
-        }
-      })["catch"](function (error) {
-        app.$snack.danger({
-          text: "Data Not Available"
-        });
-      });
-    },
-    forceFileDownload: function forceFileDownload(response) {
-      var url = window.URL.createObjectURL(new Blob([response.data]));
-      var link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'file.zip'); //or any other extension
-
-      document.body.appendChild(link);
-      link.click();
-    },
-    onValidate: function onValidate(results) {
-      this.results = results;
     }
   },
   mounted: function mounted() {
@@ -914,47 +822,29 @@ var render = function() {
                         "b-list-group",
                         { attrs: { flush: "" } },
                         [
-                          _c("h3", [_vm._v(" Aranduka ")]),
-                          _vm._v(" "),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("xls-csv-parser", {
-                            attrs: { columns: _vm.arandukaColumns, lang: "en" },
-                            on: { "on-validate": _vm.onValidate }
-                          }),
-                          _vm._v(" "),
-                          _c("br"),
-                          _vm._v(" "),
-                          _c("br"),
-                          _vm._v(" "),
-                          _vm.results
-                            ? _c(
-                                "div",
-                                { staticClass: "results" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c(
-                                        "b-button",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.arundukaUpload(
-                                                "PRY/aranduka"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Start Import")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
+                          _c(
+                            "b-list-group-item",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.generateReport("PRY/aranduka")
+                                }
+                              }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: "/img/apps/cloud.svg",
+                                  width: "32"
+                                }
+                              }),
+                              _vm._v(
+                                "\n                            Aranduka\n                    "
                               )
-                            : _vm._e()
+                            ],
+                            1
+                          )
                         ],
                         1
                       )

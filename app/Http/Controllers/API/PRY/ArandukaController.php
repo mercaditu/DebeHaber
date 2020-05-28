@@ -28,202 +28,250 @@ use Zip;
 
 class ArandukaController extends Controller
 {
-    public function generateFiles(Request $request,Taxpayer $taxPayer,Cycle $cycle,$startDate, $endDate)
-    {
-
-      $transactionController = new TransactionController();
-      $collection = collect();
-      $results = collect($request["results"]);
+  public function generateFiles(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
+  {
+      //Get the Integration Once. No need to bring it into the Query.
 
 
+      //TODO: This function is wrong. It will take all files from a path.
+      //$files = File::allFiles($path);
 
-        for ($i=0; $i <count($results[0]["data"]) ; $i++) {
-            $data =collect();
-          foreach ($results as $result) {
-          $data->put($result["column"],$result["data"][$i]);
-          }
-            $collection->push($data);
-        }
+      $zipname = 'Aranduka.zip';
 
-
+      $zip = new ZipArchive;
+      $zip->open($zipname, ZipArchive::CREATE);
       $startDate = Carbon::parse($startDate)->startOfDay();
       $endDate = Carbon::parse($endDate)->endOfDay();
 
-      $details = [];
-      $total = 0;
-    //  $paginate =10;
-      $i=0;
+     $this->generateSales($startDate, $endDate, $taxPayer, $zip);
+     $this->generatePurchases($startDate, $endDate, $taxPayer, $zip);
+
+      $zip->close();
 
 
+      return response()->download($zipname)->deleteFileAfterSend(true);
 
-      $collection = $collection->whereBetween('date',[$startDate,$endDate]);
+      return redirect()->back();
+  }
 
-    //  return response()->json($collection,500);
-      foreach ($collection as $data)
-     {
-         $total = $total + $data["total"];
-         $transactionType = '';
-         $transactionSubType = 1;
-         if($data["document_type"] == 1)
-         {
-           $transactionType = $data["document_type"];
-         }
-         else
-         {
-           $transactionType = $data["document_type"];
-         }
+  public function generateSales($startDate, $endDate, $taxPayer, $zip)
+  {
+      $raw = DB::select('
+      select
+      max(t.id) as ID,
+      max(partner_name) Partner,
+      max(partner_taxid) PartnerTaxID,
+      max(t.date) as Date,
+      max(t.number) as Number,
+      max(t.code) as Code,
+      max(t.payment_condition) as PaymentCondition,
+      max(t.code_expiry) as CodeExpiry,
+      max(t.sub_type) as DocumentType,
+      ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
+      ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
+      ROUND(sum(td.ValueInTen / t.rate)) as ValueInTen
+      from transactions as t
+      join
+      ( select
+      max(transaction_id) as transaction_id,
+      sum(value) as value,
+      max(c.coefficient) as coefficient,
+      round(if(max(c.coefficient) = 0, sum(value), 0)) as ValueInZero,
+      round(if(max(c.coefficient) = 0.05, sum(value), 0)) as ValueInFive,
+      round(if(max(c.coefficient) = 0.1, sum(value), 0)) as ValueInTen
+      from transaction_details
+      join charts as c on transaction_details.chart_vat_id = c.id
+      group by transaction_id, transaction_details.chart_vat_id
+      ) as td on td.transaction_id = t.id
+      where (t.taxpayer_id = ' . $taxPayer->id . '
+      and t.deleted_at is null
+      and t.date between "' . $startDate . '" and "' . $endDate . '"
+      and t.type = 1
+      and t.sub_type in (1, 11))
+      group by t.id');
 
+      $raw = collect($raw);
+      $i = 1;
+      $data = [];
+      $total = $raw->sum('ValueInZero');
 
-         $transaction =Transaction::where('partner_taxid',$data["partner_taxid"])->where('number',$data["number"])->first() ?? new Transaction();
-
-         $transaction->type = $transactionType;
-         $transaction->sub_type = $transactionSubType;
-         $transaction->taxpayer_id = $taxPayer->id;
-
-         $transaction->partner_name = $data["partner_name"];
-         $transaction->partner_taxid = $data["partner_taxid"];
-
-         //TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
-         $transaction->currency = $taxPayer->currency;
-
-
-         $transaction->rate = $transactionController->checkCurrencyRate($transaction->currency, $taxPayer,$data["date"]) ?? 1;
-
-         $paymentCondition = '';
-         if($data["payment_condition"] == "contado")
-         {
-           $paymentCondition =0;
-         }
-         else {
-           $paymentCondition =1;
-         }
-         $transaction->payment_condition = $paymentCondition;
-         $transaction->date = $transactionController->convert_date($data["date"]);
-         if($transactionType == 11)
-         {
-              $transaction->number = $data["receiptnumber"];
-         }
-         else
-         {
-              $transaction->number = $data["number"];
-         }
-         $transaction->save();
-
-          $transactiondetail = $this->processDetail(
-     			$transaction,
-     			$taxPayer,
-     			$cycle,$data
-     		);
-
-        $detail=['periodo' => 2020,
-                 'tipo' => 1,
-                 'relacionadoTipoIdentificacion' => 'RUC',
-                 "fecha" => $data["date"],
-                 'id' => $transactiondetail->id,
-                 'ruc' => $taxPayer->taxid,
-                 'egresoMontoTotal' =>$data['total'],
-                 'relacionadoNombres' => $data["partner_name"],
-                 'relacionadoNumeroIdentificacion' =>  $data["partner_taxid"],
-                 'timbradoCondicion' => $data["payment_condition"],
-                 'timbradoDocumento' => $data["number"],
-                 'timbradoNumero' => $data["letterhead_number"],
-                 'tipoEgreso' => $data["type"],
-                 'tipoEgresoTexto' => $data["typetext"],
-                 'tipoTexto' => $data["document_name"],
-                 'subtipoEgreso' => $data["sub_type"],
-                 'subtipoEgresoTexto' => $data["chart_name"],
-                  ];
-       $details[$i] = $detail;
-
-
-     }
-
-      if(count($collection)>0)
-      {
-
-
-       $data = [];
-
-       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => '02/01/2007'];
-       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => 'FISICO','tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => 'FISICO'];
+       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
        $data['informante'] = $informante ;
        $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
        $data['identificacion'] = $identificacion ;
-       $cantidades=['ingresos'=>0,'egresos'=>count($collection)];
+       $cantidades=['ingresos'=>0,'egresos'=>count($raw)];
        $data['cantidades'] = $cantidades ;
-       $egresos=['ruc' => $taxPayer->taxid , 'periodo' => 2020 ,"tipoEgreso" => 'gasto',"clasificacion" => 'GPERS','valor' => $total];
-       $arbolIngresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
+       $ingresos=['ruc' => $taxPayer->taxid , 'periodo' => 2020 ,"tipoEgreso" => 'gasto',"clasificacion" => 'GPERS','valor' => $total];
+       $arbolEgresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
        $gastro=['total' => $total,"GPERS" => $total];
-       $arbolEgresos=['gasto' => $gastro];
-       $totales=['ingresos'=>[],'egresos' => $egresos ,'arbolIngresos' => $arbolIngresos,'arbolEgresos' => $arbolEgresos];
+       $arbolIngresos=['gasto' => $gastro];
+       $totales=['ingresos'=>[],'egresos' => $ingresos ,'arbolIngresos' => $arbolEgresos,'arbolEgresos' => $arbolIngresos];
        $data['totales'] = $totales ;
 
-
-
-
+       $details = [];
+       $i = 0;
+       foreach ($raw as $result)
+       {
+         $date = Carbon::parse($result->Date);
+         $detail=['periodo' => 2020,
+                 'tipo' => 1,
+                 'relacionadoTipoIdentificacion' => 'RUC',
+                 "fecha" => date_format($date, 'd/m/Y'),
+                 'id' => $result->ID,
+                 'ruc' => $taxPayer->taxid,
+                 'egresoMontoTotal' =>$result->ValueInZero,
+                 'relacionadoNombres' => $result->Partner,
+                 'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+                 'timbradoCondicion' => $result->PaymentCondition,
+                 'timbradoDocumento' => $result->Number,
+                 'timbradoNumero' => $result->PartnerTaxID,
+                 'tipoEgreso' => 'gasto',
+                 'tipoEgresoTexto' => 'Gasto',
+                 'tipoTexto' => 'Factura',
+                 'subtipoEgreso' =>'GPERS',
+                 'subtipoEgresoTexto' => 'Gastos personales y de familiares a cargo realizados en el país',
+                  ];
+                  $i=$i+1;
+         $details[$i] = $detail;
+       }
 
        $dataDetail = [];
 
-       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => '02/01/2007'];
-       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => 'FISICO','tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => 'FISICO'];
+       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
        $dataDetail['informante'] = $informante ;
        $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
        $dataDetail['identificacion'] = $identificacion ;
        $dataDetail['ingresos'] = [] ;
        $dataDetail['egresos'] = $details ;
 
+       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-sales.json',   response()->json($data));
+       $result = ArrayToXml::convert($data);
+       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-sales.XML',$result);
+       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-sales.json',  response()->json($dataDetail));
 
-      Storage::disk('public_uploads')->put('LIE_2020_99550965_1184844_952.json',   response()->json($data));
-      Storage::disk('public_uploads')->put('LIE_2020_99550965_1184844_952-detalle.json',  response()->json($dataDetail));
-      $result = ArrayToXml::convert($data);
-      Storage::disk('public_uploads')->put('LIE_2020_99550965_1184844_952.XML',$result);
+       $file = Storage::disk('local');
 
-          $zip = new ZipArchive;
+       $path = $file->getDriver()->getAdapter()->getPathPrefix();
 
-         $fileName = 'Aranduka.zip';
+       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-sales.json', 'LIE_2020_99550965_1184844_952-sales.json');
+       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-sales.XML', 'LIE_2020_99550965_1184844_952-sales.XML');
+       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-sales.json', 'LIE_2020_99550965_1184844_952-detalle-sales.json');
 
-         if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
-         {
-             $files = File::files(public_path('aranduka'));
 
-             foreach ($files as $key => $value) {
-                 $relativeNameInZipFile = basename($value);
-                 $zip->addFile($value, $relativeNameInZipFile);
-             }
+  }
 
-             $zip->close();
-         }
+  public function generatePurchases($startDate, $endDate, $taxPayer, $zip)
+  {
 
-         return response()->download(public_path($fileName));
+      $raw = DB::select('
+      select
+      max(t.id) as ID,
+      max(partner_name) Partner,
+      max(partner_taxid) PartnerTaxID,
+      max(t.date) as Date,
+      max(t.number) as Number,
+      max(t.code) as Code,
+      max(t.payment_condition) as PaymentCondition,
+      max(t.code_expiry) as CodeExpiry,
+      max(t.sub_type) as DocumentType,
+      ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
+      ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
+      ROUND(sum(td.ValueInTen / t.rate)) as ValueInTen
+      from transactions as t
+      join
+      ( select
+      max(transaction_id) as transaction_id,
+      sum(value) as value,
+      max(c.coefficient) as coefficient,
+      round(if(max(c.coefficient) = 0, sum(value), 0)) as ValueInZero,
+      round(if(max(c.coefficient) = 0.05, sum(value), 0)) as ValueInFive,
+      round(if(max(c.coefficient) = 0.1, sum(value), 0)) as ValueInTen
+      from transaction_details
+      join charts as c on transaction_details.chart_vat_id = c.id
+      group by transaction_id, transaction_details.chart_vat_id
+      ) as td on td.transaction_id = t.id
+      where (t.taxpayer_id = ' . $taxPayer->id . '
+      and t.deleted_at is null
+      and t.date between "' . $startDate . '" and "' . $endDate . '"
+      and t.type = 2
+      and t.sub_type in (1, 11))
+      group by t.id');
+
+      $raw = collect($raw);
+      $i = 1;
+
+      $data = [];
+      $total = $raw->sum('ValueInZero');
+
+       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
+       $data['informante'] = $informante ;
+       $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
+       $data['identificacion'] = $identificacion ;
+       $cantidades=['ingresos'=>count($raw),'egresos'=>0];
+       $data['cantidades'] = $cantidades ;
+       $ingresos=['ruc' => $taxPayer->taxid , 'periodo' => 2020 ,"tipoEgreso" => 'gasto',"clasificacion" => 'GPERS','valor' => $total];
+       $arbolIngresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
+       $gastro=['total' => $total,"GPERS" => $total];
+       $arbolEgresos=['gasto' => $gastro];
+       $totales=['ingresos'=>$ingresos,'egresos' => [] ,'arbolIngresos' => $arbolEgresos,'arbolEgresos' => $arbolIngresos];
+       $data['totales'] = $totales ;
+
+       $details = [];
+       $i=0;
+       foreach ($raw as $record)
+       {
+         $date = Carbon::parse($result->Date);
+         $detail=['periodo' => 2020,
+                 'tipo' => 1,
+                 'relacionadoTipoIdentificacion' => 'RUC',
+                 "fecha" => date_format($date, 'd/m/Y'),
+                 'id' => $result->id,
+                 'ruc' => $taxPayer->taxid,
+                 'egresoMontoTotal' =>$result->ValueInZero,
+                 'relacionadoNombres' => $result->Partner,
+                 'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+                 'timbradoCondicion' => $result->PaymentCondition,
+                 'timbradoDocumento' => $result->Number,
+                 'timbradoNumero' => $result->PartnerTaxID,
+                 'tipoEgreso' => 'gasto',
+                 'tipoEgresoTexto' => 'Gasto',
+                 'tipoTexto' => 'Factura',
+                 'subtipoEgreso' =>'GPERS',
+                 'subtipoEgresoTexto' => 'Gastos personales y de familiares a cargo realizados en el país',
+                  ];
+                  $i=$i+1;
+         $details[$i] = $detail;
        }
-       return response()->json('Data Not Available',500);
-    }
+       $dataDetail = [];
 
-    public function processDetail(Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle,$collection)
-    {
+       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
+       $dataDetail['informante'] = $informante ;
+       $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
+       $dataDetail['identificacion'] = $identificacion ;
+       $dataDetail['ingresos'] = $details ;
+       $dataDetail['egresos'] =  [];
 
-      $chartController = new ChartController();
-      $detail = new TransactionDetail();
-      if($collection["sub_type"] == 'GPERS')
-      {
-        $chart_id = $chartController->createIfNotExists_ExpensesFromGPERS($taxPayer, $cycle, $collection["chart_name"] ?? '')->id;
-      }
-      else {
-          $chart_id = $chartController->createIfNotExists_ExpensesFromCUOTA($taxPayer, $cycle, $collection["chart_name"] ?? '')->id;
-      }
+       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-purchase.json',   response()->json($data));
+       $result = ArrayToXml::convert($data);
+       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-purchase.XML',$result);
+       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-purchase.json',  response()->json($dataDetail));
 
+       $file = Storage::disk('local');
 
-      $detail->transaction_id = $transaction->id;
-      $detail->chart_id = $chart_id;
-      $detail->value = $collection["total"];
+       $path = $file->getDriver()->getAdapter()->getPathPrefix();
 
+       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-purchase.json', 'LIE_2020_99550965_1184844_952-purchase.json');
+       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-purchase.XML', 'LIE_2020_99550965_1184844_952-purchase.XML');
+       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-purchase.json', 'LIE_2020_99550965_1184844_952-detalle-purchase.json');
 
+  }
 
-
-
-      $detail->save();
-      return $detail;
-
-
-    }
+  public function dividirCodigo($codigo)
+  {
+      return $code = explode("-", $codigo);
+  }
 }

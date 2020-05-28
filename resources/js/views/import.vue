@@ -2,6 +2,20 @@
   <div>
     <b-card no-body>
       <b-tabs pills card vertical>
+      <b-tab title="Aranduka Import">
+      <b-card class="app">
+        <h3>Example - Import Aranduka </h3>
+        <br />
+        <xls-csv-parser :columns="arandukaColumns" @on-validate="onValidate"  lang="en"></xls-csv-parser>
+        <br />
+        <br />
+        <div class="results" v-if="results">
+        <b-col>
+          <b-button @click="arundukaUpload()">Start Import</b-button>
+        </b-col>
+        </div>
+      </b-card>
+    </b-tab>
         <b-tab title="File Import">
           <b-card class="app">
             <h3>Example - Import file with required login, firstname, lastname and optional values</h3>
@@ -191,6 +205,23 @@ export default {
       { name: "is_deductible", value: "is_deductible" },
       { name: "sub_type", value: "sub_type" }
     ],
+    arandukaColumns: [
+     { name: "document_type", value: "document_type" },
+     { name: "document_name", value: "document_name" },
+     { name: "date", value: "date" },
+     { name: "number", value: "nos" },
+     { name: "id_type", value: "id_type" },
+     { name: "partner_taxid", value: "partner_taxid" },
+     { name: "partner_name", value: "partner_name" },
+     { name: "letterhead_number", value: "letterhead_number" },
+     { name: "document_number", value: "number" },
+     { name: "payment_condition", value: "payment_condition" },
+     { name: "total", value: "total" },
+     { name: "type", value: "type" },
+     { name: "typetext", value: "typetext" },
+     { name: "sub_type", value: "sub_type" },
+     { name: "chart_name", value: "chart_name" }
+   ],
     results: null,
     help: "Necessary columns are: login, firstname and lastname"
   }),
@@ -382,9 +413,42 @@ export default {
     onValidate(results) {
       this.results = results;
     },
+    forceFileDownload(response){
+         const url = window.URL.createObjectURL(new Blob([response.data]))
+         const link = document.createElement('a')
+         link.href = url
+         link.setAttribute('download', 'file.zip') //or any other extension
+         document.body.appendChild(link)
+         link.click()
+       },
+       arundukaUpload() {
+         var app = this;
+         axios({
+           method: "post",
+           url: app.baseUrl + "/Integration/ArandukaUploadData",
+           responseType:
+           'json',
+           data: app.$data
+         })
+           .then(function(response) {
+           if (response.status === 200) {
+             app.data.transaction = response.data;
+             app.$snack.danger({
+               text: "Uploaded..."
+             });
+           } else {
+             app.$snack.danger({
+               text: "Something is Wrong..."
+             });
+           }
 
-
-
+           })
+           .catch(function(error) {
+             app.$snack.danger({
+               text: this.$i18n.t("general.errorMessage") + error.message
+             });
+           });
+       },
   },
 
   mounted() {

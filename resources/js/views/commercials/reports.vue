@@ -114,57 +114,29 @@
             </b-col>
         </b-row>
         <b-row>
-            <b-col>
-                <b-card-group deck>
-                    <b-card no-body>
-                        <b-list-group flush>
-                        <h3> Aranduka </h3>
-                        <br />
-                        <xls-csv-parser :columns="arandukaColumns" @on-validate="onValidate"  lang="en"></xls-csv-parser>
-                        <br />
-                        <br />
-                        <div class="results" v-if="results">
-                        <b-col>
-                          <b-button @click="arundukaUpload('PRY/aranduka')">Start Import</b-button>
-                        </b-col>
-                        </div>
-                        </b-list-group>
-                    </b-card>
-                </b-card-group>
-            </b-col>
+        <b-col>
+            <b-card-group deck>
+                <b-card no-body>
+                    <b-list-group flush>
+                        <b-list-group-item href="#" @click="generateReport('PRY/aranduka')">
+                            <b-img src="/img/apps/cloud.svg" width="32"/>
+                                Aranduka
+                        </b-list-group-item>
+                    </b-list-group>
+                </b-card>
+            </b-card-group>
+        </b-col>
         </b-row>
 
     </div>
 </template>
 
 <script>
-import { XlsCsvParser } from "vue-xls-csv-parser";
 export default {
-components: {
-  XlsCsvParser
-},
     name: "",
     data: () => ({
         startDate: "",
         endDate: "",
-        arandukaColumns: [
-          { name: "document_type", value: "document_type" },
-          { name: "document_name", value: "document_name" },
-          { name: "date", value: "date" },
-          { name: "id_type", value: "id_type" },
-          { name: "partner_taxid", value: "partner_taxid" },
-          { name: "partner_name", value: "partner_name" },
-          { name: "letterhead_number", value: "letterhead_number" },
-          { name: "document_number", value: "number" },
-          { name: "payment_condition", value: "payment_condition" },
-          { name: "total", value: "total" },
-          { name: "number", value: "receiptnumber" },
-          { name: "type", value: "type" },
-          { name: "typetext", value: "typetext" },
-          { name: "sub_type", value: "sub_type" },
-          { name: "chart_name", value: "chart_name" }
-        ],
-        results: null,
     }),
     methods: {
         generateReport(path) {
@@ -173,41 +145,6 @@ components: {
                 app.$route.path + "/" +  path + "/" +  app.startDate + "/" + app.endDate,
                 '_blank'
             );
-        },arundukaUpload(path) {
-          var app = this;
-          axios({
-            method: "post",
-            url: app.$route.path + "/" +  path + "/" +  app.startDate + "/" + app.endDate,
-            responseType:
-            'arraybuffer',
-            data: app.$data
-          })
-            .then(function(response) {
-            try{
-              app.forceFileDownload(response)
-            }
-            catch (e) {
-              app.$snack.danger({
-               text: "Data Not Available"
-             });
-           }
-            })
-            .catch(function(error) {
-            app.$snack.danger({
-             text: "Data Not Available"
-           });
-            });
-        },
-        forceFileDownload(response){
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', 'file.zip') //or any other extension
-          document.body.appendChild(link)
-          link.click()
-        },
-        onValidate(results) {
-          this.results = results;
         },
     },
     mounted() {
