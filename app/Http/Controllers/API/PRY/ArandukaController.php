@@ -99,7 +99,14 @@ class ArandukaController extends Controller
          }
          $transaction->payment_condition = $paymentCondition;
          $transaction->date = $transactionController->convert_date($data["date"]);
-         $transaction->number = $data["number"];
+         if($transactionType == 11)
+         {
+              $transaction->number = $data["receiptnumber"];
+         }
+         else
+         {
+              $transaction->number = $data["number"];
+         }
          $transaction->save();
 
           $transactiondetail = $this->processDetail(
@@ -130,6 +137,9 @@ class ArandukaController extends Controller
 
 
      }
+
+      if(count($collection)>0)
+      {
 
 
        $data = [];
@@ -185,6 +195,8 @@ class ArandukaController extends Controller
          }
 
          return response()->download(public_path($fileName));
+       }
+       return response()->json('Data Not Available',500);
     }
 
     public function processDetail(Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle,$collection)

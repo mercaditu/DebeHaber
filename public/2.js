@@ -170,9 +170,6 @@ __webpack_require__.r(__webpack_exports__);
         name: "date",
         value: "date"
       }, {
-        name: "number",
-        value: "nos"
-      }, {
         name: "id_type",
         value: "id_type"
       }, {
@@ -193,6 +190,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: "total",
         value: "total"
+      }, {
+        name: "number",
+        value: "receiptnumber"
       }, {
         name: "type",
         value: "type"
@@ -222,11 +222,16 @@ __webpack_require__.r(__webpack_exports__);
         responseType: 'arraybuffer',
         data: app.$data
       }).then(function (response) {
-        app.forceFileDownload(response); //console.log(response);
+        try {
+          app.forceFileDownload(response);
+        } catch (e) {
+          app.$snack.danger({
+            text: "Data Not Available"
+          });
+        }
       })["catch"](function (error) {
-        console.log(error.response);
         app.$snack.danger({
-          text: this.$i18n.t("general.errorMessage") + error.message
+          text: "Data Not Available"
         });
       });
     },

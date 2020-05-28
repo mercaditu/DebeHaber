@@ -151,7 +151,6 @@ components: {
           { name: "document_type", value: "document_type" },
           { name: "document_name", value: "document_name" },
           { name: "date", value: "date" },
-          { name: "number", value: "nos" },
           { name: "id_type", value: "id_type" },
           { name: "partner_taxid", value: "partner_taxid" },
           { name: "partner_name", value: "partner_name" },
@@ -159,6 +158,7 @@ components: {
           { name: "document_number", value: "number" },
           { name: "payment_condition", value: "payment_condition" },
           { name: "total", value: "total" },
+          { name: "number", value: "receiptnumber" },
           { name: "type", value: "type" },
           { name: "typetext", value: "typetext" },
           { name: "sub_type", value: "sub_type" },
@@ -183,15 +183,19 @@ components: {
             data: app.$data
           })
             .then(function(response) {
+            try{
               app.forceFileDownload(response)
-              //console.log(response);
-
+            }
+            catch (e) {
+              app.$snack.danger({
+               text: "Data Not Available"
+             });
+           }
             })
             .catch(function(error) {
-              console.log(error.response);
-              app.$snack.danger({
-                text: this.$i18n.t("general.errorMessage") + error.message
-              });
+            app.$snack.danger({
+             text: "Data Not Available"
+           });
             });
         },
         forceFileDownload(response){
