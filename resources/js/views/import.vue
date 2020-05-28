@@ -444,6 +444,7 @@ export default {
 
            })
            .catch(function(error) {
+           console.log(error.response);
              app.$snack.danger({
                text: this.$i18n.t("general.errorMessage") + error.message
              });

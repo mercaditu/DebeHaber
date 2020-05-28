@@ -7,6 +7,7 @@ use App\Cycle;
 use App\Transaction;
 use App\TransactionDetail;
 use App\Http\Controllers\API\ErpNextController;
+use App\Http\Controllers\ChartController;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
