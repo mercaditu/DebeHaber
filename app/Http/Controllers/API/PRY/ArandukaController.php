@@ -86,7 +86,7 @@ class ArandukaController extends Controller
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
       and t.date between "' . $startDate . '" and "' . $endDate . '"
-      and t.type = 1
+      and t.type = 2
       and t.sub_type in (1, 11))
       group by t.id');
 
@@ -195,7 +195,7 @@ class ArandukaController extends Controller
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
       and t.date between "' . $startDate . '" and "' . $endDate . '"
-      and t.type = 2
+      and t.type = 1
       and t.sub_type in (1, 11))
       group by t.id');
 
