@@ -102,73 +102,71 @@ class IntegrationController extends Controller
 	{
 
 		$transactionController = new TransactionController();
-		$collection = collect();
 		$results = collect($request["results"]);
-
-
-
-			for ($i=0; $i <count($results[0]["data"]) ; $i++) {
-					$data =collect();
-				foreach ($results as $result) {
-				$data->put($result["column"],$result["data"][$i]);
-				}
-					$collection->push($data);
-			}
-
-
-
-		$details = collect();
 		$total = 0;
 
 
 
-		foreach ($collection as $data)
+		foreach ($results as $data)
 	 {
-			 $total = $total + $data["total"];
+			 $total = $total + $data["Monto Total"];
 			 $transactionType = '';
 			 $transactionSubType = 1;
-			 if($data["document_type"] == 1)
+			 if($data["Tipo de Documento"] == 1)
 			 {
-				 $transactionType = $data["document_type"];
+				 $transactionType = $data["Tipo de Documento"];
 			 }
 			 else
 			 {
-				 $transactionType = $data["document_type"];
+				 $transactionType = $data["Tipo de Documento"];
+			 }
+       $transaction =null;
+			 if(isset($data["Número de Documento"]))
+			 {
+				  $transaction =Transaction::where('partner_taxid',$data["Número de Identificación"])->where('number',)->first() ?? new Transaction();
+			 }
+			 else {
+			 	$transaction =  new Transaction();
 			 }
 
-
-			 $transaction =Transaction::where('partner_taxid',$data["partner_taxid"])->where('number',$data["number"])->first() ?? new Transaction();
 
 			 $transaction->type = $transactionType;
 			 $transaction->sub_type = $transactionSubType;
 			 $transaction->taxpayer_id = $taxPayer->id;
 
-			 $transaction->partner_name = $data["partner_name"];
-			 $transaction->partner_taxid = $data["partner_taxid"];
+			 $transaction->partner_name = $data["Nombres y Apellidos o Razón Social"];
+			 $transaction->partner_taxid = $data["Número de Identificación"];
 
 			 //TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
 			 $transaction->currency = $taxPayer->currency;
 
 
-			 $transaction->rate = $transactionController->checkCurrencyRate($transaction->currency, $taxPayer,$data["date"]) ?? 1;
+			 $transaction->rate = $transactionController->checkCurrencyRate($transaction->currency, $taxPayer,$data["Fecha"]) ?? 1;
 
 			 $paymentCondition = '';
-			 if($data["payment_condition"] == "contado")
+			 if(isset($data["Condición de la Venta"]))
 			 {
-				 $paymentCondition =0;
+				  if($data["Condición de la Venta"] == "contado")
+					{
+						$paymentCondition =0;
+					}
+					else {
+						$paymentCondition =1;
+					}
 			 }
 			 else {
-				 $paymentCondition =1;
+			 	$paymentCondition =1;
 			 }
+
 			 $transaction->payment_condition = $paymentCondition;
-			 $transaction->date = $transactionController->convert_date($data["date"]);
+			 $transaction->date = $transactionController->convert_date($data["Fecha"]);
 			 if($transactionType == 11)
 			 {
-						$transaction->number = $data["receiptnumber"];
+						$transaction->number = $data["Número de Documento_1"]??'';
 			 }
 			 else
 			 {
-						$transaction->number = $data["number"];
+						$transaction->number = $data["Número de Documento"]??'';
 			 }
 			 $transaction->save();
 
@@ -178,12 +176,9 @@ class IntegrationController extends Controller
 				$cycle,$data
 			);
 
-
-
-		 return response()->json('Done');
 	 }
 
-
+	 return response()->json('Done');
 
 	}
 
@@ -192,18 +187,18 @@ class IntegrationController extends Controller
 
 		$chartController = new ChartController();
 		$detail = new TransactionDetail();
-		if($collection["sub_type"] == 'GPERS')
+		if($collection["Clasificación de Egreso"] == 'GPERS')
 		{
-			$chart_id = $chartController->createIfNotExists_ExpensesFromGPERS($taxPayer, $cycle, $collection["chart_name"] ?? '')->id;
+			$chart_id = $chartController->createIfNotExists_ExpensesFromGPERS($taxPayer, $cycle, $collection["Clasificación de Egreso (Texto)"] ?? '')->id;
 		}
 		else {
-				$chart_id = $chartController->createIfNotExists_ExpensesFromCUOTA($taxPayer, $cycle, $collection["chart_name"] ?? '')->id;
+				$chart_id = $chartController->createIfNotExists_ExpensesFromCUOTA($taxPayer, $cycle, $collection["Clasificación de Egreso (Texto)"] ?? '')->id;
 		}
 
 
 		$detail->transaction_id = $transaction->id;
 		$detail->chart_id = $chart_id;
-		$detail->value = $collection["total"];
+		$detail->value = $collection["Monto Total"];
 
 
 

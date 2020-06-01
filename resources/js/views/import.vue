@@ -2,20 +2,25 @@
   <div>
     <b-card no-body>
       <b-tabs pills card vertical>
-      <b-tab title="Aranduka Import">
-      <b-card class="app">
-        <h3>Example - Import Aranduka </h3>
-        <br />
-        <xls-csv-parser :columns="arandukaColumns" @on-validate="onValidate"  lang="en"></xls-csv-parser>
-        <br />
-        <br />
-        <div class="results" v-if="results">
-        <b-col>
-          <b-button @click="arundukaUpload()">Start Import</b-button>
-        </b-col>
-        </div>
-      </b-card>
-    </b-tab>
+        <b-tab title="Aranduka Import">
+          <b-card class="app">
+            <h3>Example - Import Aranduka </h3>
+            <br />
+            <input
+            ref="excel-upload-input"
+            type="file"
+            accept=".xlsx, .xls, .csv"
+            @change="handleClick"
+            />
+            <br />
+            <br />
+            <div class="results" v-if="excelData.results">
+              <b-col>
+                <b-button  @click="arundukaUpload()">Start Import</b-button>
+              </b-col>
+            </div>
+          </b-card>
+        </b-tab>
         <b-tab title="File Import">
           <b-card class="app">
             <h3>Example - Import file with required login, firstname, lastname and optional values</h3>
@@ -110,9 +115,9 @@
 
             <div slot="modal-footer">
               <b-button
-                v-shortkey="['ctrl', 'd']"
-                @shortkey="save_configuration()"
-                @click="save_configuration()"
+              v-shortkey="['ctrl', 'd']"
+              @shortkey="save_configuration()"
+              @click="save_configuration()"
               >Save Configuration</b-button>
             </div>
           </b-modal>
@@ -150,8 +155,13 @@
 import crud from "../components/crud.vue";
 import { XlsCsvParser } from "vue-xls-csv-parser";
 import { version } from "punycode";
+import XLSX from "xlsx";
 export default {
   name: "App",
+  props: {
+    beforeUpload: Function, // eslint-disable-line
+    onSuccess: Function, // eslint-disable-line
+  },
   components: {
     crud: crud,
     XlsCsvParser
@@ -205,25 +215,12 @@ export default {
       { name: "is_deductible", value: "is_deductible" },
       { name: "sub_type", value: "sub_type" }
     ],
-    arandukaColumns: [
-     { name: "document_type", value: "document_type" },
-     { name: "document_name", value: "document_name" },
-     { name: "date", value: "date" },
-     { name: "number", value: "nos" },
-     { name: "id_type", value: "id_type" },
-     { name: "partner_taxid", value: "partner_taxid" },
-     { name: "partner_name", value: "partner_name" },
-     { name: "letterhead_number", value: "letterhead_number" },
-     { name: "document_number", value: "number" },
-     { name: "payment_condition", value: "payment_condition" },
-     { name: "total", value: "total" },
-     { name: "type", value: "type" },
-     { name: "typetext", value: "typetext" },
-     { name: "sub_type", value: "sub_type" },
-     { name: "chart_name", value: "chart_name" }
-   ],
     results: null,
-    help: "Necessary columns are: login, firstname and lastname"
+    help: "Necessary columns are: login, firstname and lastname",
+    excelData: {
+          header: null,
+          results: null,
+        }
   }),
   computed: {
     baseUrl() {
@@ -250,21 +247,21 @@ export default {
     save_configuration() {
       var app = this;
       crud.methods
-        .onUpdate(app.baseUrl + app.pageUrl, app.data)
-        .then(function(response) {
-          console.log(response.responseText);
-          app.onLoad();
-          app.$snack.success({
-            text: app.$i18n.t("commercial.Saved")
-          });
-          app.$bvModal.hide("integration-form");
-        })
-        .catch(function(error) {
-          console.log(error.responseText);
-          app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
-          });
+      .onUpdate(app.baseUrl + app.pageUrl, app.data)
+      .then(function(response) {
+        console.log(response.responseText);
+        app.onLoad();
+        app.$snack.success({
+          text: app.$i18n.t("commercial.Saved")
         });
+        app.$bvModal.hide("integration-form");
+      })
+      .catch(function(error) {
+        console.log(error.responseText);
+        app.$snack.danger({
+          text: this.$i18n.t("general.errorMessage") + error.message
+        });
+      });
     },
     delete_configuration(item) {
       var app = this;
@@ -273,8 +270,8 @@ export default {
         var app = this;
 
         crud.methods
-          .onDelete(app.baseUrl + app.pageUrl, item.id)
-          .then(function(response) {});
+        .onDelete(app.baseUrl + app.pageUrl, item.id)
+        .then(function(response) {});
       }
 
       this.lastDeletedRow = item;
@@ -301,27 +298,27 @@ export default {
       //IntegrationController: test service
       if (app.data.selectedIntegration != "") {
         crud.methods
-          .onUpdate(
-            app.baseUrl + "/Integration/Test",
-            app.data.selectedIntegration
-          )
-          .then(function(response) {
-            if (response.status === 200) {
-              app.$snack.danger({
-                text: "Test Succesfully..."
-              });
-            } else {
-              app.$snack.danger({
-                text: "Something is Wrong..."
-              });
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
+        .onUpdate(
+          app.baseUrl + "/Integration/Test",
+          app.data.selectedIntegration
+        )
+        .then(function(response) {
+          if (response.status === 200) {
             app.$snack.danger({
-              text: this.$i18n.t("general.errorMessage") + error.message
+              text: "Test Succesfully..."
             });
+          } else {
+            app.$snack.danger({
+              text: "Something is Wrong..."
+            });
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          app.$snack.danger({
+            text: this.$i18n.t("general.errorMessage") + error.message
           });
+        });
       } else {
         app.$snack.danger({
           text: "Please Select Integration..."
@@ -343,59 +340,59 @@ export default {
       });
 
       crud.methods
-        .onUpdate(app.baseUrl + "/Integration/GetData", data)
-        .then(function(response) {
-          if (response.status === 200) {
-            console.log(response);
-            if (response.data != null) {
-              response.data.forEach(element => {
-                app.data.data.push(element);
-              });
-              app.data.limit_start += 20;
-
-              if (response.data.length > 0) {
-                app.get_data(data);
-              }
-            }
-          } else {
-            app.$snack.danger({
-              text: "Something is Wrong..."
+      .onUpdate(app.baseUrl + "/Integration/GetData", data)
+      .then(function(response) {
+        if (response.status === 200) {
+          console.log(response);
+          if (response.data != null) {
+            response.data.forEach(element => {
+              app.data.data.push(element);
             });
+            app.data.limit_start += 20;
+
+            if (response.data.length > 0) {
+              app.get_data(data);
+            }
           }
-          app.$snack.show({
-            text: "Data Fetched..."
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
+        } else {
           app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
+            text: "Something is Wrong..."
           });
+        }
+        app.$snack.show({
+          text: "Data Fetched..."
         });
+      })
+      .catch(function(error) {
+        console.log(error);
+        app.$snack.danger({
+          text: this.$i18n.t("general.errorMessage") + error.message
+        });
+      });
     },
 
     upload() {
       var app = this;
       crud.methods
-        .onUpdate(app.baseUrl + "/Integration/UploadData", app.data.data)
-        .then(function(response) {
-          if (response.status === 200) {
-            app.data.transaction = response.data;
-            app.$snack.danger({
-              text: "Uploaded..."
-            });
-          } else {
-            app.$snack.danger({
-              text: "Something is Wrong..."
-            });
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
+      .onUpdate(app.baseUrl + "/Integration/UploadData", app.data.data)
+      .then(function(response) {
+        if (response.status === 200) {
+          app.data.transaction = response.data;
           app.$snack.danger({
-            text: this.$i18n.t("general.errorMessage") + error.message
+            text: "Uploaded..."
           });
+        } else {
+          app.$snack.danger({
+            text: "Something is Wrong..."
+          });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+        app.$snack.danger({
+          text: this.$i18n.t("general.errorMessage") + error.message
         });
+      });
     },
     //Fetch Data
     //Go into server, call data, map data, and show user withour column names
@@ -414,55 +411,116 @@ export default {
       this.results = results;
     },
     forceFileDownload(response){
-         const url = window.URL.createObjectURL(new Blob([response.data]))
-         const link = document.createElement('a')
-         link.href = url
-         link.setAttribute('download', 'file.zip') //or any other extension
-         document.body.appendChild(link)
-         link.click()
-       },
-       arundukaUpload() {
-         var app = this;
-         axios({
-           method: "post",
-           url: app.baseUrl + "/Integration/ArandukaUploadData",
-           responseType:
-           'json',
-           data: app.$data
-         })
-           .then(function(response) {
-           if (response.status === 200) {
-             app.data.transaction = response.data;
-             app.$snack.danger({
-               text: "Uploaded..."
-             });
-           } else {
-             app.$snack.danger({
-               text: "Something is Wrong..."
-             });
-           }
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'file.zip') //or any other extension
+      document.body.appendChild(link)
+      link.click()
+    },
+    arundukaUpload() {
+      var app = this;
+      axios({
+        method: "post",
+        url: app.baseUrl + "/Integration/ArandukaUploadData",
+        responseType:
+        'json',
+        data: app.excelData
+      })
+      .then(function(response) {
+        if (response.status === 200) {
+          app.data.transaction = response.data;
+          app.$snack.danger({
+            text: "Uploaded..."
+          });
+        } else {
+          app.$snack.danger({
+            text: "Something is Wrong..."
+          });
+        }
 
-           })
-           .catch(function(error) {
-           console.log(error.response);
-             app.$snack.danger({
-               text: this.$i18n.t("general.errorMessage") + error.message
-             });
-           });
-       },
+      })
+      .catch(function(error) {
+        console.log(error.response);
+        app.$snack.danger({
+          text: this.$i18n.t("general.errorMessage") + error.message
+        });
+      });
+    },
+    generateData({ header, results }) {
+     this.excelData.header = header;
+     this.excelData.results = results;
+     this.onSuccess && this.onSuccess(this.excelData);
+   },
+
+   handleClick(e) {
+     const files = e.target.files;
+     const rawFile = files[0]; // only use files[0]
+     if (!rawFile) return;
+     this.upload(rawFile);
+   },
+   upload(rawFile) {
+     this.$refs["excel-upload-input"].value = null; // fix can't select the same excel
+
+     if (!this.beforeUpload) {
+       this.readerData(rawFile);
+       return;
+     }
+     const before = this.beforeUpload(rawFile);
+     if (before) {
+       this.readerData(rawFile);
+     }
+   },
+   readerData(rawFile) {
+     this.loading = true;
+     return new Promise((resolve, reject) => {
+       const reader = new FileReader();
+       reader.onload = (e) => {
+         const data = e.target.result;
+         const workbook = XLSX.read(data, { type: "array" });
+         const firstSheetName = workbook.SheetNames[0];
+         const worksheet = workbook.Sheets[firstSheetName];
+         const header = this.getHeaderRow(worksheet);
+         const results = XLSX.utils.sheet_to_json(worksheet);
+         this.generateData({ header, results });
+         this.loading = false;
+         resolve();
+       };
+       reader.readAsArrayBuffer(rawFile);
+     });
+   },
+   getHeaderRow(sheet) {
+     const headers = [];
+     const range = XLSX.utils.decode_range(sheet["!ref"]);
+     let C;
+     const R = range.s.r;
+     /* start in the first row */
+     for (C = range.s.c; C <= range.e.c; ++C) {
+       /* walk every column in the range */
+       const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })];
+       /* find the cell in the first row */
+       let hdr = "UNKNOWN " + C; // <-- replace with your desired default
+       if (cell && cell.t) hdr = XLSX.utils.format_cell(cell);
+       headers.push(hdr);
+     }
+     return headers;
+   },
+   isExcel(file) {
+     return /\.(xlsx|xls|csv)$/.test(file.name);
+   },
   },
 
   mounted() {
     var app = this;
     app.onLoad();
     app.data.start_date = moment()
-      .subtract(1, "months")
-      .startOf("month")
-      .format("YYYY-MM-DD");
+    .subtract(1, "months")
+    .startOf("month")
+    .format("YYYY-MM-DD");
     app.data.end_date = moment()
-      .subtract(1, "months")
-      .endOf("month")
-      .format("YYYY-MM-DD");
+    .subtract(1, "months")
+    .endOf("month")
+    .format("YYYY-MM-DD");
     //list integration services stored in database.
     //get list of templates
   }

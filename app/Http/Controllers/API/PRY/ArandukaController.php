@@ -44,7 +44,8 @@ class ArandukaController extends Controller
       $endDate = Carbon::parse($endDate)->endOfDay();
 
      $this->generateSales($startDate, $endDate, $taxPayer, $zip);
-     $this->generatePurchases($startDate, $endDate, $taxPayer, $zip);
+
+    $this->generatePurchases($startDate, $endDate, $taxPayer, $zip);
 
       $zip->close();
 
@@ -221,14 +222,15 @@ class ArandukaController extends Controller
 
        $details = [];
        $i=0;
-       foreach ($raw as $record)
+       foreach ($raw as $result)
        {
+      
          $date = Carbon::parse($result->Date);
          $detail=['periodo' => 2020,
                  'tipo' => 1,
                  'relacionadoTipoIdentificacion' => 'RUC',
                  "fecha" => date_format($date, 'd/m/Y'),
-                 'id' => $result->id,
+                 'id' => $result->ID,
                  'ruc' => $taxPayer->taxid,
                  'egresoMontoTotal' =>$result->ValueInZero,
                  'relacionadoNombres' => $result->Partner,
