@@ -184,9 +184,9 @@ class IntegrationController extends Controller
 
 	public function processDetail(Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle,$collection)
 	{
+		$transaction->details()->delete();
 
 		$chartController = new ChartController();
-		$detail = new TransactionDetail();
 		if($collection["Clasificación de Egreso"] == 'GPERS')
 		{
 			$chart_id = $chartController->createIfNotExists_ExpensesFromGPERS($taxPayer, $cycle, $collection["Clasificación de Egreso (Texto)"] ?? '')->id;
@@ -195,20 +195,11 @@ class IntegrationController extends Controller
 				$chart_id = $chartController->createIfNotExists_ExpensesFromCUOTA($taxPayer, $cycle, $collection["Clasificación de Egreso (Texto)"] ?? '')->id;
 		}
 
-
+		$detail = new TransactionDetail();
 		$detail->transaction_id = $transaction->id;
 		$detail->chart_id = $chart_id;
 		$detail->value = $collection["Monto Total"];
-
-
-
-
-
 		$detail->save();
 		return $detail;
-
-
 	}
-
-
 }

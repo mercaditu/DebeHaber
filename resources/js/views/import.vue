@@ -12,6 +12,28 @@
             accept=".xlsx, .xls, .csv"
             @change="handleClick"
             />
+            <div >
+              <table>
+
+                <tr v-for="result in excelData.results" :key="result.index">
+                <td> {{ result["Clasificación de Egreso"]}}</td>
+                <td> {{ result["Clasificación de Egreso (Texto)"]}}</td>
+                <td> {{ result["Condición de la Venta"]}}</td>
+                <td> {{ result["Fecha"]}}</td>
+                <td> {{ result["Monto Total"]}}</td>
+                <td> {{ result["Nombres y Apellidos o Razón Social"]}}</td>
+                <td> {{ result["Número de Documento"]}}</td>
+                <td> {{ result["Número de Identificación"]}}</td>
+                <td> {{ result["Número de Timbrado"]}}</td>
+                <td> {{ result["Tipo de Documento"]}}</td>
+                <td> {{ result["Tipo de Documento (Texto)"]}}</td>
+                <td> {{ result["Tipo de Egreso"]}}</td>
+                <td> {{ result["Tipo de Egreso (Texto)"]}}</td>
+                <td> {{ result["Tipo de Identificación"]}}</td>
+                </tr>
+              </table>
+
+            </div>
             <br />
             <br />
             <div class="results" v-if="excelData.results">
