@@ -126,7 +126,7 @@ class IntegrationController extends Controller
 				  $transaction =Transaction::where('partner_taxid',$data["Número de Identificación"])->where('number',$data["Número de Documento"])->first() ?? new Transaction();
 			 }
 			 else {
-			 	$transaction =  new Transaction();
+			  $transaction = Transaction::where('partner_taxid',$data["Número de Identificación"])->where('number',$data["Número de Documento_1"])->first() ?? new Transaction();
 			 }
 
 
