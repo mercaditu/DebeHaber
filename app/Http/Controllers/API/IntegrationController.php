@@ -123,7 +123,7 @@ class IntegrationController extends Controller
        $transaction =null;
 			 if(isset($data["Número de Documento"]))
 			 {
-				  $transaction =Transaction::where('partner_taxid',$data["Número de Identificación"])->where('number',)->first() ?? new Transaction();
+				  $transaction =Transaction::where('partner_taxid',$data["Número de Identificación"])->where('number',$data["Número de Documento"])->first() ?? new Transaction();
 			 }
 			 else {
 			 	$transaction =  new Transaction();
