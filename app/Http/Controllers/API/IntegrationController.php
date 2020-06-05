@@ -160,13 +160,16 @@ class IntegrationController extends Controller
 
 			 $transaction->payment_condition = $paymentCondition;
 			 $transaction->date = $transactionController->convert_date($data["Fecha"]);
+
 			 if($transactionType == 11)
 			 {
 						$transaction->number = $data["Número de Documento_1"]??'';
 			 }
 			 else
 			 {
-						$transaction->number = $data["Número de Documento"]??'';
+				 	  $transaction->code = $data["Número de Timbrado"] ?? '';
+						$transaction->number = $data["Número de Documento"] ?? '';
+
 			 }
 			 $transaction->save();
 
