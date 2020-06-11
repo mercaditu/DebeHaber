@@ -68,21 +68,14 @@ class ArandukaController extends Controller
       max(t.payment_condition) as PaymentCondition,
       max(t.code_expiry) as CodeExpiry,
       max(t.sub_type) as DocumentType,
-      ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
-      ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
-      ROUND(sum(td.ValueInTen / t.rate)) as ValueInTen
+      ROUND(sum(value)) as Value
       from transactions as t
       join
       ( select
       max(transaction_id) as transaction_id,
-      sum(value) as value,
-      max(c.coefficient) as coefficient,
-      round(if(max(c.coefficient) = 0, sum(value), 0)) as ValueInZero,
-      round(if(max(c.coefficient) = 0.05, sum(value), 0)) as ValueInFive,
-      round(if(max(c.coefficient) = 0.1, sum(value), 0)) as ValueInTen
+      sum(value) as value
       from transaction_details
-      join charts as c on transaction_details.chart_vat_id = c.id
-      group by transaction_id, transaction_details.chart_vat_id
+      group by transaction_id
       ) as td on td.transaction_id = t.id
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
@@ -94,7 +87,7 @@ class ArandukaController extends Controller
       $raw = collect($raw);
       $i = 1;
       $data = [];
-      $total = $raw->sum('ValueInZero');
+      $total = $raw->sum('Value');
 
        $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
        $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
@@ -121,7 +114,7 @@ class ArandukaController extends Controller
                  "fecha" => date_format($date, 'd/m/Y'),
                  'id' => $result->ID,
                  'ruc' => $taxPayer->taxid,
-                 'egresoMontoTotal' =>$result->ValueInZero,
+                 'egresoMontoTotal' =>$result->Value,
                  'relacionadoNombres' => $result->Partner,
                  'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
                  'timbradoCondicion' => $result->PaymentCondition,
@@ -177,21 +170,14 @@ class ArandukaController extends Controller
       max(t.payment_condition) as PaymentCondition,
       max(t.code_expiry) as CodeExpiry,
       max(t.sub_type) as DocumentType,
-      ROUND(sum(td.ValueInZero / t.rate)) as ValueInZero,
-      ROUND(sum(td.ValueInFive / t.rate)) as ValueInFive,
-      ROUND(sum(td.ValueInTen / t.rate)) as ValueInTen
+	  ROUND(sum(value)) as Value
       from transactions as t
       join
       ( select
       max(transaction_id) as transaction_id,
-      sum(value) as value,
-      max(c.coefficient) as coefficient,
-      round(if(max(c.coefficient) = 0, sum(value), 0)) as ValueInZero,
-      round(if(max(c.coefficient) = 0.05, sum(value), 0)) as ValueInFive,
-      round(if(max(c.coefficient) = 0.1, sum(value), 0)) as ValueInTen
+      sum(value) as value
       from transaction_details
-      join charts as c on transaction_details.chart_vat_id = c.id
-      group by transaction_id, transaction_details.chart_vat_id
+      group by transaction_id
       ) as td on td.transaction_id = t.id
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
@@ -204,7 +190,7 @@ class ArandukaController extends Controller
       $i = 1;
 
       $data = [];
-      $total = $raw->sum('ValueInZero');
+      $total = $raw->sum('Value');
 
        $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
        $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
@@ -222,9 +208,10 @@ class ArandukaController extends Controller
 
        $details = [];
        $i=0;
+
        foreach ($raw as $result)
        {
-      
+		  
          $date = Carbon::parse($result->Date);
          $detail=['periodo' => 2020,
                  'tipo' => 1,
@@ -232,7 +219,7 @@ class ArandukaController extends Controller
                  "fecha" => date_format($date, 'd/m/Y'),
                  'id' => $result->ID,
                  'ruc' => $taxPayer->taxid,
-                 'egresoMontoTotal' =>$result->ValueInZero,
+                 'egresoMontoTotal' =>$result->Value,
                  'relacionadoNombres' => $result->Partner,
                  'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
                  'timbradoCondicion' => $result->PaymentCondition,
