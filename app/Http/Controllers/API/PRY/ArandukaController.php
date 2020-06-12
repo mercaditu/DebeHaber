@@ -34,9 +34,9 @@ class ArandukaController extends Controller
 		$results = collect($request["results"]);
 
 		foreach ($results as $data)
-		{  
+		{
        $transaction = null;
-       
+
        if(isset($data["Número de Documento"]))
 			 {
 				$transaction = Transaction::where('partner_taxid', $data["Número de Identificación"])->where('number', $data["Número de Documento"])->first() ?? new Transaction();
@@ -44,8 +44,8 @@ class ArandukaController extends Controller
 			  $transaction = Transaction::where('partner_taxid', $data["Número de Identificación"])->where('number', $data["Número de Documento_1"])->first() ?? new Transaction();
 			 }
 
-			 $transaction->type = $this->ARANDUKA_MAP[$data["Tipo de Documento"]];
-			 $transaction->sub_type = $transactionSubType;
+			 $transaction->type = 1;
+			 $transaction->sub_type = static::ARANDUKA_MAP[$data["Tipo de Documento"]];
 			 $transaction->taxpayer_id = $taxPayer->id;
 
 			 $transaction->partner_name = $data["Nombres y Apellidos o Razón Social"];
@@ -82,7 +82,7 @@ class ArandukaController extends Controller
 				$transaction->code = $data["Número de Timbrado"] ?? '';
 				$transaction->number = $data["Número de Documento"] ?? '';
        }
-       
+
 			  $transaction->save();
 
 				$transactiondetail = $this->processDetail(
@@ -114,16 +114,16 @@ class ArandukaController extends Controller
         $chart->sub_type = 12;
         $chart->is_accountable = true;
         $chart->code = $collection["Clasificación de Egreso"];
-        $chart->name = $collection["Clasificación de Egreso Texto"];
+        $chart->name = $collection["Clasificación de Egreso (Texto)"];
         $chart->save();
     }
 
 		$detail = new TransactionDetail();
 		$detail->transaction_id = $transaction->id;
-		$detail->chart_id = $chart_id;
+		$detail->chart_id = $chart->id;
 		$detail->value = $collection["Monto Total"];
-    $detail->save();
-    
+        $detail->save();
+
 		return $detail;
 	}
 
