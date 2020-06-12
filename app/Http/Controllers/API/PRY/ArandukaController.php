@@ -136,14 +136,20 @@ class ArandukaController extends Controller
     $startDate = Carbon::parse($startDate)->startOfDay();
     $endDate = Carbon::parse($endDate)->endOfDay();
 
-    $this->generateDetalle($startDate, $endDate, $taxPayer, $zip);
+    $this->generateDetalle($startDate, $endDate, $taxPayer);
+
+	$file = Storage::disk('local');
+
+	$path = $file->getDriver()->getAdapter()->getPathPrefix();
+
+	$zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-purchase.json', 'LIE_2020_99550965_1184844_952-detalle-purchase.json');
 
     $zip->close();
 
     return response()->download($zipname)->deleteFileAfterSend(true);
   }
 
-  public function generateDetalle($startDate, $endDate, $taxPayer, $zip) {
+  public function generateDetalle($startDate, $endDate, $taxPayer) {
 
     $income = $this->getIncomeTransactions($startDate, $endDate, $taxPayer);
     $expense = $this->getExpenseTransactions($startDate, $endDate, $taxPayer);
@@ -152,30 +158,32 @@ class ArandukaController extends Controller
       'ruc' => $taxPayer->taxid,
       'dv'=> $taxPayer->code,
       'nombre' => $taxPayer->name,
-      'tipoContribuyente' => $taxPayer->type ?? 'FISICO', 
-      'tipoSociedad' =>  null, 
-      'nombreFantasia'=> null, 
+      'tipoContribuyente' => $taxPayer->type ?? 'FISICO',
+      'tipoSociedad' =>  null,
+      'nombreFantasia'=> null,
       'obligaciones' => [
-        'impuesto' => 211, 
-        'nombre' => 'IVA  General', 
+        'impuesto' => 211,
+        'nombre' => 'IVA  General',
         'fechaDesde' => '18/01/2006'
-      ] , 
+      ] ,
       'clasificacion' => $taxPayer->type ?? 'FISICO'
     ];
 
     $data['identificacion'] = [
       'periodo' => date_format($date, 'Y'),
-      'tipoMovimiento' => 'CON_MOVIMIENTO', 
-      'tipoPresentacion' => 'ORIGINAL', 
+      'tipoMovimiento' => 'CON_MOVIMIENTO',
+      'tipoPresentacion' => 'ORIGINAL',
       'version' =>'1.0.3'
     ];
 
     $data['ingresos'] = [
-      
+
     ];
 
     $data['egresos'] = $expense;
-    $data['totales'] = $totales;
+    //$data['totales'] = $totales;
+
+	Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-purchase.json',  response()->json($dataDetail));
   }
 
   public function getIncomeTransactions($startDate, $endDate, $taxPayer, $zip)
@@ -207,73 +215,77 @@ class ArandukaController extends Controller
       group by t.id');
 
       $raw = collect($raw);
-      $i = 1;
-      $data = [];
-      $total = $raw->sum('Value');
+	  return $raw;
 
-       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
-       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
-       $data['informante'] = $informante ;
-       $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
-       $data['identificacion'] = $identificacion ;
-       $cantidades=['ingresos'=>0,'egresos'=>count($raw)];
-       $data['cantidades'] = $cantidades ;
-       $ingresos=['ruc' => $taxPayer->taxid , 'periodo' => 2020 ,"tipoEgreso" => 'gasto',"clasificacion" => 'GPERS','valor' => $total];
-       $arbolEgresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
-       $gastro=['total' => $total,"GPERS" => $total];
-       $arbolIngresos=['gasto' => $gastro];
-       $totales=['ingresos'=>[],'egresos' => $ingresos ,'arbolIngresos' => $arbolEgresos,'arbolEgresos' => $arbolIngresos];
-       $data['totales'] = $totales ;
+      // $i = 1;
+      // $data = [];
+      // $total = $raw->sum('Value');
+	  //
+      //  $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+      //  $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
+      //  $data['informante'] = $informante ;
+      //  $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
+      //  $data['identificacion'] = $identificacion ;
+      //  $cantidades=['ingresos'=>0,'egresos'=>count($raw)];
+      //  $data['cantidades'] = $cantidades ;
+      //  $ingresos=['ruc' => $taxPayer->taxid , 'periodo' => 2020 ,"tipoEgreso" => 'gasto',"clasificacion" => 'GPERS','valor' => $total];
+      //  $arbolEgresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
+      //  $gastro=['total' => $total,"GPERS" => $total];
+      //  $arbolIngresos=['gasto' => $gastro];
+      //  $totales=['ingresos'=>[],'egresos' => $ingresos ,'arbolIngresos' => $arbolEgresos,'arbolEgresos' => $arbolIngresos];
+      //  $data['totales'] = $totales ;
+	  //
+      //  $details = [];
+      //  $i = 0;
+      //  foreach ($raw as $result)
+      //  {
+      //    $date = Carbon::parse($result->Date);
+      //    $detail=['periodo' => 2020,
+      //            'tipo' => 1,
+      //            'relacionadoTipoIdentificacion' => 'RUC',
+      //            "fecha" => date_format($date, 'd/m/Y'),
+      //            'id' => $result->ID,
+      //            'ruc' => $taxPayer->taxid,
+      //            'egresoMontoTotal' =>$result->Value,
+      //            'relacionadoNombres' => $result->Partner,
+      //            'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+      //            'timbradoCondicion' => $result->PaymentCondition,
+      //            'timbradoDocumento' => $result->Number,
+      //            'timbradoNumero' => $result->PartnerTaxID,
+      //            'tipoEgreso' => 'gasto',
+      //            'tipoEgresoTexto' => 'Gasto',
+      //            'tipoTexto' => 'Factura',
+      //            'subtipoEgreso' =>'GPERS',
+      //            'subtipoEgresoTexto' => 'Gastos personales y de familiares a cargo realizados en el país',
+      //             ];
+      //             $i=$i+1;
+      //    $details[$i] = $detail;
+      //  }
+	  //
+      //  $dataDetail = [];
+	  //
+      //  $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+      //  $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
+      //  $dataDetail['informante'] = $informante ;
+      //  $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
+      //  $dataDetail['identificacion'] = $identificacion ;
+      //  $dataDetail['ingresos'] = [] ;
+      //  $dataDetail['egresos'] = $details ;
 
-       $details = [];
-       $i = 0;
-       foreach ($raw as $result)
-       {
-         $date = Carbon::parse($result->Date);
-         $detail=['periodo' => 2020,
-                 'tipo' => 1,
-                 'relacionadoTipoIdentificacion' => 'RUC',
-                 "fecha" => date_format($date, 'd/m/Y'),
-                 'id' => $result->ID,
-                 'ruc' => $taxPayer->taxid,
-                 'egresoMontoTotal' =>$result->Value,
-                 'relacionadoNombres' => $result->Partner,
-                 'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
-                 'timbradoCondicion' => $result->PaymentCondition,
-                 'timbradoDocumento' => $result->Number,
-                 'timbradoNumero' => $result->PartnerTaxID,
-                 'tipoEgreso' => 'gasto',
-                 'tipoEgresoTexto' => 'Gasto',
-                 'tipoTexto' => 'Factura',
-                 'subtipoEgreso' =>'GPERS',
-                 'subtipoEgresoTexto' => 'Gastos personales y de familiares a cargo realizados en el país',
-                  ];
-                  $i=$i+1;
-         $details[$i] = $detail;
-       }
 
-       $dataDetail = [];
 
-       $obligaciones=['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
-       $informante=['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
-       $dataDetail['informante'] = $informante ;
-       $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
-       $dataDetail['identificacion'] = $identificacion ;
-       $dataDetail['ingresos'] = [] ;
-       $dataDetail['egresos'] = $details ;
-
-       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-sales.json',   response()->json($data));
-       $result = ArrayToXml::convert($data);
-       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-sales.XML',$result);
-       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-sales.json',  response()->json($dataDetail));
-
-       $file = Storage::disk('local');
-
-       $path = $file->getDriver()->getAdapter()->getPathPrefix();
-
-       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-sales.json', 'LIE_2020_99550965_1184844_952-sales.json');
-       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-sales.XML', 'LIE_2020_99550965_1184844_952-sales.XML');
-       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-sales.json', 'LIE_2020_99550965_1184844_952-detalle-sales.json');
+       // Storage::disk('local')->put('LIE_2020_99550965_1184844_952-sales.json',   response()->json($data));
+       // $result = ArrayToXml::convert($data);
+       // Storage::disk('local')->put('LIE_2020_99550965_1184844_952-sales.XML',$result);
+       // Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-sales.json',  response()->json($dataDetail));
+	   //
+       // $file = Storage::disk('local');
+	   //
+       // $path = $file->getDriver()->getAdapter()->getPathPrefix();
+	   //
+       // $zip->addFile($path . 'LIE_2020_99550965_1184844_952-sales.json', 'LIE_2020_99550965_1184844_952-sales.json');
+       // $zip->addFile($path . 'LIE_2020_99550965_1184844_952-sales.XML', 'LIE_2020_99550965_1184844_952-sales.XML');
+       // $zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-sales.json', 'LIE_2020_99550965_1184844_952-detalle-sales.json');
 
 
   }
@@ -307,97 +319,99 @@ class ArandukaController extends Controller
       group by t.id');
 
       $raw = collect($raw);
-      $i = 1;
 
-      $data = [];
-      $total = $raw->sum('Value');
-
-      $details = [];
-      $i = 0;
-      $ie = 0;
-      $ir = 0;
-
-       foreach ($raw as $result)
-       {
-         $date = Carbon::parse($result->Date);
-
-         if ($result->DocumentType == '1') {
-          $detail = [
-            'periodo' => date_format($date, 'Y'),
-            'tipo' => $result->DocumentType,
-            'relacionadoTipoIdentificacion' => 'RUC',
-            "fecha" => date_format($date, 'd-m-Y'),
-            'id' => $result->ID,
-            'ruc' => $taxPayer->taxid,
-            'egresoMontoTotal' =>$result->Value,
-            'relacionadoNombres' => $result->Partner,
-            'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
-            'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credit' : 'contado',
-            'timbradoDocumento' => $result->Number,
-            'timbradoNumero' => $result->Code,
-            'tipoEgreso' => 'gasto',
-            'tipoEgresoTexto' => 'Gasto',
-            'tipoTexto' => 'Factura',
-            'subtipoEgreso' => $result->ChartCode,
-            'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
-           ];
-           $ie += 1;
-
-         } else {
-          $detail = ['periodo' => date_format($date, 'Y'),
-          'tipo' => $result->DocumentType,
-          'relacionadoTipoIdentificacion' => 'RUC',
-          "fecha" => date_format($date, 'd-m-Y'),
-          'id' => $result->ID,
-          'ruc' => $taxPayer->taxid,
-          'egresoMontoTotal' =>$result->Value,
-          'relacionadoNombres' => $result->Partner,
-          'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
-          'tipoEgreso' => 'gasto',
-          'tipoEgresoTexto' => 'Gasto',
-          'tipoTexto' => 'Factura',
-          'subtipoEgreso' =>'GPERS',
-          'subtipoEgresoTexto' => '',
-          'numeroDocumento' => $result->Number,
-           ];
-           $ir += 1;
-         }
-         $details[$i] = $detail;
-       }
-
-       $i = $ie + $ir ;
-       $dataDetail = [];
-
-       $obligaciones = ['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
-      $informante = [
-        'ruc' => $taxPayer->taxid,
-        'dv'=> $taxPayer->code,
-        'nombre' => $taxPayer->name,
-        'tipoContribuyente' => $taxPayer->type,
-        'tipoSociedad' => null, 
-        'nombreFantasia'=> null, 
-        'obligaciones' => $obligaciones, 
-        'clasificacion' => $taxPayer->type
-      ];
-
-       $dataDetail['informante'] = $informante ;
-       $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
-       $dataDetail['identificacion'] = $identificacion ;
-       $dataDetail['ingresos'] = [] ;
-       $dataDetail['egresos'] =  $details;
-
-       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-purchase.json',   response()->json($data));
-       $result = ArrayToXml::convert($data);
-       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-purchase.XML', $result);
-       Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-purchase.json',  response()->json($dataDetail));
-
-       $file = Storage::disk('local');
-
-       $path = $file->getDriver()->getAdapter()->getPathPrefix();
-
-       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-purchase.json', 'LIE_2020_99550965_1184844_952-purchase.json');
-       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-purchase.XML', 'LIE_2020_99550965_1184844_952-purchase.XML');
-       $zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-purchase.json', 'LIE_2020_99550965_1184844_952-detalle-purchase.json');
+	  return $raw;
+      // $i = 1;
+	  //
+      // $data = [];
+      // $total = $raw->sum('Value');
+	  //
+      // $details = [];
+      // $i = 0;
+      // $ie = 0;
+      // $ir = 0;
+	  //
+      //  foreach ($raw as $result)
+      //  {
+      //    $date = Carbon::parse($result->Date);
+	  //
+      //    if ($result->DocumentType == '1') {
+      //     $detail = [
+      //       'periodo' => date_format($date, 'Y'),
+      //       'tipo' => $result->DocumentType,
+      //       'relacionadoTipoIdentificacion' => 'RUC',
+      //       "fecha" => date_format($date, 'd-m-Y'),
+      //       'id' => $result->ID,
+      //       'ruc' => $taxPayer->taxid,
+      //       'egresoMontoTotal' =>$result->Value,
+      //       'relacionadoNombres' => $result->Partner,
+      //       'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+      //       'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credit' : 'contado',
+      //       'timbradoDocumento' => $result->Number,
+      //       'timbradoNumero' => $result->Code,
+      //       'tipoEgreso' => 'gasto',
+      //       'tipoEgresoTexto' => 'Gasto',
+      //       'tipoTexto' => 'Factura',
+      //       'subtipoEgreso' => $result->ChartCode,
+      //       'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
+      //      ];
+      //      $ie += 1;
+	  //
+      //    } else {
+      //     $detail = ['periodo' => date_format($date, 'Y'),
+      //     'tipo' => $result->DocumentType,
+      //     'relacionadoTipoIdentificacion' => 'RUC',
+      //     "fecha" => date_format($date, 'd-m-Y'),
+      //     'id' => $result->ID,
+      //     'ruc' => $taxPayer->taxid,
+      //     'egresoMontoTotal' =>$result->Value,
+      //     'relacionadoNombres' => $result->Partner,
+      //     'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+      //     'tipoEgreso' => 'gasto',
+      //     'tipoEgresoTexto' => 'Gasto',
+      //     'tipoTexto' => 'Factura',
+      //     'subtipoEgreso' =>'GPERS',
+      //     'subtipoEgresoTexto' => '',
+      //     'numeroDocumento' => $result->Number,
+      //      ];
+      //      $ir += 1;
+      //    }
+      //    $details[$i] = $detail;
+      //  }
+	  //
+      //  $i = $ie + $ir ;
+      //  $dataDetail = [];
+	  //
+      //  $obligaciones = ['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
+      // $informante = [
+      //   'ruc' => $taxPayer->taxid,
+      //   'dv'=> $taxPayer->code,
+      //   'nombre' => $taxPayer->name,
+      //   'tipoContribuyente' => $taxPayer->type,
+      //   'tipoSociedad' => null,
+      //   'nombreFantasia'=> null,
+      //   'obligaciones' => $obligaciones,
+      //   'clasificacion' => $taxPayer->type
+      // ];
+	  //
+      //  $dataDetail['informante'] = $informante ;
+      //  $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
+      //  $dataDetail['identificacion'] = $identificacion ;
+      //  $dataDetail['ingresos'] = [] ;
+      //  $dataDetail['egresos'] =  $details;
+	  //
+      //  Storage::disk('local')->put('LIE_2020_99550965_1184844_952-purchase.json',   response()->json($data));
+      //  $result = ArrayToXml::convert($data);
+      //  Storage::disk('local')->put('LIE_2020_99550965_1184844_952-purchase.XML', $result);
+      //  Storage::disk('local')->put('LIE_2020_99550965_1184844_952-detalle-purchase.json',  response()->json($dataDetail));
+	  //
+      //  $file = Storage::disk('local');
+	  //
+      //  $path = $file->getDriver()->getAdapter()->getPathPrefix();
+	  //
+      //  $zip->addFile($path . 'LIE_2020_99550965_1184844_952-purchase.json', 'LIE_2020_99550965_1184844_952-purchase.json');
+      //  $zip->addFile($path . 'LIE_2020_99550965_1184844_952-purchase.XML', 'LIE_2020_99550965_1184844_952-purchase.XML');
+      //  $zip->addFile($path . 'LIE_2020_99550965_1184844_952-detalle-purchase.json', 'LIE_2020_99550965_1184844_952-detalle-purchase.json');
   }
 
   public function dividirCodigo($codigo)
