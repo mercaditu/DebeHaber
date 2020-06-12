@@ -136,8 +136,6 @@ class ArandukaController extends Controller
     $startDate = Carbon::parse($startDate)->startOfDay();
     $endDate = Carbon::parse($endDate)->endOfDay();
 
-
-
     $income = $this->getIncomeTransactions($startDate, $endDate, $taxPayer);
     $expense = $this->getExpenseTransactions($startDate, $endDate, $taxPayer);
 
@@ -413,7 +411,7 @@ class ArandukaController extends Controller
          if ($result->DocumentType == '1') {
           $detail = [
             'periodo' => date_format($date, 'Y'),
-            'tipo' => $result->DocumentType,
+            'tipo' => array_search($result->DocumentType, static::ARANDUKA_MAP, true),
             'relacionadoTipoIdentificacion' => 'RUC',
             "fecha" => date_format($date, 'd-m-Y'),
             'id' => $result->ID,
@@ -432,7 +430,7 @@ class ArandukaController extends Controller
            ];
          } else {
           $detail = ['periodo' => date_format($date, 'Y'),
-          'tipo' => $result->DocumentType,
+          'tipo' => array_search($result->DocumentType, static::ARANDUKA_MAP, true),
           'relacionadoTipoIdentificacion' => 'RUC',
           "fecha" => date_format($date, 'd-m-Y'),
           'id' => $result->ID,
