@@ -12,6 +12,23 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    const ARANDUKA_MAP = [
+        1 => 1,
+        2 => 5,
+        3 => 6,
+        4 => 3,
+        5 => 12,
+        6 => 13,
+        7 => 14,
+        8 => 15,
+        9 => 16,
+        10 => 8,
+        11 => 17,
+        12 => 6,
+        13 => 4,
+        14 => 18,
+    ];
+
     public function calculateTaxCode($taxID)
     {
         $base_max = 11;

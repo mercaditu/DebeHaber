@@ -45,7 +45,6 @@ class ChartController extends Controller
                 DB::raw('charts.partner_name'),
                 DB::raw('charts.coefficient'),
                 DB::raw('charts.asset_years')
-
             );
 
         return GeneralResource::collection(
@@ -626,74 +625,6 @@ class ChartController extends Controller
             $chart->is_accountable = true;
             $chart->code = '##';
             $chart->name = $chartName != '' ? $chartName : __('enum.OtherExpenses');
-            $chart->save();
-        }
-
-        return $chart;
-    }
-
-    public function createIfNotExists_ExpensesFromGPERS(Taxpayer $taxPayer, Cycle $cycle, $chartName = '')
-    {
-        $query = Chart::My($taxPayer, $cycle)
-            ->where('type', 5)
-            ->where('sub_type', 12)
-            ->where('is_accountable', true);
-
-        if ($chartName != '') {
-            $query->where(function ($q) use ($chartName) {
-                $q->where('name', $chartName)
-                    ->orWhereHas('aliases', function ($subQ) use ($chartName) {
-                        $subQ->where('name', 'like', '%' . $chartName . '%');
-                    });
-            });
-        }
-
-        $chart = $query->first();
-
-        if (!isset($chart)) {
-            //if not, create specific.
-            $chart = new Chart();
-            $chart->taxpayer_id = $taxPayer->id;
-            $chart->chart_version_id = $cycle->chart_version_id;
-            $chart->type = 5;
-            $chart->sub_type = 12;
-            $chart->is_accountable = true;
-            $chart->code = '##';
-            $chart->name = $chartName != '' ? $chartName : __('enum.GPERS');
-            $chart->save();
-        }
-
-        return $chart;
-    }
-
-    public function createIfNotExists_ExpensesFromCUOTA(Taxpayer $taxPayer, Cycle $cycle, $chartName = '')
-    {
-        $query = Chart::My($taxPayer, $cycle)
-            ->where('type', 6)
-            ->where('sub_type', 12)
-            ->where('is_accountable', true);
-
-        if ($chartName != '') {
-            $query->where(function ($q) use ($chartName) {
-                $q->where('name', $chartName)
-                    ->orWhereHas('aliases', function ($subQ) use ($chartName) {
-                        $subQ->where('name', 'like', '%' . $chartName . '%');
-                    });
-            });
-        }
-
-        $chart = $query->first();
-
-        if (!isset($chart)) {
-            //if not, create specific.
-            $chart = new Chart();
-            $chart->taxpayer_id = $taxPayer->id;
-            $chart->chart_version_id = $cycle->chart_version_id;
-            $chart->type = 5;
-            $chart->sub_type = 13;
-            $chart->is_accountable = true;
-            $chart->code = '##';
-            $chart->name = $chartName != '' ? $chartName : __('enum.CUOTA');
             $chart->save();
         }
 

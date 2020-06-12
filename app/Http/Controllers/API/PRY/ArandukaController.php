@@ -28,6 +28,104 @@ use Zip;
 
 class ArandukaController extends Controller
 {
+	public function arandukaUpload(Request $request, Taxpayer $taxPayer, Cycle $cycle)
+	{
+		$transactionController = new TransactionController();
+		$results = collect($request["results"]);
+
+		foreach ($results as $data)
+		{  
+       $transaction = null;
+       
+       if(isset($data["Número de Documento"]))
+			 {
+				$transaction = Transaction::where('partner_taxid', $data["Número de Identificación"])->where('number', $data["Número de Documento"])->first() ?? new Transaction();
+			 } else {
+			  $transaction = Transaction::where('partner_taxid', $data["Número de Identificación"])->where('number', $data["Número de Documento_1"])->first() ?? new Transaction();
+			 }
+
+			 $transaction->type = $this->ARANDUKA_MAP[$data["Tipo de Documento"]];
+			 $transaction->sub_type = $transactionSubType;
+			 $transaction->taxpayer_id = $taxPayer->id;
+
+			 $transaction->partner_name = $data["Nombres y Apellidos o Razón Social"];
+			 $transaction->partner_taxid = $data["Número de Identificación"];
+
+			 //TODO, this is not enough. Remove Cycle, and exchange that for Invoice Date. Since this will tell you better the exchange rate for that day.
+			 $transaction->currency = $taxPayer->currency;
+
+			 $transaction->rate = $transactionController->checkCurrencyRate($transaction->currency, $taxPayer, $data["Fecha"]) ?? 1;
+
+			 $paymentCondition = '';
+			 if(isset($data["Condición de la Venta"]))
+			 {
+				  if($data["Condición de la Venta"] == "contado")
+					{
+						$paymentCondition = 0;
+					} else {
+						$paymentCondition = 1;
+					}
+			 }
+			 else {
+			 	$paymentCondition = 0;
+			 }
+
+			 $transaction->payment_condition = $paymentCondition;
+			 $transaction->date = $transactionController->convert_date($data["Fecha"]);
+
+			 if($data["Tipo de Documento"] == 11)
+			 {
+				$transaction->number = $data["Número de Documento_1"] ?? '';
+			 }
+			 else
+			 {
+				$transaction->code = $data["Número de Timbrado"] ?? '';
+				$transaction->number = $data["Número de Documento"] ?? '';
+       }
+       
+			  $transaction->save();
+
+				$transactiondetail = $this->processDetail(
+          $transaction,
+          $taxPayer,
+          $cycle,
+          $data
+			  );
+	 }
+
+	 return response()->json('Done');
+	}
+
+	public function processDetail(Transaction $transaction, Taxpayer $taxPayer, Cycle $cycle, $collection)
+	{
+		$transaction->details()->delete();
+
+    $chart = Chart::My($taxPayer, $cycle)
+        ->where('code', $collection["Clasificación de Egreso"])
+        ->where('is_accountable', true)->first();
+
+    if (!isset($chart)) {
+        //if not, create specific.
+        $chart = new Chart();
+        $chart->taxpayer_id = $taxPayer->id;
+        $chart->chart_version_id = $cycle->chart_version_id;
+        $chart->type = 5;
+        $chart->sub_type = 12;
+        $chart->is_accountable = true;
+        $chart->code = $collection["Clasificación de Egreso"];
+        $chart->name = $collection["Clasificación de Egreso Texto"];
+        $chart->save();
+    }
+
+		$detail = new TransactionDetail();
+		$detail->transaction_id = $transaction->id;
+		$detail->chart_id = $chart_id;
+		$detail->value = $collection["Monto Total"];
+    $detail->save();
+    
+		return $detail;
+	}
+
   public function generateFiles(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
   {
     //Get the Integration Once. No need to bring it into the Query.
