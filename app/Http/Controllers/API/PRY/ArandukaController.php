@@ -129,27 +129,56 @@ class ArandukaController extends Controller
 
   public function generateFiles(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
   {
-    //Get the Integration Once. No need to bring it into the Query.
-
-
-    //TODO: This function is wrong. It will take all files from a path.
-    //$files = File::allFiles($path);
-
-    $zipname = 'Aranduka.zip';
+    $zipname = 'Aranduka-' . $taxPayer->name . '-' . date_format($date, 'Y') . '.zip';
 
     $zip = new ZipArchive;
     $zip->open($zipname, ZipArchive::CREATE);
     $startDate = Carbon::parse($startDate)->startOfDay();
     $endDate = Carbon::parse($endDate)->endOfDay();
 
-    $this->generateSales($startDate, $endDate, $taxPayer, $zip);
-    $this->generatePurchases($startDate, $endDate, $taxPayer, $zip);
+    $this->generateDetalle($startDate, $endDate, $taxPayer, $zip);
+
     $zip->close();
 
     return response()->download($zipname)->deleteFileAfterSend(true);
   }
 
-  public function generateSales($startDate, $endDate, $taxPayer, $zip)
+  public function generateDetalle($startDate, $endDate, $taxPayer, $zip) {
+
+    $income = $this->getIncomeTransactions($startDate, $endDate, $taxPayer);
+    $expense = $this->getExpenseTransactions($startDate, $endDate, $taxPayer);
+
+    $data['informante'] = [
+      'ruc' => $taxPayer->taxid,
+      'dv'=> $taxPayer->code,
+      'nombre' => $taxPayer->name,
+      'tipoContribuyente' => $taxPayer->type ?? 'FISICO', 
+      'tipoSociedad' =>  null, 
+      'nombreFantasia'=> null, 
+      'obligaciones' => [
+        'impuesto' => 211, 
+        'nombre' => 'IVA  General', 
+        'fechaDesde' => '18/01/2006'
+      ] , 
+      'clasificacion' => $taxPayer->type ?? 'FISICO'
+    ];
+
+    $data['identificacion'] = [
+      'periodo' => date_format($date, 'Y'),
+      'tipoMovimiento' => 'CON_MOVIMIENTO', 
+      'tipoPresentacion' => 'ORIGINAL', 
+      'version' =>'1.0.3'
+    ];
+
+    $data['ingresos'] = [
+      
+    ];
+
+    $data['egresos'] = $expense;
+    $data['totales'] = $totales;
+  }
+
+  public function getIncomeTransactions($startDate, $endDate, $taxPayer, $zip)
   {
       $raw = DB::select('
       select
@@ -249,7 +278,7 @@ class ArandukaController extends Controller
 
   }
 
-  public function generatePurchases($startDate, $endDate, $taxPayer, $zip)
+  public function getExpenseTransactions($startDate, $endDate, $taxPayer, $zip)
   {
       $raw = DB::select('
       select
@@ -282,61 +311,6 @@ class ArandukaController extends Controller
 
       $data = [];
       $total = $raw->sum('Value');
-
-      $obligaciones = [
-        'impuesto' => 211, 
-        'nombre' => 'IVA  General', 
-        'fechaDesde' => $startDate
-      ];
-
-      $informante = [
-        'ruc' => $taxPayer->taxid,
-        'dv'=> $taxPayer->code,
-        'nombre' => $taxPayer->name,
-        'tipoContribuyente' => $taxPayer->type, 
-        'tipoSociedad' =>  null, 
-        'nombreFantasia'=> null, 
-        'obligaciones' => $obligaciones , 
-        'clasificacion' => $taxPayer->type
-      ];
-
-      $data['informante'] = $informante;
-
-      $identificacion = [
-        'periodo' => date_format($date, 'Y'),
-        'tipoMovimiento' => 'CON_MOVIMIENTO', 
-        'tipoPresentacion' => 'ORIGINAL', 
-        'version' =>'1.0.3'
-      ];
-
-      $data['identificacion'] = $identificacion;
-      $cantidades = [
-        'ingresos' => count($raw), 
-        'egresos' => 0
-      ];
-
-      $data['cantidades'] = $cantidades;
-      $ingresos = [
-        'ruc' => $taxPayer->taxid, 
-        'periodo' => date_format($date, 'Y'), 
-        "tipoEgreso" => 'gasto',
-        "clasificacion" => 'GPERS',
-        'valor' => $total
-      ];
-
-      $arbolIngresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
-
-      $gastro = ['total' => $total,"GPERS" => $total];
-
-      $arbolEgresos=['gasto' => $gastro];
-      $totales = [
-        'ingresos' => [],
-        'egresos' => $egreso,
-        'arbolIngresos' => $arbolIngresos,
-        'arbolEgresos' => $arbolEgresos
-      ];
-
-      $data['totales'] = $totales;
 
       $details = [];
       $i = 0;
