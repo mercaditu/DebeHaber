@@ -129,12 +129,14 @@ class ArandukaController extends Controller
 
   public function generateFiles(Taxpayer $taxPayer, Cycle $cycle, $startDate, $endDate)
   {
-    $zipname = 'Aranduka-' . $taxPayer->name . '-' . date_format($date, 'Y') . '.zip';
+    $zipname = 'Aranduka-' . $taxPayer->name . '-' . $startDate . '.zip';
 
     $zip = new ZipArchive;
     $zip->open($zipname, ZipArchive::CREATE);
     $startDate = Carbon::parse($startDate)->startOfDay();
     $endDate = Carbon::parse($endDate)->endOfDay();
+
+
 
     $income = $this->getIncomeTransactions($startDate, $endDate, $taxPayer);
     $expense = $this->getExpenseTransactions($startDate, $endDate, $taxPayer);
@@ -177,7 +179,7 @@ class ArandukaController extends Controller
     $data['ingresos'] = [];
     $data['egresos'] = $expense;
     $data['familiares'] = [];
-    
+
     $fileName = 'LIE_' . date_format($date, 'Y') . '_99550965_' . $taxPayer->taxid . '_952-detalle.json';
     Storage::disk('local')->put($fileName,  response()->json($data));
     $zip->addFile($path . $fileName, $fileName);
@@ -246,7 +248,7 @@ class ArandukaController extends Controller
         "subtotalNoGravado" => $expense->sum('egresoMontoTotal')
       ],
     ];
-    
+
     $fileNameJson = 'LIE_' . date_format($date, 'Y') . '_99550965_' . $taxPayer->taxid . '_952.json';
     Storage::disk('local')->put($fileNameJson,  response()->json($data));
     $zip->addFile($path . $fileNameJson, $fileNameJson);
@@ -261,7 +263,7 @@ class ArandukaController extends Controller
 
   }
 
-  public function getIncomeTransactions($startDate, $endDate, $taxPayer, $zip)
+  public function getIncomeTransactions($startDate, $endDate, $taxPayer)
   {
       $raw = DB::select('
       select
@@ -286,7 +288,7 @@ class ArandukaController extends Controller
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
       and t.date between "' . $startDate . '" and "' . $endDate . '"
-      and t.type = 2
+      and t.type = 2)
       group by t.id');
 
       $raw = collect($raw);
@@ -365,7 +367,7 @@ class ArandukaController extends Controller
 
   }
 
-  public function getExpenseTransactions($startDate, $endDate, $taxPayer, $zip)
+  public function getExpenseTransactions($startDate, $endDate, $taxPayer)
   {
       $raw = DB::select('
       select
@@ -378,31 +380,36 @@ class ArandukaController extends Controller
       max(t.payment_condition) as PaymentCondition,
       max(t.code_expiry) as CodeExpiry,
       max(t.sub_type) as DocumentType,
-	    ROUND(sum(value)) as Value
+	  max(ChartCode) as ChartCode,
+	  max(ChartName) as ChartName,
+	  ROUND(sum(value)) as Value
       from transactions as t
       join
       ( select
       max(transaction_id) as transaction_id,
-      sum(value) as value
-      from transaction_details
+      sum(value) as value,
+	  max(c.code) as ChartCode,
+	  max(c.name) as ChartName
+	  from transaction_details
+	  join charts as c on transaction_details.chart_id = c.id
       group by transaction_id
       ) as td on td.transaction_id = t.id
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
       and t.date between "' . $startDate . '" and "' . $endDate . '"
-      and t.type = 1
+      and t.type = 1)
       group by t.id');
 
       $raw = collect($raw);
 
       $i = 1;
-	  
+
       $details = [];
 
        foreach ($raw as $result)
        {
          $date = Carbon::parse($result->Date);
-	  
+
          if ($result->DocumentType == '1') {
           $detail = [
             'periodo' => date_format($date, 'Y'),
