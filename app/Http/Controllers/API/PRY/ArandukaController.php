@@ -102,7 +102,8 @@ class ArandukaController extends Controller
 
     $chart = Chart::My($taxPayer, $cycle)
         ->where('code', $collection["Clasificación de Egreso"])
-        ->where('is_accountable', true)->first();
+        ->where('is_accountable', true)
+        ->first();
 
     if (!isset($chart)) {
         //if not, create specific.
@@ -142,15 +143,10 @@ class ArandukaController extends Controller
     $endDate = Carbon::parse($endDate)->endOfDay();
 
     $this->generateSales($startDate, $endDate, $taxPayer, $zip);
-
     $this->generatePurchases($startDate, $endDate, $taxPayer, $zip);
-
     $zip->close();
 
-
     return response()->download($zipname)->deleteFileAfterSend(true);
-
-    return redirect()->back();
   }
 
   public function generateSales($startDate, $endDate, $taxPayer, $zip)
@@ -179,7 +175,6 @@ class ArandukaController extends Controller
       and t.deleted_at is null
       and t.date between "' . $startDate . '" and "' . $endDate . '"
       and t.type = 2
-      and t.sub_type in (1, 11))
       group by t.id');
 
       $raw = collect($raw);
@@ -280,7 +275,6 @@ class ArandukaController extends Controller
       and t.deleted_at is null
       and t.date between "' . $startDate . '" and "' . $endDate . '"
       and t.type = 1
-      and t.sub_type in (1, 9, 10))
       group by t.id');
 
       $raw = collect($raw);
@@ -289,19 +283,60 @@ class ArandukaController extends Controller
       $data = [];
       $total = $raw->sum('Value');
 
-      $obligaciones = ['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
-      $informante = ['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
-      $data['informante'] = $informante ;
-      $identificacion = ['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
-      $data['identificacion'] = $identificacion ;
-      $cantidades = ['ingresos'=>count($raw),'egresos'=>0];
-      $data['cantidades'] = $cantidades ;
-      $ingresos = ['ruc' => $taxPayer->taxid , 'periodo' => 2020 ,"tipoEgreso" => 'gasto',"clasificacion" => 'GPERS','valor' => $total];
+      $obligaciones = [
+        'impuesto' => 211, 
+        'nombre' => 'IVA  General', 
+        'fechaDesde' => $startDate
+      ];
+
+      $informante = [
+        'ruc' => $taxPayer->taxid,
+        'dv'=> $taxPayer->code,
+        'nombre' => $taxPayer->name,
+        'tipoContribuyente' => $taxPayer->type, 
+        'tipoSociedad' =>  null, 
+        'nombreFantasia'=> null, 
+        'obligaciones' => $obligaciones , 
+        'clasificacion' => $taxPayer->type
+      ];
+
+      $data['informante'] = $informante;
+
+      $identificacion = [
+        'periodo' => date_format($date, 'Y'),
+        'tipoMovimiento' => 'CON_MOVIMIENTO', 
+        'tipoPresentacion' => 'ORIGINAL', 
+        'version' =>'1.0.3'
+      ];
+
+      $data['identificacion'] = $identificacion;
+      $cantidades = [
+        'ingresos' => count($raw), 
+        'egresos' => 0
+      ];
+
+      $data['cantidades'] = $cantidades;
+      $ingresos = [
+        'ruc' => $taxPayer->taxid, 
+        'periodo' => date_format($date, 'Y'), 
+        "tipoEgreso" => 'gasto',
+        "clasificacion" => 'GPERS',
+        'valor' => $total
+      ];
+
       $arbolIngresos=['subtotalGravado' => 0 ,'subtotalNoGravado' => 0];
+
       $gastro = ['total' => $total,"GPERS" => $total];
+
       $arbolEgresos=['gasto' => $gastro];
-      $totales = ['ingresos'=>$ingresos,'egresos' => [] ,'arbolIngresos' => $arbolEgresos,'arbolEgresos' => $arbolIngresos];
-      $data['totales'] = $totales ;
+      $totales = [
+        'ingresos' => [],
+        'egresos' => $egreso,
+        'arbolIngresos' => $arbolIngresos,
+        'arbolEgresos' => $arbolEgresos
+      ];
+
+      $data['totales'] = $totales;
 
       $details = [];
       $i = 0;
@@ -329,7 +364,7 @@ class ArandukaController extends Controller
             'tipoEgreso' => 'gasto',
             'tipoEgresoTexto' => 'Gasto',
             'tipoTexto' => 'Factura',
-            'subtipoEgreso' => $result->ChartName,
+            'subtipoEgreso' => $result->ChartCode,
             'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
            ];
            $ie += 1;
@@ -360,7 +395,17 @@ class ArandukaController extends Controller
        $dataDetail = [];
 
        $obligaciones = ['impuesto' => 211 , 'nombre' => 'IVA  General' , 'fechaDesde' => $startDate];
-       $informante = ['ruc' => $taxPayer->taxid,'dv'=> $taxPayer->code,'nombre' => $taxPayer->name,'tipoContribuyente' => $taxPayer->type,'tipoSociedad' =>  null , 'nombreFantasia'=> null , 'obligaciones' => $obligaciones , 'clasificacion' => $taxPayer->type];
+      $informante = [
+        'ruc' => $taxPayer->taxid,
+        'dv'=> $taxPayer->code,
+        'nombre' => $taxPayer->name,
+        'tipoContribuyente' => $taxPayer->type,
+        'tipoSociedad' => null, 
+        'nombreFantasia'=> null, 
+        'obligaciones' => $obligaciones, 
+        'clasificacion' => $taxPayer->type
+      ];
+
        $dataDetail['informante'] = $informante ;
        $identificacion=['periodo' => '2020','tipoMovimiento' => 'CON_MOVIMIENTO' , 'tipoPresentacion' => 'ORIGINAL' , 'version' =>'1.0.3'];
        $dataDetail['identificacion'] = $identificacion ;
