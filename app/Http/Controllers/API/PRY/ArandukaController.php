@@ -587,7 +587,7 @@ class ArandukaController extends Controller
           $detail = [
             'periodo' => date_format($date, 'Y'),
             'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
-            'relacionadoTipoIdentificacion' => 'RUC',
+            'relacionadoTipoIdentificacion' => $result->DocumentType == '1' ? 'RUC' : 'CEDULA',
             "fecha" => date_format($date, 'Y-m-d'),
             'id' => $result->ID,
             'ruc' => $taxPayer->taxid,
