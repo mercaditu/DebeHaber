@@ -21,47 +21,47 @@ class ErpNext_Sales extends Controller
 		 					'Authorization'     => 'token {{key}}:{{secret}}'
 		 				]
 					 ];
-	 
+
 
 	public function pre_get(Request $request, Taxpayer $taxPayer, Cycle $cycle,$url)
 	{
 		$collection = collect();
-		
+
 		$salesurl = $this->url;
 		$salesurl = str_replace('{{pageStart}}', $request->limit_Start, $salesurl);
-		
+
 		$data = (new IntegrationController())->get($salesurl, $this->header);
 		$data = json_decode($data->getBody()->getContents());
 		$data = collect($data->data);
 		$customers='';
-		foreach ($data as $row) 
+		foreach ($data as $row)
 		{
 			$customers = $customers . $row->customer_name . ",";
 		}
 		$customers=substr_replace($customers ,"",-1);
-			
-		$customerData = (new IntegrationController())->get($url . '/api/resource/Customer/?fields=["name","tax_id"]&filters=[["Customer","name", "in","['. $customers .  ']"]]', $this->header);	
+
+		$customerData = (new IntegrationController())->get($url . '/api/resource/Customer/?fields=["name","tax_id"]&filters=[["Customer","name", "in","['. $customers .  ']"]]', $this->header);
 		$customerData = json_decode($customerData->getBody()->getContents());
 		$customerData = collect($customerData->data);
-						
-		foreach ($data as $row) 
+
+		foreach ($data as $row)
 		{
 			$salesData = (new IntegrationController())->get($url . '/api/resource/Sales Invoice/' .  $row->name, $this->header);
 			$salesData = json_decode($salesData->getBody()->getContents());
 			$salesData = collect($salesData->data);
-				
+
 			$salesData = $this->map($taxPayer,$cycle,$customerData,$salesData);
 			$collection->add($salesData);
 		}
-		
-			
+
+
 		return $collection;
 	}
 
-	
+
 	public function map(Taxpayer $taxPayer, Cycle $cycle,$customers,$row)
 	{
-		    $customer = $customers->where('name',$row['customer_name'])->first();
+		  $customer = $customers->where('name',$row['customer_name'])->first();
 			$model = new \App\Transaction();
 			$model->Type = 2;
 			$model->SubType = 1;
@@ -83,11 +83,11 @@ class ErpNext_Sales extends Controller
 			$model->Comment = '';
 
 			$details = collect();
-			foreach ($row['items'] as $data) 
+			foreach ($row['items'] as $data)
 			{
 				$data = collect($data);
 				$detail = new \App\TransactionDetail();
-			
+
 				//  if	($salesitem != null)
 				//  {
 				// 	if ($salesitem->is_stock_item == 1) {
@@ -97,16 +97,16 @@ class ErpNext_Sales extends Controller
 					//  elseif ($salesitem->is_fixed_asset == 0) {
 					// 	$detail->Type = 1;
 					// 	$detail->Name = 'Service';
-	
+
 					//  }
 					//  else {
 					// 	$detail->Type = 3;
 					// 	$detail->Name = 'Fixed Asset';
 					//  }
-					
+
 					$detail->Value = $data['amount'];
 					$detail->Cost = 0;
-					
+
 					$detail->VATPercentage = $row['taxes']!=null?$row['taxes'][0]->rate:0;
 					$details->add($detail);
 				//  }

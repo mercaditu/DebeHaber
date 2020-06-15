@@ -221,7 +221,7 @@
                     @lang('global.Timestamp') <b>{{ Carbon\Carbon::now(Auth::user()->timezone) }}</b>
                 </td>
                 <td style="text-align:center">
-                    <img src="/img/logos/debehaber.jpg" width="100" alt="">
+                    <img src="img/logos/debehaber.jpg" width="100" alt="">
                 </td>
                 <td style="text-align:right">@lang('global.IssuedBy')
                     @auth
