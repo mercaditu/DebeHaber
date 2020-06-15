@@ -594,7 +594,7 @@ class ArandukaController extends Controller
             'egresoMontoTotal' => (int) $result->Value,
             'relacionadoNombres' => $result->Partner,
             'relacionadoNumeroIdentificacion' => $result->PartnerTaxID,
-            'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credit' : 'contado',
+            'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credito' : 'contado',
             'timbradoDocumento' => $result->Number,
             'timbradoNumero' => $result->Code,
             'tipoEgreso' => 'gasto',
