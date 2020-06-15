@@ -404,45 +404,47 @@ class ArandukaController extends Controller
 
       $details = [];
 
-       foreach ($raw as $result)
-       {
+      
+
+      foreach ($raw as $result)
+      {
          $date = Carbon::parse($result->Date);
 
          if ($result->DocumentType == '1') {
           $detail = [
             'periodo' => date_format($date, 'Y'),
-            'tipo' => array_search($result->DocumentType, static::ARANDUKA_MAP, true),
+            'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
             'relacionadoTipoIdentificacion' => 'RUC',
             "fecha" => date_format($date, 'd-m-Y'),
             'id' => $result->ID,
             'ruc' => $taxPayer->taxid,
-            'egresoMontoTotal' =>$result->Value,
+            'egresoMontoTotal' => $result->Value,
             'relacionadoNombres' => $result->Partner,
-            'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+            'relacionadoNumeroIdentificacion' => $result->PartnerTaxID,
             'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credit' : 'contado',
             'timbradoDocumento' => $result->Number,
             'timbradoNumero' => $result->Code,
             'tipoEgreso' => 'gasto',
             'tipoEgresoTexto' => 'Gasto',
-            'tipoTexto' => 'Factura',
+            'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
             'subtipoEgreso' => $result->ChartCode,
             'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
            ];
          } else {
           $detail = ['periodo' => date_format($date, 'Y'),
-          'tipo' => array_search($result->DocumentType, static::ARANDUKA_MAP, true),
+          'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
           'relacionadoTipoIdentificacion' => 'RUC',
           "fecha" => date_format($date, 'd-m-Y'),
           'id' => $result->ID,
           'ruc' => $taxPayer->taxid,
-          'egresoMontoTotal' =>$result->Value,
+          'egresoMontoTotal' => $result->Value,
           'relacionadoNombres' => $result->Partner,
-          'relacionadoNumeroIdentificacion' =>  $result->PartnerTaxID,
+          'relacionadoNumeroIdentificacion' => $result->PartnerTaxID,
           'tipoEgreso' => 'gasto',
           'tipoEgresoTexto' => 'Gasto',
-          'tipoTexto' => 'Factura',
-          'subtipoEgreso' =>'GPERS',
-          'subtipoEgresoTexto' => '',
+          'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
+          'subtipoEgreso' => $result->ChartCode,
+          'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
           'numeroDocumento' => $result->Number,
            ];
          }

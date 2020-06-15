@@ -60,4 +60,36 @@ class Controller extends BaseController
     {
         return strtok($taxID, '-');
     }
+
+    public function getArandukaDocumentText($key) {
+        if($key == 1){
+            return 'Factura';
+        } elseif ($key == 2) {
+            return 'Autofactura';
+        } elseif ($key == 3) {
+            return 'Boleta de Venta';
+        } elseif ($key == 4) {
+            return 'Nota de Crédito';
+        } elseif ($key == 5) {
+            return 'Liquidación de Salarios';
+        } elseif ($key == 6) {
+            return 'Extracto de Cuenta IPS';
+        } elseif ($key == 7) {
+            return 'Extracto de Tarjeta de Crédito/Tarjeta de Débito';
+        } elseif ($key == 8) {
+            return 'Extracto de Cuenta (cuando no exista la obligación de emitir comprobantes de venta)';
+        } elseif ($key == 9) {
+            return 'Transferencias o Giros Bancarios / Boleta de Depósito';
+        } elseif ($key == 10) {
+            return 'Comprobante del Exterior Legalizado';
+        }elseif ($key == 11) {
+            return 'Comprobante de Ingreso de Entidades Públicas, Religiosas o de Beneficio Público';
+        }elseif ($key == 12) {
+            return 'Ticket (Máquina Registradora)';
+        }elseif ($key == 13) {
+            return 'Despacho de Importación';
+        }elseif ($key == 14) {
+            return 'Otros comprobantes de venta que respaldan los egresos (pasaje aéreos, entradas a espectáculos públicos, boletos de transporte público) o cuando no exista la obligación de emitir comprobantes de venta';
+        }
+    }
 }
