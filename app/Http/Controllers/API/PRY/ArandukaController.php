@@ -583,7 +583,7 @@ class ArandukaController extends Controller
       {
          $date = Carbon::parse($result->Date);
 
-         if ($result->DocumentType == '1' || $result->DocumentType == '2') {
+         if ($result->DocumentType == '1' || $result->DocumentType == '5') {
           $detail = [
             'periodo' => date_format($date, 'Y'),
             'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
