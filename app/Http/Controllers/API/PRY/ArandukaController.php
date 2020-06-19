@@ -76,12 +76,12 @@ class ArandukaController extends Controller
 
 			 if($data["Tipo de Documento"] == 11)
 			 {
-				$transaction->number = $data["Número de Documento_1"] ?? '';
+			  $transaction->number = $data["Número de Documento_1"] ?? '';
 			 }
 			 else
 			 {
-				$transaction->code = $data["Número de Timbrado"] ?? '';
-				$transaction->number = $data["Número de Documento"] ?? '';
+          $transaction->code = $data["Número de Timbrado"] ?? '';
+          $transaction->number = $data["Número de Documento"] ?? '';
        }
 
 			  $transaction->save();
@@ -574,10 +574,7 @@ class ArandukaController extends Controller
       group by t.id');
 
       $raw = collect($raw);
-
       $details = collect();
-
-      
 
       foreach ($raw as $result)
       {
