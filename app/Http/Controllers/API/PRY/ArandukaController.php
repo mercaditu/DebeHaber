@@ -579,27 +579,7 @@ class ArandukaController extends Controller
       {
          $date = Carbon::parse($result->Date);
 
-         if ($result->DocumentType == '1' || $result->DocumentType == '5') {
-          $detail = [
-            'periodo' => date_format($date, 'Y'),
-            'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
-            'relacionadoTipoIdentificacion' => $result->DocumentType == '1' ? 'RUC' : 'CEDULA',
-            "fecha" => date_format($date, 'Y-m-d'),
-            'id' => $result->ID,
-            'ruc' => $taxPayer->taxid,
-            'egresoMontoTotal' => (int) $result->Value,
-            'relacionadoNombres' => $result->Partner,
-            'relacionadoNumeroIdentificacion' => $result->PartnerTaxID,
-            'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credito' : 'contado',
-            'timbradoDocumento' => $result->Number,
-            'timbradoNumero' => $result->Code,
-            'tipoEgreso' => 'gasto',
-            'tipoEgresoTexto' => 'Gasto',
-            'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
-            'subtipoEgreso' => $result->ChartCode,
-            'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
-           ];
-         } elseif ($result->PartnerTaxID == '80023852') {
+        if ($result->PartnerTaxID == '80023852') {
           $detail = [
             'periodo' => date_format($date, 'Y'),
             'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
@@ -615,6 +595,26 @@ class ArandukaController extends Controller
             'timbradoNumero' => $result->Code,
             'tipoEgreso' => 'inversion_personas',
             'tipoEgresoTexto' => 'Inversion Personas',
+            'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
+            'subtipoEgreso' => $result->ChartCode,
+            'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
+           ];
+         } else if ($result->DocumentType == '1' || $result->DocumentType == '5') {
+          $detail = [
+            'periodo' => date_format($date, 'Y'),
+            'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
+            'relacionadoTipoIdentificacion' => $result->DocumentType == '1' ? 'RUC' : 'CEDULA',
+            "fecha" => date_format($date, 'Y-m-d'),
+            'id' => $result->ID,
+            'ruc' => $taxPayer->taxid,
+            'egresoMontoTotal' => (int) $result->Value,
+            'relacionadoNombres' => $result->Partner,
+            'relacionadoNumeroIdentificacion' => $result->PartnerTaxID,
+            'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credito' : 'contado',
+            'timbradoDocumento' => $result->Number,
+            'timbradoNumero' => $result->Code,
+            'tipoEgreso' => 'gasto',
+            'tipoEgresoTexto' => 'Gasto',
             'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
             'subtipoEgreso' => $result->ChartCode,
             'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
