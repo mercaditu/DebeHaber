@@ -222,7 +222,7 @@ class ArandukaController extends Controller
     ];
 
     $summaryOfExpenses = [];
-		$i=0;
+		$i = 0;
     foreach($expense->groupBy('subtipoEgreso') as $data) {
       $type = [
         'ruc' => $taxPayer->taxid,
@@ -236,7 +236,7 @@ class ArandukaController extends Controller
     }
 
     $summaryOfIncome = [];
-		$i=0;
+		$i = 0;
     foreach($income->groupBy('subtipoIngreso') as $data) {
       $type = [
         'ruc' => $taxPayer->taxid,
@@ -302,8 +302,7 @@ class ArandukaController extends Controller
 		$row['Clasificación de Egreso'] = 'Número de Despacho';
 		$row['Clasificación de Egreso (Texto)'] = 'Clasificación de Egreso (Texto)';
 		$row['Número de Identificación Del Empleador'] = 'Número de Identificación Del Empleador';
-   	$data[1] =$row;
-
+   	$data[1] = $row;
 
 		$i = 2;
 
@@ -553,19 +552,19 @@ class ArandukaController extends Controller
       max(t.payment_condition) as PaymentCondition,
       max(t.code_expiry) as CodeExpiry,
       max(t.sub_type) as DocumentType,
-	  max(ChartCode) as ChartCode,
-	  max(ChartName) as ChartName,
-	  ROUND(sum(value)) as Value
+      max(ChartCode) as ChartCode,
+      max(ChartName) as ChartName,
+      ROUND(sum(value)) as Value
       from transactions as t
       join
       ( select
-      max(transaction_id) as transaction_id,
-      sum(value) as value,
-	  max(c.code) as ChartCode,
-	  max(c.name) as ChartName
-	  from transaction_details
-	  join charts as c on transaction_details.chart_id = c.id
-      group by transaction_id
+        max(transaction_id) as transaction_id,
+        sum(value) as value,
+        max(c.code) as ChartCode,
+        max(c.name) as ChartName
+        from transaction_details
+        join charts as c on transaction_details.chart_id = c.id
+        group by transaction_id
       ) as td on td.transaction_id = t.id
       where (t.taxpayer_id = ' . $taxPayer->id . '
       and t.deleted_at is null
@@ -596,6 +595,26 @@ class ArandukaController extends Controller
             'timbradoNumero' => $result->Code,
             'tipoEgreso' => 'gasto',
             'tipoEgresoTexto' => 'Gasto',
+            'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
+            'subtipoEgreso' => $result->ChartCode,
+            'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
+           ];
+         } elseif ($result->PartnerTaxID == '80023852') {
+          $detail = [
+            'periodo' => date_format($date, 'Y'),
+            'tipo' => (string) array_search($result->DocumentType, static::ARANDUKA_MAP, true),
+            'relacionadoTipoIdentificacion' => $result->DocumentType == '1' ? 'RUC' : 'CEDULA',
+            "fecha" => date_format($date, 'Y-m-d'),
+            'id' => $result->ID,
+            'ruc' => $taxPayer->taxid,
+            'egresoMontoTotal' => (int) $result->Value,
+            'relacionadoNombres' => $result->Partner,
+            'relacionadoNumeroIdentificacion' => $result->PartnerTaxID,
+            'timbradoCondicion' => $result->PaymentCondition != "0" ? 'credito' : 'contado',
+            'timbradoDocumento' => $result->Number,
+            'timbradoNumero' => $result->Code,
+            'tipoEgreso' => 'inversion_personas',
+            'tipoEgresoTexto' => 'Inversion Personas',
             'tipoTexto' => $this->getArandukaDocumentText(array_search($result->DocumentType, static::ARANDUKA_MAP, true)),
             'subtipoEgreso' => $result->ChartCode,
             'subtipoEgresoTexto' => $result->ChartName ?? 'Gastos personales y de familiares a cargo realizados en el país',
