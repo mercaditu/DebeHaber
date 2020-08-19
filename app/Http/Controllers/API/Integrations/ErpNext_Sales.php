@@ -28,11 +28,12 @@ class ErpNext_Sales extends Controller
 		$collection = collect();
 
 		$salesurl = $this->url;
-		$salesurl = str_replace('{{pageStart}}', $request->limit_Start, $salesurl);
 
+		$salesurl = str_replace('{{pageStart}}', $request->limit_Start, $salesurl);
 		$data = (new IntegrationController())->get($salesurl, $this->header);
 		$data = json_decode($data->getBody()->getContents());
 		$data = collect($data->data);
+
 		$customers='';
 		foreach ($data as $row)
 		{
@@ -40,10 +41,10 @@ class ErpNext_Sales extends Controller
 		}
 		$customers=substr_replace($customers ,"",-1);
 
-		$customerData = (new IntegrationController())->get($url . '/api/resource/Customer/?fields=["name","tax_id"]&filters=[["Customer","name", "in","['. $customers .  ']"]]', $this->header);
+		$customerData = (new IntegrationController())->get($url . '/api/resource/Customer/?fields=["name","tax_id"]&filters=[["Customer","name", "in","'. $customers .  '"]]', $this->header);
+
 		$customerData = json_decode($customerData->getBody()->getContents());
 		$customerData = collect($customerData->data);
-
 		foreach ($data as $row)
 		{
 			$salesData = (new IntegrationController())->get($url . '/api/resource/Sales Invoice/' .  $row->name, $this->header);
@@ -61,7 +62,7 @@ class ErpNext_Sales extends Controller
 
 	public function map(Taxpayer $taxPayer, Cycle $cycle,$customers,$row)
 	{
-		  $customer = $customers->where('name',$row['customer_name'])->first();
+		    $customer = $customers->where('name',$row['customer_name'])->first();
 			$model = new \App\Transaction();
 			$model->Type = 2;
 			$model->SubType = 1;

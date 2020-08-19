@@ -13,7 +13,7 @@ class ProductionController extends Controller
     public function start(Request $request)
     {
         //Convert data from
-        $data = json_decode($request, true);
+        //$data = json_decode($request, true);
         //Process Transaction
         //
     }
