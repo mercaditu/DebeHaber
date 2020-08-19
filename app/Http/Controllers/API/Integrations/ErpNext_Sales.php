@@ -26,6 +26,8 @@ class ErpNext_Sales extends Controller
 	public function pre_get(Request $request, Taxpayer $taxPayer, Cycle $cycle,$url)
 	{
 		$collection = collect();
+		$salesCollection = collect();
+		$errorCollection = collect();
 
 		$salesurl = $this->url;
 
@@ -54,12 +56,17 @@ class ErpNext_Sales extends Controller
 			if(isset($salesData['tax_id']))
 			{
 				$salesData = $this->map($taxPayer,$cycle,$salesData);
-				$collection->add($salesData);
+				$salesCollection->add($salesData);
+			}
+			else {
+				$errorData = $salesData['posting_date'] . ' Invoice#:' . $salesData['name'] . ' Customer:' . $salesData['customer_name'];
+				$errorCollection->add($errorData);
 			}
 
 		}
 
-
+         $collection['sales'] = $salesCollection;
+		 $collection['error'] = $errorCollection;
 		return $collection;
 	}
 
