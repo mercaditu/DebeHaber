@@ -15,7 +15,7 @@ class ErpNext_Sales extends Controller
 {
 
 	 const take = 20;
-	 public $url = '{{url}}/api/resource/Sales%20Invoice?limit_start={{pageStart}}&limit_page_length={{pageLength}}&fields=["name","customer_name"]&filters=[["Sales Invoice","posting_date", ">=","{{startDate}}"],["Sales Invoice","posting_date", "<=","{{endDate}}"]]';
+	 public $url = '{{url}}/api/resource/Sales%20Invoice/?limit_start={{pageStart}}&limit_page_length={{pageLength}}&fields=["name","customer_name","tax_id"]&filters=[["Sales Invoice","posting_date", ">=","{{startDate}}"],["Sales Invoice","posting_date", "<=","{{endDate}}"]]';
 	 public $header = [
 		 				'headers' => [
 		 					'Authorization'     => 'token {{key}}:{{secret}}'
@@ -34,25 +34,29 @@ class ErpNext_Sales extends Controller
 		$data = json_decode($data->getBody()->getContents());
 		$data = collect($data->data);
 
-		$customers='';
+		// $customers='';
+		// foreach ($data as $row)
+		// {
+		// 	$customers = $customers . $row->customer_name . ",";
+		// }
+		// $customers=substr_replace($customers ,"",-1);
+
+		//$customerData = (new IntegrationController())->get($url . '/api/resource/Customer/?fields=["name","tax_id"]&filters=[["Customer","name", "in","'. $customers . '"]]', $this->header);
+
+		//$customerData = json_decode($customerData->getBody()->getContents());
+		//$customerData = collect($customerData->data);
 		foreach ($data as $row)
 		{
-			$customers = $customers . $row->customer_name . ",";
-		}
-		$customers=substr_replace($customers ,"",-1);
 
-		$customerData = (new IntegrationController())->get($url . '/api/resource/Customer/?fields=["name","tax_id"]&filters=[["Customer","name", "in","'. $customers .  '"]]', $this->header);
-
-		$customerData = json_decode($customerData->getBody()->getContents());
-		$customerData = collect($customerData->data);
-		foreach ($data as $row)
-		{
-			$salesData = (new IntegrationController())->get($url . '/api/resource/Sales Invoice/' .  $row->name, $this->header);
+			$salesData = (new IntegrationController())->get($url . '/api/resource/Sales Invoice/'.  $row->name . '/?fields=["name","customer_name","tax_id","posting_date","due_date","currency","conversion_rate","items"]', $this->header);
 			$salesData = json_decode($salesData->getBody()->getContents());
 			$salesData = collect($salesData->data);
+			if(isset($salesData['tax_id']))
+			{
+				$salesData = $this->map($taxPayer,$cycle,$salesData);
+				$collection->add($salesData);
+			}
 
-			$salesData = $this->map($taxPayer,$cycle,$customerData,$salesData);
-			$collection->add($salesData);
 		}
 
 
@@ -60,14 +64,16 @@ class ErpNext_Sales extends Controller
 	}
 
 
-	public function map(Taxpayer $taxPayer, Cycle $cycle,$customers,$row)
+	public function map(Taxpayer $taxPayer, Cycle $cycle,$row)
 	{
-		    $customer = $customers->where('name',$row['customer_name'])->first();
+
+		    //$customer = $customers->where('name',$row['customer_name'])->first();
+
 			$model = new \App\Transaction();
 			$model->Type = 2;
 			$model->SubType = 1;
 			$model->CustomerName = $row['customer_name'];
-			$model->CustomerTaxID = $customer->tax_id ?? '';
+			$model->CustomerTaxID = $row['tax_id'];
 			$model->SupplierName = $taxPayer->name;
 			$model->SupplierTaxID = $taxPayer->taxid;
 			$model->Date = $row['posting_date'];
