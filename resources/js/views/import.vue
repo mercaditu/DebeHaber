@@ -403,7 +403,7 @@ export default {
               });
               app.data.limit_start += 20;
 
-              if (response.data.length > 0) {
+              if (response.data.sales.length > 0) {
                 app.get_data(data);
               }
             }
@@ -508,9 +508,9 @@ export default {
       const files = e.target.files;
       const rawFile = files[0]; // only use files[0]
       if (!rawFile) return;
-      this.upload(rawFile);
+      this.uploadfile(rawFile);
     },
-    upload(rawFile) {
+    uploadfile(rawFile) {
       this.$refs["excel-upload-input"].value = null; // fix can't select the same excel
 
       if (!this.beforeUpload) {
