@@ -68,9 +68,7 @@ Route::group(['middleware' => ['auth', 'forceSSL']], function () {
 
         Route::get('', 'TaxpayerController@showDashboard')->name('taxpayer.dashboard');
 
-        Route::get('{any}', function () {
-            return view('platform');
-        })->where('any', '.*');
+        Route::get('{any}','DefaultController@show')->where('any', '.*');
     });
 });
 // ->middleware('accessTaxPayer')
