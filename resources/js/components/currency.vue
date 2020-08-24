@@ -6,10 +6,11 @@
           v-for="currency in currencies"
           :key="currency.key"
           :value="currency.code"
-        >{{ currency.name }}</option>
+          >{{ currency.name }}</option
+        >
       </b-form-select>
-      <!-- <multiselect v-model="sale_currency" :options="currencies" 
-        placeholder="Select one"  
+      <!-- <multiselect v-model="sale_currency" :options="currencies"
+        placeholder="Select one"
         label="name" @select="updateRate()"
       track-by="name"></multiselect>-->
     </b-input-group-prepend>
@@ -53,11 +54,7 @@ export default {
     },
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },
@@ -71,8 +68,7 @@ export default {
 
       crud.methods
         .onRead(
-          this.spark.mainUrl +
-            "/api/" +
+          "/api/" +
             this.$route.params.taxPayer +
             "/get-rates/by/" +
             app.sale_currency +

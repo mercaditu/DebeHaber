@@ -15,7 +15,11 @@
       />
     </b-input-group>
     <b-list-group>
-      <b-list-group-item v-for="chart in charts" @click="select(chart)" :key="chart.id">
+      <b-list-group-item
+        v-for="chart in charts"
+        @click="select(chart)"
+        :key="chart.id"
+      >
         <b>{{ chart.name }}</b>
         | {{ chart.code }}
       </b-list-group-item>
@@ -58,11 +62,7 @@ export default {
 
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },

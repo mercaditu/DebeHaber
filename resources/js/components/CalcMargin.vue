@@ -1,7 +1,12 @@
 <template>
   <div>
     <b-input-group>
-      <b-input type="number" placeholder="Cost" v-model.number="discountValue" @input="calcCost" />
+      <b-input
+        type="number"
+        placeholder="Cost"
+        v-model.number="discountValue"
+        @input="calcCost"
+      />
       <b-input-group-append>
         <b-input placeholder="margin" v-model.number="margin"></b-input>
       </b-input-group-append>
@@ -34,11 +39,7 @@ export default {
     },
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },
@@ -65,4 +66,3 @@ export default {
   mounted() {}
 };
 </script>
-

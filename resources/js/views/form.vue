@@ -29,7 +29,12 @@
           <b-btn variant="success" @click="onSaveNew()" v-if="changed">
             <i class="material-icons">save</i>
           </b-btn>
-          <b-btn variant="dark" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
+          <b-btn
+            variant="dark"
+            v-shortkey="['esc']"
+            @shortkey="onCancel()"
+            @click="onCancel()"
+          >
             <i class="material-icons" v-if="changed">cancel</i>
             <i class="material-icons" v-else>arrow_back_ios</i>
           </b-btn>
@@ -37,12 +42,19 @@
       </b-col>
     </b-row>
     <!-- Cards & Headers -->
-    <div v-for="card in $route.meta.cards" v-bind:key="card.index" :title="card.title">
+    <div
+      v-for="card in $route.meta.cards"
+      v-bind:key="card.index"
+      :title="card.title"
+    >
       <b-card>
         <b-row v-for="row in card.rows" v-bind:key="row.index">
           <b-col v-for="col in row.fields" v-bind:key="col.index">
             <b-form-group :label="$t(col.label)">
-              <span v-for="property in col.properties" v-bind:key="property.index">
+              <span
+                v-for="property in col.properties"
+                v-bind:key="property.index"
+              >
                 <b-input-group v-if="property.type === 'partner'">
                   <search-taxpayer
                     v-bind:partner_name.sync="data[property.data[0]['name']]"
@@ -63,9 +75,13 @@
                   ></calc-tempalte>
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'Margin'">
-                  <calc-margin v-bind:discount_value.sync="data[property.data]"></calc-margin>
+                  <calc-margin
+                    v-bind:discount_value.sync="data[property.data]"
+                  ></calc-margin>
                 </b-input-group>
-                <b-input-group v-else-if="property.type === 'label'">{{data[property.data]}}</b-input-group>
+                <b-input-group v-else-if="property.type === 'label'">{{
+                  data[property.data]
+                }}</b-input-group>
                 <b-input-group v-else-if="property.type === 'select'">
                   <select-data
                     v-bind:item.sync="data[property.data]"
@@ -75,21 +91,29 @@
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'payment'">
                   <payment-condition
-                    v-bind:payment_condition.sync="data[property.data[0]['paymentcondition']]"
-                    v-bind:chart_account_id.sync="data[property.data[0]['chartaccount']]"
+                    v-bind:payment_condition.sync="
+                      data[property.data[0]['paymentcondition']]
+                    "
+                    v-bind:chart_account_id.sync="
+                      data[property.data[0]['chartaccount']]
+                    "
                   ></payment-condition>
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'document'">
                   <document
                     v-bind:code.sync="data[property.data[0]['documentcode']]"
-                    v-bind:code_expiry.sync="data[property.data[0]['codeexpiry']]"
+                    v-bind:code_expiry.sync="
+                      data[property.data[0]['codeexpiry']]
+                    "
                   ></document>
                 </b-input-group>
                 <b-input-group v-else-if="property.type === 'currency'">
                   <currency
                     :date="data[property.data[0]['date']]"
                     :type="card.module"
-                    v-bind:currency.sync="data[property.data[0]['salecurrency']]"
+                    v-bind:currency.sync="
+                      data[property.data[0]['salecurrency']]
+                    "
                     v-bind:rate.sync="data[property.data[0]['currencyrate']]"
                   ></currency>
                 </b-input-group>
@@ -121,7 +145,10 @@
     </div>
 
     <!-- Special Components -->
-    <div v-for="component in $route.meta.components" v-bind:key="component.index">
+    <div
+      v-for="component in $route.meta.components"
+      v-bind:key="component.index"
+    >
       <component :is="component.name"></component>
     </div>
 
@@ -135,7 +162,7 @@
         @click="addRow(table.data)"
       >
         <i class="material-icons mi-18">playlist_add</i>
-        {{ $t('general.addRowDetail') }}
+        {{ $t("general.addRowDetail") }}
       </b-btn>
 
       <div v-for="action in table.actions" v-bind:key="action.index">
@@ -145,14 +172,25 @@
       <b-card>
         <!-- Labels -->
         <b-row>
-          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
+          <b-col
+            v-for="col in table.fields"
+            v-bind:key="col.index"
+            :cols="col.cols"
+          >
             <small>{{ $t(col.label) }}</small>
           </b-col>
         </b-row>
         <!-- Rows -->
         <b-row v-for="detail in data[table.data]" v-bind:key="detail.index">
-          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
-            <span v-for="property in col.properties" v-bind:key="property.index">
+          <b-col
+            v-for="col in table.fields"
+            v-bind:key="col.index"
+            :cols="col.cols"
+          >
+            <span
+              v-for="property in col.properties"
+              v-bind:key="property.index"
+            >
               <span v-if="property.type === 'select'">
                 <select-data
                   v-bind:item.sync="detail[property.data]"
@@ -163,11 +201,17 @@
 
               <b-input-group v-else-if="property.type === 'transaction'">
                 <search-transaction
-                  v-bind:number.sync="detail[property.data[0]['transactionnumber']]"
-                  v-bind:value.sync="detail[property.data[0]['transactionvalue']]"
+                  v-bind:number.sync="
+                    detail[property.data[0]['transactionnumber']]
+                  "
+                  v-bind:value.sync="
+                    detail[property.data[0]['transactionvalue']]
+                  "
                 ></search-transaction>
               </b-input-group>
-              <b-input-group v-else-if="property.type === 'label'">{{detail[property.data]}}</b-input-group>
+              <b-input-group v-else-if="property.type === 'label'">{{
+                detail[property.data]
+              }}</b-input-group>
               <b-button-group v-else-if="property.type === 'actions'" size="sm">
                 <b-button
                   v-shortkey="['ctrl', 'd']"
@@ -176,7 +220,7 @@
                 >
                   <i class="material-icons">playlist_add</i>
                 </b-button>
-                <b-button @click="deleteRow(detail,table.data,property.api)">
+                <b-button @click="deleteRow(detail, table.data, property.api)">
                   <i class="material-icons">delete_outline</i>
                 </b-button>
               </b-button-group>
@@ -215,11 +259,7 @@ export default {
   computed: {
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },

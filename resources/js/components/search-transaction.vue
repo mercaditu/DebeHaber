@@ -2,10 +2,19 @@
   <div>
     <b-button v-b-modal.transactions>
       <i class="material-icon">add</i>
-      {{ $t('general.searchForTransactions') }}
+      {{ $t("general.searchForTransactions") }}
     </b-button>
-    <b-modal id="transactions" size="xl" :title="$t('general.searchForTransaction')">
-      <b-input type="text" :placeholder="$t('general.search')" @keyup="search()" v-model="query"></b-input>
+    <b-modal
+      id="transactions"
+      size="xl"
+      :title="$t('general.searchForTransaction')"
+    >
+      <b-input
+        type="text"
+        :placeholder="$t('general.search')"
+        @keyup="search()"
+        v-model="query"
+      ></b-input>
       <b-table hover :items="results['data']" :fields="columns">
         <template slot="actions" slot-scope="data">
           <b-button @click="addTransaction(data.item)">Add</b-button>
@@ -73,11 +82,7 @@ export default {
   computed: {
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },

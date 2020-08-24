@@ -4,7 +4,9 @@
       <b-col>
         <b-form-group :label="$t('accounting.template')">
           <b-form-select v-model="template">
-            <option v-for="item in templates" :key="item.key" :value="item">{{ item.name }}</option>
+            <option v-for="item in templates" :key="item.key" :value="item">{{
+              item.name
+            }}</option>
           </b-form-select>
         </b-form-group>
       </b-col>
@@ -12,7 +14,9 @@
         <b-form-group :label="$t('commercial.value')">
           <b-input-group-append>
             <b-input type="text" placeholder="Value" v-model="Value" />
-            <b-btn variant="primary" @click="onGenerateDetail()">{{ $t('general.generate') }}</b-btn>
+            <b-btn variant="primary" @click="onGenerateDetail()">{{
+              $t("general.generate")
+            }}</b-btn>
           </b-input-group-append>
         </b-form-group>
       </b-col>
@@ -59,11 +63,7 @@ export default {
 
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },
@@ -103,4 +103,3 @@ export default {
   }
 };
 </script>
-

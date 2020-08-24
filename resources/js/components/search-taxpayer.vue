@@ -16,7 +16,11 @@
       />
     </b-input-group>
     <b-list-group>
-      <b-list-group-item v-for="taxPayer in taxPayers" @click="select(taxPayer)" :key="taxPayer.id">
+      <b-list-group-item
+        v-for="taxPayer in taxPayers"
+        @click="select(taxPayer)"
+        :key="taxPayer.id"
+      >
         <b>{{ taxPayer.name }}</b>
         | {{ taxPayer.taxid }}
       </b-list-group-item>
@@ -62,11 +66,7 @@ export default {
     },
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },

@@ -1,8 +1,16 @@
 <template>
   <b-input-group>
-    <b-input type="text" :placeholder="$t('commercial.code')" v-model="document_code" />
+    <b-input
+      type="text"
+      :placeholder="$t('commercial.code')"
+      v-model="document_code"
+    />
     <b-input-group-append>
-      <b-input type="date" :placeholder="$t('commercial.expiryDate')" v-model="document_expiry" />
+      <b-input
+        type="date"
+        :placeholder="$t('commercial.expiryDate')"
+        v-model="document_expiry"
+      />
     </b-input-group-append>
   </b-input-group>
 </template>
@@ -38,11 +46,7 @@ export default {
     },
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },

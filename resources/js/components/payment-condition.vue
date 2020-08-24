@@ -8,7 +8,11 @@
           v-model.number="paymentCondition"
         />
         <b-input-group-append v-if="paymentCondition == 0">
-          <v-select v-model="chart_account_id" label="name" :options="accountCharts"></v-select>
+          <v-select
+            v-model="chart_account_id"
+            label="name"
+            :options="accountCharts"
+          ></v-select>
         </b-input-group-append>
       </b-input-group>
     </b-input-group>
@@ -47,11 +51,7 @@ export default {
     },
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },
@@ -66,6 +66,7 @@ export default {
   mounted() {
     //do something after mounting vue instance
     var app = this;
+    console.log(app.baseUrl + "/accounting/charts/for/money/");
     crud.methods
       .onRead(app.baseUrl + "/accounting/charts/for/money/")
       .then(function(response) {

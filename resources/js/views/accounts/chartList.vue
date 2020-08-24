@@ -8,25 +8,29 @@
               <img :src="$route.meta.img" alt class="ml-5 mr-5" width="26" />
               {{ $t($route.meta.title) }}
             </h4>
-            <p class="lead" v-if="$route.name.includes('List')">{{ $t($route.meta.description) }},</p>
+            <p class="lead" v-if="$route.name.includes('List')">
+              {{ $t($route.meta.description) }},
+            </p>
           </b-card>
 
-          <invoices-this-month-kpi class="d-none d-xl-block"></invoices-this-month-kpi>
+          <invoices-this-month-kpi
+            class="d-none d-xl-block"
+          ></invoices-this-month-kpi>
 
           <b-card no-body>
             <b-list-group flush>
               <b-list-group-item href="#">
                 <i class="material-icons">help</i>
-                {{ $t('general.manual') }}
+                {{ $t("general.manual") }}
               </b-list-group-item>
               <b-list-group-item :to="{ name: uploadURL }">
                 <i class="material-icons">cloud_upload</i>
-                {{ $t('general.uploadFromExcel') }}
+                {{ $t("general.uploadFromExcel") }}
               </b-list-group-item>
 
-              <b-list-group-item :to="{ name: formURL, params: { id: 0}}">
+              <b-list-group-item :to="{ name: formURL, params: { id: 0 } }">
                 <i class="material-icons md-light">add_box</i>
-                {{ $t('general.createNewRecord') }}
+                {{ $t("general.createNewRecord") }}
               </b-list-group-item>
             </b-list-group>
           </b-card>
@@ -48,16 +52,23 @@
                 show-empty
               >
                 <template slot="type" slot-scope="data">
-                  <chart-types :type="data.item.type" :sub_type="data.item.sub_type" />
+                  <chart-types
+                    :type="data.item.type"
+                    :sub_type="data.item.sub_type"
+                  />
                 </template>
 
                 <template slot="code" slot-scope="data">
-                  <span v-if="data.item.is_accountable">{{ data.item.code }}</span>
+                  <span v-if="data.item.is_accountable">{{
+                    data.item.code
+                  }}</span>
                   <b v-else>{{ data.item.code }}</b>
                 </template>
 
                 <template slot="name" slot-scope="data">
-                  <span v-if="data.item.is_accountable">{{ data.item.name }}</span>
+                  <span v-if="data.item.is_accountable">{{
+                    data.item.name
+                  }}</span>
                   <b v-else>{{ data.item.name }}</b>
                 </template>
 
@@ -81,9 +92,11 @@
                     <b-button
                       size="sm"
                       v-b-modal.mergeChartOfAccounts
-                      @click="$parent.me
+                      @click="
+                        $parent.me;
 
-                      rgeChart(data.item)"
+                        rgeChart(data.item);
+                      "
                       ref="btnShow"
                     >
                       <i class="material-icons">delete</i>
@@ -106,7 +119,13 @@
         <router-view v-else></router-view>
       </b-col>
     </b-row>
-    <b-modal id="chartOfAccounts" hide-footer centered title="Create Chart" ref="accountModel">
+    <b-modal
+      id="chartOfAccounts"
+      hide-footer
+      centered
+      title="Create Chart"
+      ref="accountModel"
+    >
       <b-container v-if="parentChart != null">
         <b-form-group :label="$t('accounting.parentChart')">
           <b-input-group>
@@ -124,9 +143,17 @@
 
         <b-form-group :label="$t('accounting.chart')">
           <b-input-group>
-            <b-input required :placeholder="$t('commercial.code')" v-model.trim="newChart.code" />
+            <b-input
+              required
+              :placeholder="$t('commercial.code')"
+              v-model.trim="newChart.code"
+            />
             <b-input-group-append>
-              <b-input required :placeholder="$t('commercial.name')" v-model.trim="newChart.name" />
+              <b-input
+                required
+                :placeholder="$t('commercial.name')"
+                v-model.trim="newChart.name"
+              />
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
@@ -142,7 +169,8 @@
                 v-model="newChart.is_accountable"
                 size="lg"
                 name="check-button"
-              >{{ $t('accounting.isAccountable') }}</b-form-checkbox>
+                >{{ $t("accounting.isAccountable") }}</b-form-checkbox
+              >
             </b-form-group>
           </b-col>
         </b-row>
@@ -152,35 +180,50 @@
           v-if="newChart.type == 1"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumAsset" />
+          <b-form-radio-group
+            v-model.number="newChart.sub_type"
+            :options="spark.enumAsset"
+          />
         </b-form-group>
         <b-form-group
           label="Liability Types"
           v-if="newChart.type == 2"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumLiability" />
+          <b-form-radio-group
+            v-model.number="newChart.sub_type"
+            :options="spark.enumLiability"
+          />
         </b-form-group>
         <b-form-group
           label="Equity Types"
           v-if="newChart.type == 3"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumEquity" />
+          <b-form-radio-group
+            v-model.number="newChart.sub_type"
+            :options="spark.enumEquity"
+          />
         </b-form-group>
         <b-form-group
           label="Revenue Types"
           v-if="newChart.type == 4"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumRevenue" />
+          <b-form-radio-group
+            v-model.number="newChart.sub_type"
+            :options="spark.enumRevenue"
+          />
         </b-form-group>
         <b-form-group
           label="Expense Types"
           v-if="newChart.type == 5"
           description="Only accountable charts can be used in journals or transactions. If marked as false, it can only be used to summarise child accounts."
         >
-          <b-form-radio-group v-model.number="newChart.sub_type" :options="spark.enumExpense" />
+          <b-form-radio-group
+            v-model.number="newChart.sub_type"
+            :options="spark.enumExpense"
+          />
         </b-form-group>
 
         <b-button-toolbar class="float-right d-none d-md-block">
@@ -192,13 +235,19 @@
               @click="onSaveNew()"
             >
               <i class="material-icons">save</i>
-              {{ $t('general.save') }}
+              {{ $t("general.save") }}
             </b-btn>
           </b-button-group>
         </b-button-toolbar>
       </b-container>
     </b-modal>
-    <b-modal id="mergeChartOfAccounts" hide-footer centered title="Merge Chart" ref="mergeModel">
+    <b-modal
+      id="mergeChartOfAccounts"
+      hide-footer
+      centered
+      title="Merge Chart"
+      ref="mergeModel"
+    >
       <b-container>
         <b-form-group :label="$t('accounting.fromChart')">
           <b-input-group>
@@ -228,7 +277,7 @@
               @click="onMerge()"
             >
               <i class="material-icons">Merge</i>
-              {{ $t('general.merge') }}
+              {{ $t("general.merge") }}
             </b-btn>
           </b-button-group>
         </b-button-toolbar>
@@ -252,11 +301,7 @@ export default {
   computed: {
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     },
     formURL: function() {

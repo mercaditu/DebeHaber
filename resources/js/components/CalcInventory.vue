@@ -2,7 +2,9 @@
   <div>
     <b-input-group>
       <b-form-select v-model="chartId">
-        <option v-for="item in charts" :key="item.key" :value="item.id">{{ item.name }}</option>
+        <option v-for="item in charts" :key="item.key" :value="item.id">{{
+          item.name
+        }}</option>
       </b-form-select>
       <b-input-group-append>
         <b-button variant="primary" @click="calcInventory">Calculate</b-button>
@@ -48,7 +50,7 @@ export default {
 
     baseUrl() {
       return (
-       this.spark.mainUrl + "/api/" +
+        "/api/" +
         this.$route.params.taxPayer +
         "/" +
         this.$route.params.cycle +
@@ -91,4 +93,3 @@ export default {
   }
 };
 </script>
-

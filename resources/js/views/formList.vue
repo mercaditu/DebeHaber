@@ -17,11 +17,16 @@
               @click="onSaveNew()"
             >
               <i class="material-icons">save</i>
-              {{ $t('general.save') }}
+              {{ $t("general.save") }}
             </b-btn>
-            <b-btn variant="danger" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
+            <b-btn
+              variant="danger"
+              v-shortkey="['esc']"
+              @shortkey="onCancel()"
+              @click="onCancel()"
+            >
               <i class="material-icons">cancel</i>
-              {{ $t('general.cancel') }}
+              {{ $t("general.cancel") }}
             </b-btn>
           </b-button-group>
         </b-button-toolbar>
@@ -43,7 +48,12 @@
             >
               <i class="material-icons">save</i>
             </b-btn>
-            <b-btn variant="danger" v-shortkey="['esc']" @shortkey="onCancel()" @click="onCancel()">
+            <b-btn
+              variant="danger"
+              v-shortkey="['esc']"
+              @shortkey="onCancel()"
+              @click="onCancel()"
+            >
               <i class="material-icons">cancel</i>
             </b-btn>
           </b-button-group>
@@ -54,15 +64,26 @@
       <b-card>
         <!-- Labels -->
         <b-row>
-          <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
+          <b-col
+            v-for="col in table.fields"
+            v-bind:key="col.index"
+            :cols="col.cols"
+          >
             <b>{{ $t(col.label) }}</b>
           </b-col>
         </b-row>
         <!-- Rows -->
         <div v-for="detail in data" v-bind:key="detail.index">
           <b-row>
-            <b-col v-for="col in table.fields" v-bind:key="col.index" :cols="col.cols">
-              <span v-for="property in col.properties" v-bind:key="property.index">
+            <b-col
+              v-for="col in table.fields"
+              v-bind:key="col.index"
+              :cols="col.cols"
+            >
+              <span
+                v-for="property in col.properties"
+                v-bind:key="property.index"
+              >
                 <b-input-group v-if="property.type === 'label'">
                   <span v-if="detail['is_accountable']">
                     {{ detail[property.data] }}
@@ -113,11 +134,7 @@ export default {
   computed: {
     baseUrl() {
       return (
-        this.spark.mainUrl +
-        "/api/" +
-        this.$route.params.taxPayer +
-        "/" +
-        this.$route.params.cycle
+        "/api/" + this.$route.params.taxPayer + "/" + this.$route.params.cycle
       );
     }
   },
