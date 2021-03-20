@@ -122,6 +122,7 @@
                   <b-select v-model="data.module">
                     <option value="1">Sales</option>
                     <option value="2">Purcahse</option>
+                    <option value="3">Credit Note</option>
                   </b-select>
                 </b-form-group>
               </b-col>
@@ -192,8 +193,9 @@
       </div>
       <b-table :items="data.data" :fields="data.datafields" striped>
         <template v-slot:cell(type)="data">
-          <div v-if="data.item.Type === 2">Sales</div>
-          <div v-else>Purchase</div>
+          <div v-if="data.item.Type === 2 && data.item.SubType === 1">Sales</div>
+          <div v-if="data.item.Type === 2 && data.item.SubType === 2">Credit Note</div>
+          <div  v-if="data.item.Type === 1 && data.item.SubType === 1">Purchase</div>
         </template>
       </b-table>
     </b-card>
@@ -384,7 +386,7 @@ export default {
       app.$snack.show({
         text: "Fetching Data, Hang on..."
       });
-
+    
       crud.methods
         .onUpdate(app.baseUrl + "/Integration/GetData", data)
         .then(function(response) {
@@ -425,6 +427,7 @@ export default {
       crud.methods
         .onUpdate(app.baseUrl + "/Integration/UploadData", app.data.data)
         .then(function(response) {
+          console.log(response);
           if (response.status === 200) {
             app.data.transaction = response.data;
             app.$snack.danger({

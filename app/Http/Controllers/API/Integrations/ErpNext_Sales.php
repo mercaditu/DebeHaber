@@ -15,7 +15,7 @@ class ErpNext_Sales extends Controller
 {
 
 	 const take = 20;
-	 public $url = '{{url}}/api/resource/Sales%20Invoice/?limit_start={{pageStart}}&limit_page_length={{pageLength}}&fields=["name","customer_name","tax_id"]&filters=[["Sales Invoice","posting_date", ">=","{{startDate}}"],["Sales Invoice","posting_date", "<=","{{endDate}}"]]';
+	 public $url = '{{url}}/api/resource/Sales%20Invoice/?limit_start={{pageStart}}&limit_page_length={{pageLength}}&fields=["name","customer_name","tax_id"]&filters=[["Sales Invoice","posting_date", ">=","{{startDate}}"],["Sales Invoice","posting_date", "<=","{{endDate}}"],["Sales Invoice","is_return", "=","0"]]';
 	 public $header = [
 		 				'headers' => [
 		 					'Authorization'     => 'token {{key}}:{{secret}}'
@@ -30,7 +30,7 @@ class ErpNext_Sales extends Controller
 		$errorCollection = collect();
 
 		$salesurl = $this->url;
-
+	
 		$salesurl = str_replace('{{pageStart}}', $request->limit_Start, $salesurl);
 		$data = (new IntegrationController())->get($salesurl, $this->header);
 		$data = json_decode($data->getBody()->getContents());
@@ -84,7 +84,7 @@ class ErpNext_Sales extends Controller
 			$model->SupplierName = $taxPayer->name;
 			$model->SupplierTaxID = $taxPayer->taxid;
 			$model->Date = $row['posting_date'];
-			$model->Number = $row['name'];
+			$model->Number =  str_replace(Carbon::now()->format('Y') . '-', '',$row['name']);
 			$model->Code = '';
 			$model->CodeExpiry = '';
 			$datetime1 = new DateTime($row['posting_date']);
