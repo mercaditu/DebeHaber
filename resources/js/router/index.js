@@ -254,7 +254,7 @@ export default [
                 meta: {
                     title: "commercial.creditNotes"
                 },
-
+                url: "sales/upload",
                 label: "general.upload",
                 icon: "cloud_upload",
                 variant: "dark"
