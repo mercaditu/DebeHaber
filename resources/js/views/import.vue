@@ -288,8 +288,14 @@ export default {
     onLoad() {
       var app = this;
       crud.methods.onRead(app.baseUrl + app.pageUrl).then(function(response) {
-        app.data.integrationservice = response.data.data;
+       
+      app.data.integrationservice =response.data.data.filter((item) => {
+          return (item.module === app.data.module)
+       })
       });
+      
+    
+      
     },
     //save services
     save_configuration() {
@@ -562,6 +568,10 @@ export default {
 
   mounted() {
     var app = this;
+    if(app.$route.name === "creditUpload")
+    {
+      app.data.module = 3
+    }
     app.onLoad();
     app.data.start_date = moment()
       .subtract(1, "months")
