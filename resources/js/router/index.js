@@ -238,12 +238,12 @@ export default [
         },
         children: [{
                 name: "creditForm",
-                path: ":id",
+                path: "f/:id",
                 component: Form,
                 meta: CreditForm,
 
                 label: "general.create",
-                url: "credit-notes/0",
+                url: "credit-notes/f/0",
                 icon: "add",
                 variant: "dark"
             },
