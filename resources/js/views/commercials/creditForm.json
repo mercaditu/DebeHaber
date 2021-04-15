@@ -44,7 +44,7 @@
                             "label": "commercial.customer",
                             "properties": [
                                 {
-                                    "type": "customer",
+                                    "type": "partner",
                                     "data": [
                                         {
                                             "name": "partner_name",

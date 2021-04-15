@@ -45,7 +45,7 @@
                             "label": "commercial.supplier",
                             "properties": [
                                 {
-                                    "type": "supplier",
+                                    "type": "partner",
                                     "data": [
                                         {
                                             "name": "partner_name",

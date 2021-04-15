@@ -38,7 +38,7 @@ class TransactionController extends Controller
 
         $transaction->currency = $request->currency;
         $transaction->rate = $request->rate;
-        $transaction->payment_condition = $request->payment_condition;
+        $transaction->payment_condition = $request->payment_condition??0;
 
         if (isset($request->account_chart)) {
 
