@@ -67,9 +67,16 @@ class ChartController extends Controller
         $chart->country = $taxPayer->country;
         $chart->taxpayer_id = $taxPayer->id;
 
-        if ($request->parent_id > 0) {
-            $chart->parent_id = $request->parent_id;
+       
+        if(!is_array($request->parent_id))
+        {
+            if ($request->parent_id > 0) {
+          
+                $chart->parent_id = $request->parent_id;
+            }
         }
+
+     
 
         //   if ($request->is_accountable == true) {
         $chart->is_accountable = $request->is_accountable;

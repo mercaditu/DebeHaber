@@ -174,7 +174,7 @@ class GenerateJournal implements ShouldQueue
             $assets = FixedAsset::where('taxpayer_id', $this->taxPayer->id)->get();
             foreach ($assets as $asset) {
                 $controller = new FixedAssetController();
-                $controller->depreciate($asset);
+                $controller->depreciate($asset, $startingDate, $endingDate, $this->taxPayer, $this->cycle);
             }
         }
 
@@ -189,5 +189,6 @@ class GenerateJournal implements ShouldQueue
             $controller = new ImpexImportController();
             $controller->generate_Journals($startingDate, $endingDate, $this->taxPayer, $this->cycle);
         }
+        
     }
 }

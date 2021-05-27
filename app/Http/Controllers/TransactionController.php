@@ -57,7 +57,7 @@ class TransactionController extends Controller
         $transaction->sub_type = $request->sub_type;
 
         $transaction->save();
-
+      
         foreach ($request->details as $detail) {
             if (isset($detail['chart']) && $detail['chart']['id'] > 0) {
                 $transactionDetail = TransactionDetail::firstOrNew(['id' => $detail['id']]);

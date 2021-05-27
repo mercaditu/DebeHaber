@@ -325,14 +325,15 @@ export default [
                 }
             ]
         },
-        children: [{
+        children: [
+            {
                 name: "purchaseUpload",
                 path: "upload",
                 component: Import,
                 meta: {
                     title: "commercial.purchaseBooks"
                 },
-
+                url: "purchases/upload",
                 label: "general.upload",
                 icon: "cloud_upload",
                 variant: "dark"
@@ -423,6 +424,7 @@ export default [
                 icon: "add",
                 variant: "dark"
             },
+           
             {
                 name: "debitUpload",
                 path: "upload",
@@ -430,7 +432,7 @@ export default [
                 meta: {
                     title: "commercial.debitNotes"
                 },
-
+                url: "debit-notes/upload",
                 label: "general.upload",
                 icon: "cloud_upload",
                 variant: "dark"

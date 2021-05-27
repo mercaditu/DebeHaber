@@ -568,9 +568,21 @@ export default {
 
   mounted() {
     var app = this;
-    if(app.$route.name === "creditUpload")
+    if(app.$route.name === "salesUpload")
+    {
+      app.data.module = 1
+    }
+    else if(app.$route.name === "creditUpload")
     {
       app.data.module = 3
+    }
+     else if(app.$route.name === "purchaseUpload")
+    {
+      app.data.module = 2
+    }
+     else if(app.$route.name === "debitUpload")
+    {
+      app.data.module = 4
     }
     app.onLoad();
     app.data.start_date = moment()

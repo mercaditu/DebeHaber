@@ -66,10 +66,48 @@ class IntegrationController extends Controller
 			//  $Apiresource = app()->make($resourceLocation);
 			 return response()->json($data);
 		}
+		else if($request->module === 2)
+		{
+
+			$location = '\\App\\Http\\Controllers\\API\\Integrations\\' . $request->templateName . '_Purchase';
+			$controller = app()->make($location);
+		
+			$controller->url = $this->string_replace($request, $controller->url,$controller::take);
+			$controller->header['headers']['Authorization'] = $this->string_replace($request,$controller->header['headers']['Authorization'],$controller::take);
+			
+
+			$url = strpos($request['url'], "http") ? $request['url'] : "http://" . $request['url'] ;
+			
+			$data= $controller->callAction('pre_get', $parameters = [$request,$taxPayer,$cycle,$url]);
+
+			//  $resourceLocation = '\\App\\Http\\Resources\\' . $request->templateName . '_Sales.php';
+
+			//  $Apiresource = app()->make($resourceLocation);
+			 return response()->json($data);
+		}
 		else if($request->module === 3)
 		{
 
 			$location = '\\App\\Http\\Controllers\\API\\Integrations\\' . $request->templateName . '_CreditNotes';
+			$controller = app()->make($location);
+		
+			$controller->url = $this->string_replace($request, $controller->url,$controller::take);
+			$controller->header['headers']['Authorization'] = $this->string_replace($request,$controller->header['headers']['Authorization'],$controller::take);
+			
+
+			$url = strpos($request['url'], "http") ? $request['url'] : "http://" . $request['url'] ;
+			
+			$data= $controller->callAction('pre_get', $parameters = [$request,$taxPayer,$cycle,$url]);
+
+			//  $resourceLocation = '\\App\\Http\\Resources\\' . $request->templateName . '_Sales.php';
+
+			//  $Apiresource = app()->make($resourceLocation);
+			 return response()->json($data);
+		}
+		else if($request->module === 4)
+		{
+
+			$location = '\\App\\Http\\Controllers\\API\\Integrations\\' . $request->templateName . '_DebitNotes';
 			$controller = app()->make($location);
 		
 			$controller->url = $this->string_replace($request, $controller->url,$controller::take);
