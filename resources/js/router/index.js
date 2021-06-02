@@ -25,6 +25,7 @@ import SearchResult from "../views/searchResult";
 import Form from "../views/form";
 import FormList from "../views/formList";
 import List from "../views/list";
+import ChartList from "../views/accounts/chartList";
 import Import from "../views/import";
 
 // Clean up
@@ -1056,7 +1057,7 @@ export default [
     },
     {
         path: "/:taxPayer/:cycle/accounting/charts",
-        component: List,
+        component: ChartList,
         name: "chartList",
         meta: {
             title: "accounting.chartOfAccounts",

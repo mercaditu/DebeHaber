@@ -13,6 +13,6 @@ class DefaultController extends Controller
      */
     public function show()
     {
-        return view('platforms');
+       // return view('platforms');
     }
 }

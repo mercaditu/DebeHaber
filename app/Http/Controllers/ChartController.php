@@ -745,9 +745,9 @@ class ChartController extends Controller
     {
 
         //run validation on chart types and make sure a transfer can take place.
-        $fromChart = Chart::My($taxPayer, $cycle)->where('id', $fromChartId);
-        $toChart = Chart::My($taxPayer, $cycle)->where('id', $toChartId);
-
+        $fromChart = Chart::My($taxPayer, $cycle)->where('id', $fromChartId)->first();
+        $toChart = Chart::My($taxPayer, $cycle)->where('id', $toChartId)->first();
+      
 
         if (isset($fromChart) && isset($toChart)) {
             CycleBudget::where('chart_id', $fromChartId)->update(['chart_id' => $toChartId]);
@@ -770,7 +770,7 @@ class ChartController extends Controller
             //add alias to new chart
             $alias = new ChartAlias();
             $alias->chart_id = $toChartId;
-            $alias->name = $fromChart->first()->name;
+            $alias->name = $fromChart['name'];
             $alias->save();
 
             //delete $fromCharts

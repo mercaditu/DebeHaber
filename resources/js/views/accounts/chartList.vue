@@ -51,16 +51,11 @@
                 :current-page="items.meta != null ? items.meta.current_page : 1"
                 show-empty
               >
-                <template slot="type" slot-scope="data">
-                  <chart-types
-                    :type="data.item.type"
-                    :sub_type="data.item.sub_type"
-                  />
-                </template>
+                
 
                 <template slot="code" slot-scope="data">
                   <span v-if="data.item.is_accountable">{{
-                    data.item.code
+                    data.item.name
                   }}</span>
                   <b v-else>{{ data.item.code }}</b>
                 </template>
@@ -72,7 +67,7 @@
                   <b v-else>{{ data.item.name }}</b>
                 </template>
 
-                <template slot="actions" slot-scope="data">
+                <template  v-slot:cell(actions)="data">
                   <b-button-group
                     size="sm"
                     class="show-when-hovered"
@@ -87,20 +82,14 @@
                     </b-button>
                   </b-button-group>
                   <div v-if="data.item.taxpayer_id != null">
-                    <table-actions :row="data.item"></table-actions>
-
-                    <b-button
-                      size="sm"
-                      v-b-modal.mergeChartOfAccounts
-                      @click="
-                        $parent.me;
-
-                        rgeChart(data.item);
-                      "
-                      ref="btnShow"
-                    >
-                      <i class="material-icons">delete</i>
-                    </b-button>
+                     <b-button-group size="sm" class="show-when-hovered">
+                        <b-button :to="{ name: formURL, params: { id: data.item.id }}" variant="primary">
+                          <i class="material-icons md-18">edit</i>
+                        </b-button>
+                        <b-button   @click="$parent.mergeChart(data.item)" variant="light">
+                          <i class="material-icons md-19">delete_outline</i>
+                        </b-button>
+                     </b-button-group> 
                   </div>
                 </template>
 
@@ -321,11 +310,11 @@ export default {
         },
         {
           key: "type",
-          label: ""
+          label: this.$i18n.t("commercial.type"),
         },
         {
           key: "actions",
-          label: ""
+          label: "Action"
         }
       ];
     }

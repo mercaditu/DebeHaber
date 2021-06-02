@@ -10,7 +10,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:vX7qgIC6m9loRS9xKzOWazIR0OUt7SqyiG7R0/yq8PU=',
+    'key' => 'base64:VCFuahriwa9Js5oQL7HIhqG0TPjs81dx99lMR/Rz43s=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -134,15 +134,15 @@
   ),
   'broadcasting' => 
   array (
-    'default' => 'pusher',
+    'default' => 'log',
     'connections' => 
     array (
       'pusher' => 
       array (
         'driver' => 'pusher',
-        'key' => '235ebfd145253446ac3d',
-        'secret' => '1f13bd0d02a432f05daa',
-        'app_id' => '937225',
+        'key' => '',
+        'secret' => '',
+        'app_id' => '',
         'options' => 
         array (
           'cluster' => 'mt1',
@@ -287,7 +287,7 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'debehaberstage',
+        'database' => 'debehaber',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -296,7 +296,7 @@
         'driver' => 'mysql',
         'host' => 'localhost',
         'port' => '3306',
-        'database' => 'debehaberstage',
+        'database' => 'debehaber',
         'username' => 'root',
         'password' => 'root',
         'unix_socket' => '',
@@ -315,7 +315,7 @@
         'driver' => 'pgsql',
         'host' => 'localhost',
         'port' => '3306',
-        'database' => 'debehaberstage',
+        'database' => 'debehaber',
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',
@@ -329,7 +329,7 @@
         'driver' => 'sqlsrv',
         'host' => 'localhost',
         'port' => '3306',
-        'database' => 'debehaberstage',
+        'database' => 'debehaber',
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',
@@ -348,14 +348,14 @@
       'default' => 
       array (
         'host' => '127.0.0.1',
-        'password' => NULL,
+        'password' => '',
         'port' => '6379',
         'database' => 0,
       ),
       'cache' => 
       array (
         'host' => '127.0.0.1',
-        'password' => NULL,
+        'password' => '',
         'port' => '6379',
         'database' => 1,
       ),
@@ -588,6 +588,17 @@
     array (
       'path' => 'larecipe-components',
     ),
+    'blade-parser' => 
+    array (
+      'regex' => 
+      array (
+        'code-blocks' => 
+        array (
+          'match' => '/\\<pre\\>(.|\\n)*?<\\/pre\\>/',
+          'replacement' => '<code-block>',
+        ),
+      ),
+    ),
   ),
   'logging' => 
   array (
@@ -660,16 +671,16 @@
   'mail' => 
   array (
     'driver' => 'smtp',
-    'host' => 'smtp.postmarkapp.com',
+    'host' => 'smtp.mailtrap.io',
     'port' => '2525',
     'from' => 
     array (
-      'address' => 'hola@debehaber.com',
-      'name' => 'DebeHaber',
+      'address' => NULL,
+      'name' => '',
     ),
     'encryption' => NULL,
-    'username' => '0e759056-4b35-4db4-afa4-39964579f5d3',
-    'password' => '0e759056-4b35-4db4-afa4-39964579f5d3',
+    'username' => NULL,
+    'password' => NULL,
     'sendmail' => '/usr/sbin/sendmail -bs',
     'markdown' => 
     array (
@@ -694,7 +705,7 @@
   ),
   'queue' => 
   array (
-    'default' => 'database',
+    'default' => 'sync',
     'connections' => 
     array (
       'sync' => 
@@ -1202,6 +1213,7 @@
     array (
       'chunk_size' => 1000,
       'pre_calculate_formulas' => false,
+      'strict_null_comparison' => false,
       'csv' => 
       array (
         'delimiter' => ',',
@@ -1228,6 +1240,7 @@
     'imports' => 
     array (
       'read_only' => true,
+      'ignore_empty' => false,
       'heading_row' => 
       array (
         'formatter' => 'slug',
