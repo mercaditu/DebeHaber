@@ -84,6 +84,7 @@ class FixedAssetController extends Controller
 
     public function depreciate(FixedAsset $fixedAsset)
     {
+        $fixedAssetGroups = array();
         $fixedAssetGroup = Chart::find($fixedAsset->chart_id);
 
         if (isset($fixedAssetGroup) && ($fixedAsset->purchase_value > 0) && ($fixedAssetGroup->asset_years > 0)) {
@@ -94,6 +95,10 @@ class FixedAssetController extends Controller
             // use the difference in time to calculate percentage reduction from purchase value.
             $fixedAsset->current_value = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
             $fixedAsset->save();
+            $fixedAssetGroups['group'] = $fixedAssetGroup;
+            $fixedAssetGroups['deprication'] = ($dailyDepreciation * $diffInDays);
+
         }
+        return $fixedAssetGroups
     }
 }

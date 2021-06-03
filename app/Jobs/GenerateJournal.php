@@ -170,13 +170,18 @@ class GenerateJournal implements ShouldQueue
         /*
         Fixed Assets Depreciation
         */
+        $fixedAssetGroups = array();
         if (FixedAsset::where('taxpayer_id', $this->taxPayer->id)->count() > 0) {
             $assets = FixedAsset::where('taxpayer_id', $this->taxPayer->id)->get();
             foreach ($assets as $asset) {
                 $controller = new FixedAssetController();
-                $controller->depreciate($asset, $startingDate, $endingDate, $this->taxPayer, $this->cycle);
+                $assetgroup =  $controller->depreciate($asset, $startingDate, $endingDate, $this->taxPayer, $this->cycle);
+                array_push($fixedAssetGroups, $assetgroup);
             }
+            //group by with fixed asset groups
+            //insert general entry
         }
+
 
         /*
         Impex

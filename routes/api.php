@@ -10,7 +10,7 @@
 | loaded automatically by this application's RouteServiceProvider.
 |
 */
-Route::get('depricate/{id}', 'FixedAssetController@depreciate');
+
 
 
 Route::group(['middleware' => ['auth:api']], function () {
