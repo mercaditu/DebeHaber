@@ -75,5 +75,6 @@ return [
     'BuyRate' => 'Cotización de Compras',
     'SellRate' => 'Cotización de Ventas',
     'Expenses' => 'Egresos',
-    'Incomes' => 'Ingresos'
+    'Incomes' => 'Ingresos',
+    'Type' => 'Tipo'
 ];

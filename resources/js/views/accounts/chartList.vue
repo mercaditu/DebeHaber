@@ -86,11 +86,12 @@
                         <b-button :to="{ name: formURL, params: { id: data.item.id }}" variant="primary">
                           <i class="material-icons md-18">edit</i>
                         </b-button>
-                        <b-button   @click="$parent.mergeChart(data.item)" variant="light">
+                        <b-button   @click="$parent.mergeChart(data.item)" variant="primary">
                           <i class="material-icons md-19">delete_outline</i>
                         </b-button>
                      </b-button-group> 
                   </div>
+
                 </template>
 
                 <div slot="table-busy">

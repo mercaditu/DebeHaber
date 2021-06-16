@@ -59,10 +59,10 @@
                                 @endphp
 
                                 <td class="number">
-                                    @if ($runningTotal > $prevRunningTotal)
+                                    @if ($runningTotal > $prevRunningTotal  && $prevRunningTotal != 0)
                                         <span style="color:limegreen">{{ number2Human($runningTotal - $prevRunningTotal) }}</span>
                                         &nbsp;
-                                    @elseif ($runningTotal < $prevRunningTotal)
+                                    @elseif ($runningTotal < $prevRunningTotal  && $prevRunningTotal != 0)
                                         <span style="color:red">[{{ number2Human($runningTotal - $prevRunningTotal) }}]</span>
                                         &nbsp;
                                     @endif

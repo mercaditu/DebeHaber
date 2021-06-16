@@ -82,23 +82,45 @@ class FixedAssetController extends Controller
         return response()->json('Ok', 200);
     }
 
-    public function depreciate(FixedAsset $fixedAsset)
+    public function depreciate(Taxpayer $taxPayer, Cycle $cycle)
     {
-        $fixedAssetGroups = array();
-        $fixedAssetGroup = Chart::find($fixedAsset->chart_id);
-
-        if (isset($fixedAssetGroup) && ($fixedAsset->purchase_value > 0) && ($fixedAssetGroup->asset_years > 0)) {
-            // get the difference in date between now and the purchase date.
-            $diffInDays = Carbon::now()->diffInDays($fixedAsset->purchase_date);
-            // calculate in days.
-            $dailyDepreciation = $fixedAsset->purchase_value / ($fixedAssetGroup->asset_years * 365);
-            // use the difference in time to calculate percentage reduction from purchase value.
-            $fixedAsset->current_value = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
-            $fixedAsset->save();
-            $fixedAssetGroups['group'] = $fixedAssetGroup;
-            $fixedAssetGroups['deprication'] = ($dailyDepreciation * $diffInDays);
-
+        $assets = FixedAsset::where('taxpayer_id', $taxPayer->id)->get();
+        foreach ($assets as $fixedAsset) 
+        {
+            $fixedAssetGroup = Chart::find($fixedAsset->chart_id);
+            $fixedAsset['depricate'] = 0;
+            if (isset($fixedAssetGroup) && ($fixedAsset->purchase_value > 0) && ($fixedAssetGroup->asset_years > 0)) {
+                // get the difference in date between now and the purchase date.
+                $diffInDays = Carbon::now()->diffInDays($fixedAsset->purchase_date);
+                // calculate in days.
+                $dailyDepreciation = $fixedAsset->purchase_value / ($fixedAssetGroup->asset_years * 365);
+                // use the difference in time to calculate percentage reduction from purchase value.
+                $fixedAsset->current_value = $fixedAsset->purchase_value - ($dailyDepreciation * $diffInDays);
+                $fixedAsset['depricate'] = ($dailyDepreciation * $diffInDays);
+                $fixedAsset->save();
+            }
         }
-        return $fixedAssetGroups
+        foreach ($assets->groupBy('chart_id') as $groupedAssets)
+        {
+            $asset = $charts->where('id', $groupedAssets->first()->chart_id)->first();
+
+            if (isset($asset))
+            {
+                $journal = new \App\Journal();
+                $journal->cycle_id = $cycle->id;
+                $journal->date =Carbon::now();
+                $journal->comment = 'Deprication Entry';
+                $journal->is_automatic = 1;
+                $journal->module_id = ;
+                $journal->save();
+
+                $detail = $journal->details()->firstOrNew(['chart_id' => $asset->id]);
+                $detail->debit = $groupedAssets->sum('depricate');;
+                $detail->chart_id = $asset->id;
+                $journal->details()->save($detail);
+            }
+        }
+       
+
     }
 }

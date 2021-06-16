@@ -74,4 +74,5 @@ return [
     'SellRate' => 'Sell Rate',
     'Expenses' => 'Expenses',
     'Incomes' => 'Incomes',
+    'Type' => 'Type'
 ];
