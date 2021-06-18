@@ -23,10 +23,10 @@
                 <i class="material-icons">help</i>
                 {{ $t("general.manual") }}
               </b-list-group-item>
-              <b-list-group-item :to="{ name: uploadURL }">
+              <!-- <b-list-group-item :to="{ name: uploadURL }">
                 <i class="material-icons">cloud_upload</i>
                 {{ $t("general.uploadFromExcel") }}
-              </b-list-group-item>
+              </b-list-group-item> -->
 
               <b-list-group-item :to="{ name: formURL, params: { id: 0 } }">
                 <i class="material-icons md-light">add_box</i>
@@ -86,7 +86,7 @@
                         <b-button :to="{ name: formURL, params: { id: data.item.id }}" variant="primary">
                           <i class="material-icons md-18">edit</i>
                         </b-button>
-                        <b-button   @click="$parent.mergeChart(data.item)" variant="primary">
+                        <b-button v-b-modal.mergeChartOfAccounts  @click="$parent.mergeChart(data.item)" variant="primary"   ref="btnShow">
                           <i class="material-icons md-19">delete_outline</i>
                         </b-button>
                      </b-button-group> 
@@ -344,7 +344,7 @@ export default {
       var app = this;
 
       if (app.toChart.id != null && app.toChart.name != null) {
-        crud.methods
+          crud.methods
           .onUpdate(
             app.baseUrl +
               "/accounting/charts/merge/" +
@@ -354,16 +354,18 @@ export default {
           )
           .then(function(response) {
             console.log(response);
+              
             app.$snack.success({
-              text: app.$i18n.t("chart.saved")
+              text: Saved
             });
             app.$parent.items.splice(
               app.$parent.items.indexOf(app.fromChart),
               1
             );
-            app.$refs.mergeModel.hide();
+          app.$refs.mergeModel.hide();
           })
           .catch(function(error) {
+           
             app.$snack.danger({
               text: this.$i18n.t("general.errorMessage")
             });
@@ -384,6 +386,7 @@ export default {
     mergeChart(data) {
       var app = this;
       app.fromChart = data;
+     
     },
 
     typeVariant(chartType) {
