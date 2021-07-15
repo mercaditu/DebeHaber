@@ -28,12 +28,14 @@
 
         if (isset($integrationType))
         {
-            if ($integrationType->type == 2) {
-                $teamRole = 'Individual';
+            if ($integrationType->type == 1)
+            {
+                $teamRole = 'Company';
+            }
+            else if ($integrationType->type == 2) {
+                $teamRole = 'Accountant';
             } else if ($integrationType->type == 3) {
                 $teamRole = 'Audit';
-            } else {
-                $teamRole = 'Accounting';
             }
         }
     }
@@ -74,6 +76,8 @@
             'taxPayerData' => $taxPayerData ?? [],
             'taxPayerConfig' => $taxPayerConfig ?? [],
             'teamRole' => $teamRole ?? '',
+            'teamRoleType' => $integrationType->type ?? '',
+            'userType' =>$currentTeam->pivot->role ?? '',
             'currentCycle' => $currentCycle ?? '',
             'language' => Auth::user() != null ? Auth::user()->language : 'en',
 

@@ -46,7 +46,7 @@ export default {
         crud.methods
         .onRead(app.baseUrl)
         .then(function (response) {
-            console.log(response,'asd');
+         
             response.data.forEach(element => {
                 console.log(element)
                 app.chartData.push([String(element.Item),Number(element.Value)])

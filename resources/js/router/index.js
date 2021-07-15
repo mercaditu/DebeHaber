@@ -1,6 +1,8 @@
+
 import CreditForm from "../views/commercials/creditForm.json";
 import DebitForm from "../views/commercials/debitForm.json";
 import SalesForm from "../views/commercials/salesForm.json";
+import SalesView from "../views/commercials/salesView.json";
 import ReceivableForm from "../views/commercials/receivableForm.json";
 import PayableForm from "../views/commercials/payableForm.json";
 import PurchaseForm from "../views/commercials/purchaseForm.json";
@@ -20,9 +22,12 @@ import closingBalanceForm from "../views/accounts/closingBalanceForm.json";
 import budgetForm from "../views/accounts/budgetForm.json";
 
 import FourZeroFour from "../views/404";
+import FourZeroOne from "../views/401";
+
 import DashBoard from "../views/Index";
 import SearchResult from "../views/searchResult";
 import Form from "../views/form";
+import View from "../views/view";
 import FormList from "../views/formList";
 import List from "../views/list";
 import ChartList from "../views/accounts/chartList";
@@ -33,6 +38,7 @@ import Import from "../views/import";
 
 const VersionList = () => import("../views/configs/versionList");
 const VersionForm = () => import("../views/configs/versionForm");
+const user = Spark;
 // / Clean up
 
 const ChartForm = () => import("../views/accounts/chartForm");
@@ -48,6 +54,10 @@ export default [
         component: FourZeroFour
     },
     {
+        path: "/401",
+        component: FourZeroOne
+    },
+    {
         path: "/:taxPayer/:cycle/",
         component: DashBoard,
         name: "taxPayer",
@@ -57,6 +67,8 @@ export default [
             description: "Some description",
             img: "/img/apps/dashboard.svg"
         }
+       
+    
     },
     {
         path: "/:taxPayer/:cycle/search/q={q}",
@@ -152,6 +164,15 @@ export default [
                 variant: "dark"
             },
             {
+                name: "salesView",
+                path: "v/:id",
+                url: "sales/v/0",
+                component: View,
+                meta: SalesView,
+
+               
+            },
+            {
                 name: "salesUpload",
                 path: "upload",
                 component: Import,
@@ -164,7 +185,8 @@ export default [
                 icon: "cloud_upload",
                 variant: "dark"
             }
-        ]
+        ]     
+        
     },
     {
         path: "/:taxPayer/:cycle/commercial/credit-notes",
@@ -962,7 +984,16 @@ export default [
             url: "journal-templates/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              
+                return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     //Journals
     {
@@ -1032,28 +1063,60 @@ export default [
             url: "journals/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     //Opening Balance
     {
         path: "/:taxPayer/:cycle/accounting/opening-balance",
         component: FormList,
         name: "openingBalanceForm",
-        meta: openingBalanceForm
+        meta: openingBalanceForm,
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     //Closing Balance
     {
         path: "/:taxPayer/:cycle/accounting/closing-balance",
         component: FormList,
         name: "closingBalanceForm",
-        meta: closingBalanceForm
+        meta: closingBalanceForm,
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     //Budget
     {
         path: "/:taxPayer/:cycle/accounting/budget",
         component: FormList,
         name: "budgetForm",
-        meta: budgetForm
+        meta: budgetForm,
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     {
         path: "/:taxPayer/:cycle/accounting/charts",
@@ -1098,7 +1161,15 @@ export default [
             url: "charts/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     {
         path: "/:taxPayer/:cycle/config/chart-versions",
@@ -1125,7 +1196,15 @@ export default [
             url: "chart-versions/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
 
     {
@@ -1161,7 +1240,15 @@ export default [
             url: "cycles/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     {
         path: "/:taxPayer/:cycle/config/documents",
@@ -1186,7 +1273,15 @@ export default [
             url: "documents/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     {
         path: "/:taxPayer/:cycle/config/rates",
@@ -1231,7 +1326,15 @@ export default [
             url: "rates/0",
             icon: "add",
             variant: "dark"
-        }]
+        }],
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     {
         path: "/:taxPayer/:cycle/commercial/reports",
@@ -1241,7 +1344,15 @@ export default [
             title: "Commercial Reports",
             description: "All your accounting data is here",
             img: "/img/apps/sales.svg"
-        }
+        },
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     },
     {
         path: "/:taxPayer/:cycle/accounting/reports",
@@ -1251,6 +1362,14 @@ export default [
             title: "Accounting Reports",
             description: "All your accounting data is here",
             img: "/img/apps/sales.svg"
-        }
+        },
+        beforeEnter: (to, from, next) => {
+            if(user.userType == 'data-entry')
+            {
+              return next({ path: '/401'});
+
+            }
+            next();
+          }
     }
 ];

@@ -9,7 +9,7 @@ export default {
         collections:[]
     }),
     mounted() {
-        console.log('asdas');
+      
         //do something after mounting vue instance
         var app = this;
           axios({
