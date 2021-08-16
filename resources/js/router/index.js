@@ -1344,15 +1344,8 @@ export default [
             title: "Commercial Reports",
             description: "All your accounting data is here",
             img: "/img/apps/sales.svg"
-        },
-        beforeEnter: (to, from, next) => {
-            if(user.userType == 'data-entry')
-            {
-              return next({ path: '/401'});
-
-            }
-            next();
-          }
+        }
+        
     },
     {
         path: "/:taxPayer/:cycle/accounting/reports",
