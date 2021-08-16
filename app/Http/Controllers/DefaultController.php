@@ -11,8 +11,8 @@ class DefaultController extends Controller
      *
      * @return Response
      */
-    public function show()
+    public function show($taxPayer, $cycle)
     {
-        return view('platforms');
+        return view('platform');
     }
 }
