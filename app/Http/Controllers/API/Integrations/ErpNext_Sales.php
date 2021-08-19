@@ -53,6 +53,11 @@ class ErpNext_Sales extends Controller
 			$salesData = (new IntegrationController())->get($url . '/api/resource/Sales Invoice/'.  $row->name . '/?fields=["name","customer_name","tax_id","posting_date","due_date","currency","conversion_rate","items"]', $this->header);
 			$salesData = json_decode($salesData->getBody()->getContents());
 			$salesData = collect($salesData->data);
+			if(!isset($salesData['tax_id']) && $salesData['customer_name']=="Consumidor Final")
+			{
+				$salesData['tax_id'] = "8888801-0";
+			}
+			
 			if(isset($salesData['tax_id']))
 			{
 				$salesData = $this->map($taxPayer,$cycle,$salesData);
